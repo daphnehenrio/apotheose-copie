@@ -10,7 +10,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 
 // == Import components
-import MenuLinks from 'src/components/MenuLinks';
+import MenuLinks from 'src/components/Menu/MenuLinks';
 
 const drawerWidth = 240;
 
