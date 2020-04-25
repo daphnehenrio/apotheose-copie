@@ -92,7 +92,10 @@ const SubLink = withStyles({
         alignItems: 'center',
         '&:focus': {
             backgroundColor: '#F0F1F9',
+            borderTopLeftRadius: '3rem',
+            borderBottomLeftRadius: '3rem',
         },
+        marginBottom: '0.5rem',
     },
 })(Link);
 
@@ -136,6 +139,7 @@ export default function FileSystemNavigator() {
                     </SubLink>
                 </ExpansionPanelDetails>
             </StyledExpansionPanel>
+
             <StyledExpansionPanel>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -145,78 +149,27 @@ export default function FileSystemNavigator() {
                     <Typography >Articles</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <StyledExpansionPanel>
-                        <ExpansionPanelSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            <Typography >Caf</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <SubLink href="#" onClick={preventDefault}>
-                                <AccountBalanceIcon color='primary' />
-                                <p className='tree-item-link'>
-                                    Accueil
-                                </p>
-                            </SubLink>
-                            <SubLink href="#" onClick={preventDefault}>
-                                <PhonelinkSetupIcon color='primary' />
-                                <p className='tree-item-link'>
-                                    Articles
-                                </p>
-                            </SubLink>
-                        </ExpansionPanelDetails>
-                    </StyledExpansionPanel>
-                    <StyledExpansionPanel>
-                        <ExpansionPanelSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            <Typography >Pôle emploi</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <SubLink href="#" onClick={preventDefault}>
-                                <AccountBalanceIcon color='primary' />
-                                <p className='tree-item-link'>
-                                    Accueil
-                                </p>
-                            </SubLink>
-                            <SubLink href="#" onClick={preventDefault}>
-                                <PhonelinkSetupIcon color='primary' />
-                                <p className='tree-item-link'>
-                                    Articles
-                                </p>
-                            </SubLink>
-                        </ExpansionPanelDetails>
-                    </StyledExpansionPanel>
-                    <StyledExpansionPanel>
-                        <ExpansionPanelSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            <Typography >Impôt</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <SubLink href="#" onClick={preventDefault}>
-                                <AccountBalanceIcon color='primary' />
-                                <p className='tree-item-link'>
-                                    Accueil
-                                </p>
-                            </SubLink>
-                            <SubLink href="#" onClick={preventDefault}>
-                                <PhonelinkSetupIcon color='primary' />
-                                <p className='tree-item-link'>
-                                    Articles
-                                </p>
-                            </SubLink>
-                        </ExpansionPanelDetails>
-                    </StyledExpansionPanel>
-
+                    <SubLink href="#" onClick={preventDefault}>
+                        <AccountBalanceIcon color='primary' />
+                        <p className='tree-item-link'>
+                            Caf
+                        </p>
+                    </SubLink>
+                    <SubLink href="#" onClick={preventDefault}>
+                        <PhonelinkSetupIcon color='primary' />
+                        <p className='tree-item-link'>
+                            Pôle emploi
+                        </p>
+                    </SubLink>
+                    <SubLink href="#" onClick={preventDefault}>
+                        <PhonelinkSetupIcon color='primary' />
+                        <p className='tree-item-link'>
+                            Impôts
+                        </p>
+                    </SubLink>
                 </ExpansionPanelDetails>
             </StyledExpansionPanel>
+            
             <StyledLink href="#" onClick={preventDefault}>
                 Simulation
             </StyledLink>
