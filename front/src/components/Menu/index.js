@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: '#3F51B5',
+    backgroundColor: '#0f4c81',
     borderRight:'none',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
