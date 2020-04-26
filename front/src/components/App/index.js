@@ -12,6 +12,7 @@ import './styles.css';
 import AppBar from 'src/components/AppBar';
 import Menu from 'src/components/Menu';
 import Footer from 'src/components/Footer';
+import HomePage from 'src/components/HomePage';
 
 
 const drawerWidth = 240;
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     flexGrow: 1,
     padding: 0,
     transition: theme.transitions.create('margin', {
@@ -60,9 +62,8 @@ const App = () => {
           [classes.contentShift]: openDrawer,
         })}
       >
-        <div className={classes.drawerHeader} />
-        <div id="main-content">
-
+        <div>
+          <HomePage/>
         </div> 
         <Footer />
       </main>

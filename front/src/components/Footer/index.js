@@ -6,10 +6,9 @@ import Link from '@material-ui/core/Link';
 
 const StyledBox = withStyles({
     root: {
-        height: '5%',
+        padding:'0.5rem 0',
         display: 'flex',
         justifyContent: 'center',
-        zIndex: '9999',
         margin: '0',
         backgroundColor: 'rgba(230, 230, 230, 0.4)',
         alignItems: 'center',
@@ -18,7 +17,8 @@ const StyledBox = withStyles({
 
 const StyledLink = withStyles({
     root: {
-        marginRight: '2rem',
+        marginRight: '1rem',
+        marginLeft: '1rem',
         fontSize: '0.9rem',
         color: 'black',
         textDecoration: 'none',
@@ -39,6 +39,7 @@ const Footer = () => {
             <StyledLink href="#" onClick={preventDefault}>
                 Contact
             </StyledLink>
+            <p>-</p>
             <StyledLink href="#" onClick={preventDefault}>
                 Mentions légales
             </StyledLink>
