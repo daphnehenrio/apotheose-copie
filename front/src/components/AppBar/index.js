@@ -8,7 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-
+import Button from '@material-ui/core/Button';
 
 const drawerWidth = 240;
 
@@ -43,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+
+  title: {
+    flexGrow: 1,
+  },
 }));
 
 export default function PersistentDrawerLeft() {
@@ -51,8 +55,8 @@ export default function PersistentDrawerLeft() {
   // Get the state of the drawer to check if it's open or close (true or false)
   const openDrawer = useSelector((state) => state.openDrawer);
 
-  const handleDrawer= () => {
-    dispatch({type:'SET_DRAWER'});
+  const handleDrawer = () => {
+    dispatch({ type: 'SET_DRAWER' });
   };
 
   return (
@@ -74,9 +78,15 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" className={classes.title} noWrap>
             ALDAHE
           </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            Connexion
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
