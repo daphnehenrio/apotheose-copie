@@ -11,6 +11,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import DescriptionIcon from '@material-ui/icons/Description';
 
+
 import './styles.css';
 
 const useStyles = makeStyles({
@@ -150,19 +151,19 @@ export default function FileSystemNavigator() {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     <SubLink href="#" onClick={preventDefault}>
-                        <AccountBalanceIcon color='primary' />
+                        <DescriptionIcon color='primary' />
                         <p className='tree-item-link'>
                             Caf
                         </p>
                     </SubLink>
                     <SubLink href="#" onClick={preventDefault}>
-                        <PhonelinkSetupIcon color='primary' />
+                        <DescriptionIcon color='primary' />
                         <p className='tree-item-link'>
                             Pôle emploi
                         </p>
                     </SubLink>
                     <SubLink href="#" onClick={preventDefault}>
-                        <PhonelinkSetupIcon color='primary' />
+                        <DescriptionIcon color='primary' />
                         <p className='tree-item-link'>
                             Impôts
                         </p>

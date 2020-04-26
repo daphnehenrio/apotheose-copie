@@ -12,6 +12,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 // == Import components
 import MenuLinks from 'src/components/Menu/MenuLinks';
 
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +80,7 @@ const MenuTitle = withStyles({
       color: 'white',
     },
   })(Typography);
+
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();

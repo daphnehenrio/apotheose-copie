@@ -11,6 +11,7 @@ import './styles.css';
 // == Import components
 import AppBar from 'src/components/AppBar';
 import Menu from 'src/components/Menu';
+import Footer from 'src/components/Footer';
 
 
 const drawerWidth = 240;
@@ -25,8 +26,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   content: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: 0,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -49,15 +53,18 @@ const App = () => {
 
   return (
     <div className="app">
-      <AppBar/>
-      <Menu/>
+      <AppBar />
+      <Menu />
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: openDrawer,
         })}
       >
         <div className={classes.drawerHeader} />
-        <p>Ceci est un test</p>
+        <div id="main-content">
+
+        </div> 
+        <Footer />
       </main>
     </div>
   );
