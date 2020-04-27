@@ -84,7 +84,7 @@ const HomePage = () => {
                         spacing={3}
                         wrap
                     >
-                        <Grid item xs={9} md={3} sm={5}>
+                        <Grid item xs={10} md={3} sm={5}>
                             <Card className={classes.rootCard}>
                                 <CardActionArea>
                                     <CardMedia
@@ -111,7 +111,7 @@ const HomePage = () => {
                             </Card>
                         </Grid>
 
-                        <Grid item xs={9} md={3} sm={5}>
+                        <Grid item xs={10} md={3} sm={5}>
                             <Card className={classes.rootCard}>
                                 <CardActionArea>
                                     <CardMedia
@@ -138,7 +138,7 @@ const HomePage = () => {
                             </Card>
                         </Grid>
 
-                        <Grid item xs={9} md={3} sm={5} >
+                        <Grid item xs={10} md={3} sm={5} >
                             <Card className={classes.rootCard}>
                                 <CardActionArea>
                                     <CardMedia
