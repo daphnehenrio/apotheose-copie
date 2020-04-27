@@ -1,15 +1,22 @@
 const initialState = {
-  counter: 0,
+  openDrawer: false,
 };
 
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case 'INCREMENT': {
-      return {
-        ...state,
-        counter: state.counter + 1,
-      };
+    case 'SET_DRAWER': {
+      if(state.openDrawer){
+        return{
+          ...state,
+          openDrawer: false,
+        }
+      } else {
+        return {
+          ...state,
+          openDrawer: true,
+        }
+      }
     }
     default: {
       return state;
