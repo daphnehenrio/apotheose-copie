@@ -13,6 +13,9 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 
+// Import components
+import Login from 'src/components/Login';
+
 
 const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
@@ -111,10 +114,15 @@ export default function PersistentDrawerLeft() {
   const dispatch = useDispatch();
   // Get the state of the drawer to check if it's open or close (true or false)
   const openDrawer = useSelector((state) => state.openDrawer);
+  const openLoginForm = useSelector((state) => state.openLoginForm);
 
   const handleDrawer = () => {
     dispatch({ type: 'SET_DRAWER' });
   };
+
+  const handleLogin= () => {
+    dispatch({type: 'SET_LOGIN_FORM'});
+};
 
   return (
     <div className={classes.root}>
@@ -154,11 +162,13 @@ export default function PersistentDrawerLeft() {
           </div>
           <Button
             variant="contained"
+            onClick={handleLogin}
           >
             Connexion
           </Button>
         </Toolbar>
       </AppBar>
+      <Login/>
     </div>
   );
 }

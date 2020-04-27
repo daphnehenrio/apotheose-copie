@@ -1,5 +1,6 @@
 const initialState = {
   openDrawer: false,
+  openLoginForm: false,
 };
 
 
@@ -17,6 +18,12 @@ export default (state = initialState, action = {}) => {
           openDrawer: true,
         }
       }
+    }
+    case 'SET_LOGIN_FORM': {
+        return {
+          ...state,
+          openLoginForm: !state.openLoginForm,
+        }
     }
     default: {
       return state;

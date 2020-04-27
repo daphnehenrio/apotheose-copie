@@ -54,9 +54,7 @@ const GlobalCss = withStyles({
         '.MuiPaper-root::-webkit-scrollbar': {
             width: '0',
         },
-        '.MuiSvgIcon-root': {
-            color: 'white',
-        }
+
 
     },
 })(() => null);
@@ -111,6 +109,12 @@ const StyledExpansionPanel = withStyles({
     },
 })(ExpansionPanel);
 
+const StyledIcon = withStyles({
+    root: {
+        color: 'white'
+    },
+})(ExpandMoreIcon);
+
 export default function FileSystemNavigator() {
     const classes = useStyles();
     const preventDefault = (event) => event.preventDefault();
@@ -124,7 +128,7 @@ export default function FileSystemNavigator() {
             </StyledLink>
             <StyledExpansionPanel>
                 <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<StyledIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
@@ -148,7 +152,7 @@ export default function FileSystemNavigator() {
 
             <StyledExpansionPanel>
                 <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<StyledIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
@@ -175,7 +179,7 @@ export default function FileSystemNavigator() {
                     </SubLink>
                 </ExpansionPanelDetails>
             </StyledExpansionPanel>
-            
+
             <StyledLink href="#" onClick={preventDefault}>
                 Simulation
             </StyledLink>

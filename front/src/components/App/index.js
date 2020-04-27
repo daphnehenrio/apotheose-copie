@@ -64,7 +64,7 @@ const App = () => {
       >
         <div>
           <HomePage/>
-        </div> 
+        </div>
         <Footer />
       </main>
     </div>
