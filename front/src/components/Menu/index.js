@@ -45,11 +45,13 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: '#001B2E',
+
   },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: '#0f4c81',
+    backgroundColor: '#001B2E',
     borderRight:'none',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar

@@ -35,10 +35,10 @@ const GlobalCss = withStyles({
         },
         '.MuiExpansionPanelSummary-root': {
             '&:hover': {
-                backgroundColor: '#F0F1F9',
+                backgroundColor: '#1B4353',
             },
             '&:focus': {
-                backgroundColor: '#F0F1F9',
+                backgroundColor: '#1B4353',
             },
             padding: '0.6rem 1rem',
         },
@@ -54,6 +54,9 @@ const GlobalCss = withStyles({
         '.MuiPaper-root::-webkit-scrollbar': {
             width: '0',
         },
+        '.MuiSvgIcon-root': {
+            color: 'white',
+        }
 
     },
 })(() => null);
@@ -63,16 +66,16 @@ const GlobalCss = withStyles({
 const StyledLink = withStyles({
     root: {
         '&:hover': {
-            backgroundColor: '#F0F1F9',
+            backgroundColor: '#1B4353',
             textDecoration: 'none',
         },
         padding: '1.5rem 1rem',
         textDecoration: 'none',
-        color: 'black',
+        color: 'white',
         display: 'flex',
         alignItems: 'center',
         '&:focus': {
-            backgroundColor: '#F0F1F9',
+            backgroundColor: '#1B4353',
         },
     },
 })(Link);
@@ -81,18 +84,18 @@ const SubLink = withStyles({
     root: {
         marginTop: '0.5rem',
         '&:hover': {
-            backgroundColor: '#F0F1F9',
+            backgroundColor: '#1B4353',
             textDecoration: 'none',
             borderTopLeftRadius: '3rem',
             borderBottomLeftRadius: '3rem',
         },
         padding: '1.5rem 1rem',
         textDecoration: 'none',
-        color: 'black',
+        color: '#FBFEF9',
         display: 'flex',
         alignItems: 'center',
         '&:focus': {
-            backgroundColor: '#F0F1F9',
+            backgroundColor: '#1B4353',
             borderTopLeftRadius: '3rem',
             borderBottomLeftRadius: '3rem',
         },
@@ -103,6 +106,8 @@ const SubLink = withStyles({
 const StyledExpansionPanel = withStyles({
     root: {
         boxShadow: 'none',
+        backgroundColor: '#001B2E',
+        color: '#FBFEF9',
     },
 })(ExpansionPanel);
 
