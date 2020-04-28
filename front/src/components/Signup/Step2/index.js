@@ -1,45 +1,26 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    root: {
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
-      padding: '2rem',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '100%',
-      },
-    },
-  }),
-);
 
 const RadioGroupGender = () => {
   const [value, setValue] = React.useState('female');
-
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const handleChange = (event) => {
     setValue(event.target.value);
+    dispatch({type: 'SET_GENDER', gender: event.target.value});
   };
 
   return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">Gender</FormLabel>
-      <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+    <FormControl component="fieldset" className="form-group--gender">
+      <FormLabel component="legend" className="form-group--label">Civilité</FormLabel>
+      <RadioGroup aria-label="gender" name="gender1" value={user.gender} onChange={handleChange}>
         <FormControlLabel value="Mme" control={<Radio />} label="Mme" />
         <FormControlLabel value="M." control={<Radio />} label="M." />
       </RadioGroup>
@@ -50,101 +31,97 @@ const RadioGroupGender = () => {
 
 
 export default function Step1() {
-  const classes = useStyles();
-  const [values, setValues] = React.useState({
-    showPassword: false,
-  });
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  }
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <RadioGroupGender />
+    <form className="form-group" noValidate autoComplete="off">
+      <RadioGroupGender
+
+      />
+      <FormLabel component="legend" className="form-group--label">Adresse domicile</FormLabel>
       <TextField
+          className='group-input--input'
           id="address"
           label="Adresse"
+          value={user.adress}
           variant="outlined"
-
+          onChange={(evt) => {
+            dispatch({type:'SET_ADRESS', adress: evt.target.value});
+          }}
           autoFocus
       />
       <div className='group-input'>
       <TextField
+          className='group-input--input'
           id="zip_code"
           label="Code Postal"
+          value={user.zipCode}
           variant="outlined"
+          onChange={(evt) => {
+            dispatch({type:'SET_ZIPCODE', zipCode: evt.target.value});
+          }}
       />
       <TextField
+          className='group-input--input'
           id="city"
           label="Ville"
           variant="outlined"
+          value={user.city}
+          onChange={(evt) => {
+            dispatch({type:'SET_CITY', city: evt.target.value});
+          }}
       />
       </div>
+        <FormLabel component="legend" className="form-group--label">Téléphonne</FormLabel>
+      <div className='group-input'>
+        <TextField
+            className='group-input--input'
+            id="phone_number"
+            value={user.fixNumber}
+            label="Fix"
+            variant="outlined"
+            onChange={(evt) => {
+              dispatch({type:'SET_FIX_NUMBER', fixNumber: evt.target.value});
+            }}
+        />
+        <TextField
+            className='group-input--input'
+            id="cellphone_number"
+            label="Portable"
+            value={user.cellphoneNumber}
+            variant="outlined"
+            type="tel"
+            onChange={(evt) => {
+              dispatch({type:'SET_CELLPHONE_NUMBER', cellphoneNumber: evt.target.value});
+            }}
+        />
+        <TextField
+            className='group-input--input'
+            id="phone_work"
+            label="Travail"
+            value={user.workPhone}
+            variant="outlined"
+            onChange={(evt) => {
+              dispatch({type:'SET_WORK_PHONE', workPhone: evt.target.value});
+            }}
+        />
+      </div>
+
+      <FormLabel component="legend" className="form-group--label">Nombre d'enfants</FormLabel>
       <TextField
-          id="phone_number"
-          label="Fix"
+          className='group-input--input'
+          value={user.children}
+          id="children"
+          label="Enfant"
           variant="outlined"
-      />
-      <TextField
-          id="cellphone_number"
-          label="Portable"
-          variant="outlined"
-      />
-      <TextField
-          id="phone_work"
-          label="Travail"
-          variant="outlined"
+          type="Number"
+          onChange={(evt) => {
+            dispatch({type:'SET_CHILDREN', children: evt.target.value});
+          }}
       />
 
-        <div className='group-input'>
-        <FormControl variant="outlined">
-          <InputLabel htmlFor="password">Mot de passe</InputLabel>
-          <OutlinedInput
-              fullWidth
-              id="password"
-              type={values.showPassword ? 'text' : 'password'}
-              endAdornment={
-                  <InputAdornment position="end">
-                      <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                      >
-                          {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                  </InputAdornment>
-              }
-              labelWidth={100}
-          />
-        </FormControl>
-        <FormControl variant="outlined">
-          <InputLabel htmlFor="password_confirm">Confirmation</InputLabel>
-          <OutlinedInput
-              fullWidth
-              id="password_confirm"
-              type={values.showPassword ? 'text' : 'password'}
-              endAdornment={
-                  <InputAdornment position="end">
-                      <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                      >
-                          {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                  </InputAdornment>
-              }
-              labelWidth={100}
-          />
-        </FormControl>
-      </div>
 
     </form>
   );

@@ -1,15 +1,71 @@
+.MuiPaper-root.MuiStepper-root {
+    background-color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding-bottom: 0;
+    padding-top: 4rem;
+
+}
+.MuiStepLabel-label.MuiStepLabel-completed {
+    color: black;
+}
+.MuiStepLabel-label.MuiStepLabel-active {
+    color: black;
+}
+.MuiStepLabel-label {
+  color: grey;
+}
+
 .form-inscription{
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  padding-bottom: 2rem;
+  border-radius:  0 0 10px 10px;
 
-  &--button--prev-next {
-    width: 100%;
+
+  .MuiFormGroup-root {
     display: flex;
-    justify-content: space-around;
-    padding: 0 20%;
-    margin-top: 2rem;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  &--button{
+    &--prev-next {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      padding: 0 20%;
+      margin-top: 2rem;
+    }
+  }
+
+
+
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    padding: 2rem 2rem;
+
+
+    &--gender {
+      margin-bottom: 15px;
+    }
+
+    &--label {
+      margin-top: 1em;
+      color: #0F4C81;
+    }
+
+    .MuiFormControl-root,
+    .MuiFormLabel-root {
+      margin-bottom: 15px;
+    }
 
   }
 }
@@ -19,9 +75,18 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 
   .MuiTextField-root {
     width: 48%;
+    margin-bottom: 15px;
   }
+
+  &--password {
+    .MuiFormControl-root {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+
 }

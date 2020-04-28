@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -16,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Step1 from './Step1'
 import Step2 from './Step2'
+import Step3 from './Step3'
 
 // == import styles
 import './styles.scss'
@@ -23,33 +25,6 @@ import './styles.scss'
 const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
-        // You should target [class*="MuiButton-root"] instead if you nest themes.
-        '.MuiStepper-root': {
-            backgroundColor: 'white',
-            borderTopLeftRadius: '5px',
-            borderTopRightRadius: '5px',
-            paddingBottom: '0',
-            paddingTop: '4rem',
-        },
-        '.MuiStepLabel-label.MuiStepLabel-completed': {
-            color: 'black',
-        },
-        '.MuiStepLabel-label.MuiStepLabel-active': {
-            color: 'black',
-        },
-        '.MuiStepLabel-label' : {
-          color: 'grey',
-        },
-        '.makeStyles-root-224': {
-            backgroundColor: 'white',
-            borderRadius: '5px',
-        },
-        '.makeStyles-stepper-228': {
-            backgroundColor: 'white',
-            padding: '2rem 0rem',
-            borderBottomLeftRadius: '5px',
-            borderBottomRightRadius: '5px',
-        }
 
     },
 })(() => null);
@@ -146,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
         borderRadius: '5px',
         padding: '3rem',
+        maxWidth: '100vw',
 
     },
     button: {
@@ -172,7 +148,7 @@ function getStepContent(step) {
         case 1:
             return (<Step2 />);
         case 2:
-            return 'Récapitulatif validation';
+            return (<Step3/>);
         default:
             return 'Unknown step';
     }
@@ -180,11 +156,19 @@ function getStepContent(step) {
 
 export default function Signup() {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(1);
+    const dispatch = useDispatch();
+    const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
+    const user = useSelector((state) => state.user);
+    const isPasswordCorrect = useSelector((state) => state.isPasswordCorrect);
+    console.log(isPasswordCorrect);
 
     const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if(user.firstName && user.lastName && user.username && user.email  && isPasswordCorrect ) {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+            dispatch({type: 'MISSING_FIELD'});
+        }
     };
 
     const handleBack = () => {
@@ -219,14 +203,17 @@ export default function Signup() {
                         <div className="form-inscription">
                             {getStepContent(activeStep)}
                             <div className="form-inscription--button--prev-next">
-                                <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                                <Button
+                                    color="secondary"
+                                    disabled={activeStep === 0}
+                                    onClick={handleBack}
+                                >
                                     Précédent
                                 </Button>
                                 <Button
-                                    variant="contained"
                                     color="primary"
+                                    variant="contained"
                                     onClick={handleNext}
-                                    className={classes.button}
                                 >
                                     {activeStep === steps.length - 1 ? 'Valider' : 'Suivant'}
                                 </Button>
