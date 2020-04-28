@@ -122,7 +122,7 @@ const Login = () => {
                         labelWidth={100}
                     />
                 </FormControl>
-                <StyledLink href="#">
+                <StyledLink href="/inscription">
                     Créer un compte
                 </StyledLink>
             </DialogContent>

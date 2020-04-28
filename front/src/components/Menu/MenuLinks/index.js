@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
@@ -13,6 +15,8 @@ import DescriptionIcon from '@material-ui/icons/Description';
 
 
 import './styles.css';
+
+
 
 const useStyles = makeStyles({
     root: {
@@ -116,14 +120,19 @@ const StyledIcon = withStyles({
 })(ExpandMoreIcon);
 
 export default function FileSystemNavigator() {
+    const history = useHistory();
+    const dispatch = useDispatch();
     const classes = useStyles();
-    const preventDefault = (event) => event.preventDefault();
+    const preventDefault = (event, route) => {
+        event.preventDefault()
+        dispatch({type: 'CHANGE_PAGE', route, history})
+    };
 
     return (
         <div className={classes.root}>
             <GlobalCss />
 
-            <StyledLink href="#" onClick={preventDefault}>
+            <StyledLink href="/" onClick={(event) => preventDefault(event, "")}>
                 Accueil
             </StyledLink>
             <StyledExpansionPanel>
@@ -135,13 +144,13 @@ export default function FileSystemNavigator() {
                     <Typography >Services</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <SubLink href="#" onClick={preventDefault}>
+                    <SubLink href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
                         <AccountBalanceIcon color='primary' />
                         <p className='tree-item-link'>
                             Banques
                         </p>
                     </SubLink>
-                    <SubLink href="#" onClick={preventDefault}>
+                    <SubLink href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
                         <PhonelinkSetupIcon color='primary' />
                         <p className='tree-item-link'>
                             Internet & Mobiles

@@ -109,6 +109,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const StyledBtn = withStyles({
+  root: {
+    background: 'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#1B4353',
+    }
+  },
+})(Button);
+
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -160,12 +170,12 @@ export default function PersistentDrawerLeft() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <Button
+          <StyledBtn
             variant="contained"
             onClick={handleLogin}
           >
             Connexion
-          </Button>
+          </StyledBtn>
         </Toolbar>
       </AppBar>
       <Login/>

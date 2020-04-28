@@ -1,11 +1,15 @@
-import { createStore, compose } from 'redux';
+
+import { compose, createStore } from 'redux';
+import middlewares from './middlewares';
 import reducer from './reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// On utilise une fonction utilitaire fournie par l'extension Redux DevTools pour venir « pimper » notre store.
-const enhancers = composeEnhancers();
+// On utilise une fonction utilitaire fournie par l'extension Redux DevTools
+// pour venir « pimper » notre store.
+const enhancers = composeEnhancers(middlewares);
 
+// eslint-disable-next-line no-undef
 const store = createStore(reducer, enhancers);
 
 export default store;

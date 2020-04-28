@@ -1,5 +1,6 @@
 // == Import npm
 import React from 'react';
+import { Switch, Route, Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import clsx from 'clsx';
@@ -13,6 +14,7 @@ import AppBar from 'src/components/AppBar';
 import Menu from 'src/components/Menu';
 import Footer from 'src/components/Footer';
 import HomePage from 'src/components/HomePage';
+import Signup from 'src/components/Signup';
 
 
 const drawerWidth = 240;
@@ -57,16 +59,25 @@ const App = () => {
     <div className="app">
       <AppBar />
       <Menu />
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: openDrawer,
-        })}
-      >
-        <div>
-          <HomePage/>
+        <div
+          className={clsx(classes.content, {
+            [classes.contentShift]: openDrawer,
+          })}
+        >
+          <Switch>
+            <Route exact path="/">
+              <div>
+                <HomePage/>
+              </div>
+            </Route>
+            <Route exact path="/inscription">
+              <div>
+                <Signup />
+              </div>
+            </Route>
+          </Switch>
+          <Footer />
         </div>
-        <Footer />
-      </main>
     </div>
   );
 };
