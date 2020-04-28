@@ -79,6 +79,7 @@
 
   .MuiTextField-root {
     width: 48%;
+    //min-width: 250px;
     margin-bottom: 15px;
   }
 
@@ -89,4 +90,48 @@
     }
   }
 
+}
+
+
+@media screen and (max-width: 700px) {
+  .MuiStepLabel-iconContainer::first-child {
+    height: 30px;
+    width: 30px;
+  }
+  .MuiPaper-root.MuiStepper-root {
+    width: 100%;
+  }
+  .MuiPaper-root.MuiStepper-root{
+    padding: 4rem 0 4rem 0;
+  }
+
+  .group-input {
+    display: flex;
+    flex-direction: column;
+
+    .MuiTextField-root {
+      width: 100%;
+      //min-width: 250px;
+      margin-bottom: 15px;
+    }
+  }
+
+}
+
+@media screen and (max-width: 385px){
+  .MuiPaper-root.MuiStepper-root {
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .MuiStep-horizontal {
+
+    padding-bottom: 10px;
+  }
+  .WithStyles\(ForwardRef\(StepConnector\)\)-alternativeLabel-252 {
+    top: 22px;
+    display: none;
+  }
 }

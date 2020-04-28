@@ -133,6 +133,7 @@ const useStyles = makeStyles((theme) => ({
     },
     stepper: {
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
     }
 }));
@@ -182,6 +183,7 @@ export default function Signup() {
     return (
         <div className={classes.root}>
             <GlobalCss/>
+            <div className={classes.stepper}>
             <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
                 {steps.map((label) => (
                     <Step key={label}>
@@ -189,7 +191,6 @@ export default function Signup() {
                     </Step>
                 ))}
             </Stepper>
-            <div className={classes.stepper}>
                 {activeStep === steps.length ? (
                     <div>
                         <Typography className={classes.instructions}>
