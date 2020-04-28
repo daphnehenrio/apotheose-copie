@@ -1,7 +1,6 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "directories": {
     "doc": "docs"
@@ -14,7 +13,14 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
+    "@hapi/yar": "^10.1.0",
+    "cjs": "0.0.11",
+    "db": "^2.0.0",
+    "dotenv": "^8.2.0",
     "pg": "^8.0.3",
+    "pug": "^2.0.4",
     "qs": "^6.9.3"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
