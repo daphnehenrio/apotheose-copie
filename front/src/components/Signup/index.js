@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 // == import composants local
 
 import Step1 from './Step1'
+import Step2 from './Step2'
 
 // == import styles
 import './styles.scss'
@@ -24,16 +25,30 @@ const GlobalCss = withStyles({
     '@global': {
         // You should target [class*="MuiButton-root"] instead if you nest themes.
         '.MuiStepper-root': {
-            backgroundColor: '#1B4353',
+            backgroundColor: 'white',
+            borderTopLeftRadius: '5px',
+            borderTopRightRadius: '5px',
+            paddingBottom: '0',
+            paddingTop: '4rem',
         },
         '.MuiStepLabel-label.MuiStepLabel-completed': {
-            color: 'white',
+            color: 'black',
         },
         '.MuiStepLabel-label.MuiStepLabel-active': {
-            color: 'white',
+            color: 'black',
         },
         '.MuiStepLabel-label' : {
-          color: 'rgba(255, 255, 255, 0.5)',
+          color: 'grey',
+        },
+        '.makeStyles-root-224': {
+            backgroundColor: 'white',
+            borderRadius: '5px',
+        },
+        '.makeStyles-stepper-228': {
+            backgroundColor: 'white',
+            padding: '2rem 0rem',
+            borderBottomLeftRadius: '5px',
+            borderBottomRightRadius: '5px',
         }
 
     },
@@ -126,10 +141,12 @@ ColorlibStepIcon.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '50%',
-        margin: '0 auto',
-        paddingTop: '10rem',
-        color: 'white',
+        width: '45rem',
+        margin: '5rem auto',
+        color: 'black',
+        borderRadius: '5px',
+        padding: '3rem',
+
     },
     button: {
         marginRight: theme.spacing(1),
@@ -153,7 +170,7 @@ function getStepContent(step) {
         case 0:
             return (<Step1 />);
         case 1:
-            return 'Table user info';
+            return (<Step2 />);
         case 2:
             return 'Récapitulatif validation';
         default:
@@ -200,7 +217,7 @@ export default function Signup() {
                     </div>
                 ) : (
                         <div className="form-inscription">
-                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                            {getStepContent(activeStep)}
                             <div className="form-inscription--button--prev-next">
                                 <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                     Précédent

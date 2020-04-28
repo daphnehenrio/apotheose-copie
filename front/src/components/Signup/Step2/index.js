@@ -1,13 +1,17 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -24,6 +28,24 @@ const useStyles = makeStyles((theme) =>
     },
   }),
 );
+
+const RadioGroupGender = () => {
+  const [value, setValue] = React.useState('female');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Gender</FormLabel>
+      <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+        <FormControlLabel value="Mme" control={<Radio />} label="Mme" />
+        <FormControlLabel value="M." control={<Radio />} label="M." />
+      </RadioGroup>
+    </FormControl>
+  );
+}
 
 
 
@@ -43,36 +65,42 @@ export default function Step1() {
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <div className='group-input'>
+      <RadioGroupGender />
       <TextField
-          id="first_name"
-          label="Nom"
+          id="address"
+          label="Adresse"
           variant="outlined"
 
           autoFocus
       />
+      <div className='group-input'>
       <TextField
-          id="last_name"
-          label="Prénom"
+          id="zip_code"
+          label="Code Postal"
           variant="outlined"
-
-
+      />
+      <TextField
+          id="city"
+          label="Ville"
+          variant="outlined"
       />
       </div>
-        <TextField
-            id="username"
-            label="Nom d'utilisateur"
-            variant="outlined"
-            fullWidth
+      <TextField
+          id="phone_number"
+          label="Fix"
+          variant="outlined"
+      />
+      <TextField
+          id="cellphone_number"
+          label="Portable"
+          variant="outlined"
+      />
+      <TextField
+          id="phone_work"
+          label="Travail"
+          variant="outlined"
+      />
 
-        />
-        <TextField
-            id="email"
-            label="Email"
-            variant="outlined"
-            fullWidth
-            type= 'email'
-        />
         <div className='group-input'>
         <FormControl variant="outlined">
           <InputLabel htmlFor="password">Mot de passe</InputLabel>
