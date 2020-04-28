@@ -3,19 +3,23 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
+// == import Material UI
+
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 // == Import styles
 import './styles.css';
 
-// == Import components
+// == import composants local
 import AppBar from 'src/components/AppBar';
 import Menu from 'src/components/Menu';
 import Footer from 'src/components/Footer';
 import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
 
+
+// -------------------------- styles composants --------------------------
 
 const drawerWidth = 240;
 
@@ -50,10 +54,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// == Composant
+
+// -------------------------- Export --------------------------
+
 const App = () => {
   const classes = useStyles();
-  const openDrawer = useSelector((state) => state.openDrawer);
+  const { openDrawer } = useSelector((state) => state.toggle);
+  
+// -------------------------- Return --------------------------
 
   return (
     <div className="app">

@@ -1,5 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+// == import Material UI
+
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
@@ -18,6 +21,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 
+// == import actions local
+
+import { actionSetLoginForm } from '../../actions/toggle';
+
+
+// -------------------------- styles composants --------------------------
 
 const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
@@ -39,7 +48,6 @@ const GlobalCss = withStyles({
 
     },
 })(() => null);
-
 
 const StyledDialog = withStyles({
     root: {
@@ -66,17 +74,19 @@ const StyledBtn = withStyles({
 })(Button);
 
 
+// -------------------------- Export --------------------------
 
-const Login = () => {
+export default function Login() {
     const dispatch = useDispatch();
-    const openLoginForm = useSelector((state) => state.openLoginForm);
-
+    const openLoginForm = useSelector((state) => state.toggle.openLoginForm);
     const [values, setValues] = React.useState({
         showPassword: false,
     });
 
+// -------------------------- Fonctions State & Dispatch --------------------------
+
     const handleLogin = () => {
-        dispatch({ type: 'SET_LOGIN_FORM' });
+        dispatch(actionSetLoginForm());
     };
 
     const handleClickShowPassword = () => {
@@ -87,6 +97,7 @@ const Login = () => {
         event.preventDefault();
     }
 
+// -------------------------- Return --------------------------
 
     return (
         <StyledDialog open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
@@ -136,4 +147,3 @@ const Login = () => {
 
 };
 
-export default Login;

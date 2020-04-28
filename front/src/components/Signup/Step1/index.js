@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+// Inport Material UI
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
@@ -11,15 +12,27 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormLabel';
 
+// == import actions local
+import {
+  actionSetLastName,
+  actionSetFirstName,
+  actionSetUsername,
+  actionSetPassword,
+  actionSetConfirmPassword,
+  actionSetEmail,
+} from '../../../actions/user';
+
+
+// -------------------------- Export --------------------------
 
 export default function Step1() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const missingField = useSelector((state) => state.missingField);
-  const isPasswordCorrect = useSelector((state) => state.isPasswordCorrect);
+  const { user, missingField, isPasswordCorrect } = useSelector((state) => state.user);
   const [values, setValues] = React.useState({
     showPassword: false,
   });
+
+// -------------------------- Fonctions State & Dispatch --------------------------
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -28,6 +41,8 @@ export default function Step1() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   }
+
+// -------------------------- Return --------------------------
 
   return (
     <form className="form-group" noValidate autoComplete="off">
@@ -43,7 +58,7 @@ export default function Step1() {
           helperText={(!user.lastName && missingField) ? 'Champs vide' : null}
           autoFocus
           onChange={(evt) => {
-            dispatch({ type: 'SET_LAST_NAME', lastName: evt.target.value })
+            dispatch(actionSetLastName(evt.target.value))
           }}
         />
         <TextField
@@ -54,7 +69,7 @@ export default function Step1() {
           helperText={(!user.firstName && missingField) ? 'Champs vide' : null}
           label="Prénom"
           variant="outlined"
-          onChange={(evt) => { dispatch({ type: 'SET_FIRST_NAME', firstName: evt.target.value }) }}
+          onChange={(evt) => { dispatch(actionSetFirstName(evt.target.value)) }}
 
         />
       </div>
@@ -68,7 +83,7 @@ export default function Step1() {
         label="Nom d'utilisateur"
         variant="outlined"
         fullWidth
-        onChange={(evt) => { dispatch({ type: 'SET_USERNAME', username: evt.target.value }) }}
+        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
 
       />
       <TextField
@@ -81,7 +96,7 @@ export default function Step1() {
         variant="outlined"
         fullWidth
         type='email'
-        onChange={(evt) => { dispatch({ type: 'SET_EMAIL', email: evt.target.value }) }}
+        onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)) }}
       />
       <div className='group-input--password'>
         <FormControl variant="outlined" required>
@@ -89,7 +104,7 @@ export default function Step1() {
           <OutlinedInput
             id="password"
             error={!isPasswordCorrect || (!user.email && missingField)}
-            onChange={(evt) => { dispatch({ type: 'SET_PASSWORD', password: evt.target.value }) }}
+            onChange={(evt) => { dispatch(actionSetPassword(evt.target.value)) }}
             fullWidth
             type={values.showPassword ? 'text' : 'password'}
             endAdornment={
@@ -113,7 +128,7 @@ export default function Step1() {
             fullWidth
             error={!isPasswordCorrect || (!user.email && missingField)}
             id="password_confirm"
-            onChange={(evt) => { dispatch({ type: 'CONFIRM_PASSWORD', password: evt.target.value }) }}
+            onChange={(evt) => { dispatch(actionSetConfirmPassword(evt.target.value)) }}
             type={values.showPassword ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">

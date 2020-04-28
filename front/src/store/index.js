@@ -1,7 +1,9 @@
 
 import { compose, createStore } from 'redux';
+
+// Import local
 import middlewares from './middlewares';
-import reducer from './reducer';
+import rootReducer from '../reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -10,6 +12,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancers = composeEnhancers(middlewares);
 
 // eslint-disable-next-line no-undef
-const store = createStore(reducer, enhancers);
+const store = createStore(rootReducer, enhancers);
 
+console.log(store.getState())
 export default store;

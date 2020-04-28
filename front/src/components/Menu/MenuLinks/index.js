@@ -1,6 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+
+// == import Material UI
+
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
@@ -13,11 +16,11 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import DescriptionIcon from '@material-ui/icons/Description';
 
-
+// == import styles
 import './styles.css';
 
 
-
+// -------------------------- styles composants --------------------------
 const useStyles = makeStyles({
     root: {
         width: '100%',
@@ -62,8 +65,6 @@ const GlobalCss = withStyles({
 
     },
 })(() => null);
-
-
 
 const StyledLink = withStyles({
     root: {
@@ -132,14 +133,22 @@ const StyledIcon = withStyles({
     },
 })(ExpandMoreIcon);
 
+
+// -------------------------- Export --------------------------
+
 export default function FileSystemNavigator() {
     const history = useHistory();
     const dispatch = useDispatch();
     const classes = useStyles();
+
+// -------------------------- Fonctions Dispatch --------------------------
+
     const preventDefault = (event, route) => {
         event.preventDefault()
         dispatch({ type: 'CHANGE_PAGE', route, history })
     };
+
+// -------------------------- Return --------------------------
 
     return (
         <div className={classes.root}>
@@ -250,7 +259,6 @@ export default function FileSystemNavigator() {
                             </SubLink>
                         </ExpansionPanelDetails>
                     </StyledExpansionPanel>
-                    
                 </ExpansionPanelDetails>
             </StyledExpansionPanel>
 

@@ -1,8 +1,13 @@
 // == Import npm
 import React from 'react';
+
+// == import Material UI
+
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
+
+// -------------------------- styles composants --------------------------
 
 const StyledBox = withStyles({
     root: {
@@ -29,8 +34,9 @@ const StyledLink = withStyles({
 })(Link);
 
 
-// == Composant
-const Footer = () => {
+// -------------------------- Export --------------------------
+
+export default function Footer() {
 
     const preventDefault = (event) => event.preventDefault();
 
@@ -47,5 +53,3 @@ const Footer = () => {
     );
 };
 
-// == Export
-export default Footer;

@@ -1,21 +1,44 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+// == import Material UI
+
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Alert from '@material-ui/lab/Alert';
 
+// == import actions local
+
+import {
+  actionSetAddress,
+  actionSetZipCode,
+  actionSetCity,
+  actionSetFixNumber,
+  actionSetCellphoneNumber,
+  actionSetWorkPhone,
+  actionSetChildren,
+  actionSetGender,
+} from '../../../actions/user';
+
+// -------------------------- Export --------------------------
 
 const RadioGroupGender = () => {
   const [value, setValue] = React.useState('female');
-  const user = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+// -------------------------- Fonctions State & Dispatch --------------------------
+
   const handleChange = (event) => {
     setValue(event.target.value);
-    dispatch({type: 'SET_GENDER', gender: event.target.value});
+    dispatch(actionSetGender(event.target.value));
   };
+
+// -------------------------- Return --------------------------
 
   return (
     <FormControl component="fieldset" className="form-group--gender">
@@ -37,6 +60,7 @@ export default function Step1() {
 
   return (
     <form className="form-group" noValidate autoComplete="off">
+      <Alert severity="info" className="form-group--info">Toutes ces informations sont falcutatives. Elles serviront à compléter votre profil. Ces données vous permettront par la suite de simplifier les actions sur la plateforme en ayant accès à du contenu pré rempli. Vous pourrez toujours y accéder plus tard, dirrectement dans votre profil.</Alert>
       <RadioGroupGender
 
       />
@@ -48,7 +72,7 @@ export default function Step1() {
           value={user.adress}
           variant="outlined"
           onChange={(evt) => {
-            dispatch({type:'SET_ADRESS', adress: evt.target.value});
+            dispatch(actionSetAddress(evt.target.value));
           }}
           autoFocus
       />
@@ -60,7 +84,7 @@ export default function Step1() {
           value={user.zipCode}
           variant="outlined"
           onChange={(evt) => {
-            dispatch({type:'SET_ZIPCODE', zipCode: evt.target.value});
+            dispatch(actionSetZipCode(evt.target.value));
           }}
       />
       <TextField
@@ -70,7 +94,7 @@ export default function Step1() {
           variant="outlined"
           value={user.city}
           onChange={(evt) => {
-            dispatch({type:'SET_CITY', city: evt.target.value});
+            dispatch(actionSetCity(evt.target.value));
           }}
       />
       </div>
@@ -83,7 +107,7 @@ export default function Step1() {
             label="Fix"
             variant="outlined"
             onChange={(evt) => {
-              dispatch({type:'SET_FIX_NUMBER', fixNumber: evt.target.value});
+              dispatch(actionSetFixNumber(evt.target.value));
             }}
         />
         <TextField
@@ -94,7 +118,7 @@ export default function Step1() {
             variant="outlined"
             type="tel"
             onChange={(evt) => {
-              dispatch({type:'SET_CELLPHONE_NUMBER', cellphoneNumber: evt.target.value});
+              dispatch(actionSetCellphoneNumber(evt.target.value));
             }}
         />
         <TextField
@@ -104,7 +128,7 @@ export default function Step1() {
             value={user.workPhone}
             variant="outlined"
             onChange={(evt) => {
-              dispatch({type:'SET_WORK_PHONE', workPhone: evt.target.value});
+              dispatch(actionSetWorkPhone(evt.target.value));
             }}
         />
       </div>
@@ -118,7 +142,7 @@ export default function Step1() {
           variant="outlined"
           type="Number"
           onChange={(evt) => {
-            dispatch({type:'SET_CHILDREN', children: evt.target.value});
+            dispatch(actionSetChildren(evt.target.value));
           }}
       />
 

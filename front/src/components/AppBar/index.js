@@ -1,5 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+// == import Material UI
+
 import clsx from 'clsx';
 import {fade, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,9 +16,13 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 
-// Import components
+// == import composants local
 import Login from 'src/components/Login';
 
+// == import actions local
+import { actionSetLoginForm,  actionSetDrawer} from '../../actions/toggle';
+
+// -------------------------- styles composants --------------------------
 
 const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
@@ -119,20 +126,26 @@ const StyledBtn = withStyles({
   },
 })(Button);
 
+// -------------------------- Export --------------------------
+
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const dispatch = useDispatch();
   // Get the state of the drawer to check if it's open or close (true or false)
-  const openDrawer = useSelector((state) => state.openDrawer);
-  const openLoginForm = useSelector((state) => state.openLoginForm);
+  const { openDrawer } = useSelector((state) => state.toggle);
+
+// -------------------------- Fonctions Dispatch --------------------------
 
   const handleDrawer = () => {
-    dispatch({ type: 'SET_DRAWER' });
+    dispatch(actionSetDrawer())
   };
 
   const handleLogin= () => {
-    dispatch({type: 'SET_LOGIN_FORM'});
+    dispatch(actionSetLoginForm());
+
 };
+
+// -------------------------- Return --------------------------
 
   return (
     <div className={classes.root}>

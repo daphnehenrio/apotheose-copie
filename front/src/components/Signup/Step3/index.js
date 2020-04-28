@@ -1,5 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+// == import Material UI
+
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
@@ -7,13 +10,15 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
+// -------------------------- Export --------------------------
 
 export default function Step3() {
 
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state.user);
 
 
+// -------------------------- Return --------------------------
 
     return (
         <form className="form-group">

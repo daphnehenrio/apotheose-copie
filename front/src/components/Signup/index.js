@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+
+// == import Material UI
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -13,72 +14,28 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-// == import composants local
 
+// == import composants local
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
 
+// == import actions local
+import { actionSetMissingField } from '../../actions/user'
+
 // == import styles
 import './styles.scss'
 
+//! IMPOSSIBLE À SUPPRIMER !?!
+// FIXME: trouver une solution
 const GlobalCss = withStyles({
-    // @global is handled by jss-plugin-global.
     '@global': {
-
     },
 })(() => null);
 
 
-const ColorlibConnector = withStyles({
-    alternativeLabel: {
-        top: 22,
-    },
-    active: {
-        '& $line': {
-            backgroundImage:
-                'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-        },
-    },
-    completed: {
-        '& $line': {
-            backgroundImage:
-                'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-        },
-    },
-    line: {
-        height: 3,
-        border: 0,
-        backgroundColor: '#eaeaf0',
-        borderRadius: 1,
-    },
-})(StepConnector);
-
-const useColorlibStepIconStyles = makeStyles({
-    root: {
-        backgroundColor: '#ccc',
-        zIndex: 1,
-        color: '#fff',
-        width: 50,
-        height: 50,
-        display: 'flex',
-        borderRadius: '50%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    active: {
-        backgroundImage:
-            'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-        boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-    },
-    completed: {
-        backgroundImage:
-            'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-    },
-});
-
+// -------------------------- Composant Step Icon & PropType ----------------------------
 function ColorlibStepIcon(props) {
-    const classes = useColorlibStepIconStyles();
     const { active, completed } = props;
 
     const icons = {
@@ -87,12 +44,13 @@ function ColorlibStepIcon(props) {
         3: <CheckIcon />,
     };
 
+    let classesStepIcon = "div-signup--stepper-icon";
+    classesStepIcon += active ? ' active' : '';
+    classesStepIcon += completed ? ' completed' : '';
+
     return (
         <div
-            className={clsx(classes.root, {
-                [classes.active]: active,
-                [classes.completed]: completed,
-            })}
+            className={classesStepIcon}
         >
             {icons[String(props.icon)]}
         </div>
@@ -114,29 +72,7 @@ ColorlibStepIcon.propTypes = {
     icon: PropTypes.node,
 };
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '45rem',
-        margin: '5rem auto',
-        color: 'black',
-        borderRadius: '5px',
-        padding: '3rem',
-        maxWidth: '100vw',
-
-    },
-    button: {
-        marginRight: theme.spacing(1),
-    },
-    instructions: {
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-    },
-    stepper: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-    }
-}));
+// -------------------------- Fonction Steps --------------------------
 
 function getSteps() {
     return ['Inscription', 'Information Complémentaire (facultatif)', 'Validation'];
@@ -155,20 +91,24 @@ function getStepContent(step) {
     }
 }
 
+
+// -------------------------- Export --------------------------
+
 export default function Signup() {
-    const classes = useStyles();
+
     const dispatch = useDispatch();
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
-    const user = useSelector((state) => state.user);
-    const isPasswordCorrect = useSelector((state) => state.isPasswordCorrect);
-    console.log(isPasswordCorrect);
+    const { user, isPasswordCorrect, missingField } = useSelector((state) => state.user);
+
+
+// -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleNext = () => {
-        if(user.firstName && user.lastName && user.username && user.email  && isPasswordCorrect ) {
+        if(user.firstName && user.lastName && user.username && user.email  && isPasswordCorrect) {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
         } else {
-            dispatch({type: 'MISSING_FIELD'});
+            dispatch(actionSetMissingField());
         }
     };
 
@@ -180,11 +120,13 @@ export default function Signup() {
         setActiveStep(0);
     };
 
+// -------------------------- Return --------------------------
+
     return (
-        <div className={classes.root}>
+        <div className="div-signup">
             <GlobalCss/>
-            <div className={classes.stepper}>
-            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+            <div className="div-signup--stepper">
+            <Stepper alternativeLabel activeStep={activeStep} connector={<StepConnector className="div-signup--stepper-connector" />}>
                 {steps.map((label) => (
                     <Step key={label}>
                         <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
@@ -192,11 +134,11 @@ export default function Signup() {
                 ))}
             </Stepper>
                 {activeStep === steps.length ? (
-                    <div>
-                        <Typography className={classes.instructions}>
+                    <div className="form-inscription">
+                        <Typography >
                             All steps completed - you&apos;re finished
                         </Typography>
-                        <Button onClick={handleReset} className={classes.button}>
+                        <Button onClick={handleReset} >
                             Reset
                         </Button>
                     </div>

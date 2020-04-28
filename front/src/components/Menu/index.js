@@ -1,5 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+// == import Material UI
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -9,9 +12,14 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 
-// == Import components
+// == import components
 import MenuLinks from 'src/components/Menu/MenuLinks';
 
+// == import actions local
+
+import { actionSetDrawer } from '../../actions/toggle';
+
+// -------------------------- styles composants --------------------------
 
 const drawerWidth = 240;
 
@@ -84,18 +92,23 @@ const MenuTitle = withStyles({
   })(Typography);
 
 
+// -------------------------- Export --------------------------
+
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
   const dispatch = useDispatch();
-  const openDrawer = useSelector((state) => state.openDrawer);
+  const openDrawer = useSelector((state) => state.toggle.openDrawer);
+
+// -------------------------- Fonctions State & Dispatch --------------------------
 
   const handleDrawer= () => {
-    dispatch({type:'SET_DRAWER'});
+    dispatch(actionSetDrawer());
   };
 
+// -------------------------- Return --------------------------
+
   return (
-   
       <Drawer
         className={classes.drawer}
         variant="persistent"
