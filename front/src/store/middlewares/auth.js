@@ -10,7 +10,7 @@ export default (store) => (next) => (action) => {
         case LOGIN: {
             axios
                 .post('http://localhost:5050/login', {
-                    user: action.user
+                    user: store.getState().user.user
                 }, {
                     withCredentials: true,
                 })

@@ -96,6 +96,7 @@ export default function Login() {
 
     const handleLogin = () => {
         dispatch(actionSetLoginForm());
+        dispatch(actionLogin());
     };
 
     const handleClickShowPassword = () => {
@@ -109,9 +110,6 @@ export default function Login() {
     // -------------------------- Return --------------------------
 
     return (
-        <form onSubmit={(evt) => {
-            dispatch(actionLogin(user));
-        }}>
             <StyledDialog open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
                 <GlobalCss />
                 <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
@@ -156,7 +154,6 @@ export default function Login() {
                 </StyledBtn>
                 </DialogActions>
             </StyledDialog>
-        </form>
     );
 
 };

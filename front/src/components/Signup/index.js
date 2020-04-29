@@ -111,7 +111,7 @@ export default function Signup() {
             dispatch(actionSetMissingField());
         }
         if(activeStep === steps.length-1){
-            dispatch(actionSignup(user));
+            dispatch(actionSignup());
         }
     };
 
