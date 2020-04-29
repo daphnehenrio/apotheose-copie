@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 // == Import styles
-import './styles.css';
+import './styles.scss';
 
 // == import composants local
 import AppBar from 'src/components/AppBar';
@@ -60,7 +60,11 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const { openDrawer } = useSelector((state) => state.toggle);
-  
+
+
+  let classesContent = "menu--content";
+  classesContent += openDrawer ? ' contentShift' : '';
+
 // -------------------------- Return --------------------------
 
   return (

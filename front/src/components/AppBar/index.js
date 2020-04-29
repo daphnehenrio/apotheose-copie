@@ -22,6 +22,9 @@ import Login from 'src/components/Login';
 // == import actions local
 import { actionSetLoginForm,  actionSetDrawer} from '../../actions/toggle';
 
+// == import style
+import './styles.scss';
+
 // -------------------------- styles composants --------------------------
 
 const GlobalCss = withStyles({

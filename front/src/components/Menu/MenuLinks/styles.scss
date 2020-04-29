@@ -1,0 +1,60 @@
+.tree-item-link{
+    margin-left: 0.5rem;
+}
+
+.MuiLink-root.menu--link {
+  color: white;
+  display: flex;
+  padding: 1.5rem 1rem;
+  align-items: center;
+  text-decoration: none;
+  &:hover {
+    background-color: #1B4353;
+    text-decoration: none;
+  }
+  &:focus {
+    background-color: #1B4353;
+  }
+}
+
+.MuiLink-root.menu--sublink {
+  margin-top:  0.5rem;
+  &:hover {
+      background-color: #1B4353;
+      text-decoration: none;
+      border-top-left-radius: 3rem;
+      border-bottom-left-radius: 3rem;
+  }
+  padding: 1.5rem 1rem;
+  text-decoration: none;
+  color: #FBFEF9;
+  display: flex;
+  align-items: center;
+  &:focus {
+      background-color: #1B4353;
+      border-top-left-radius: 3rem;
+      border-bottom-left-radius: 3rem;
+  }
+  margin-bottom: 0.5rem;
+}
+
+.MuiExpansionPanel-root.menu--ExpansionPanel {
+  box-shadow: none;
+  background-color: #001B2E;
+  color: #FBFEF9;
+}
+
+.MuiExpansionPanel-root.menu--SubExpansionPanel {
+  margin-top: 1rem;
+  box-shadow: none;
+  background-color: #001B2E;
+  color: #FBFEF9;
+  &:hover {
+      border-top-left-radius: 3rem;
+      border-bottom-left-radius: 3rem;
+  }
+}
+
+.MuiSvgIcon-root.menu--ExpandMoreIcon {
+  color: white;
+}

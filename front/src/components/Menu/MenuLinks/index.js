@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import DescriptionIcon from '@material-ui/icons/Description';
 
 // == import styles
-import './styles.css';
+import './styles.scss';
 
 
 // -------------------------- styles composants --------------------------
@@ -144,8 +144,8 @@ export default function FileSystemNavigator() {
 // -------------------------- Fonctions Dispatch --------------------------
 
     const preventDefault = (event, route) => {
-        event.preventDefault()
-        dispatch({ type: 'CHANGE_PAGE', route, history })
+        event.preventDefault();
+        dispatch({ type: 'CHANGE_PAGE', route, history });
     };
 
 // -------------------------- Return --------------------------
@@ -154,120 +154,120 @@ export default function FileSystemNavigator() {
         <div className={classes.root}>
             <GlobalCss />
 
-            <StyledLink href="/" onClick={(event) => preventDefault(event, "")}>
+            <Link className="menu--link" href="/" onClick={(event) => preventDefault(event, "")}>
                 Accueil
-            </StyledLink>
-            <StyledExpansionPanel>
+            </Link>
+            <ExpansionPanel className="menu--ExpansionPanel">
                 <ExpansionPanelSummary
-                    expandIcon={<StyledIcon />}
+                    expandIcon={<ExpandMoreIcon className="menu--ExpandMoreIcon" />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
                     <Typography >Services</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <SubLink href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
+                    <Link className="menu--sublink" href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
                         <AccountBalanceIcon color='primary' />
                         <p className='tree-item-link'>
                             Banques
                         </p>
-                    </SubLink>
-                    <SubLink href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
+                    </Link>
+                    <Link className="menu--sublink" href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
                         <PhonelinkSetupIcon color='primary' />
                         <p className='tree-item-link'>
                             Internet & Mobiles
                         </p>
-                    </SubLink>
+                    </Link>
                 </ExpansionPanelDetails>
-            </StyledExpansionPanel>
+            </ExpansionPanel>
 
-            <StyledExpansionPanel>
+            <ExpansionPanel className="menu--ExpansionPanel">
                 <ExpansionPanelSummary
-                    expandIcon={<StyledIcon />}
+                    expandIcon={<ExpandMoreIcon className="menu--ExpandMoreIcon" />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
                     <Typography >Articles</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <StyledSubExpansionPanel>
+                    <ExpansionPanel className="menu--SubExpansionPanel">
                         <ExpansionPanelSummary
-                            expandIcon={<StyledIcon />}
+                            expandIcon={<ExpandMoreIcon className="menu--ExpandMoreIcon" />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
                             <Typography >Banques</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            <SubLink href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
+                            <Link className="menu--sublink" href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
                                 <AccountBalanceIcon color='primary' />
                                 <p className='tree-item-link'>
                                     Banques
                                 </p>
-                            </SubLink>
-                            <SubLink href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
+                            </Link>
+                            <Link className="menu--sublink" href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
                                 <PhonelinkSetupIcon color='primary' />
                                 <p className='tree-item-link'>
                                     Internet & Mobiles
                                 </p>
-                            </SubLink>
+                            </Link>
                         </ExpansionPanelDetails>
-                    </StyledSubExpansionPanel>
-                    <StyledExpansionPanel>
+                    </ExpansionPanel>
+                    <ExpansionPanel className="menu--ExpansionPanel">
                         <ExpansionPanelSummary
-                            expandIcon={<StyledIcon />}
+                            expandIcon={<ExpandMoreIcon className="menu--ExpandMoreIcon" />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
                             <Typography >Etat</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            <SubLink href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
+                            <Link className="menu--sublink" href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
                                 <AccountBalanceIcon color='primary' />
                                 <p className='tree-item-link'>
                                     Banques
                                 </p>
-                            </SubLink>
-                            <SubLink href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
+                            </Link>
+                            <Link className="menu--sublink" href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
                                 <PhonelinkSetupIcon color='primary' />
                                 <p className='tree-item-link'>
                                     Internet & Mobiles
                                 </p>
-                            </SubLink>
+                            </Link>
                         </ExpansionPanelDetails>
-                    </StyledExpansionPanel>
-                    <StyledExpansionPanel>
+                    </ExpansionPanel>
+                    <ExpansionPanel className="menu--ExpansionPanel">
                         <ExpansionPanelSummary
-                            expandIcon={<StyledIcon />}
+                            expandIcon={<ExpandMoreIcon className="menu--ExpandMoreIcon" />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
                             <Typography >Other</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            <SubLink href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
+                            <Link className="menu--sublink" href="/services/banques" onClick={(event) => preventDefault(event, "banques")}>
                                 <AccountBalanceIcon color='primary' />
                                 <p className='tree-item-link'>
                                     Banques
                                 </p>
-                            </SubLink>
-                            <SubLink href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
+                            </Link>
+                            <Link className="menu--sublink" href="/services/internet-et-mobiles" onClick={(event) => preventDefault(event, "internet-et-mobiles")}>
                                 <PhonelinkSetupIcon color='primary' />
                                 <p className='tree-item-link'>
                                     Internet & Mobiles
                                 </p>
-                            </SubLink>
+                            </Link>
                         </ExpansionPanelDetails>
-                    </StyledExpansionPanel>
+                    </ExpansionPanel>
                 </ExpansionPanelDetails>
-            </StyledExpansionPanel>
+            </ExpansionPanel>
 
-            <StyledLink href="#" onClick={preventDefault}>
+            <Link className="menu--link" href="#" onClick={preventDefault}>
                 Simulation
-            </StyledLink>
-            <StyledLink href="#" onClick={preventDefault}>
+            </Link>
+            <Link className="menu--link" href="#" onClick={preventDefault}>
                 Support
-            </StyledLink>
+            </Link>
         </div>
     );
 }

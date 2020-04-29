@@ -1,0 +1,35 @@
+
+.MuiFormControl-root {
+  width: 100%;
+}
+.MuiDialog-paper {
+  height: 20rem;
+  min-height: 300px
+
+}
+.MuiDialogContent-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.MuiDialog-root.login-dialog{
+      padding: 2rem;
+      margin: 0 auto;
+
+    .login-dialog{
+      &--link {
+        margin-left: .5rem;
+      }
+      &--button {
+        background-color: #0F4C81 ;
+        color: white;
+        &:hover {
+          background-color: #001B2E;
+        }
+      }
+    }
+}
+
+
+
