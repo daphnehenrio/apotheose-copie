@@ -4,6 +4,7 @@ export const SET_LAST_NAME = 'action/SET_LAST_NAME';
 export const SET_FIRST_NAME = 'action/SET_FIRST_NAME';
 export const SET_USERNAME = 'action/SET_USERNAME';
 export const SET_PASSWORD = 'action/SET_PASSWORD';
+export const SET_CONFIRM_PASSWORD = 'action/SET_CONFIRM_PASSWORD';
 export const CONFIRM_PASSWORD = 'action/CONFIRM_PASSWORD';
 export const SET_EMAIL = 'action/SET_EMAIL';
 export const SET_ADDRESS = 'action/SET_ADDRESS';
@@ -37,6 +38,12 @@ export const actionSetPassword = (password) => ({
   type: SET_PASSWORD,
   password,
 });
+
+export const actionSetConfirmPasswordValue = (password) => ({
+  type: SET_CONFIRM_PASSWORD,
+  password,
+});
+
 export const actionSetConfirmPassword = (password) => ({
   type: CONFIRM_PASSWORD,
   password,

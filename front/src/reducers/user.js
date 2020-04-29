@@ -3,6 +3,7 @@ import {
   SET_FIRST_NAME,
   SET_USERNAME,
   SET_PASSWORD,
+  SET_CONFIRM_PASSWORD,
   CONFIRM_PASSWORD,
   SET_EMAIL,
   SET_ADDRESS,
@@ -22,6 +23,7 @@ const initialState = {
     firstName: '',
     lastName: '',
     password: '',
+    confirmPassword: '',
     email: '',
     gender: '',
     cellphoneNumber: '',
@@ -72,6 +74,15 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           password: action.password,
+        }
+      }
+    }
+    case SET_CONFIRM_PASSWORD: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          confirmPassword: action.password,
         }
       }
     }

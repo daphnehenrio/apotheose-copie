@@ -18,6 +18,7 @@ import {
   actionSetFirstName,
   actionSetUsername,
   actionSetPassword,
+  actionSetConfirmPasswordValue,
   actionSetConfirmPassword,
   actionSetEmail,
 } from '../../../actions/user';
@@ -40,6 +41,17 @@ export default function Step1() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  }
+
+  const checkPasswordsInputs = () => {
+    if(user.confirmPassword){
+      if(user.password === user.confirmPassword){
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
   }
 
 // -------------------------- Return --------------------------
@@ -103,9 +115,10 @@ export default function Step1() {
           <InputLabel htmlFor="password">Mot de passe</InputLabel>
           <OutlinedInput
             id="password"
-            error={!isPasswordCorrect || (!user.email && missingField)}
-            onChange={(evt) => { dispatch(actionSetPassword(evt.target.value)) }}
+            error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.password && missingField)}
+            onChange={(evt) => {checkPasswordsInputs(); dispatch(actionSetPassword(evt.target.value))}}
             fullWidth
+            value={user.password}
             type={values.showPassword ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">
@@ -126,9 +139,14 @@ export default function Step1() {
           <InputLabel htmlFor="password_confirm">Confirmation</InputLabel>
           <OutlinedInput
             fullWidth
-            error={!isPasswordCorrect || (!user.email && missingField)}
+            value={user.confirmPassword}
+            error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.confirmPassword && missingField)}
             id="password_confirm"
-            onChange={(evt) => { dispatch(actionSetConfirmPassword(evt.target.value)) }}
+            onChange={(evt) => {
+              checkPasswordsInputs();
+              dispatch(actionSetConfirmPasswordValue(evt.target.value));
+              dispatch(actionSetConfirmPassword(evt.target.value)); 
+            }}
             type={values.showPassword ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">

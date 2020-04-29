@@ -105,7 +105,7 @@ export default function Signup() {
 // -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleNext = () => {
-        if(user.firstName && user.lastName && user.username && user.email  && isPasswordCorrect) {
+        if(user.firstName && user.lastName && user.username && user.email && user.password  && user.confirmPassword  && isPasswordCorrect) {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
         } else {
             dispatch(actionSetMissingField());
