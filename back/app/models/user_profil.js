@@ -1,11 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
 const dbConnection = require('../db_connection');
 
-class User extends Model {
+class User_profil extends Model {
 
 };
 
-User.init({
+User_profil.init({
   first_name: {
     type: DataTypes.STRING(40),
     allowNull: false
@@ -31,7 +31,7 @@ User.init({
     allowNull: false
   },
 
-  email: {
+  mail: {
     type: DataTypes.TEXT,
     allowNull: false
   },
@@ -44,4 +44,4 @@ User.init({
 });
 
 
-module.exports = User;
+module.exports = User_profil;

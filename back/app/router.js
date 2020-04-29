@@ -20,7 +20,7 @@ router.post('/login', authController.loginAction );
 router.post('/signup', authController.signupAction );
 
 
-// un petit 404 en derner
+// 404
 router.use( (req, res) => {
   res.status(404).send("Not Found");
 });

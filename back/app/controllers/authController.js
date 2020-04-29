@@ -8,10 +8,10 @@ const bcrypt = require('bcrypt');
 
 const authController = {
 
-  // show connexion form
+  /* show connexion form
   loginPage: (req, res) => {
     res.render('login');
-  },
+  },*/
 
   // connexion form
   loginAction: (req, res) => {
@@ -24,49 +24,45 @@ const authController = {
     // recup user with email
     User.findOne({
       where: {
-        email: email        
+        email: email
       }
     }).then( (user) => {
 
       // if not exist => error
       if (!user) {
-        return res.render('login', {
-          error: "Cet email n'existe pas"
-        });
+        return res.send("Cet email n'existe pas");
       }
 
       // if exist, verify password
       if(! bcrypt.compareSync( password, user.password ) ) {
         // if not good => error
-        return res.render('login', {
-          error: "Mauvais mot de passe"
-        });
+        return res.send("Mauvais mot de passe");
       }
 
       // All is good => add user on session
-      req.session.user = user ; 
+      req.session.user = user ;
       // redirect user at "/"
-      res.redirect('/');
+      res.send(user);
 
 
     }).catch( err => {
       console.trace(err);
-      res.status(500).render('500', {err});
+      res.status(500).send(err);
     });
 
   },
 
-  // show inscription form
+  /* show inscription form
   signupPage: (req, res) => {
     res.render('signup');
-  },
+  },*/
 
   // treatement of inscription form => save new user
   signupAction: (req, res) => {
     // take the data of the form
     const data = req.body;
 
-    // NTUI => verify info 
+    // NTUI => verify info
 
     // - verify if user exist
     User.findOne({
@@ -83,10 +79,10 @@ const authController = {
       }
 
       // - last_name and first_name, not null
-      if (!data.firstname) {
+      if (!data.first_name) {
         errorsList.push("Le prénom ne peut pas être vide");
       }
-      if (!data.lastname) {
+      if (!data.last_name) {
         errorsList.push("Le nom ne peut pas être vide");
       }
       // - good format for email
@@ -94,7 +90,7 @@ const authController = {
         errorsList.push("L'email n'est pas un email correct");
       }
 
-      // - minimum length of the password 
+      // - minimum length of the password
       if (data.password.length < 8) {
         errorsList.push("Le mot de passe doit contenir un minimum de 8 caractères");
       }
@@ -103,14 +99,14 @@ const authController = {
       if (data.password !== data['password-confirm'] ) {
         errorsList.push("Le mot de passe et la confirmation ne correspondent pas");
       }
-      
-      // Insertion on DB 
+
+      // Insertion on DB
       // errorsList is null if  "ok"
       if (errorsList.length === 0) {
         // create user
         const newUser = new User();
-        newUser.firstname = data.firstname;
-        newUser.lastname = data.lastname;
+        newUser.first_name = data.first_name;
+        newUser.last_name = data.last_name;
         newUser.email = data.email;
         // HASH password
         newUser.password = bcrypt.hashSync(data.password, 10);
@@ -118,25 +114,23 @@ const authController = {
         newUser.save().then( (user) => {
           // recup user on session
           req.session.user = user;
-          res.redirect('/');
+          res.send(user);
         });
 
       } else {
-        res.render('signup', {
-          errorsList
-        });
+        res.send(errorsList);
       }
 
     }).catch( err => {
       console.trace(err);
-      res.status(500).render('500', {err});
+      res.status(500).send(err);
     });
-  
+
   },
 
   logout: (req, res) => {
     delete req.session.user;
-    res.redirect('/');
+    res.send('Compte bien supprimer');
   }
 
 };

@@ -8,7 +8,7 @@ CREATE TABLE "user" (
     "login" varchar(40) NOT NULL,
     "password" varchar(76) NOT NULL,
     avatar text,
-    mail varchar(76) NOT NULL
+    email varchar(76) NOT NULL
 
 );
 
