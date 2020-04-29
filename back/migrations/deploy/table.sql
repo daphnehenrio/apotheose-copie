@@ -3,12 +3,12 @@ BEGIN;
 CREATE TABLE "user" (
 
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    fist_name char(40) NOT NULL,
-    last_name char(40) NOT NULL,
-    "login" char(40) NOT NULL,
-    "password" char(76) NOT NULL,
+    first_name varchar(40) NOT NULL,
+    last_name varchar(40) NOT NULL,
+    "login" varchar(40) NOT NULL,
+    "password" varchar(76) NOT NULL,
     avatar text,
-    mail text
+    mail varchar(76) NOT NULL
 
 );
 
@@ -16,15 +16,15 @@ CREATE TABLE user_profil (
 
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "user_id" int REFERENCES "user"(id),
-    "address" text,
-    zip_code text,
-    city text,
-    phone_number text,
-    cellphone_number text,
-    phone_work text,
+    "address" varchar(76),
+    zip_code varchar(40),
+    city varchar(76),
+    phone_number varchar(40),
+    cellphone_number varchar(40),
+    phone_work varchar(40),
     children int,
-    statut text,
-    gender text
+    statut varchar(40),
+    gender varchar(40)
 
 );
 
@@ -48,8 +48,8 @@ CREATE TABLE "article" (
     content text NOT NULL,
     "description" text NOT NULL,
     "image" text,
-    updated_date date,
-    created_date date
+    updated_at date,
+    created_at date
 
 );
 
@@ -74,8 +74,8 @@ CREATE TABLE document (
     "service_id" int REFERENCES "service"(id),
     "name" text NOT NULL,
     link text NOT NULL,
-    updated_date date,
-    created_date date
+    updated_at date,
+    created_at date
 
 );
 

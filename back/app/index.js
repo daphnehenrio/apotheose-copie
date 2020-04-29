@@ -5,7 +5,7 @@ const qs = require('qs');
 const routes = require('./routes/access.routes');
 const { Client } = require('pg');
 
-const port = 7777;
+const port = process.env.PORT ||7777;
 
 (async () => {
 
@@ -15,8 +15,8 @@ const port = 7777;
         query: {
             parser: query => qs.parse(query)
         }
-    }); 
-    
+    });
+
     const client = new Client();
 
     await server.register([
@@ -38,14 +38,19 @@ const port = 7777;
         },
     ]);
 
-    await client.connect();
-
     server.app.db = client;
+
+    server.app.db.user = 'aldahe';
+
+    server.app.db.password = 'aldahe';
+
+    await client.connect();
 
     await server.start();
 
-    console.log('serveur en place, client Pg connecté');
-     
+    console.dir(server.app.db.user);
+    console.dir(server.app.db.password);
+
     console.log(`Server running on port ${server.settings.port} at http://localhost:${port}`);
 
     //server.route(routes);

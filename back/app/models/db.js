@@ -1,6 +1,12 @@
-const { Pool } = require('pg');
+const Sequelize = require('sequelize');
 
-// un pool de connection est un ensemble de connecteurs toujours prêts à être utilisés
-// plus d'infos ici : https://node-postgres.com/features/pooling
+const client = new Sequelize(
+    process.env.DATABASE,
+    process.env.DATABASE_USER,
+    process.env.DATABASE_PASSWORD,
+    {
+      dialect: 'postgres',
+    },
+  );
 
-module.exports = new Pool();
+  module.exports = client;
