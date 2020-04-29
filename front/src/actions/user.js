@@ -94,7 +94,8 @@ export const actionSignup = (user) => ({
   user,
 });
 
-export const actionLogin = () => ({
+export const actionLogin = (user) => ({
   type: LOGIN,
+  user,
 });
 

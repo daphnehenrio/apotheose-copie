@@ -110,7 +110,7 @@ export default function Login() {
 
     return (
         <form onSubmit={(evt) => {
-            dispatch(actionLogin());
+            dispatch(actionLogin(user));
         }}>
             <StyledDialog open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
                 <GlobalCss />
