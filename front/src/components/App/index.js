@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const { openDrawer } = useSelector((state) => state.toggle);
-  
+
 // -------------------------- Return --------------------------
 
   return (
