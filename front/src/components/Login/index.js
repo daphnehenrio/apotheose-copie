@@ -23,7 +23,15 @@ import Link from '@material-ui/core/Link';
 
 // == import actions local
 
-import { actionSetLoginForm } from '../../actions/toggle';
+import { 
+    actionLogin, 
+    actionSetUsername,
+    actionSetPassword,
+} from '../../actions/user'
+
+import {
+    actionSetLoginForm, 
+} from '../../actions/toggle'
 
 
 // -------------------------- styles composants --------------------------
@@ -78,6 +86,7 @@ const StyledBtn = withStyles({
 
 export default function Login() {
     const dispatch = useDispatch();
+    const user = useSelector((state => state.user));
     const openLoginForm = useSelector((state) => state.toggle.openLoginForm);
     const [values, setValues] = React.useState({
         showPassword: false,
@@ -100,7 +109,9 @@ export default function Login() {
     // -------------------------- Return --------------------------
 
     return (
-        <form>
+        <form onSubmit={(evt) => {
+            dispatch(actionLogin());
+        }}>
             <StyledDialog open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
                 <GlobalCss />
                 <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
@@ -111,12 +122,13 @@ export default function Login() {
                         variant="outlined"
                         fullWidth
                         autoFocus
-
+                        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
                     />
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
                         <OutlinedInput
                             fullWidth
+                            onChange={(evt) => {dispatch(actionSetPassword(evt.target.value))}}
                             id="outlined-adornment-password"
                             type={values.showPassword ? 'text' : 'password'}
                             endAdornment={

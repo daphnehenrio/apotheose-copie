@@ -1,16 +1,17 @@
 import axios from 'axios';
 
 import {
-    SIGNUP,
+    LOGIN,
 } from '../../actions/user';
 
 
 export default (store) => (next) => (action) => {
     switch (action.type) {
-        case SIGNUP: {
+        case LOGIN: {
             axios
-                .post('http://localhost:5050/signup', {
-                    user: action.user
+                .post('http://localhost:5050/login', {
+                    login: store.getState().user.username,
+                    password: store.getState().user.password,
                 }, {
                     withCredentials: true,
                 })

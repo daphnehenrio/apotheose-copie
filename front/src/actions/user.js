@@ -17,6 +17,7 @@ export const SET_CHILDREN = 'action/SET_CHILDREN';
 export const SET_GENDER = 'action/SET_GENDER';
 export const MISSING_FIELD = 'action/MISSING_FIELD';
 export const SIGNUP = 'action/SIGNUP';
+export const LOGIN = 'action/LOGIN';
 
 export const actionSetLastName = (lastName) => ({
   type: SET_LAST_NAME,
@@ -91,5 +92,9 @@ export const actionSetMissingField = () => ({
 export const actionSignup = (user) => ({
   type: SIGNUP,
   user,
+});
+
+export const actionLogin = () => ({
+  type: LOGIN,
 });
 
