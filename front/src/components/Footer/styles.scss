@@ -1,0 +1,28 @@
+@import 'src/styles/vars';
+
+.footer {
+
+  &--styled.box{
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    background-color: rgba(230, 230, 230, 0.4);
+    align-items: center;
+
+  }
+
+  &--styled.link {
+    margin-right: 1rem;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+

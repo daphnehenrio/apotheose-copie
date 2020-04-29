@@ -29,16 +29,7 @@ import { actionSetLoginForm } from '../../actions/toggle';
 // == import style
 import './styles.scss';
 
-// -------------------------- styles composants --------------------------
 
-const GlobalCss = withStyles({
-    // @global is handled by jss-plugin-global.
-    '@global': {
-        // You should target [class*="MuiButton-root"] instead if you nest themes.
-
-
-    },
-})(() => null);
 
 // -------------------------- Export --------------------------
 
@@ -67,7 +58,7 @@ export default function Login() {
 
     return (
         <Dialog className="login-dialog" open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
-            <GlobalCss />
+
             <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
             <DialogContent>
                 <TextField
@@ -76,7 +67,6 @@ export default function Login() {
                     variant="outlined"
                     fullWidth
                     autoFocus
-
                 />
                 <FormControl variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>

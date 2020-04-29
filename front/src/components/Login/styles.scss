@@ -1,3 +1,4 @@
+@import 'src/styles/vars';
 
 .MuiFormControl-root {
   width: 100%;
@@ -22,10 +23,11 @@
         margin-left: .5rem;
       }
       &--button {
-        background-color: #0F4C81 ;
+        background-color: $color-primary ;
         color: white;
         &:hover {
-          background-color: #001B2E;
+          background-color:$color-primary-light;
+          color: $color-primary;
         }
       }
     }
