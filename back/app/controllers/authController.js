@@ -15,26 +15,32 @@ const authController = {
 
   // connexion form
   loginAction: (req, res) => {
+    console.dir(req.body);
+
     // recup form
-    const {email, password} = req.body;
+    const {login, password} = req.body;
     // const email = req.body.email;
     // const password = req.body.password;
 
-
-    // recup user with email
+    // recup user with login
     User.findOne({
       where: {
-        email: email
-      }
+        login: login
+      },
     }).then( (user) => {
 
       // if not exist => error
       if (!user) {
-        return res.send("Cet email n'existe pas");
+        return res.send("Ce login n'existe pas");
       }
 
       // if exist, verify password
-      if(! bcrypt.compareSync( password, user.password ) ) {
+      /*if(! bcrypt.compareSync( password, user.password ) ) {
+        // if not good => error
+        return res.send("Mauvais mot de passe");
+      }*/
+
+      if( password !== user.password  ) {
         // if not good => error
         return res.send("Mauvais mot de passe");
       }
@@ -60,15 +66,30 @@ const authController = {
   // treatement of inscription form => save new user
   signupAction: (req, res) => {
     // take the data of the form
-    const data = req.body;
+    const data = req.body.user;
 
     // NTUI => verify info
 
     // - verify if user exist
     User.findOne({
       where: {
-        email: data.email
-      }
+        $or: [{login: data.login}, {email: data.email}]
+
+        /*$or: [
+            {
+                login:
+                {
+                    $eq: data.login
+                }
+            },
+            {
+                email:
+                {
+                    $eq: data.email
+                }
+            },
+        ]*/
+    }
     }).then( (user) => {
 
       // list to take errors
@@ -85,6 +106,12 @@ const authController = {
       if (!data.last_name) {
         errorsList.push("Le nom ne peut pas être vide");
       }
+
+      // - good login
+      if (!data.login) {
+        errorsList.push("Le login ne peut pas être vide");
+      }
+
       // - good format for email
       if (!emailValidator.validate(data.email)) {
         errorsList.push("L'email n'est pas un email correct");
