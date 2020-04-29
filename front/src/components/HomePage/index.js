@@ -1,4 +1,7 @@
 import React from 'react';
+
+// == import Material UI
+
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -13,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 // Import styles
 import './styles.css';
 
+// -------------------------- styles composants --------------------------
 
 const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
@@ -40,8 +44,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const HomePage = () => {
+// -------------------------- Export --------------------------
+
+export default function HomePage() {
     const classes = useStyles();
+
+// -------------------------- Return --------------------------
 
     return (
         <div className={classes.root}>
@@ -171,4 +179,3 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;

@@ -1,0 +1,202 @@
+.div-signup{
+  width: 45rem;
+  margin: 5rem auto;
+  color: black;
+  border-radius: 5px;
+  padding: 3rem;
+  max-width: 100vw;
+}
+
+.div-signup--stepper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &-icon {
+    background-color: #ccc;
+    z-index: 1;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+
+    &.active {
+      background-image: linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%);
+      box-shadow: 0 4px 10px 0 rgba(0,0,0,.25);
+    }
+
+    &.completed {
+      background-image: linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%);
+    }
+  }
+
+  &-connector{
+    &.MuiStepConnector-alternativeLabel {
+      top: 22px;
+    }
+
+    &.MuiStepConnector-active {
+      .MuiStepConnector-line {
+        background-image: linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%);
+      }
+    }
+    &.MuiStepConnector-completed {
+      .MuiStepConnector-line {
+        background-image: linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%);
+      }
+    }
+
+    .MuiStepConnector-line {
+      height: 3px;
+      border: 0;
+      background-color: #eaeaf0;
+      border-radius: 1;
+    }
+  }
+}
+
+.MuiPaper-root.MuiStepper-root {
+    background-color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding-bottom: 0;
+    padding-top: 4rem;
+
+}
+.MuiStepLabel-label.MuiStepLabel-completed {
+    color: black;
+}
+.MuiStepLabel-label.MuiStepLabel-active {
+    color: black;
+}
+.MuiStepLabel-label {
+  color: grey;
+}
+
+.form-inscription{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding-bottom: 2rem;
+  border-radius:  0 0 10px 10px;
+
+
+  .MuiFormGroup-root {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  &--button{
+    &--prev-next {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      padding: 0 20%;
+      margin-top: 2rem;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    padding: 2rem 2rem;
+
+    &--info {
+      margin-bottom: 25px;
+    }
+
+
+    &--gender {
+      margin-bottom: 15px;
+    }
+
+    &--label {
+      margin-top: 1em;
+      color: #0F4C81;
+    }
+
+    .MuiFormControl-root,
+    .MuiFormLabel-root {
+      margin-bottom: 15px;
+    }
+
+  }
+}
+
+.group-input {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .MuiTextField-root {
+    width: 48%;
+    //min-width: 250px;
+    margin-bottom: 15px;
+  }
+
+  &--password {
+    .MuiFormControl-root {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+
+}
+
+
+@media screen and (max-width: 900px) {
+  form.form-group{
+    width: 100%;
+  }
+  .form-inscription {
+    margin-top: -2px;
+  }
+
+  .MuiPaper-root.MuiStepper-root {
+    width: 100%;
+  }
+  .MuiPaper-root.MuiStepper-root{
+    padding: 4rem 0 4rem 0;
+  }
+
+  .group-input {
+    display: flex;
+    flex-direction: column;
+
+    .MuiTextField-root {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+
+}
+
+@media screen and (max-width: 385px){
+  .form-inscription--button--prev-next{
+    padding: 0;
+  }
+  .MuiPaper-root.MuiStepper-root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 0;
+  }
+
+  .MuiStep-horizontal {
+    padding-bottom: 15px;
+  }
+
+  .MuiStepConnector-horizontal.MuiStepConnector-alternativeLabel .MuiStepConnector-line {
+    display: none;
+  }
+}

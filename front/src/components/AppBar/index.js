@@ -1,5 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+// == import Material UI
+
 import clsx from 'clsx';
 import {fade, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +16,13 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 
+// == import composants local
+import Login from 'src/components/Login';
+
+// == import actions local
+import { actionSetLoginForm,  actionSetDrawer} from '../../actions/toggle';
+
+// -------------------------- styles composants --------------------------
 
 const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
@@ -39,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  
+    backgroundColor: '#001B2E',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -106,15 +116,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const StyledBtn = withStyles({
+  root: {
+    background: 'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#1B4353',
+    }
+  },
+})(Button);
+
+// -------------------------- Export --------------------------
+
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const dispatch = useDispatch();
   // Get the state of the drawer to check if it's open or close (true or false)
-  const openDrawer = useSelector((state) => state.openDrawer);
+  const { openDrawer } = useSelector((state) => state.toggle);
+
+// -------------------------- Fonctions Dispatch --------------------------
 
   const handleDrawer = () => {
-    dispatch({ type: 'SET_DRAWER' });
+    dispatch(actionSetDrawer())
   };
+
+  const handleLogin= () => {
+    dispatch(actionSetLoginForm());
+
+};
+
+// -------------------------- Return --------------------------
 
   return (
     <div className={classes.root}>
@@ -152,13 +183,15 @@ export default function PersistentDrawerLeft() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <Button
+          <StyledBtn
             variant="contained"
+            onClick={handleLogin}
           >
             Connexion
-          </Button>
+          </StyledBtn>
         </Toolbar>
       </AppBar>
+      <Login/>
     </div>
   );
 }
