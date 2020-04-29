@@ -83,7 +83,7 @@ export default function Login() {
         showPassword: false,
     });
 
-// -------------------------- Fonctions State & Dispatch --------------------------
+    // -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleLogin = () => {
         dispatch(actionSetLoginForm());
@@ -97,52 +97,54 @@ export default function Login() {
         event.preventDefault();
     }
 
-// -------------------------- Return --------------------------
+    // -------------------------- Return --------------------------
 
     return (
-        <StyledDialog open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
-            <GlobalCss />
-            <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
-            <DialogContent>
-                <TextField
-                    id="outlined-basic"
-                    label="Nom d'utilisateur"
-                    variant="outlined"
-                    fullWidth
-                    autoFocus
-
-                />
-                <FormControl variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
-                    <OutlinedInput
+        <form>
+            <StyledDialog open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
+                <GlobalCss />
+                <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        id="outlined-basic"
+                        label="Nom d'utilisateur"
+                        variant="outlined"
                         fullWidth
-                        id="outlined-adornment-password"
-                        type={values.showPassword ? 'text' : 'password'}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        labelWidth={100}
+                        autoFocus
+
                     />
-                </FormControl>
-                <StyledLink href="/inscription">
-                    Créer un compte
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
+                        <OutlinedInput
+                            fullWidth
+                            id="outlined-adornment-password"
+                            type={values.showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            labelWidth={100}
+                        />
+                    </FormControl>
+                    <StyledLink href="/inscription">
+                        Créer un compte
                 </StyledLink>
-            </DialogContent>
-            <DialogActions>
-                <StyledBtn onClick={handleLogin} variant="contained">
-                    Valider
+                </DialogContent>
+                <DialogActions>
+                    <StyledBtn onClick={handleLogin} variant="contained">
+                        Valider
                 </StyledBtn>
-            </DialogActions>
-        </StyledDialog>
+                </DialogActions>
+            </StyledDialog>
+        </form>
     );
 
 };

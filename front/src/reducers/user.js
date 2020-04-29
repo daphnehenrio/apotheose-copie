@@ -14,7 +14,7 @@ import {
   SET_WORK_PHONE,
   SET_CHILDREN,
   SET_GENDER,
-  MISSING_FIELD
+  MISSING_FIELD,
 } from '../actions/user';
 
 const initialState = {

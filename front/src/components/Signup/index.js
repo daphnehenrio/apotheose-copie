@@ -21,7 +21,7 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 
 // == import actions local
-import { actionSetMissingField } from '../../actions/user'
+import { actionSetMissingField, actionSignup  } from '../../actions/user'
 
 // == import styles
 import './styles.scss'
@@ -109,6 +109,9 @@ export default function Signup() {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
         } else {
             dispatch(actionSetMissingField());
+        }
+        if(activeStep === steps.length-1){
+            dispatch(actionSignup(user));
         }
     };
 
