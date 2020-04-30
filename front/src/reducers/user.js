@@ -16,6 +16,7 @@ import {
   SET_GENDER,
   MISSING_FIELD,
   CHECK_PASSWORD_STRENGTH,
+  CHECK_EMAIL_EXISTS,
 } from '../actions/user';
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
   isPasswordCorrect: 'init',
   missingField: false,
   passwordStrength: 'init',
+  emailExists: 'init',
 
 };
 
@@ -192,6 +194,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         passwordStrength: action.isStrong,
+      }
+    }
+    case CHECK_EMAIL_EXISTS: {
+      return {
+        ...state,
+        emailExists: action.exists,
       }
     }
     default: {

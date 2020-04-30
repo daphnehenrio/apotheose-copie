@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 
 // Import npm
 import passwordValidator from 'password-validator';
+import emailValidator from 'email-validator';
 
 // == import utils
 import {handdleVerifEmptyValue} from 'src/utils/checkSpaces';
@@ -27,7 +28,7 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 
 // == import actions local
-import { actionSetMissingField, actionSignup, actionPasswordValidation  } from '../../actions/user'
+import { actionSetMissingField, actionSignup, actionPasswordValidation, actionEmailValidation  } from '../../actions/user'
 
 // == import styles
 import './styles.scss'
@@ -120,14 +121,15 @@ export default function Signup() {
     const steps = getSteps();
     const { user, isPasswordCorrect, missingField } = useSelector((state) => state.user);
     const isEmpty = handdleVerifEmptyValue(user.firstName) || handdleVerifEmptyValue(user.lastName) || handdleVerifEmptyValue(user.email)
-    || handdleVerifEmptyValue(user.username);
-    console.log(isEmpty, 'is Empty');
-    
+    || handdleVerifEmptyValue(user.username);    
 
 
 // -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleNext = () => {
+        // First checkup : check if user has complete first step (if inputs are not empty)
+        // if passwords are matching 
+        // and if user did not filled up inputs with just spaces
         if(user.firstName && 
             user.lastName && 
             user.username && 
@@ -135,18 +137,30 @@ export default function Signup() {
             user.password  && 
             user.confirmPassword  && 
             isPasswordCorrect &&
-            !isEmpty
+            !isEmpty 
             ) {
+                // check if password is strong enough (if it contains at least 8 character, 1 uppercase, 
+                //1 lowercase, 1 number and 1 special character)
             if(schema.validate(user.password)){
                 dispatch(actionPasswordValidation(true));
-                setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                // check if user's email exists
+                if(emailValidator.validate(user.email)){
+                    // If all ok, go to next step
+                    dispatch(actionEmailValidation(true));
+                    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                } else {
+                    dispatch(actionEmailValidation(false));
+                }
             } else {
+                //Display an error message below pasword input 
                 dispatch(actionPasswordValidation(false));
             }
         } else {
+            // send error and set inputs border into red
             dispatch(actionSetMissingField());
         }
         if(activeStep === steps.length-1){
+            // If final step send axios request in actionSignup
             dispatch(actionSignup());
         }
     };

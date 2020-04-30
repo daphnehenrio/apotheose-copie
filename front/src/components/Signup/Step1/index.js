@@ -30,7 +30,7 @@ import {
 
 export default function Step1() {
   const dispatch = useDispatch();
-  const { user, missingField, isPasswordCorrect, passwordStrength } = useSelector((state) => state.user);
+  const { user, missingField, isPasswordCorrect, passwordStrength, emailExists } = useSelector((state) => state.user);
   const [values, setValues] = React.useState({
     showPassword: false,
   });
@@ -97,20 +97,20 @@ export default function Step1() {
         label="Nom d'utilisateur"
         variant="outlined"
         fullWidth
-        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
+        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value))}}
 
       />
       <TextField
         id="email"
         required
         value={user.email}
-        error={!user.email && missingField}
-        helperText={(!user.email && missingField) ? 'Champs vide' : null}
+        error={!user.email && missingField || !emailExists}
+        helperText={(!user.email && missingField) ? 'Champs vide' : (!emailExists) ? 'Email invalide' : null}
         label="Email"
         variant="outlined"
         fullWidth
         type='email'
-        onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)) }}
+        onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)); console.log(user.email, emailExists)}}
       />
       <div className='group-input--password'>
         <FormControl variant="outlined" required>
