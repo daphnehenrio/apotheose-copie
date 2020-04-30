@@ -1,0 +1,143 @@
+@import 'src/styles/vars';
+
+.tree-item-link{
+    margin-left: 0.5rem;
+}
+
+.MuiTypography-root.menu--title {
+  margin-right: 2rem;
+  color: white;
+}
+
+.MuiDrawer-root.menu--drawer {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.MuiDrawer-paper.menu--drawer-paper {
+  width: 240px;
+  background-color: $color-dark;
+
+}
+
+.menu--drawer-header {
+  width: 240px;
+  min-height: 63px;
+  position: fixed;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  background-color: $color-dark;
+  border-right:none;
+  padding: 0 1rem;
+  justify-content: flex-end;
+
+  /*
+      // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  */
+}
+
+.MuiLink-root.menu--link {
+  color: white;
+  display: flex;
+  padding: 1.5rem 1rem;
+  align-items: center;
+  text-decoration: none;
+  &:hover {
+    background-color: $color-background;
+    text-decoration: none;
+  }
+  &:focus {
+    background-color: $color-background;
+  }
+
+  &.home {
+    margin-top: 64px;
+  }
+}
+
+.MuiExpansionPanel-root.menu--ExpansionPanel {
+  box-shadow: none;
+  background-color: $color-dark;
+  color: $color-white;
+}
+
+.MuiExpansionPanel-root.menu--SubExpansionPanel {
+
+  box-shadow: none;
+  background-color: $color-dark;
+  color: $color-white;
+  &:hover {
+      border-top-left-radius: 3rem;
+      border-bottom-left-radius: 3rem;
+  }
+}
+
+.MuiLink-root.menu--sublink {
+  margin-top:  0.5rem;
+  &:hover {
+      background-color: $color-background;
+      text-decoration: none;
+      border-top-left-radius: 3rem;
+      border-bottom-left-radius: 3rem;
+  }
+  padding: 1.5rem 1rem;
+  text-decoration: none;
+  color: $color-white;
+  display: flex;
+  align-items: center;
+  &:focus {
+      background-color: $color-background;
+      border-top-left-radius: 3rem;
+      border-bottom-left-radius: 3rem;
+  }
+  margin-bottom: 0.5rem;
+}
+
+.MuiSvgIcon-root.menu--ExpandMoreIcon {
+  color: white;
+}
+
+// global
+.menu--links {
+  width: 100%;
+
+  .MuiExpansionPanelDetails-root {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 0 1rem;
+  }
+  .MuiExpansionPanel-root {
+    position: static;
+  }
+  .MuiExpansionPanelSummary-root {
+    &:hover {
+        background-color: $color-background;
+    };
+    &:focus {
+        background-color: $color-background;
+    };
+    padding: 0.6rem 1rem;
+  }
+
+
+}
+
+.app .MuiExpansionPanel-root.Mui-expanded {
+  margin: 0;
+
+}
+.app .MuiExpansionPanelSummary-content {
+  margin: 0;
+}
+.app .MuiExpansionPanelSummary-content.Mui-expanded {
+  margin: 0;
+}
+
+
+.MuiPaper-root::-webkit-scrollbar {
+  width: 0;
+}
+
+

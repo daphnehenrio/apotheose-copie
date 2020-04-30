@@ -22,7 +22,11 @@ import Login from 'src/components/Login';
 // == import actions local
 import { actionSetLoginForm,  actionSetDrawer} from '../../actions/toggle';
 
+// == import style
+import './styles.scss';
+
 // -------------------------- styles composants --------------------------
+
 
 const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
@@ -65,14 +69,6 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: 'none',
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-
   title: {
     flexGrow: 1,
     letterSpacing: '0.1rem',
@@ -116,15 +112,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StyledBtn = withStyles({
-  root: {
-    background: 'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: '#1B4353',
-    }
-  },
-})(Button);
 
 // -------------------------- Export --------------------------
 
@@ -133,6 +120,8 @@ export default function PersistentDrawerLeft() {
   const dispatch = useDispatch();
   // Get the state of the drawer to check if it's open or close (true or false)
   const { openDrawer } = useSelector((state) => state.toggle);
+
+
 
 // -------------------------- Fonctions Dispatch --------------------------
 
@@ -145,6 +134,9 @@ export default function PersistentDrawerLeft() {
 
 };
 
+
+
+console.log(screen.width)
 // -------------------------- Return --------------------------
 
   return (
@@ -183,12 +175,13 @@ export default function PersistentDrawerLeft() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <StyledBtn
+          <Button
+            className="styled button"
             variant="contained"
             onClick={handleLogin}
           >
             Connexion
-          </StyledBtn>
+          </Button>
         </Toolbar>
       </AppBar>
       <Login/>

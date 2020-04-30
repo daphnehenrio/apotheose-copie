@@ -14,45 +14,21 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 // Import styles
-import './styles.css';
+import './styles.scss';
 
 // -------------------------- styles composants --------------------------
 
-const GlobalCss = withStyles({
-    // @global is handled by jss-plugin-global.
-    '@global': {
-        '.MuiCardActions-root': {
-            justifyContent: 'flex-end',
-        }
 
-    },
-})(() => null);
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        padding: '8rem 5rem',
-        height: '100%',
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-    media: {
-        height: 140,
-    },
-}));
 
 // -------------------------- Export --------------------------
 
 export default function HomePage() {
-    const classes = useStyles();
 
 // -------------------------- Return --------------------------
 
     return (
-        <div className={classes.root}>
+        <div className="home-page--container">
             <Grid
                 container
                 direction="column"
@@ -60,7 +36,7 @@ export default function HomePage() {
                 alignItems="center"
                 spacing={5}
             >
-                <GlobalCss />
+
                 <Grid item>
                     <h2 className='page-title'>ACCUEIL</h2>
                 </Grid>
@@ -93,10 +69,10 @@ export default function HomePage() {
                         wrap
                     >
                         <Grid item xs={10} md={3} sm={5}>
-                            <Card className={classes.rootCard}>
+                            <Card className="root-card">
                                 <CardActionArea>
                                     <CardMedia
-                                        className={classes.media}
+                                        className="card-media"
                                         image="https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg"
                                         title="Contemplative Reptile"
                                     />
@@ -120,10 +96,10 @@ export default function HomePage() {
                         </Grid>
 
                         <Grid item xs={10} md={3} sm={5}>
-                            <Card className={classes.rootCard}>
+                            <Card className="root-card">
                                 <CardActionArea>
                                     <CardMedia
-                                        className={classes.media}
+                                        className="card-media"
                                         image="https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg"
                                         title="Contemplative Reptile"
                                     />
@@ -146,11 +122,11 @@ export default function HomePage() {
                             </Card>
                         </Grid>
 
-                        <Grid item xs={10} md={3} sm={5} >
-                            <Card className={classes.rootCard}>
+                        <Grid item xs={10} md={3} sm={5}>
+                            <Card className="root-card">
                                 <CardActionArea>
                                     <CardMedia
-                                        className={classes.media}
+                                        className="card-media"
                                         image="https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg"
                                         title="Contemplative Reptile"
                                     />
@@ -172,6 +148,7 @@ export default function HomePage() {
                                 </CardActions>
                             </Card>
                         </Grid>
+
                     </Grid>
                 </Grid>
             </Grid>

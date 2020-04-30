@@ -1,3 +1,20 @@
+@import 'src/styles/vars';
+
+.MuiCardActions-root {
+  justify-content: flex-end;
+}
+
+.home-page--container {
+  flex-grow: 1;
+  padding: 8rem 5rem;
+  height: 100%;
+}
+
+.card-media {
+  height: 240px;
+}
+
+
 .page-title{
     font-size: 2rem;
 }
@@ -5,7 +22,7 @@
 .page-description{
     background-color: rgba(226, 226, 226, 0.397);
     padding: 2rem;
-    
+
 }
 
 .page-content-title{

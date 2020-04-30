@@ -34,52 +34,9 @@ import {
 } from '../../actions/toggle'
 
 
-// -------------------------- styles composants --------------------------
+// == import style
+import './styles.scss';
 
-const GlobalCss = withStyles({
-    // @global is handled by jss-plugin-global.
-    '@global': {
-        // You should target [class*="MuiButton-root"] instead if you nest themes.
-        '.MuiFormControl-root': {
-            width: '100%',
-        },
-        '.MuiDialog-paper': {
-            height: '20rem',
-            minHeight: '300px'
-
-        },
-        '.MuiDialogContent-root': {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-        },
-
-    },
-})(() => null);
-
-const StyledDialog = withStyles({
-    root: {
-        padding: '2rem',
-        margin: '0 auto',
-
-    },
-})(Dialog);
-
-const StyledLink = withStyles({
-    root: {
-        marginLeft: '0.5rem',
-    },
-})(Link);
-
-const StyledBtn = withStyles({
-    root: {
-        backgroundColor: '#0F4C81',
-        color: 'white',
-        '&:hover': {
-            backgroundColor: '#001B2E',
-        },
-    },
-})(Button);
 
 
 // -------------------------- Export --------------------------
@@ -110,14 +67,21 @@ export default function Login() {
     // -------------------------- Return --------------------------
 
     return (
-            <StyledDialog open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
-                <GlobalCss />
-                <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        id="outlined-basic"
-                        label="Nom d'utilisateur"
-                        variant="outlined"
+
+        <Dialog className="login-dialog" open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
+
+            <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
+            <DialogContent>
+                <TextField
+                    id="outlined-basic"
+                    label="Nom d'utilisateur"
+                    variant="outlined"
+                    fullWidth
+                    autoFocus
+                />
+                <FormControl variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
+                    <OutlinedInput
                         fullWidth
                         autoFocus
                         onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
@@ -144,16 +108,17 @@ export default function Login() {
                             labelWidth={100}
                         />
                     </FormControl>
-                    <StyledLink href="/inscription">
+                    <Link className="login-dialog--link" href="/inscription">
                         Créer un compte
-                </StyledLink>
+                </Link>
                 </DialogContent>
                 <DialogActions>
-                    <StyledBtn onClick={handleLogin} variant="contained">
+                    <Button className="login-dialog--button" onClick={handleLogin} variant="contained">
                         Valider
-                </StyledBtn>
+                </Button>
                 </DialogActions>
-            </StyledDialog>
+            </Dialog>
+
     );
 
 };
