@@ -55,7 +55,7 @@ const RadioGroupGender = () => {
 
 export default function Step1() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
 
   return (

@@ -26,12 +26,7 @@ import { actionSetMissingField } from '../../actions/user'
 // == import styles
 import './styles.scss'
 
-//! IMPOSSIBLE À SUPPRIMER !?!
-// FIXME: trouver une solution
-const GlobalCss = withStyles({
-    '@global': {
-    },
-})(() => null);
+
 
 
 // -------------------------- Composant Step Icon & PropType ----------------------------
@@ -124,7 +119,6 @@ export default function Signup() {
 
     return (
         <div className="div-signup">
-            <GlobalCss/>
             <div className="div-signup--stepper">
             <Stepper alternativeLabel activeStep={activeStep} connector={<StepConnector className="div-signup--stepper-connector" />}>
                 {steps.map((label) => (

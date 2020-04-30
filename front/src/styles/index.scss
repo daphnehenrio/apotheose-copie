@@ -6,14 +6,15 @@ body {
 }
 
 .app .MuiButton-containedPrimary {
-  background-color: #0F4C81;
+  background-color: $color-primary;
   &:hover {
-    background-color:#1B4353 ;
+    background-color:$color-primary-light ;
+
   }
 }
 
 .app .MuiButton-textSecondary{
-  color: #8B2635 ;
+  color: $color-secondary ;
 }
 
 .app .MuiButton-root.Mui-disabled {

@@ -1,0 +1,15 @@
+@import 'src/styles/vars';
+
+@media screen and (max-width: 900px) {
+  .MuiPaper-root.MuiDrawer-paper.menu--drawer-paper.MuiDrawer-paperAnchorLeft  {
+    width: 100vw;
+    background-color: $color-dark;
+  }
+
+  .menu--drawer-header {
+    width: 100vw !important;
+
+  }
+
+}
+
