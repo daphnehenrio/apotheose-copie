@@ -64,7 +64,7 @@
 }
 
 .MuiExpansionPanel-root.menu--SubExpansionPanel {
-  margin-top: 1rem;
+
   box-shadow: none;
   background-color: $color-dark;
   color: $color-white;
@@ -124,15 +124,17 @@
 
 }
 
-.MuiExpansionPanel-root.Mui-expanded {
+.app .MuiExpansionPanel-root.Mui-expanded {
+  margin: 0;
+
+}
+.app .MuiExpansionPanelSummary-content {
   margin: 0;
 }
-.MuiExpansionPanelSummary-content {
+.app .MuiExpansionPanelSummary-content.Mui-expanded {
   margin: 0;
 }
-.MuiExpansionPanelSummary-content.Mui-expanded {
-  margin: 0;
-}
+
 
 .MuiPaper-root::-webkit-scrollbar {
   width: 0;
