@@ -116,26 +116,44 @@ CREATE TABLE checklist (
 
 );
 
+CREATE TABLE user_checklist (
+
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    checklist_item_id int REFERENCES checklist_item(id),
+    title text NOT NULL
+
+);
+
+CREATE TABLE sub_category (
+
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title text NOT NULL,
+    color text
+
+);
+
+CREATE TABLE category (
+
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    sub_category_id int REFERENCES sub_category(id),
+    title text NOT NULL,
+    color text
+
+);
+
 CREATE TABLE "article" (
 
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     simulation_id int REFERENCES simulation(id),
     letter_type_id int REFERENCES letter_type(id),
     checklist_id int REFERENCES checklist(id),
+    sub_category_id int REFERENCES sub_category(id),
     title text NOT NULL,
     content text NOT NULL,
     "description" text NOT NULL,
     "image" text,
     updated_at date,
     created_at date
-
-);
-
-CREATE TABLE user_checklist (
-
-    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    checklist_item_id int REFERENCES checklist_item(id),
-    title text NOT NULL
 
 );
 
@@ -146,9 +164,9 @@ CREATE TABLE "service" (
     "document_id" int REFERENCES "document"(id),
     "letter_type_id" int REFERENCES "letter_type"(id),
     "simulation_id" int REFERENCES "simulation"(id),  
-    "user_checklist_id" int REFERENCES "user_checklist"(id),  
-    checklist_id int REFERENCES checklist(id),   
-    "category" text NOT NULL,
+    "user_checklist_id" int REFERENCES "user_checklist"(id),     
+    "category_id" int REFERENCES "category"(id), 
+    checklist_id int REFERENCES checklist(id),
     "name" text NOT NULL,
     logo text NOT NULL,
     link text NOT NULL,
