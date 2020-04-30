@@ -14,6 +14,9 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+// Import npm
+import passwordValidator from 'password-validator';
+
 
 // == import composants local
 import Step1 from './Step1'
@@ -91,6 +94,18 @@ function getStepContent(step) {
     }
 }
 
+// Create a schema
+const schema = new passwordValidator();
+ 
+// Add properties to it
+schema
+.is().min(8)                                    // Minimum length 8
+.is().max(100)                                  // Maximum length 100
+.has().uppercase()                              // Must have uppercase letters
+.has().lowercase()                              // Must have lowercase letters
+.has().digits()                                 // Must have digits
+.has().not().spaces()                           // Should not have spaces
+
 
 // -------------------------- Export --------------------------
 
@@ -106,7 +121,11 @@ export default function Signup() {
 
     const handleNext = () => {
         if(user.firstName && user.lastName && user.username && user.email && user.password  && user.confirmPassword  && isPasswordCorrect) {
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            if(schema.validate(user.password)){
+                setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            } else {
+                console.log('le mot de passe nest pas valide');
+            }
         } else {
             dispatch(actionSetMissingField());
         }
