@@ -1,4 +1,5 @@
 import axios from 'axios';
+import React from 'react';
 
 import {
     SIGNUP,
@@ -36,7 +37,7 @@ export default (store) => (next) => (action) => {
                 .catch((err) => {
                     console.log(err);
                 });
-            return;
+                return;
         }
         default: {
             next(action);

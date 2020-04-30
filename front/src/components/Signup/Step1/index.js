@@ -97,7 +97,7 @@ export default function Step1() {
         label="Nom d'utilisateur"
         variant="outlined"
         fullWidth
-        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value))}}
+        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
 
       />
       <TextField
@@ -110,19 +110,23 @@ export default function Step1() {
         variant="outlined"
         fullWidth
         type='email'
-        onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)); console.log(user.email, emailExists)}}
+        onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)) }}
       />
       <div className='group-input--password'>
-        <FormControl variant="outlined" required>
-          <InputLabel htmlFor="password">Mot de passe</InputLabel>
-          <OutlinedInput
-            id="password"
-            error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.password && missingField)}
-            onChange={(evt) => { checkPasswordsInputs(); dispatch(actionSetPassword(evt.target.value)) }}
-            fullWidth
-            value={user.password}
-            type={values.showPassword ? 'text' : 'password'}
-            endAdornment={
+
+
+        <TextField
+          variant="outlined"
+          id="password"
+          label="Mot de passe"
+          error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.password && missingField)}
+          onChange={(evt) => { checkPasswordsInputs(); dispatch(actionSetPassword(evt.target.value)) }}
+          fullWidth
+          value={user.password}
+          type={values.showPassword ? 'text' : 'password'}
+          helperText={(!user.password && missingField) ? 'Champs vide' : null}
+          InputProps={{
+            endAdornment: (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
@@ -133,24 +137,26 @@ export default function Step1() {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            }
-            labelWidth={110}
-          />
-        </FormControl>
-        <FormControl variant="outlined" required>
-          <InputLabel htmlFor="password_confirm">Confirmation</InputLabel>
-          <OutlinedInput
-            fullWidth
-            value={user.confirmPassword}
-            error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.confirmPassword && missingField)}
-            id="password_confirm"
-            onChange={(evt) => {
-              checkPasswordsInputs();
-              dispatch(actionSetConfirmPasswordValue(evt.target.value));
-              dispatch(actionSetConfirmPassword(evt.target.value));
-            }}
-            type={values.showPassword ? 'text' : 'password'}
-            endAdornment={
+            )
+          }}
+        />
+
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Confirmation"
+          value={user.confirmPassword}
+          error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.confirmPassword && missingField)}
+          id="password_confirm"
+          onChange={(evt) => {
+            checkPasswordsInputs();
+            dispatch(actionSetConfirmPasswordValue(evt.target.value));
+            dispatch(actionSetConfirmPassword(evt.target.value));
+          }}
+          type={values.showPassword ? 'text' : 'password'}
+          helperText={(!user.confirmPassword && missingField) ? 'Champs vide' : null}
+          InputProps={{
+            endAdornment: (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
@@ -161,11 +167,11 @@ export default function Step1() {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            }
-            labelWidth={105}
-          />
-        </FormControl>
+            )
+          }}
+        />
       </div>
+
       {!passwordStrength && (
         <Alert severity="error">
           <AlertTitle>Erreur</AlertTitle>
