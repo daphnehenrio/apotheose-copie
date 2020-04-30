@@ -23,14 +23,14 @@ import Link from '@material-ui/core/Link';
 
 // == import actions local
 
-import { 
-    actionLogin, 
+import {
+    actionLogin,
     actionSetUsername,
     actionSetPassword,
 } from '../../actions/user'
 
 import {
-    actionSetLoginForm, 
+    actionSetLoginForm,
 } from '../../actions/toggle'
 
 
@@ -78,19 +78,13 @@ export default function Login() {
                     variant="outlined"
                     fullWidth
                     autoFocus
+                    onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
                 />
-                <FormControl variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
-                    <OutlinedInput
-                        fullWidth
-                        autoFocus
-                        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
-                    />
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
                         <OutlinedInput
                             fullWidth
-                            onChange={(evt) => {dispatch(actionSetPassword(evt.target.value))}}
+                            onChange={(evt) => { dispatch(actionSetPassword(evt.target.value)) }}
                             id="outlined-adornment-password"
                             type={values.showPassword ? 'text' : 'password'}
                             endAdornment={
@@ -110,14 +104,14 @@ export default function Login() {
                     </FormControl>
                     <Link className="login-dialog--link" href="/inscription">
                         Créer un compte
-                </Link>
-                </DialogContent>
-                <DialogActions>
-                    <Button className="login-dialog--button" onClick={handleLogin} variant="contained">
-                        Valider
+                    </Link>
+            </DialogContent>
+            <DialogActions>
+                <Button className="login-dialog--button" onClick={handleLogin} variant="contained">
+                    Valider
                 </Button>
-                </DialogActions>
-            </Dialog>
+            </DialogActions>
+        </Dialog>
 
     );
 
