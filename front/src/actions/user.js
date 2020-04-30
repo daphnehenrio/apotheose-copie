@@ -18,6 +18,7 @@ export const SET_GENDER = 'action/SET_GENDER';
 export const MISSING_FIELD = 'action/MISSING_FIELD';
 export const SIGNUP = 'action/SIGNUP';
 export const LOGIN = 'action/LOGIN';
+export const CHECK_PASSWORD_STRENGTH = 'action/CHECK_PASSWORD_STRENGTH';
 
 export const actionSetLastName = (lastName) => ({
   type: SET_LAST_NAME,
@@ -97,5 +98,10 @@ export const actionSignup = (user) => ({
 export const actionLogin = (user) => ({
   type: LOGIN,
   user,
+});
+
+export const actionPasswordValidation = (isStrong) => ({
+  type: CHECK_PASSWORD_STRENGTH,
+  isStrong,
 });
 

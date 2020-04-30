@@ -15,6 +15,7 @@ import {
   SET_CHILDREN,
   SET_GENDER,
   MISSING_FIELD,
+  CHECK_PASSWORD_STRENGTH,
 } from '../actions/user';
 
 const initialState = {
@@ -36,6 +37,7 @@ const initialState = {
   },
   isPasswordCorrect: 'init',
   missingField: false,
+  passwordStrength: 'init',
 
 };
 
@@ -184,6 +186,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         missingField: true,
+      }
+    }
+    case CHECK_PASSWORD_STRENGTH: {
+      return {
+        ...state,
+        passwordStrength: action.isStrong,
       }
     }
     default: {

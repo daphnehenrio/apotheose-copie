@@ -24,7 +24,7 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 
 // == import actions local
-import { actionSetMissingField, actionSignup  } from '../../actions/user'
+import { actionSetMissingField, actionSignup, actionPasswordValidation  } from '../../actions/user'
 
 // == import styles
 import './styles.scss'
@@ -105,6 +105,7 @@ schema
 .has().lowercase()                              // Must have lowercase letters
 .has().digits()                                 // Must have digits
 .has().not().spaces()                           // Should not have spaces
+.has().symbols()                                // Must have special caractère
 
 
 // -------------------------- Export --------------------------
@@ -122,9 +123,10 @@ export default function Signup() {
     const handleNext = () => {
         if(user.firstName && user.lastName && user.username && user.email && user.password  && user.confirmPassword  && isPasswordCorrect) {
             if(schema.validate(user.password)){
+                dispatch(actionPasswordValidation(true));
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
             } else {
-                console.log('le mot de passe nest pas valide');
+                dispatch(actionPasswordValidation(false));
             }
         } else {
             dispatch(actionSetMissingField());

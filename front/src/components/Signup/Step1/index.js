@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormLabel';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 // == import actions local
 import {
@@ -28,12 +29,12 @@ import {
 
 export default function Step1() {
   const dispatch = useDispatch();
-  const { user, missingField, isPasswordCorrect } = useSelector((state) => state.user);
+  const { user, missingField, isPasswordCorrect, passwordStrength } = useSelector((state) => state.user);
   const [values, setValues] = React.useState({
     showPassword: false,
   });
 
-// -------------------------- Fonctions State & Dispatch --------------------------
+  // -------------------------- Fonctions State & Dispatch --------------------------
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -44,8 +45,8 @@ export default function Step1() {
   }
 
   const checkPasswordsInputs = () => {
-    if(user.confirmPassword){
-      if(user.password === user.confirmPassword){
+    if (user.confirmPassword) {
+      if (user.password === user.confirmPassword) {
         return true;
       }
     }
@@ -54,7 +55,7 @@ export default function Step1() {
     }
   }
 
-// -------------------------- Return --------------------------
+  // -------------------------- Return --------------------------
 
   return (
     <form className="form-group" noValidate autoComplete="off">
@@ -70,7 +71,7 @@ export default function Step1() {
           helperText={(!user.lastName && missingField) ? 'Champs vide' : null}
           autoFocus
           onChange={(evt) => {
-            dispatch(actionSetLastName(evt.target.value))
+            dispatch(actionSetLastName(evt.target.value));
           }}
         />
         <TextField
@@ -116,7 +117,7 @@ export default function Step1() {
           <OutlinedInput
             id="password"
             error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.password && missingField)}
-            onChange={(evt) => {checkPasswordsInputs(); dispatch(actionSetPassword(evt.target.value))}}
+            onChange={(evt) => { checkPasswordsInputs(); dispatch(actionSetPassword(evt.target.value)) }}
             fullWidth
             value={user.password}
             type={values.showPassword ? 'text' : 'password'}
@@ -145,7 +146,7 @@ export default function Step1() {
             onChange={(evt) => {
               checkPasswordsInputs();
               dispatch(actionSetConfirmPasswordValue(evt.target.value));
-              dispatch(actionSetConfirmPassword(evt.target.value)); 
+              dispatch(actionSetConfirmPassword(evt.target.value));
             }}
             type={values.showPassword ? 'text' : 'password'}
             endAdornment={
@@ -164,7 +165,12 @@ export default function Step1() {
           />
         </FormControl>
       </div>
-
+      {!passwordStrength && (
+        <Alert severity="error">
+          <AlertTitle>Erreur</AlertTitle>
+        Le mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 nombre et un caractère spécial.
+        </Alert>
+      )}
     </form>
   );
 }
