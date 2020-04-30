@@ -17,6 +17,9 @@ import Typography from '@material-ui/core/Typography';
 // Import npm
 import passwordValidator from 'password-validator';
 
+// == import utils
+import {handdleVerifEmptyValue} from 'src/utils/checkSpaces';
+
 
 // == import composants local
 import Step1 from './Step1'
@@ -116,12 +119,24 @@ export default function Signup() {
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
     const { user, isPasswordCorrect, missingField } = useSelector((state) => state.user);
+    const isEmpty = handdleVerifEmptyValue(user.firstName) || handdleVerifEmptyValue(user.lastName) || handdleVerifEmptyValue(user.email)
+    || handdleVerifEmptyValue(user.username);
+    console.log(isEmpty, 'is Empty');
+    
 
 
 // -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleNext = () => {
-        if(user.firstName && user.lastName && user.username && user.email && user.password  && user.confirmPassword  && isPasswordCorrect) {
+        if(user.firstName && 
+            user.lastName && 
+            user.username && 
+            user.email &&
+            user.password  && 
+            user.confirmPassword  && 
+            isPasswordCorrect &&
+            !isEmpty
+            ) {
             if(schema.validate(user.password)){
                 dispatch(actionPasswordValidation(true));
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
