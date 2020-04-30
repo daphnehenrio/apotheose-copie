@@ -10,6 +10,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
+// == import utils
+import {handdleVerifEmptyValue} from 'src/utils/checkSpaces';
+
 // -------------------------- Export --------------------------
 
 export default function Step3() {
@@ -23,12 +26,14 @@ export default function Step3() {
     return (
         <form className="form-group">
             <FormLabel component="legend" className="form-group--label">Informations princiales</FormLabel>
+            {user.gender ?
             <FormControl component="fieldset" className="form-group--gender">
                 <RadioGroup aria-label="gender" name="gender1" >
                     <FormControlLabel value="Mme" control={<Radio />} label="Mme" checked={user.gender === 'Mme'} disabled/>
                     <FormControlLabel value="M." control={<Radio />} label="M."  checked={user.gender === 'M.'} disabled />
                 </RadioGroup>
             </FormControl>
+            : null}
             <div className='group-input'>
                 <TextField
                     id="last_name"
@@ -63,7 +68,9 @@ export default function Step3() {
                 disabled
                 value={user.email}
             />
+            {user.adress || user.zipCode || user.city || user.fixNumber || user.cellphoneNumber || user.workPhone || user.children ?           
             <FormLabel component="legend" className="form-group--label">Informations secondaires</FormLabel>
+            : null}
             {user.adress ?
                 <TextField
                     className='group-input--input'
@@ -119,7 +126,7 @@ export default function Step3() {
                         value={user.cellphoneNumber}
                     />
                     : null}
-                {user.workPhone ?
+                {user.workPhone && !handdleVerifEmptyValue(user.workPhone) ?
                     <TextField
                         className='group-input--input'
                         id="phone_work"
