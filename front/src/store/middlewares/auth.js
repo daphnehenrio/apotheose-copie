@@ -8,8 +8,6 @@ import {
 export default (store) => (next) => (action) => {
     switch (action.type) {
         case LOGIN: {
-            console.log('kioukiou axios')
-            console.log(store.getState().user.user)
             const user = store.getState().user.user;
             const userLogin = {
               login: user.username ,

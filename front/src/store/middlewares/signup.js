@@ -8,10 +8,26 @@ import {
 export default (store) => (next) => (action) => {
     switch (action.type) {
         case SIGNUP: {
+          const { user } = store.getState().user.user;
+          const userInfo = {
+            login: user.username,
+            first_name: user.firstName,
+            last_name: user.lastName,
+            password: user.password,
+            email: user.email,
+            gender: user.gender,
+            cellphoneNumber: user.cellphoneNumber,
+            fixNumber: user.fixNumber,
+            workPhone: user.workPhone,
+            zipCode: user.zipCode,
+            city: user.city,
+            children: user.children,
+            adress: user.adress,
+          }
             axios
-                .post('http://localhost:5050/signup', {
-                    user: store.getState().user.user
-                }, {
+                .post('http://localhost:5050/signup',
+                  userInfo,
+                {
                     withCredentials: true,
                 })
                 .then((response) => {
