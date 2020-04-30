@@ -3135,6 +3135,11 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
+email-validator@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/email-validator/-/email-validator-2.0.4.tgz#b8dfaa5d0dae28f1b03c95881d904d4e40bfe7ed"
+  integrity sha512-gYCwo7kh5S3IDyZPLZf6hSS0MnZT8QmJFqYvbqlDZSbwdZlY6QZWxJ4i/6UhITOJ4XzyI647Bm2MXKCLqnJ4nQ==
+
 emoji-regex@^7.0.1, emoji-regex@^7.0.2:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
@@ -6294,6 +6299,11 @@ pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
+
+password-validator@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/password-validator/-/password-validator-5.0.3.tgz#0811077d1c09e0ea372f1670ef5b8153cee94625"
+  integrity sha512-VqdJkw/WAeDRPGx9sVAWAp/xe+pKKmD2Az7qNY4WvFwEvQ7DMQ3mzi02WnCVNJ/Zt6eiAEoih/cfWXY2WodFZA==
 
 path-browserify@0.0.1:
   version "0.0.1"

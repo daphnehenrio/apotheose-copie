@@ -3,6 +3,7 @@ import {
   SET_FIRST_NAME,
   SET_USERNAME,
   SET_PASSWORD,
+  SET_CONFIRM_PASSWORD,
   CONFIRM_PASSWORD,
   SET_EMAIL,
   SET_ADDRESS,
@@ -13,7 +14,9 @@ import {
   SET_WORK_PHONE,
   SET_CHILDREN,
   SET_GENDER,
-  MISSING_FIELD
+  MISSING_FIELD,
+  CHECK_PASSWORD_STRENGTH,
+  CHECK_EMAIL_EXISTS,
 } from '../actions/user';
 
 const initialState = {
@@ -22,6 +25,7 @@ const initialState = {
     firstName: '',
     lastName: '',
     password: '',
+    confirmPassword: '',
     email: '',
     gender: '',
     cellphoneNumber: '',
@@ -34,6 +38,8 @@ const initialState = {
   },
   isPasswordCorrect: 'init',
   missingField: false,
+  passwordStrength: 'init',
+  emailExists: 'init',
 
 };
 
@@ -72,6 +78,15 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           password: action.password,
+        }
+      }
+    }
+    case SET_CONFIRM_PASSWORD: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          confirmPassword: action.password,
         }
       }
     }
@@ -173,6 +188,18 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         missingField: true,
+      }
+    }
+    case CHECK_PASSWORD_STRENGTH: {
+      return {
+        ...state,
+        passwordStrength: action.isStrong,
+      }
+    }
+    case CHECK_EMAIL_EXISTS: {
+      return {
+        ...state,
+        emailExists: action.exists,
       }
     }
     default: {

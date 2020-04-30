@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormLabel';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 // == import actions local
 import {
@@ -18,21 +19,23 @@ import {
   actionSetFirstName,
   actionSetUsername,
   actionSetPassword,
+  actionSetConfirmPasswordValue,
   actionSetConfirmPassword,
   actionSetEmail,
 } from '../../../actions/user';
+
 
 
 // -------------------------- Export --------------------------
 
 export default function Step1() {
   const dispatch = useDispatch();
-  const { user, missingField, isPasswordCorrect } = useSelector((state) => state.user);
+  const { user, missingField, isPasswordCorrect, passwordStrength, emailExists } = useSelector((state) => state.user);
   const [values, setValues] = React.useState({
     showPassword: false,
   });
 
-// -------------------------- Fonctions State & Dispatch --------------------------
+  // -------------------------- Fonctions State & Dispatch --------------------------
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -42,7 +45,18 @@ export default function Step1() {
     event.preventDefault();
   }
 
-// -------------------------- Return --------------------------
+  const checkPasswordsInputs = () => {
+    if (user.confirmPassword) {
+      if (user.password === user.confirmPassword) {
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+
+  // -------------------------- Return --------------------------
 
   return (
     <form className="form-group" noValidate autoComplete="off">
@@ -58,7 +72,7 @@ export default function Step1() {
           helperText={(!user.lastName && missingField) ? 'Champs vide' : null}
           autoFocus
           onChange={(evt) => {
-            dispatch(actionSetLastName(evt.target.value))
+            dispatch(actionSetLastName(evt.target.value));
           }}
         />
         <TextField
@@ -90,8 +104,8 @@ export default function Step1() {
         id="email"
         required
         value={user.email}
-        error={!user.email && missingField}
-        helperText={(!user.email && missingField) ? 'Champs vide' : null}
+        error={!user.email && missingField || !emailExists}
+        helperText={(!user.email && missingField) ? 'Champs vide' : (!emailExists) ? 'Email invalide' : null}
         label="Email"
         variant="outlined"
         fullWidth
@@ -99,15 +113,20 @@ export default function Step1() {
         onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)) }}
       />
       <div className='group-input--password'>
-        <FormControl variant="outlined" required>
-          <InputLabel htmlFor="password">Mot de passe</InputLabel>
-          <OutlinedInput
-            id="password"
-            error={!isPasswordCorrect || (!user.email && missingField)}
-            onChange={(evt) => { dispatch(actionSetPassword(evt.target.value)) }}
-            fullWidth
-            type={values.showPassword ? 'text' : 'password'}
-            endAdornment={
+
+
+        <TextField
+          variant="outlined"
+          id="password"
+          label="Mot de passe"
+          error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.password && missingField)}
+          onChange={(evt) => { checkPasswordsInputs(); dispatch(actionSetPassword(evt.target.value)) }}
+          fullWidth
+          value={user.password}
+          type={values.showPassword ? 'text' : 'password'}
+          helperText={(!user.password && missingField) ? 'Champs vide' : null}
+          InputProps={{
+            endAdornment: (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
@@ -118,19 +137,26 @@ export default function Step1() {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            }
-            labelWidth={110}
-          />
-        </FormControl>
-        <FormControl variant="outlined" required>
-          <InputLabel htmlFor="password_confirm">Confirmation</InputLabel>
-          <OutlinedInput
-            fullWidth
-            error={!isPasswordCorrect || (!user.email && missingField)}
-            id="password_confirm"
-            onChange={(evt) => { dispatch(actionSetConfirmPassword(evt.target.value)) }}
-            type={values.showPassword ? 'text' : 'password'}
-            endAdornment={
+            )
+          }}
+        />
+
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Confirmation"
+          value={user.confirmPassword}
+          error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.confirmPassword && missingField)}
+          id="password_confirm"
+          onChange={(evt) => {
+            checkPasswordsInputs();
+            dispatch(actionSetConfirmPasswordValue(evt.target.value));
+            dispatch(actionSetConfirmPassword(evt.target.value));
+          }}
+          type={values.showPassword ? 'text' : 'password'}
+          helperText={(!user.confirmPassword && missingField) ? 'Champs vide' : null}
+          InputProps={{
+            endAdornment: (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
@@ -141,12 +167,17 @@ export default function Step1() {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            }
-            labelWidth={105}
-          />
-        </FormControl>
+            )
+          }}
+        />
       </div>
 
+      {!passwordStrength && (
+        <Alert severity="error">
+          <AlertTitle>Erreur</AlertTitle>
+        Le mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 nombre et un caractère spécial.
+        </Alert>
+      )}
     </form>
   );
 }

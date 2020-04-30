@@ -14,6 +14,13 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+// Import npm
+import passwordValidator from 'password-validator';
+import emailValidator from 'email-validator';
+
+// == import utils
+import {handdleVerifEmptyValue} from 'src/utils/checkSpaces';
+
 
 // == import composants local
 import Step1 from './Step1'
@@ -21,7 +28,7 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 
 // == import actions local
-import { actionSetMissingField } from '../../actions/user'
+import { actionSetMissingField, actionSignup, actionPasswordValidation, actionEmailValidation  } from '../../actions/user'
 
 // == import styles
 import './styles.scss'
@@ -86,6 +93,19 @@ function getStepContent(step) {
     }
 }
 
+// Create a schema
+const schema = new passwordValidator();
+ 
+// Add properties to it
+schema
+.is().min(8)                                    // Minimum length 8
+.is().max(100)                                  // Maximum length 100
+.has().uppercase()                              // Must have uppercase letters
+.has().lowercase()                              // Must have lowercase letters
+.has().digits()                                 // Must have digits
+.has().not().spaces()                           // Should not have spaces
+.has().symbols()                                // Must have special caractère
+
 
 // -------------------------- Export --------------------------
 
@@ -95,15 +115,50 @@ export default function Signup() {
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
     const { user, isPasswordCorrect, missingField } = useSelector((state) => state.user);
+    const isEmpty = handdleVerifEmptyValue(user.firstName) || handdleVerifEmptyValue(user.lastName) || handdleVerifEmptyValue(user.email)
+    || handdleVerifEmptyValue(user.username);    
 
 
 // -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleNext = () => {
-        if(user.firstName && user.lastName && user.username && user.email  && isPasswordCorrect) {
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        // TODO : CHECK IF USERNAME IS NOT ALREADY TAKEN IN DATABASE
+        console.log(user ,'user', isPasswordCorrect, 'is correct pass', !isEmpty, 'is empty', schema.validate(user.password), 'password ok', emailValidator.validate(user.email));
+        // First checkup : check if user has complete first step (if inputs are not empty)
+        // if passwords are matching 
+        // and if user did not filled up inputs with just spaces
+        if(user.firstName && 
+            user.lastName && 
+            user.username && 
+            user.email &&
+            user.password  && 
+            user.confirmPassword  && 
+            isPasswordCorrect &&
+            !isEmpty 
+            ) {
+                // check if password is strong enough (if it contains at least 8 character, 1 uppercase, 
+                //1 lowercase, 1 number and 1 special character)
+            if(schema.validate(user.password)){
+                dispatch(actionPasswordValidation(true));
+                // check if user's email exists
+                if(emailValidator.validate(user.email)){
+                    // If all ok, go to next step
+                    dispatch(actionEmailValidation(true));
+                    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                } else {
+                    dispatch(actionEmailValidation(false));
+                }
+            } else {
+                //Display an error message below pasword input 
+                dispatch(actionPasswordValidation(false));
+            }
         } else {
+            // send error and set inputs border into red
             dispatch(actionSetMissingField());
+        }
+        if(activeStep === steps.length-1){
+            // If final step send axios request in actionSignup
+            dispatch(actionSignup());
         }
     };
 

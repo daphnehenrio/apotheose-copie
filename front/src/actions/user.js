@@ -4,6 +4,7 @@ export const SET_LAST_NAME = 'action/SET_LAST_NAME';
 export const SET_FIRST_NAME = 'action/SET_FIRST_NAME';
 export const SET_USERNAME = 'action/SET_USERNAME';
 export const SET_PASSWORD = 'action/SET_PASSWORD';
+export const SET_CONFIRM_PASSWORD = 'action/SET_CONFIRM_PASSWORD';
 export const CONFIRM_PASSWORD = 'action/CONFIRM_PASSWORD';
 export const SET_EMAIL = 'action/SET_EMAIL';
 export const SET_ADDRESS = 'action/SET_ADDRESS';
@@ -15,6 +16,10 @@ export const SET_WORK_PHONE = 'action/SET_WORK_PHONE';
 export const SET_CHILDREN = 'action/SET_CHILDREN';
 export const SET_GENDER = 'action/SET_GENDER';
 export const MISSING_FIELD = 'action/MISSING_FIELD';
+export const SIGNUP = 'action/SIGNUP';
+export const LOGIN = 'action/LOGIN';
+export const CHECK_PASSWORD_STRENGTH = 'action/CHECK_PASSWORD_STRENGTH';
+export const CHECK_EMAIL_EXISTS = 'action/CHECK_EMAIL_EXISTS';
 
 export const actionSetLastName = (lastName) => ({
   type: SET_LAST_NAME,
@@ -37,6 +42,12 @@ export const actionSetPassword = (password) => ({
   type: SET_PASSWORD,
   password,
 });
+
+export const actionSetConfirmPasswordValue = (password) => ({
+  type: SET_CONFIRM_PASSWORD,
+  password,
+});
+
 export const actionSetConfirmPassword = (password) => ({
   type: CONFIRM_PASSWORD,
   password,
@@ -78,5 +89,25 @@ export const actionSetChildren = (children) => ({
 
 export const actionSetMissingField = () => ({
   type: MISSING_FIELD,
+});
+
+export const actionSignup = (user) => ({
+  type: SIGNUP,
+  user,
+});
+
+export const actionLogin = (user) => ({
+  type: LOGIN,
+  user,
+});
+
+export const actionPasswordValidation = (isStrong) => ({
+  type: CHECK_PASSWORD_STRENGTH,
+  isStrong,
+});
+
+export const actionEmailValidation = (exists) => ({
+  type: CHECK_EMAIL_EXISTS,
+  exists,
 });
 

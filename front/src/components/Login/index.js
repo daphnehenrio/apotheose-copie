@@ -23,7 +23,15 @@ import Link from '@material-ui/core/Link';
 
 // == import actions local
 
-import { actionSetLoginForm } from '../../actions/toggle';
+import { 
+    actionLogin, 
+    actionSetUsername,
+    actionSetPassword,
+} from '../../actions/user'
+
+import {
+    actionSetLoginForm, 
+} from '../../actions/toggle'
 
 
 // == import style
@@ -35,15 +43,17 @@ import './styles.scss';
 
 export default function Login() {
     const dispatch = useDispatch();
+    const user = useSelector((state => state.user));
     const openLoginForm = useSelector((state) => state.toggle.openLoginForm);
     const [values, setValues] = React.useState({
         showPassword: false,
     });
 
-// -------------------------- Fonctions State & Dispatch --------------------------
+    // -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleLogin = () => {
         dispatch(actionSetLoginForm());
+        dispatch(actionLogin());
     };
 
     const handleClickShowPassword = () => {
@@ -54,9 +64,10 @@ export default function Login() {
         event.preventDefault();
     }
 
-// -------------------------- Return --------------------------
+    // -------------------------- Return --------------------------
 
     return (
+
         <Dialog className="login-dialog" open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
 
             <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
@@ -72,33 +83,42 @@ export default function Login() {
                     <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
                     <OutlinedInput
                         fullWidth
-                        id="outlined-adornment-password"
-                        type={values.showPassword ? 'text' : 'password'}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        labelWidth={100}
+                        autoFocus
+                        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
                     />
-                </FormControl>
-                <Link className="login-dialog--link" href="/inscription">
-                    Créer un compte
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
+                        <OutlinedInput
+                            fullWidth
+                            onChange={(evt) => {dispatch(actionSetPassword(evt.target.value))}}
+                            id="outlined-adornment-password"
+                            type={values.showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            labelWidth={100}
+                        />
+                    </FormControl>
+                    <Link className="login-dialog--link" href="/inscription">
+                        Créer un compte
                 </Link>
-            </DialogContent>
-            <DialogActions>
-                <Button className="login-dialog--button" onClick={handleLogin} variant="contained">
-                    Valider
+                </DialogContent>
+                <DialogActions>
+                    <Button className="login-dialog--button" onClick={handleLogin} variant="contained">
+                        Valider
                 </Button>
-            </DialogActions>
-        </Dialog>
+                </DialogActions>
+            </Dialog>
+
     );
 
 };
