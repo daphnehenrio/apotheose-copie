@@ -2,8 +2,8 @@
 
 BEGIN;
 
-TRUNCATE TABLE user_profil CASCADE;
-	 
 TRUNCATE TABLE "user" CASCADE;
+
+TRUNCATE TABLE user_profil CASCADE;
 
 COMMIT;

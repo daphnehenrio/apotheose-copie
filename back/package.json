@@ -1,15 +1,26 @@
 {
-  "name": "apoexpress",
+  "name": "projet-apo",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexBGH/test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlexBGH/test/issues"
+  },
+  "homepage": "https://github.com/AlexBGH/test#readme",
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -18,17 +29,12 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "moment": "^2.24.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
+    "node-pre-gyp": "^0.14.0",
     "pg": "^8.0.3",
     "sanitizer": "^0.1.3",
     "sequelize": "^5.21.7",
-    "session": "^0.1.0"
-  },
-  "directories": {
-    "doc": "docs"
-  },
-  "devDependencies": {},
-  "description": ""
+    "validator": "^13.0.0"
+  }
 }
