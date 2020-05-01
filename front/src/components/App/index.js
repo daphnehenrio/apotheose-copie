@@ -18,6 +18,7 @@ import Menu from 'src/components/Menu';
 import Footer from 'src/components/Footer';
 import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
+import ArticlesHomePage from '../Articles';
 
 
 // -------------------------- styles composants --------------------------
@@ -73,6 +74,11 @@ const App = () => {
             <Route exact path="/">
               <div>
                 <HomePage/>
+              </div>
+            </Route>
+            <Route exact path="/articles/accueil">
+              <div>
+                <ArticlesHomePage/>
               </div>
             </Route>
             <Route exact path="/inscription">

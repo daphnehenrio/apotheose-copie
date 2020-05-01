@@ -45,7 +45,7 @@ export default function FileSystemNavigator() {
 
     const ServicesLinks = data.map((category) => {
       return (
-        <Link key={category.name} className="menu--sublink" href={`services/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/services/${slugify(category.name)}`)}>
+        <Link key={category.name} className="menu--sublink" to={`services/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/services/${slugify(category.name)}`)}>
 
           <Button
             disabled
@@ -67,7 +67,7 @@ export default function FileSystemNavigator() {
 
     const ArticlesCategoryLinks = (category, name)  => category.map((sousCat) => {
       return (
-        <Link key={sousCat.name} className="menu--sublink" href={`articles/${slugify(name)}/${slugify(sousCat.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(name)}/${slugify(sousCat.name)}`)}>
+        <Link key={sousCat.name} className="menu--sublink" to={`articles/${slugify(name)}/${slugify(sousCat.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(name)}/${slugify(sousCat.name)}`)}>
 
 
           <p className='tree-item-link'>
@@ -81,7 +81,7 @@ export default function FileSystemNavigator() {
       if (category.sousCat.length === 0) {
         console.log('accueil')
         return (
-          <Link key={category.name} className="menu--sublink" href={`articles/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(category.name)}`)}>
+          <Link key={category.name} className="menu--sublink" to={`articles/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(category.name)}`)}>
 
           <Button
             disabled
