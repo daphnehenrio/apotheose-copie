@@ -113,8 +113,6 @@ export default function Step1() {
         onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)) }}
       />
       <div className='group-input--password'>
-
-
         <TextField
           variant="outlined"
           id="password"

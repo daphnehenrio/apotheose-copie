@@ -96,9 +96,8 @@ export const actionSignup = (user) => ({
   user,
 });
 
-export const actionLogin = (user) => ({
+export const actionLogin = () => ({
   type: LOGIN,
-  user,
 });
 
 export const actionPasswordValidation = (isStrong) => ({

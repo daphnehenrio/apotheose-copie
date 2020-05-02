@@ -9,7 +9,8 @@ import {
 export default (store) => (next) => (action) => {
     switch (action.type) {
         case SIGNUP: {
-          const { user } = store.getState().user.user;
+          const { user } = store.getState().user;
+          console.log(user)
           const userInfo = {
             login: user.username,
             first_name: user.firstName,

@@ -4,7 +4,7 @@
   width: 100%;
 }
 .MuiDialog-paper {
-  height: 20rem;
+
   min-height: 300px
 
 }
@@ -30,6 +30,34 @@
 
         }
       }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: white;
+      padding: 0rem 1rem;
+
+      &--info {
+        margin-bottom: 25px;
+      }
+
+
+      &--gender {
+        margin-bottom: 15px;
+      }
+
+      &--label {
+        margin-top: 1em;
+        color: $color-primary;
+      }
+
+      .MuiFormControl-root,
+      .MuiFormLabel-root {
+        margin-bottom: 15px;
+      }
+
     }
 }
 

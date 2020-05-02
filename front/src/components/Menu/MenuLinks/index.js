@@ -47,17 +47,13 @@ export default function FileSystemNavigator() {
       return (
         <Link key={category.name} className="menu--sublink" href={`services/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/services/${slugify(category.name)}`)}>
 
-          <Button
-            disabled
-            endIcon={
-              <Icon
+            <Icon
                 color="primary"
                 style={{ fontSize: 30 }}
               >
                 {category.icon}
               </Icon>
-            }
-          />
+
           <p className='tree-item-link'>
               {category.name}
           </p>
@@ -79,21 +75,18 @@ export default function FileSystemNavigator() {
 
     const ArticlesLinks = data.map((category) => {
       if (category.sousCat.length === 0) {
-        console.log('accueil')
+
         return (
           <Link key={category.name} className="menu--sublink" href={`articles/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(category.name)}`)}>
 
-          <Button
-            disabled
-            endIcon={
-              <Icon
+
+            <Icon
                 color="primary"
                 style={{ fontSize: 30 }}
               >
                 {category.icon}
               </Icon>
-            }
-          />
+
           <p className='tree-item-link'>
               {category.name}
           </p>

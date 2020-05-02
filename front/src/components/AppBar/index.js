@@ -134,9 +134,6 @@ export default function PersistentDrawerLeft() {
 
 };
 
-
-
-console.log(screen.width)
 // -------------------------- Return --------------------------
 
   return (
