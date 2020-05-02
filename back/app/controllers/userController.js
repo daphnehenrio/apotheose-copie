@@ -5,6 +5,7 @@ const userController = {
   homePage: async (req, res) => {
     try {
 
+
       let user = await User.findAll({
         include : [
           {
@@ -12,6 +13,7 @@ const userController = {
           }
       ]
       });
+
 
       res.send(user);
 
@@ -21,6 +23,7 @@ const userController = {
     }
 
   }
+
 
 };
 

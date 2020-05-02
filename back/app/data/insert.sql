@@ -14,3 +14,4 @@ INSERT INTO "user" (
      1, 'Chris', 'Levilain', 'Cvilain', 'Cvilain2020', '/cvilain.jpg', 'cvilain@gmail.com'
      );
 
+
