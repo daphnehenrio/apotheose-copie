@@ -35,6 +35,7 @@ export default function HomePage() {
                 justify="space-evenly"
                 alignItems="center"
                 spacing={5}
+
             >
 
                 <Grid item>
@@ -66,7 +67,7 @@ export default function HomePage() {
                         justify="center"
                         alignItems="center"
                         spacing={3}
-                        wrap
+                        wrap="wrap"
                     >
                         <Grid item xs={10} md={3} sm={5}>
                             <Card className="root-card">
