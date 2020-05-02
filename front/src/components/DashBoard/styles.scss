@@ -1,0 +1,103 @@
+
+
+.tab-container{
+    display: flex;
+    justify-content: center;
+}
+
+.tab-container .MuiSvgIcon-root {
+    color: #1B4353;
+}
+
+.MuiBox-root{
+    width:100%;
+}
+
+.tab-content{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+
+.page-title{
+    font-size: 2rem;
+}
+
+.cards-infos {
+    width: 15rem;
+    height: 17rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+
+
+.notification-title {
+    display: flex;
+
+    padding: 1rem;
+}
+
+.cards-infos-title{
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.cards-infos-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cards-infos-footer .MuiSvgIcon-root{
+    color: grey;
+}
+
+.notes-infos{
+    width: 15rem;
+    height: 17rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.notes-infos-title{
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+}
+
+.note-body{
+    height: 70%;
+    overflow-x: auto;
+}
+
+.note-body::-webkit-scrollbar {
+    width: 0;
+  }
+
+
+.card-label{
+    background-color: rgb(165, 32, 32);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    width:5rem;
+    border-radius: 5px;
+}
+
+.card-media {
+    height: 240px;
+  }
+
+.root-card-article{
+    width: 20rem;
+    margin-bottom: 1rem;
+    
+}

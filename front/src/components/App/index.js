@@ -18,6 +18,7 @@ import Menu from 'src/components/Menu';
 import Footer from 'src/components/Footer';
 import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
+import DashBoard from 'src/components/DashBoard';
 
 
 // -------------------------- styles composants --------------------------
@@ -78,6 +79,11 @@ const App = () => {
             <Route exact path="/inscription">
               <div>
                 <Signup />
+              </div>
+            </Route>
+            <Route exact path="/mon-espace-personnel">
+              <div>
+                <DashBoard />
               </div>
             </Route>
           </Switch>
