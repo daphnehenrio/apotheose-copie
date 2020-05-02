@@ -16,7 +16,7 @@ CREATE TABLE "user" (
 CREATE TABLE user_profil (
 
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "user_id" int REFERENCES "user"(id),
+    "user_id" int NOT NULL REFERENCES "user"(id),
     "address" varchar(76),
     zip_code varchar(40),
     city varchar(76),
@@ -247,7 +247,6 @@ CREATE TABLE letter_type (
 
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "sub_category_id" int REFERENCES "sub_category"(id),
-    "article_id" int REFERENCES "article"(id),
     title text NOT NULL,
     content text NOT NULL
 

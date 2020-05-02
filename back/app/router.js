@@ -11,6 +11,8 @@ const router = express.Router();
 
 router.get('/', userController.homePage );
 
+router.get('/favicon.ico', (req, res) => res.status(204));
+
 router.get('/:id', user_profilController.user_profilPage );
 
 //connexion
