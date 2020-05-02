@@ -1,11 +1,10 @@
 
-
 .tab-container{
     display: flex;
     justify-content: center;
 }
 
-.tab-container .MuiSvgIcon-root {
+.MuiTab-wrapper .MuiSvgIcon-root {
     color: #1B4353;
 }
 
@@ -59,6 +58,27 @@
     color: grey;
 }
 
+
+
+.card-label{
+    background-color: rgb(165, 32, 32);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    width:5rem;
+    border-radius: 5px;
+}
+
+.card-media {
+    height: 240px;
+  }
+
+.root-card-article{
+    width: 20rem;
+    margin-bottom: 1rem;
+    
+}
+
 .notes-infos{
     width: 15rem;
     height: 17rem;
@@ -81,23 +101,3 @@
 .note-body::-webkit-scrollbar {
     width: 0;
   }
-
-
-.card-label{
-    background-color: rgb(165, 32, 32);
-    color: white;
-    padding: 0.5rem;
-    text-align: center;
-    width:5rem;
-    border-radius: 5px;
-}
-
-.card-media {
-    height: 240px;
-  }
-
-.root-card-article{
-    width: 20rem;
-    margin-bottom: 1rem;
-    
-}
