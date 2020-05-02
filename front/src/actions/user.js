@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const SET_LAST_NAME = 'action/SET_LAST_NAME';
 export const SET_FIRST_NAME = 'action/SET_FIRST_NAME';
-export const SET_USERNAME = 'action/SET_USERNAME';
+export const SET_LOGIN = 'action/SET_LOGIN';
 export const SET_PASSWORD = 'action/SET_PASSWORD';
 export const SET_CONFIRM_PASSWORD = 'action/SET_CONFIRM_PASSWORD';
 export const CONFIRM_PASSWORD = 'action/CONFIRM_PASSWORD';
@@ -17,22 +17,29 @@ export const SET_CHILDREN = 'action/SET_CHILDREN';
 export const SET_GENDER = 'action/SET_GENDER';
 export const MISSING_FIELD = 'action/MISSING_FIELD';
 export const SIGNUP = 'action/SIGNUP';
-export const LOGIN = 'action/LOGIN';
 export const CHECK_PASSWORD_STRENGTH = 'action/CHECK_PASSWORD_STRENGTH';
 export const CHECK_EMAIL_EXISTS = 'action/CHECK_EMAIL_EXISTS';
+export const LOGIN = 'action/LOGIN';
+export const LOG_USER = 'action/LOG_USER';
+export const ERROR_LOGIN = 'action/ERROR_LOGIN';
+
+
 
 export const actionSetLastName = (lastName) => ({
   type: SET_LAST_NAME,
   lastName,
 });
+
 export const actionSetFirstName = (firstName) => ({
   type: SET_FIRST_NAME,
   firstName,
 });
-export const actionSetUsername = (username) => ({
-  type: SET_USERNAME,
-  username,
+
+export const actionSetLogin = (login) => ({
+  type: SET_LOGIN,
+  login,
 });
+
 export const actionSetEmail = (email) => ({
   type: SET_EMAIL,
   email,
@@ -96,10 +103,6 @@ export const actionSignup = (user) => ({
   user,
 });
 
-export const actionLogin = () => ({
-  type: LOGIN,
-});
-
 export const actionPasswordValidation = (isStrong) => ({
   type: CHECK_PASSWORD_STRENGTH,
   isStrong,
@@ -108,5 +111,23 @@ export const actionPasswordValidation = (isStrong) => ({
 export const actionEmailValidation = (exists) => ({
   type: CHECK_EMAIL_EXISTS,
   exists,
+});
+
+// => Requete axios findUser
+export const actionLogin = (history) => ({
+  type: LOGIN,
+  history
+});
+
+// => If findUser => Connect l'utilisateur
+export const actionLogUser = (user) => ({
+  type: LOG_USER,
+  user
+});
+
+// => if not findUser => display error message
+export const actionErrorLogin = (message) => ({
+  type: ERROR_LOGIN,
+  message
 });
 

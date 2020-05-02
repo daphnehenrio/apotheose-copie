@@ -1,7 +1,7 @@
 import {
   SET_LAST_NAME,
   SET_FIRST_NAME,
-  SET_USERNAME,
+  SET_LOGIN,
   SET_PASSWORD,
   SET_CONFIRM_PASSWORD,
   CONFIRM_PASSWORD,
@@ -17,11 +17,17 @@ import {
   MISSING_FIELD,
   CHECK_PASSWORD_STRENGTH,
   CHECK_EMAIL_EXISTS,
+  LOG_USER,
+  ERROR_LOGIN
 } from '../actions/user';
+
+import {
+  SET_LOGIN_FORM,
+} from '../actions/toggle';
 
 const initialState = {
   user: {
-    username: '',
+    login: '',
     firstName: '',
     lastName: '',
     password: '',
@@ -40,6 +46,8 @@ const initialState = {
   missingField: false,
   passwordStrength: 'init',
   emailExists: 'init',
+  isLoginCorrect: 'init',
+  messageWrongLogin: false,
 
 };
 
@@ -63,12 +71,12 @@ export default (state = initialState, action = {}) => {
         }
       }
     }
-    case SET_USERNAME: {
+    case SET_LOGIN: {
       return {
         ...state,
         user: {
           ...state.user,
-          username: action.username,
+          login: action.login,
         }
       }
     }
@@ -202,6 +210,52 @@ export default (state = initialState, action = {}) => {
         emailExists: action.exists,
       }
     }
+    case LOG_USER: {
+      const {
+        first_name,
+        last_name,
+        email,
+        gender,
+        cellphoneNumber,
+        fixNumber,
+        workPhone,
+        zipCode,
+        city,
+        children,
+        adress
+      } = action.user;
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          firstName: first_name,
+          lastName: last_name,
+          email: email,
+          gender: gender,
+          cellphoneNumber: cellphoneNumber,
+          fixNumber: fixNumber,
+          workPhone: workPhone,
+          zipCode: zipCode,
+          city: city,
+          children: children,
+          adress: adress,
+        },
+        isLoginCorrect: true,
+      }
+    }
+    case ERROR_LOGIN : {
+      return {
+        ...state,
+        isLoginCorrect: false,
+        messageWrongLogin: action.message
+      }
+    }
+    case SET_LOGIN_FORM: {
+      return {
+        ...state,
+        messageWrongLogin: false,
+      }
+  }
     default: {
       return state;
     }

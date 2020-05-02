@@ -12,7 +12,7 @@ export default (store) => (next) => (action) => {
           const { user } = store.getState().user;
           console.log(user)
           const userInfo = {
-            login: user.username,
+            login: user.login,
             first_name: user.firstName,
             last_name: user.lastName,
             password: user.password,

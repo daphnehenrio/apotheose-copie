@@ -5,16 +5,15 @@ body {
   font-family: sans-serif;
 }
 
-.app .MuiButton-containedPrimary {
-  background-color: $color-primary;
+.MuiButton-containedPrimary {
+  background-color: $color-primary !important;
   &:hover {
-    background-color:$color-primary-light ;
-
+    background-color:$color-primary-light !important;
   }
 }
 
-.app .MuiButton-textSecondary{
-  color: $color-secondary ;
+.MuiButton-textSecondary{
+  color: $color-secondary !important;
 }
 
 .app .MuiButton-root.Mui-disabled {

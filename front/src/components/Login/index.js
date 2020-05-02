@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 // == import Material UI
 
@@ -14,12 +15,13 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Link from '@material-ui/core/Link';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 // == import actions local
 
 import {
     actionLogin,
-    actionSetUsername,
+    actionSetLogin,
     actionSetPassword,
 } from '../../actions/user'
 
@@ -38,15 +40,18 @@ import './styles.scss';
 export default function Login() {
     const dispatch = useDispatch();
     const openLoginForm = useSelector((state) => state.toggle.openLoginForm);
+    const { user, messageWrongLogin } = useSelector((state) => state.user);
+
     const [values, setValues] = React.useState({
         showPassword: false,
     });
 
+    const history = useHistory();
+
     // -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleLogin = () => {
-        dispatch(actionSetLoginForm());
-        dispatch(actionLogin());
+        dispatch(actionLogin(history));
     };
 
     const handleClickShowPassword = () => {
@@ -57,11 +62,15 @@ export default function Login() {
         event.preventDefault();
     }
 
+    const handleClose = () => {
+      dispatch(actionSetLoginForm());
+    };
+
     // -------------------------- Return --------------------------
 
     return (
 
-      <Dialog className="login-dialog" open={openLoginForm} onClose={handleLogin} aria-labelledby="form-dialog-title">
+      <Dialog className="login-dialog" open={openLoginForm} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
           <DialogContent>
             <form className="form-group" noValidate autoComplete="off">
@@ -69,15 +78,17 @@ export default function Login() {
                   id="outlined-basic"
                   label="Nom d'utilisateur"
                   variant="outlined"
+                  error={!user.login && typeof messageWrongLogin === 'string'}
                   fullWidth
                   autoFocus
-                  onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
+                  onChange={(evt) => { dispatch(actionSetLogin(evt.target.value)) }}
               />
 
               <TextField
                 variant="outlined"
                 id="outlined-adornment-password"
                 label="Mot de passe"
+                error={!user.password && typeof messageWrongLogin === 'string'}
                 fullWidth
                 type={values.showPassword ? 'text' : 'password'}
                 onChange={(evt) => { dispatch(actionSetPassword(evt.target.value)) }}
@@ -96,6 +107,17 @@ export default function Login() {
                   )
                 }}
               />
+              {
+                typeof messageWrongLogin === 'string'
+                ?
+                    <Alert severity="error">
+                      <AlertTitle>Erreur</AlertTitle>
+                      {messageWrongLogin}
+                    </Alert>
+                : ''
+
+              }
+
 
             </form>
             <Link className="login-dialog--link" href="/inscription">
@@ -103,6 +125,9 @@ export default function Login() {
             </Link>
           </DialogContent>
           <DialogActions>
+          <Button onClick={handleClose} color="secondary">
+            Annuler
+          </Button>
             <Button className="login-dialog--button" onClick={handleLogin} variant="contained">
               Valider
             </Button>

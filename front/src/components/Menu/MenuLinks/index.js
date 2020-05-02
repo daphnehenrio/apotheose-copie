@@ -25,6 +25,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 
 import data from '../data/data-menu'
+import { actionChangePage } from '../../../actions/routes';
 
 
 
@@ -38,7 +39,7 @@ export default function FileSystemNavigator() {
 
     const preventDefault = (event, route) => {
         event.preventDefault();
-        dispatch({ type: 'CHANGE_PAGE', route, history });
+        dispatch(actionChangePage(route, history));
     };
 
 // Compnents

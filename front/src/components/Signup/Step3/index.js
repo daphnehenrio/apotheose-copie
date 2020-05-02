@@ -57,7 +57,7 @@ export default function Step3() {
                 variant="outlined"
                 fullWidth
                 disabled
-                value={user.username}
+                value={user.login}
             />
             <TextField
                 id="email"
@@ -68,7 +68,7 @@ export default function Step3() {
                 disabled
                 value={user.email}
             />
-            {user.adress || user.zipCode || user.city || user.fixNumber || user.cellphoneNumber || user.workPhone || user.children ?           
+            {user.adress || user.zipCode || user.city || user.fixNumber || user.cellphoneNumber || user.workPhone || user.children ?
             <FormLabel component="legend" className="form-group--label">Informations secondaires</FormLabel>
             : null}
             {user.adress ?
