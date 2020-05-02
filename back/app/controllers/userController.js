@@ -1,12 +1,14 @@
-const User = require('../models/user');
+const { User } = require('../models');
 
-const mainController = {
+const userController = {
 
-  // méthode pour afficher la page d'accueil
   homePage: async (req, res) => {
     try {
-      // on va chercher tous les Quiz
+      
       let user = await User.findAll({
+        include: [
+          "user_profil"
+        ]
       });
       
       res.send(user);
@@ -21,4 +23,4 @@ const mainController = {
 };
 
 
-module.exports = mainController;
+module.exports = userController;

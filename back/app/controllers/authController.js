@@ -50,7 +50,6 @@ const authController = {
       // redirect user at "/"
       res.send(user);
 
-
     }).catch( err => {
       console.trace(err);
       res.status(500).send(err);
