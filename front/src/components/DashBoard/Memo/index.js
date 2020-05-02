@@ -6,12 +6,12 @@ import FolderIcon from '@material-ui/icons/Folder';
 
 
 
-
 const Memo = () => {
     const preventDefault = (event) => event.preventDefault();
 
     return (
-        <div className= 'tab-content'>
+        <div className='tab-content'>
+            
             <Paper className='cards-infos'>
                 <h4 className='cards-infos-title'>Mes infos</h4>
                 <ul>
