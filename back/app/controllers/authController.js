@@ -4,7 +4,7 @@ const { User } = require('../models');
 const emailValidator = require('email-validator');
 
 // bcrypt = hash
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const authController = {
 
