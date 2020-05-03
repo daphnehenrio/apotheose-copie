@@ -5,11 +5,10 @@ const userController = {
   homePage: async (req, res) => {
     try {
 
-
       let user = await User.findAll({
         include : [
           {
-              association : 'user_profil',
+            association : 'user_profil',
           }
       ]
       });
