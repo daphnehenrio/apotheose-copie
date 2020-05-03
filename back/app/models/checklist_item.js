@@ -7,7 +7,7 @@ class Checklist_item extends Model {
 
 Checklist_item.init({
   item: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
     allowNull: false
   },
 

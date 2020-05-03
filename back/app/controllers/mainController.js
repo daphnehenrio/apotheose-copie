@@ -9,7 +9,7 @@ mainController = {
 
   getAll : async (req, res) => {
     const options = {
-      include: {all: true, nested: true},
+      //include: {all: true, nested: true}, <= Jolie boucle sql
       order: ['id'],
     }
 

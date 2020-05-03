@@ -7,7 +7,7 @@ class Simulation_filed_select extends Model {
 
 Simulation_filed_select.init({
   option: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.TEXT,
     allowNull: false
   },
 

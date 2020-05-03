@@ -8,10 +8,10 @@ const leftMenu = {
   getMenu: async (req, res, next) => {
 
     const menu = await Category.findAll({
-      include: {
-        all: true,
-        nested: true
-      }
+      where: {
+        type_id: 1
+      },
+      include:['sub_category', 'service']
     })
 
     if (!menu) {

@@ -7,7 +7,7 @@ class Simulation_field extends Model {
 
 Simulation_field.init({
   label: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   input_type: {

@@ -1,12 +1,12 @@
 const { Model, DataTypes } = require('sequelize');
 const dbConnection = require('../db_connection');
 
-class User_category extends Model {
+class Type extends Model {
 
 };
 
-User_category.init({
-  title: {
+Type.init({
+  name: {
     type: DataTypes.STRING(60),
     allowNull: false
   },
@@ -17,10 +17,10 @@ User_category.init({
 
 }, {
   sequelize: dbConnection,
-  tableName: "user_category",
+  tableName: "type",
   createdAt: false,
   updatedAt: false
 });
 
 
-module.exports = User_category;
+module.exports = Type;

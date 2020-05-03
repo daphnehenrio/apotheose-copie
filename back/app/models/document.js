@@ -7,11 +7,11 @@ class Document extends Model {
 
 Document.init({
   name: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   link: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.TEXT,
     allowNull: false
   },
 

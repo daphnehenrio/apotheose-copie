@@ -19,16 +19,16 @@ Article.init({
     allowNull: false
   },
   image: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
   },
   source_image: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
   },
   source_content: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
   },
   author: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.TEXT,
   },
 
 

@@ -7,7 +7,7 @@ class Note extends Model {
 
 Note.init({
   title: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.STRING(100),
     allowNull: false
   },
 

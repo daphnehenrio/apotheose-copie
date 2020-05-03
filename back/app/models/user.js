@@ -7,17 +7,17 @@ class User extends Model {
 
 User.init({
   first_name: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING(60),
     allowNull: false
   },
 
   last_name: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING(60),
     allowNull: false
   },
 
   login: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING(76),
     allowNull: false
   },
 
@@ -27,9 +27,9 @@ User.init({
   },
 
   avatar: {
-    type: DataTypes.CHAR(40),
+    type: DataTypes.TEXT,
   },
-  
+
   email: {
     type: DataTypes.CHAR(76),
     allowNull: false

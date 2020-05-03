@@ -6,7 +6,7 @@ class Sub_category extends Model {
 };
 
 Sub_category.init({
-  title: {
+  name: {
     type: DataTypes.STRING(60),
     allowNull: false
   },

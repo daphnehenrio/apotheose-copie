@@ -7,7 +7,7 @@ class Simulation_result extends Model {
 
 Simulation_result.init({
   title: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.STRING(100),
     allowNull: false
   },
   content: {

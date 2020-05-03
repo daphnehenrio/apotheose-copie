@@ -6,3 +6,4 @@ category 2020-05-01T08:54:44Z kaihatsusha,,, <kaihatsusha@kaihatsusha-linux> # a
 service 2020-05-01T09:01:35Z kaihatsusha,,, <kaihatsusha@kaihatsusha-linux> # add service
 sub_category 2020-05-01T12:38:12Z kaihatsusha,,, <kaihatsusha@kaihatsusha-linux> # add sub_category
 
+service_has_category 2020-05-03T23:32:13Z kaihatsusha,,, <kaihatsusha@kaihatsusha-linux> # add service_has_category

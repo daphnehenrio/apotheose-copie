@@ -7,15 +7,15 @@ class Service extends Model {
 
 Service.init({
   name: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.STRING(100),
     allowNull: false
   },
   logo: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.TEXT,
     allowNull: false
   },
   link: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.TEXT,
     allowNull: false
   },
 

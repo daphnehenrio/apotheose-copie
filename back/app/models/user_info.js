@@ -12,7 +12,7 @@ User_info.init({
   },
 
   service_name: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(100),
     allowNull: false
   },
 

@@ -7,7 +7,7 @@ class Letter_type extends Model {
 
 Letter_type.init({
   title: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.STRING(100),
     allowNull: false
   },
 

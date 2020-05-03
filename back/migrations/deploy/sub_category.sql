@@ -3,7 +3,7 @@
 BEGIN;
 
 INSERT INTO sub_category (
-     title, category_id
+     "name", category_id
      )
  VALUES
   /*1*/ ('Auto', 1),
