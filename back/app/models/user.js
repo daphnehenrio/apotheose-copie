@@ -27,12 +27,11 @@ User.init({
   },
 
   avatar: {
-    type: DataTypes.TEXT,
-    allowNull: false
+    type: DataTypes.CHAR(40),
   },
-
+  
   email: {
-    type: DataTypes.TEXT,
+    type: DataTypes.CHAR(76),
     allowNull: false
   },
 

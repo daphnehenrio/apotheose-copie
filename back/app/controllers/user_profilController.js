@@ -1,7 +1,7 @@
 const { User } = require('../models');
 
 const user_profilController = {
-  
+
   user_profilPage: async (req, res, next) => {
     // recup id from url
     const userId = req.params.id;
@@ -14,7 +14,7 @@ const user_profilController = {
     }).then( async (user) => {
       // if not exist null
       if (! user) {
-        
+
         return next();
       }
       // send user with profil
