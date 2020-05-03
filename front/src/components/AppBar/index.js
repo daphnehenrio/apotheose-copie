@@ -124,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
 // -------------------------- Export --------------------------
 
 export default function PersistentDrawerLeft() {
+
     const classes = useStyles();
     const dispatch = useDispatch();
     // Get the state of the drawer to check if it's open or close (true or false)
@@ -217,4 +218,5 @@ export default function PersistentDrawerLeft() {
             <Login />
         </div>
     );
+
 }

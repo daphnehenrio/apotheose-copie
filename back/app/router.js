@@ -1,17 +1,20 @@
 const express = require('express');
 
-//const genericController = require('./controllers/genericController');
-
-//const cardToLabelController = require('./controllers/cardToLabelController');
-
-const mainController = require('./controllers/mainController');
+const userController = require('./controllers/userController');
 
 const authController = require('./controllers/authController');
+
+const user_profilController = require('./controllers/user_profilController');
 
 const router = express.Router();
 
 
-router.get('/', mainController.homePage );
+router.get('/', userController.homePage );
+
+
+router.get('/favicon.ico', (req, res) => res.status(204));
+
+router.get('/:id', user_profilController.user_profilPage );
 
 //connexion
 router.post('/login', authController.loginAction );

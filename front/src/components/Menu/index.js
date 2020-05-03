@@ -39,25 +39,25 @@ export default function PersistentDrawerLeft() {
 // -------------------------- Return --------------------------
 
   return (
-      <Drawer
-        className="menu--drawer"
-        variant="persistent"
-        anchor="left"
-        open={openDrawer}
-        classes={{
-          paper: "menu--drawer-paper",
-        }}
-      >
-        <div className="menu--drawer-header">
-          <Typography className="menu--title" variant="h6" noWrap>
-            Menu
-          </Typography>
-          <IconButton onClick={handleDrawer}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon style={{color:'white'}}/> : <ChevronRightIcon style={{color:'white'}}/>}
-          </IconButton>
-        </div>
-       {/* Drawer body content */}
-       <MenuLinks/>
-      </Drawer>
+    <Drawer
+      className="menu--drawer"
+      variant="persistent"
+      anchor="left"
+      open={openDrawer}
+      classes={{
+        paper: "menu--drawer-paper",
+      }}
+    >
+      <div className="menu--drawer-header">
+        <Typography className="menu--title" variant="h6" noWrap>
+          Menu
+        </Typography>
+        <IconButton onClick={handleDrawer}>
+          {theme.direction === 'ltr' ? <ChevronLeftIcon style={{color:'white'}}/> : <ChevronRightIcon style={{color:'white'}}/>}
+        </IconButton>
+      </div>
+      {/* Drawer body content */}
+      <MenuLinks/>
+    </Drawer>
   );
 }

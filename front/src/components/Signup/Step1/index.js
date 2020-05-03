@@ -17,7 +17,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import {
   actionSetLastName,
   actionSetFirstName,
-  actionSetUsername,
+  actionSetLogin,
   actionSetPassword,
   actionSetConfirmPasswordValue,
   actionSetConfirmPassword,
@@ -89,15 +89,15 @@ export default function Step1() {
       </div>
       <FormLabel component="legend" className="form-group--label">Information de connexion</FormLabel>
       <TextField
-        id="username"
+        id="login"
         required
-        value={user.username}
-        error={!user.username && missingField}
-        helperText={(!user.username && missingField) ? 'Champs vide' : null}
+        value={user.login}
+        error={!user.login && missingField}
+        helperText={(!user.login && missingField) ? 'Champs vide' : null}
         label="Nom d'utilisateur"
         variant="outlined"
         fullWidth
-        onChange={(evt) => { dispatch(actionSetUsername(evt.target.value)) }}
+        onChange={(evt) => { dispatch(actionSetLogin(evt.target.value)) }}
 
       />
       <TextField
@@ -113,8 +113,6 @@ export default function Step1() {
         onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)) }}
       />
       <div className='group-input--password'>
-
-
         <TextField
           variant="outlined"
           id="password"

@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
-app.use(bodyParser.json()); // => req.body va contenir le JSON de la req
+app.use(bodyParser.json()); // => req.body convert the JSON of the req
 
 // Setup CORS
 app.use((req, res, next) => {
@@ -40,24 +40,26 @@ app.use(session({
   }));
 
 const router = require('./app/router');
-const sanitizeMiddleware = require('./app/middleware/sanitize');
+const sanitizeMiddleware = require('./app/middlewares/sanitize');
 
 const PORT = process.env.PORT || 5050;
+
+// verify middleware user connected and send information to the views
+const userMiddleware = require('./app/middlewares/user');
+app.use( userMiddleware );
+
 
 // logger
 app.use(morgan('dev'));
 
-// on oublie pas le middleware pour le req.body
+//don't forget the middleware for req.body
 app.use(express.urlencoded({extended: true}));
-// on rajoute multer pour les formulaires au format "multipart"
+// add multer for the forms at format "multipart"
 /*const bodyParser = multer();
 app.use( bodyParser.none() );*/
 
-// ici, req.body existe déjà (grace à urlencoded), et on veut l'assinir AVANT de le passer au router
+// req.body exist (with urlencoded)
 app.use( sanitizeMiddleware );
-
-// on met en place le front, en une ligne !
-app.use(express.static('public'));
 
 app.use(router);
 

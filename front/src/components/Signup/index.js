@@ -116,20 +116,20 @@ export default function Signup() {
     const steps = getSteps();
     const { user, isPasswordCorrect, missingField } = useSelector((state) => state.user);
     const isEmpty = handdleVerifEmptyValue(user.firstName) || handdleVerifEmptyValue(user.lastName) || handdleVerifEmptyValue(user.email)
-    || handdleVerifEmptyValue(user.username);    
+    || handdleVerifEmptyValue(user.login);    
 
 
 // -------------------------- Fonctions State & Dispatch --------------------------
 
     const handleNext = () => {
-        // TODO : CHECK IF USERNAME IS NOT ALREADY TAKEN IN DATABASE
+        // TODO : CHECK IF LOGIN IS NOT ALREADY TAKEN IN DATABASE
         console.log(user ,'user', isPasswordCorrect, 'is correct pass', !isEmpty, 'is empty', schema.validate(user.password), 'password ok', emailValidator.validate(user.email));
         // First checkup : check if user has complete first step (if inputs are not empty)
         // if passwords are matching 
         // and if user did not filled up inputs with just spaces
         if(user.firstName && 
             user.lastName && 
-            user.username && 
+            user.login && 
             user.email &&
             user.password  && 
             user.confirmPassword  && 

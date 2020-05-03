@@ -55,6 +55,7 @@ const App = () => {
   const classes = useStyles();
   const { openDrawer } = useSelector((state) => state.toggle);
 
+
   let classesContent = "menu--content";
   classesContent += openDrawer ? ' contentShift' : '';
 
