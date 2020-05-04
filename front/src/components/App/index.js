@@ -1,5 +1,5 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,6 +19,9 @@ import Footer from 'src/components/Footer';
 import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
 import DashBoard from 'src/components/DashBoard';
+
+// == import action
+import { actionGetMenu } from '../../actions/menu';
 
 
 // -------------------------- styles composants --------------------------
@@ -54,11 +57,18 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const { openDrawer } = useSelector((state) => state.toggle);
+  const dispatch = useDispatch();
 
 
   let classesContent = "menu--content";
   classesContent += openDrawer ? ' contentShift' : '';
 
+
+    useEffect(() => {
+      (function getMenu() {
+        dispatch(actionGetMenu());
+      })();
+    }, []);
 
 // -------------------------- Return --------------------------
 
