@@ -128,7 +128,8 @@ CREATE TABLE simulation_field_select (
 
     "option" text
 
-);
+/* --------------------------------------- MENU --------------------------------------- */
+
 
 /* SIMULATION_RESULT => resultats des simulations */
 CREATE TABLE simulation_result (
@@ -155,6 +156,9 @@ CREATE TABLE "user" (
     "avatar"     text,
     "email"      varchar(76) NOT NULL
 
+    "name" text NOT NULL,
+    "logo" text NOT NULL,
+    "link" text NOT NULL
 );
 
 /* USER_PROFIL => infos secondaires dans le profil */
@@ -221,7 +225,6 @@ CREATE TABLE document (
     "updated_at" date,
     "created_at" date
 
-);
 
 /* --------------------------------------- TODOLIST --------------------------------------- */
 
@@ -348,7 +351,6 @@ CREATE TABLE article_has_simulation (
 
   PRIMARY KEY (article_id, simulation_id)
 
-);
 
 /* -------------------- LETTER TYPE -------------------- */
 
