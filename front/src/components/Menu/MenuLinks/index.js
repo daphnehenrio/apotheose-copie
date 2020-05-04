@@ -34,6 +34,8 @@ import { actionChangePage } from '../../../actions/routes';
 export default function FileSystemNavigator() {
     const history = useHistory();
     const dispatch = useDispatch();
+    const menu = useSelector(state => state.menu.category )
+    console.log('menu.cat', menu)
 
 // -------------------------- Fonctions Dispatch --------------------------
 
@@ -44,27 +46,22 @@ export default function FileSystemNavigator() {
 
 // Compnents
 
-    const ServicesLinks = data.map((category) => {
-      return (
-        <Link key={category.name} className="menu--sublink" href={`services/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/services/${slugify(category.name)}`)}>
+    const ServicesLinks = menu.map((category) => {
+      if(menu.length > 0 ){
+        return (
+          <Link key={category.name} className="menu--sublink" href={`services/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/services/${slugify(category.name)}`)}>
 
-            <Icon
-                color="primary"
-                style={{ fontSize: 30 }}
-              >
-                {category.icon}
-              </Icon>
-
-          <p className='tree-item-link'>
-              {category.name}
-          </p>
-        </Link>
-      )
+            <p className='tree-item-link'>
+                {category.name}
+            </p>
+          </Link>
+        )
+      }
     })
 
     const ArticlesCategoryLinks = (category, name)  => category.map((sousCat) => {
       return (
-        <Link key={sousCat.name} className="menu--sublink" href={`articles/${slugify(name)}/${slugify(sousCat.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(name)}/${slugify(sousCat.name)}`)}>
+        <Link key={sousCat.id} className="menu--sublink" href={`articles/${slugify(name)}/${slugify(sousCat.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(name)}/${slugify(sousCat.name)}`)}>
 
 
           <p className='tree-item-link'>
@@ -74,25 +71,17 @@ export default function FileSystemNavigator() {
       )
     })
 
-    const ArticlesLinks = data.map((category) => {
-      if (category.sousCat.length === 0) {
-
-        return (
+    const ArticlesLinks = menu.map((category) => {
+      if (!category.sub_category || category.sub_category?.length === 0) {
+        console.log('err')
+        return /*(
           <Link key={category.name} className="menu--sublink" href={`articles/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(category.name)}`)}>
-
-
-            <Icon
-                color="primary"
-                style={{ fontSize: 30 }}
-              >
-                {category.icon}
-              </Icon>
 
           <p className='tree-item-link'>
               {category.name}
           </p>
         </Link>
-        )
+        )*/
       }
       return (
         <ExpansionPanel className="menu--ExpansionPanel" key={category.name}>
@@ -105,7 +94,7 @@ export default function FileSystemNavigator() {
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails>
-            {ArticlesCategoryLinks(category.sousCat, category.name)}
+            {ArticlesCategoryLinks(category.sub_category, category.name)}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       )

@@ -2,7 +2,7 @@ export default [{
     name: 'Accueil',
     icon: "sort",
     services: [],
-    sousCat: [],
+    sub_category: [],
   },
   {
     name: 'État civil',
@@ -11,7 +11,7 @@ export default [{
       name: 'Services Public',
       icon: '',
     }, ],
-    sousCat: [{
+    sub_category: [{
         name: 'Naissance'
       },
       {
@@ -39,7 +39,7 @@ export default [{
         icon: '',
       },
     ],
-    sousCat: [{
+    sub_category: [{
         name: 'Caf'
       },
       {
@@ -97,7 +97,7 @@ export default [{
         icon: "account_balance",
       },
     ],
-    sousCat: [{
+    sub_category: [{
         name: 'Général'
       },
       {
@@ -128,7 +128,7 @@ export default [{
         icon: '',
       }
     ],
-    sousCat: [{
+    sub_category: [{
         name: 'Général'
       },
       {
@@ -146,7 +146,7 @@ export default [{
       name: 'hlm',
       icon: '',
     }],
-    sousCat: [{
+    sub_category: [{
         name: 'Louer (particulier)'
       },
       {
@@ -180,7 +180,7 @@ export default [{
       icon: '',
     },
   ],
-    sousCat: [{
+    sub_category: [{
         name: 'Gaz'
       },
       {
@@ -198,7 +198,7 @@ export default [{
       name: 'Education-national',
       icon: '',
     }],
-    sousCat: [{
+    sub_category: [{
         name: 'Primaire'
       },
       {
@@ -226,7 +226,7 @@ export default [{
       name: 'O-clock',
       icon: '',
     }],
-    sousCat: [{
+    sub_category: [{
         name: 'Informatique / Numérique'
       },
       {
