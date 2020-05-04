@@ -1,22 +1,23 @@
 const { Model, DataTypes } = require('sequelize');
 const dbConnection = require('../db_connection');
 
-class Sub_category extends Model {
+class Todolist_item extends Model {
 
 };
 
-Sub_category.init({
-  name: {
-    type: DataTypes.STRING(60),
+Todolist_item.init({
+
+  content: {
+    type: DataTypes.TEXT,
     allowNull: false
   },
 
 }, {
   sequelize: dbConnection,
-  tableName: "sub_category",
+  tableName: "todolist_item",
   createdAt: false,
   updatedAt: false
 });
 
 
-module.exports = Sub_category;
+module.exports = Todolist_item;
