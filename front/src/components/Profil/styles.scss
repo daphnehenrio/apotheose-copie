@@ -1,0 +1,63 @@
+.profil{
+    display: flex;
+    flex-direction: column;
+    margin-top: 7rem;
+}
+
+.profil-title{
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.profil .MuiTypography-root{
+    height: 100%;
+}
+
+.profil .MuiSvgIcon-root{
+    color: white;
+}
+
+.infos-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-height: 50vh;
+}
+
+.infos-content{
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+}
+
+.infos-container h5{
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.sub-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
+
+.sub-container-content{
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5rem;
+    flex-wrap: wrap;
+}
+
+
+.MuiTab-wrapper {
+    align-items: flex-start !important;
+}
+
+
+.category-content{
+    width: 100%;
+}
