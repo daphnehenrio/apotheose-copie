@@ -59,7 +59,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '70%',
+        maxWidth:'1050px',
         margin: '8rem 0',
         backgroundColor: 'rgba(255,255,255,0.5)',
     },
