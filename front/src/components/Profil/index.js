@@ -6,19 +6,24 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
+import { useDispatch, useSelector } from 'react-redux';
+
+// == Import actions
+
+import {
+    actionSetOpenEditProfil,
+  } from '../../actions/profil';
 
 
 // == Import styles
 import './styles.scss';
+
+// == Import components
+import EditProfil from 'src/components/Profil/EditProfil';
 
 
 const Category = withStyles({
@@ -30,30 +35,6 @@ const Category = withStyles({
 })(Tab);
 
 
-
-const InfosCard = withStyles({
-    root: {
-        minHeight: '30rem',
-        marginLeft: '5rem',
-        backgroundColor: '#1B4353',
-        boxShadow: 'none',
-        color: 'white'
-    },
-})(Card);
-
-const InfosCardHeader = withStyles({
-    root: {
-        borderBottom: '1px solid lightgrey',
-        margin: '0 1rem'
-    },
-    title: {
-        fontSize: '1.5rem',
-        marginLeft: '1rem',
-    },
-    avatar: {
-        color: 'white'
-    }
-})(CardHeader);
 
 
 function TabPanel(props) {
@@ -69,7 +50,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box p={3}>
-                    <Typography>{children}</Typography>
+                    <div>{children}</div>
                 </Box>
             )}
         </div>
@@ -93,8 +74,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         display: 'flex',
-        height: 'auto',
-        maxHeight: '50vh',
         margin: '0 5rem',
         minWidth: '1050px',
     },
@@ -109,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Profil() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+    const dispatch = useDispatch();
+  
+    const handleEditProfil = (bool) => {
+      dispatch(actionSetOpenEditProfil(bool));
+    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -135,21 +119,21 @@ export default function Profil() {
                     <Category label="Caf" {...a11yProps(3)} />
                 </Tabs>
                 <TabPanel className='category-content' value={value} index={0}>
-                    <InfosCard className={classes.rootCard}>
-                        <InfosCardHeader
-                            avatar={
+                <div className='card-container'>
+                        <div className='card-header'>
+                            <div className='card-header-left'>
                                 <Avatar aria-label="recipe">
                                     H
-                                    </Avatar>
-                            }
-                            action={
-                                <IconButton aria-label="settings">
+                                </Avatar>
+                                <h3>Mes Informations</h3>
+                            </div>
+                            <div className='card-header-right'>
+                                <IconButton aria-label="settings" onClick={(evt) => {handleEditProfil(true)}}>
                                     <EditIcon />
                                 </IconButton>
-                            }
-                            title="Mes infos"
-                        />
-                        <CardContent>
+                            </div>
+                        </div>
+                        <div className='card-content'>
                             <ul className='infos-container'>
                                 <div className='sub-container'>
                                     <h5>Nom et prénom :</h5>
@@ -193,49 +177,40 @@ export default function Profil() {
 
                                 </div>
                             </ul>
-                        </CardContent>
-
-                    </InfosCard>
+                        </div>
+                    </div>
                 </TabPanel>
                 <TabPanel className='category-content' value={value} index={1}>
-                    <InfosCard className={classes.rootCard}>
-                        <InfosCardHeader
-                            avatar={
+                <div className='card-container'>
+                        <div className='card-header'>
+                            <div className='card-header-left'>
                                 <Avatar aria-label="recipe">
                                     H
-                                    </Avatar>
-                            }
-                            action={
-                                <div>
-                                    <IconButton aria-label="settings">
+                                </Avatar>
+                                <h3>Informations supplémentaires</h3>
+                            </div>
+                            <div className='card-header-right'>
+                                <IconButton aria-label="settings">
                                     <AddIcon />
-                                    </IconButton>
-                                    <IconButton aria-label="settings">
-                                        <EditIcon />
-                                    </IconButton>
-                                </div>
-                            }
-                            title="Infos supplémentaires"
-                        />
-                        <CardContent>
-                            <ul className='infos-contener'>
-                                <li className='infos-content'>Ecole</li>
-                                <li className='infos-content'>Nounou</li>
-                                <li className='infos-content'>Travail</li>
-                            </ul>
-                        </CardContent>
-
-                    </InfosCard>
+                                </IconButton>
+                                <IconButton aria-label="settings">
+                                    <EditIcon />
+                                </IconButton>
+                            </div>
+                        </div>
+                        <div className='card-content'>
+                            
+                        </div>
+                    </div>
                 </TabPanel >
                 <TabPanel className='category-content' value={value} index={2}>
-                    <div>
-
-                    </div>
+                    
                 </TabPanel>
                 <TabPanel className='category-content' value={value} index={3}>
                     Item Four
                  </TabPanel>
             </div>
+            <EditProfil/>
         </div>
 
 

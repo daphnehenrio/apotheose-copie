@@ -24,7 +24,7 @@
     flex-direction: column;
     justify-content: space-between;
     flex-wrap: wrap;
-    max-height: 50vh;
+    max-height: 300px;
 }
 
 .infos-content{
@@ -60,4 +60,68 @@
 
 .category-content{
     width: 100%;
+}
+
+.card-container{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    margin: 0 5rem;
+}
+
+.card-header{
+    width: 100%;
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid white;
+    padding-bottom: 1rem;
+}
+
+.card-header-left{
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.card-header-left h3{
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.card-header-right{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.group-input {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.form-group-label{
+    margin-bottom: 1rem ;
+}
+
+.left-edit-profil{
+    width: 45%;
+}
+
+.left-edit-profil .MuiFormControl-root{
+    margin-bottom: 1rem;
+}
+
+
+.right-edit-profil{
+    width: 45%;
+}
+
+.right-edit-profil .MuiFormControl-root{
+    margin-bottom: 1rem;
 }
