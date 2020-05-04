@@ -11,7 +11,9 @@ const leftMenu = {
       where: {
         type_id: 1
       },
-      include:['sub_category', 'service']
+      include:['sub_category'],
+      order: ['id', ['sub_category','name', 'ASC']]
+
     })
 
     if (!menu) {
