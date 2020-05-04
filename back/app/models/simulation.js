@@ -1,22 +1,22 @@
 const { Model, DataTypes } = require('sequelize');
 const dbConnection = require('../db_connection');
 
-class Sub_category extends Model {
+class Simulation extends Model {
 
 };
 
-Sub_category.init({
-  name: {
-    type: DataTypes.STRING(60),
+Simulation.init({
+  title: {
+    type: DataTypes.STRING(100),
     allowNull: false
   },
 
 }, {
   sequelize: dbConnection,
-  tableName: "sub_category",
+  tableName: "simulation",
   createdAt: false,
   updatedAt: false
 });
 
 
-module.exports = Sub_category;
+module.exports = Simulation;

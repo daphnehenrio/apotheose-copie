@@ -11,7 +11,7 @@ BEGIN;
     );
 
  INSERT INTO user_profil (
-      user_id, "address", zip_code, city, phone_number , cellphone_number, phone_work, children, statut, gender
+      "user_id", "address", zip_code, city, phone_number , cellphone_number, phone_work, children, statut, gender
      )
  VALUES
 (

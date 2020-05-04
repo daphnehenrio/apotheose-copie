@@ -7,7 +7,7 @@ class User_profil extends Model {
 
 User_profil.init({
   address: {
-    type: DataTypes.STRING(76),
+    type: DataTypes.TEXT,
     allowNull: true
   },
 
@@ -17,7 +17,7 @@ User_profil.init({
   },
 
   city: {
-    type: DataTypes.STRING(76),
+    type: DataTypes.STRING(100),
     allowNull: true
   },
 
