@@ -23,6 +23,7 @@ import Profil from 'src/components/Profil';
 
 // == import action
 import { actionGetMenu } from '../../actions/menu';
+import { actionCheckSession } from '../../actions/user';
 
 
 // -------------------------- styles composants --------------------------
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const { openDrawer } = useSelector((state) => state.toggle);
+  const { connected } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
 
@@ -66,6 +68,9 @@ const App = () => {
 
 
     useEffect(() => {
+      (function checkSession() {
+        dispatch(actionCheckSession());
+      })();
       (function getMenu() {
         dispatch(actionGetMenu());
       })();
@@ -93,15 +98,34 @@ const App = () => {
                 <Signup />
               </div>
             </Route>
-            <Route exact path="/mon-espace-personnel">
-              <div>
-                <DashBoard />
-              </div>
+            <Route exact path="/mon-espace-personnel"
+              render={() => {
+                if (!connected) {
+                  return <Redirect to="/" />;
+                }
+                return (
+                  <div>
+                    <DashBoard/>
+                  </div>
+                );
+              }}
+            >
             </Route>
-            <Route exaact path="/profil">
-              <div>
-                <Profil/>
-              </div>
+            <Route
+              exact
+              path="/profil"
+              render={() => {
+                if (!connected) {
+                  return <Redirect to="/" />;
+                }
+                return (
+                  <div>
+                    <Profil/>
+                  </div>
+                );
+              }}
+            >
+
             </Route>
           </Switch>
           <Footer />

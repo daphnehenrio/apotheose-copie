@@ -23,6 +23,7 @@ export const LOGIN = 'action/LOGIN';
 export const LOG_USER = 'action/LOG_USER';
 export const ERROR_LOGIN = 'action/ERROR_LOGIN';
 export const LOGOUT = 'action/LOGOUT';
+export const CHECK_SESSION = 'action/CHECK_SESSION';
 
 
 
@@ -136,5 +137,9 @@ export const actionErrorLogin = (message) => ({
 export const actionLogout = (history) => ({
   type: LOGOUT,
   history
+});
+
+export const actionCheckSession = () => ({
+  type: CHECK_SESSION,
 });
 

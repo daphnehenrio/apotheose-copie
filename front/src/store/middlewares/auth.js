@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import {
-    LOGIN, actionLogUser, actionErrorLogin, LOGOUT
+    LOGIN, actionLogUser, actionErrorLogin, LOGOUT, CHECK_SESSION,
 } from '../../actions/user';
 import { actionChangePage } from '../../actions/routes';
 import { actionSetLoginForm } from '../../actions/toggle';
@@ -9,6 +9,35 @@ import { actionSetLoginForm } from '../../actions/toggle';
 
 export default (store) => (next) => (action) => {
     switch (action.type) {
+        case CHECK_SESSION: {
+          axios
+            .get('http://localhost:5050/session',
+            {
+              withCredentials: true,
+            })
+            .then((res) => {
+              const user = {
+                firstname : res.data.first_name ,
+                lastname: res.data.last_name ,
+                email: res.data.email,
+                gender: '' ,
+                cellphoneNumber : '',
+                fixNumber : '',
+                workPhone : '',
+                zipCode : '',
+                city : '',
+                children : '',
+                adress : ''
+
+              }
+              console.log(user)
+              store.dispatch(actionLogUser(user))
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+            return;
+        }
         case LOGIN: {
             const user = store.getState().user.user;
             const userLogin = {

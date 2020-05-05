@@ -73,7 +73,7 @@ export default function Login() {
       <Dialog className="login-dialog" open={openLoginForm} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
           <DialogContent>
-            <form className="form-group" noValidate autoComplete="off">
+            <form className="form-group" noValidate autoComplete="off" onSubmit={handleLogin}>
               <TextField
                   id="outlined-basic"
                   label="Nom d'utilisateur"
