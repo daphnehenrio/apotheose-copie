@@ -11,6 +11,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import CloseIcon from '@material-ui/icons/Close';
+
 
 
 // == Import actions
@@ -18,7 +21,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     actionSetOpenEditProfil,
     actionSetOpenAddInfoSup,
+    actionAddInfoSup,
+    actionSetInfoSupTitle,
+    actionSetInfoSupValue,
+    actionClearAddInfoSup,
 } from '../../actions/profil';
+
+// == import utils
+import { handdleVerifEmptyValue } from 'src/utils/checkSpaces';
 
 
 // == Import styles
@@ -26,7 +36,6 @@ import './styles.scss';
 
 // == Import components
 import EditProfil from 'src/components/Profil/EditProfil';
-import AddInfoSup from 'src/components/Profil/AddInfoSup';
 
 
 const Category = withStyles({
@@ -92,6 +101,8 @@ export default function Profil() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const dispatch = useDispatch();
+    const openAddInfoSup = useSelector((state) => state.profil.openAddInfoSup);
+    const infoSup = useSelector((state) => state.profil.infoSupToAdd);
     const infosSup = useSelector((state) => state.profil.infosSup);
     const infosSupList = infosSup.map(info => {
         return (
@@ -214,6 +225,35 @@ export default function Profil() {
                         <div className='card-content'>
                             <ul className='infos-container'>
                                 {infosSupList}
+                                {openAddInfoSup && (
+                                    <form onSubmit={(evt) => {
+                                        console.log('SUBMIT DU FORM');
+                                        evt.preventDefault();
+                                        if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
+                                            dispatch(actionAddInfoSup(infoSup));
+                                            dispatch(actionClearAddInfoSup());
+                                            document.getElementById('add-info-sup-title').focus();
+                                        }
+                                    }}
+                                        className='add-infos-sup-container'>
+                                        <TextField
+                                            id="add-info-sup-title"
+                                            onChange={(evt) => { dispatch(actionSetInfoSupTitle(evt.target.value)) }}
+                                            value={infoSup.title}
+                                            autoFocus
+                                        />
+                                        <p className='add-infos-sup-separator'> : </p>
+                                        <TextField
+                                            id="standard-basic"
+                                            onChange={(evt) => { dispatch(actionSetInfoSupValue(evt.target.value)) }}
+                                            value={infoSup.value}
+                                        />
+                                        <IconButton aria-label="delete" onClick={(evt) => { handleAddInfoSup(false) }}>
+                                            <CloseIcon />
+                                        </IconButton>
+                                        <input className='hidden' type='submit' />
+                                    </form>
+                                )}
                             </ul>
                         </div>
                     </div>
@@ -226,8 +266,8 @@ export default function Profil() {
                  </TabPanel>
             </div>
             <EditProfil />
-            <AddInfoSup/>
-            
+
+
         </div>
 
 

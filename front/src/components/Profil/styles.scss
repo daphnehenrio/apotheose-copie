@@ -129,12 +129,17 @@
 .add-infos-sup-container{
     display: flex;
     flex-direction: row;
+    width: fit-content;
+}
+
+.add-infos-sup-container .hidden{
+    display: none;
 }
 
 .add-infos-sup-separator{
     margin: 0 1rem;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 }
 
 
