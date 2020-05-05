@@ -17,10 +17,29 @@ import MenuItem from '@material-ui/core/MenuItem';
 // == Import actions
 
 import {
-  actionSetOpenEditProfil,
+
+    actionSetOpenEditProfil,
+    actionSetLastName,
+    actionSetFirstName,
+    actionSetLogin,
+    actionSetPassword,
+    actionSetConfirmPasswordValue,
+    actionSetConfirmPassword,
+    actionSetEmail,
+    actionSetAddress,
+    actionSetZipCode,
+    actionSetCity,
+    actionSetFixNumber,
+    actionSetCellphoneNumber,
+    actionSetWorkPhone,
+    actionSetChildren,
+    actionSetGender,
+
 } from '../../../actions/profil';
 
+
 const EditFormContent = withStyles({
+
 
   root: {
     display: 'flex',
