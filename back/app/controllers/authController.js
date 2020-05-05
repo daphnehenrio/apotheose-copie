@@ -19,6 +19,7 @@ const authController = {
       where: {
         login: login
       },
+      include:  ["user_profil"]
     }).then( (user) => {
 
       // if not exist => error

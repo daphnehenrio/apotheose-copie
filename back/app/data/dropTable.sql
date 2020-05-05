@@ -4,7 +4,7 @@ BEGIN;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS
 
-
+  "type",
   "category",
   "service",
   "sub_category",
@@ -25,10 +25,8 @@ DROP TABLE IF EXISTS
   "todolist_item",
   "note",
   "user_checklist",
-  "category_has_type",
-  "category_has_sub_category",
+  "user_has_article",
   "service_has_category",
-  "user_service_has_category",
   "article_has_sub_category",
   "article_has_letter_type",
   "article_has_checklist",
@@ -37,8 +35,6 @@ DROP TABLE IF EXISTS
   "simulation_has_sub_category",
   "checklist_has_sub_category",
   "checklist_has_checklist_item",
-  "user_checklist_has_checklist_item",
-  "user_has_article",
-  "user_info_has_category";
+  "user_checklist_has_checklist_item";
 
 COMMIT;
