@@ -29,7 +29,8 @@ const EditFormContent = withStyles({
         '&::-webkit-scrollbar': {
             width: '0',
           }
-    }
+          
+    },
 })(DialogContent);
 
 const EditForm = withStyles({
@@ -54,6 +55,7 @@ const GenderInput = withStyles({
 export default function EditProfil() {
     const dispatch = useDispatch();
     const openEditProfil = useSelector((state) => state.profil.openEditProfil);
+    const user = useSelector((state) => state.user.user);
 
     const handleEditProfil = (bool) => {
         dispatch(actionSetOpenEditProfil(bool));
@@ -77,13 +79,14 @@ export default function EditProfil() {
                                 id="last_name"
                                 label="Nom"
                                 variant="outlined"
+                                defaultValue={user.lastName}
                                 autoFocus
                             />
                             <TextField
                                 id="first_name"
                                 label="Prénom"
                                 variant="outlined"
-
+                                defaultValue={user.firstName}
                             />
                         </div>
                         <FormLabel component="legend" className="form-group-label">Information de connexion</FormLabel>
@@ -92,6 +95,7 @@ export default function EditProfil() {
                             label="Nom d'utilisateur"
                             variant="outlined"
                             fullWidth
+                            defaultValue={user.login}
                         />
                         <TextField
                             id="email"
@@ -99,6 +103,7 @@ export default function EditProfil() {
                             variant="outlined"
                             fullWidth
                             type='email'
+                            defaultValue={user.email}
                         />
                         <FormLabel component="legend" className="form-group-label">Social</FormLabel>
                         <div className='group-input'>
@@ -106,6 +111,7 @@ export default function EditProfil() {
                                 id="age"
                                 label="Age"
                                 variant="outlined"
+                                defaultValue={user.age}
                             />
                             <GenderInput variant="outlined">
                                 <InputLabel id="demo-simple-select-outlined-label">Genre</InputLabel>
@@ -136,6 +142,7 @@ export default function EditProfil() {
                                 label="Enfant"
                                 variant="outlined"
                                 type="Number"
+                                defaultValue={user.children}
                             />
                         </div>
                     </div>
@@ -146,17 +153,20 @@ export default function EditProfil() {
                             label="Adresse"
                             variant="outlined"
                             fullWidth
+                            defaultValue={user.adress}
                         />
                         <div className='group-input'>
                             <TextField
                                 id="city"
                                 label="Ville"
                                 variant="outlined"
+                                defaultValue={user.city}
                             />
                             <TextField
                                 id="zip-code"
                                 label="Code Postal"
                                 variant="outlined"
+                                defaultValue={user.zipCode}
                             />
                         </div>
                         <FormLabel component="legend" className="form-group-label">Téléphones</FormLabel>
@@ -165,16 +175,19 @@ export default function EditProfil() {
                                 id="fix"
                                 label="Fix"
                                 variant="outlined"
+                                defaultValue={user.fixNumber}
                             />
                             <TextField
                                 id="cellphone"
                                 label="Portable"
                                 variant="outlined"
+                                defaultValue={user.cellphoneNumber}
                             />
                             <TextField
                                 id="work"
                                 label="Travail"
                                 variant="outlined"
+                                defaultValue={user.workPhone}
                             />
                         </div>
 

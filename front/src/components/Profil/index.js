@@ -11,12 +11,24 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import CloseIcon from '@material-ui/icons/Close';
+
+
 
 // == Import actions
 
 import {
     actionSetOpenEditProfil,
-  } from '../../actions/profil';
+    actionSetOpenAddInfoSup,
+    actionAddInfoSup,
+    actionSetInfoSupTitle,
+    actionSetInfoSupValue,
+    actionClearAddInfoSup,
+} from '../../actions/profil';
+
+// == import utils
+import { handdleVerifEmptyValue } from 'src/utils/checkSpaces';
 
 
 // == Import styles
@@ -89,9 +101,21 @@ export default function Profil() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const dispatch = useDispatch();
-  
+    const openAddInfoSup = useSelector((state) => state.profil.openAddInfoSup);
+    const infoSup = useSelector((state) => state.profil.infoSupToAdd);
+    const infosSup = useSelector((state) => state.profil.infosSup);
+    const infosSupList = infosSup.map(info => {
+        return (
+            <li key={info.title} className='infos-content'>{info.title} : {info.value}</li>
+        )
+    });
+
     const handleEditProfil = (bool) => {
-      dispatch(actionSetOpenEditProfil(bool));
+        dispatch(actionSetOpenEditProfil(bool));
+    }
+
+    const handleAddInfoSup = (bool) => {
+        dispatch(actionSetOpenAddInfoSup(bool));
     }
 
     const handleChange = (event, newValue) => {
@@ -119,7 +143,7 @@ export default function Profil() {
                     <Category label="Caf" {...a11yProps(3)} />
                 </Tabs>
                 <TabPanel className='category-content' value={value} index={0}>
-                <div className='card-container'>
+                    <div className='card-container'>
                         <div className='card-header'>
                             <div className='card-header-left'>
                                 <Avatar aria-label="recipe">
@@ -128,7 +152,7 @@ export default function Profil() {
                                 <h3>Mes Informations</h3>
                             </div>
                             <div className='card-header-right'>
-                                <IconButton aria-label="settings" onClick={(evt) => {handleEditProfil(true)}}>
+                                <IconButton aria-label="settings" onClick={(evt) => { handleEditProfil(true) }}>
                                     <EditIcon />
                                 </IconButton>
                             </div>
@@ -181,7 +205,7 @@ export default function Profil() {
                     </div>
                 </TabPanel>
                 <TabPanel className='category-content' value={value} index={1}>
-                <div className='card-container'>
+                    <div className='card-container'>
                         <div className='card-header'>
                             <div className='card-header-left'>
                                 <Avatar aria-label="recipe">
@@ -190,7 +214,10 @@ export default function Profil() {
                                 <h3>Informations supplémentaires</h3>
                             </div>
                             <div className='card-header-right'>
-                                <IconButton aria-label="settings">
+                                <IconButton aria-label="settings" onClick={(evt) => { 
+                                    handleAddInfoSup(true);
+                                    document.getElementById('add-info-sup-title').focus();
+                                    }}>
                                     <AddIcon />
                                 </IconButton>
                                 <IconButton aria-label="settings">
@@ -199,18 +226,51 @@ export default function Profil() {
                             </div>
                         </div>
                         <div className='card-content'>
-                            
+                            <ul className='infos-container'>
+                                {infosSupList}
+                                {openAddInfoSup && (
+                                    <form onSubmit={(evt) => {
+                                        console.log('SUBMIT DU FORM');
+                                        evt.preventDefault();
+                                        if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
+                                            dispatch(actionAddInfoSup(infoSup));
+                                            dispatch(actionClearAddInfoSup());
+                                            document.getElementById('add-info-sup-title').focus();
+                                        }
+                                    }}
+                                        className='add-infos-sup-container'>
+                                        <TextField
+                                            id="add-info-sup-title"
+                                            onChange={(evt) => { dispatch(actionSetInfoSupTitle(evt.target.value)) }}
+                                            value={infoSup.title}
+                                            autoFocus
+                                        />
+                                        <p className='add-infos-sup-separator'> : </p>
+                                        <TextField
+                                            id="standard-basic"
+                                            onChange={(evt) => { dispatch(actionSetInfoSupValue(evt.target.value)) }}
+                                            value={infoSup.value}
+                                        />
+                                        <IconButton aria-label="delete" onClick={(evt) => { handleAddInfoSup(false) }}>
+                                            <CloseIcon />
+                                        </IconButton>
+                                        <input className='hidden' type='submit' />
+                                    </form>
+                                )}
+                            </ul>
                         </div>
                     </div>
                 </TabPanel >
                 <TabPanel className='category-content' value={value} index={2}>
-                    
+
                 </TabPanel>
                 <TabPanel className='category-content' value={value} index={3}>
                     Item Four
                  </TabPanel>
             </div>
-            <EditProfil/>
+            <EditProfil />
+
+
         </div>
 
 
