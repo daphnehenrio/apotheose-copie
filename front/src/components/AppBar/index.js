@@ -134,7 +134,6 @@ export default function PersistentDrawerLeft() {
   const { openDrawer } = useSelector((state) => state.toggle);
   const { connected } = useSelector((state) => state.user);
 
-
   // -------------------------- Fonctions Dispatch --------------------------
 
   const handleDrawer = () => {
