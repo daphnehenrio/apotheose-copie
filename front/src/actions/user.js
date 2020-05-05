@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const SET_LAST_NAME = 'action/SET_LAST_NAME';
 export const SET_FIRST_NAME = 'action/SET_FIRST_NAME';
 export const SET_LOGIN = 'action/SET_LOGIN';
@@ -24,9 +22,6 @@ export const LOG_USER = 'action/LOG_USER';
 export const ERROR_LOGIN = 'action/ERROR_LOGIN';
 export const LOGOUT = 'action/LOGOUT';
 export const CHECK_SESSION = 'action/CHECK_SESSION';
-
-
-
 
 export const actionSetLastName = (lastName) => ({
   type: SET_LAST_NAME,
@@ -101,9 +96,9 @@ export const actionSetMissingField = () => ({
   type: MISSING_FIELD,
 });
 
-export const actionSignup = (user) => ({
+export const actionSignup = (history) => ({
   type: SIGNUP,
-  user,
+  history,
 });
 
 export const actionPasswordValidation = (isStrong) => ({
@@ -119,27 +114,26 @@ export const actionEmailValidation = (exists) => ({
 // => Requete axios findUser
 export const actionLogin = (history) => ({
   type: LOGIN,
-  history
+  history,
 });
 
 // => If findUser => Connect l'utilisateur
 export const actionLogUser = (user) => ({
   type: LOG_USER,
-  user
+  user,
 });
 
 // => if not findUser => display error message
 export const actionErrorLogin = (message) => ({
   type: ERROR_LOGIN,
-  message
+  message,
 });
 
 export const actionLogout = (history) => ({
   type: LOGOUT,
-  history
+  history,
 });
 
 export const actionCheckSession = () => ({
   type: CHECK_SESSION,
 });
-

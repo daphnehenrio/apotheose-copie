@@ -22,12 +22,13 @@ import {
 } from '../../../actions/user';
 
 
-
 // -------------------------- Export --------------------------
 
 export default function Step1() {
   const dispatch = useDispatch();
-  const { user, missingField, isPasswordCorrect, passwordStrength, emailExists } = useSelector((state) => state.user);
+  const {
+    user, missingField, isPasswordCorrect, passwordStrength, emailExists,
+  } = useSelector((state) => state.user);
   const [values, setValues] = React.useState({
     showPassword: false,
   });
@@ -40,7 +41,7 @@ export default function Step1() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
-  }
+  };
 
   const checkPasswordsInputs = () => {
     if (user.confirmPassword) {
@@ -51,14 +52,14 @@ export default function Step1() {
     else {
       return false;
     }
-  }
+  };
 
   // -------------------------- Return --------------------------
 
   return (
     <form className="form-group" noValidate autoComplete="off">
       <FormLabel component="legend" className="form-group--label">Nom et Prénom</FormLabel>
-      <div className='group-input'>
+      <div className="group-input">
         <TextField
           id="last_name"
           required
@@ -80,7 +81,9 @@ export default function Step1() {
           helperText={(!user.firstName && missingField) ? 'Champs vide' : null}
           label="Prénom"
           variant="outlined"
-          onChange={(evt) => { dispatch(actionSetFirstName(evt.target.value)) }}
+          onChange={(evt) => {
+            dispatch(actionSetFirstName(evt.target.value));
+          }}
 
         />
       </div>
@@ -94,7 +97,9 @@ export default function Step1() {
         label="Nom d'utilisateur"
         variant="outlined"
         fullWidth
-        onChange={(evt) => { dispatch(actionSetLogin(evt.target.value)) }}
+        onChange={(evt) => {
+          dispatch(actionSetLogin(evt.target.value));
+        }}
 
       />
       <TextField
@@ -106,16 +111,20 @@ export default function Step1() {
         label="Email"
         variant="outlined"
         fullWidth
-        type='email'
-        onChange={(evt) => { dispatch(actionSetEmail(evt.target.value)) }}
+        type="email"
+        onChange={(evt) => {
+          dispatch(actionSetEmail(evt.target.value));
+        }}
       />
-      <div className='group-input--password'>
+      <div className="group-input--password">
         <TextField
           variant="outlined"
           id="password"
           label="Mot de passe"
           error={!isPasswordCorrect && !checkPasswordsInputs() || (!user.password && missingField)}
-          onChange={(evt) => { checkPasswordsInputs(); dispatch(actionSetPassword(evt.target.value)) }}
+          onChange={(evt) => {
+            checkPasswordsInputs(); dispatch(actionSetPassword(evt.target.value));
+          }}
           fullWidth
           value={user.password}
           type={values.showPassword ? 'text' : 'password'}
@@ -132,7 +141,7 @@ export default function Step1() {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
         />
 
@@ -162,7 +171,7 @@ export default function Step1() {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
         />
       </div>
@@ -170,7 +179,7 @@ export default function Step1() {
       {!passwordStrength && (
         <Alert severity="error">
           <AlertTitle>Erreur</AlertTitle>
-        Le mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 nombre et un caractère spécial.
+          Le mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 nombre et un caractère spécial.
         </Alert>
       )}
     </form>

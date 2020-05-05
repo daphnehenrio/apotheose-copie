@@ -1,5 +1,5 @@
-import { GET_MENU , actionSetMenu } from "../../actions/menu";
 import axios from 'axios';
+import { GET_MENU, actionSetMenu } from '../../actions/menu';
 
 
 export default (store) => (next) => (action) => {
@@ -7,14 +7,14 @@ export default (store) => (next) => (action) => {
     case GET_MENU: {
       axios
         .get('http://localhost:5050/left-menu',
-        {
+          {
             withCredentials: true,
-        })
+          })
         .then((res) => {
-          store.dispatch(actionSetMenu(res.data))
+          store.dispatch(actionSetMenu(res.data));
         })
         .catch((err) => {
-            console.log(err);
+          console.log(err);
         });
       break;
     }
@@ -23,6 +23,3 @@ export default (store) => (next) => (action) => {
     }
   }
 };
-
-
-

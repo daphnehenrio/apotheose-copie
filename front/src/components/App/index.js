@@ -62,78 +62,72 @@ const App = () => {
   const { connected } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-
-  let classesContent = "menu--content";
-  classesContent += openDrawer ? ' contentShift' : '';
-
-     /*useLayoutEffect(() => {
+  /* useLayoutEffect(() => {
       (function checkSession() {
         dispatch(actionCheckSession());
       })();
-     })*/
+     }) */
 
 
-    useEffect(() => {
+  useEffect(() => {
+    (function getMenu() {
+      dispatch(actionGetMenu());
+    }());
+  }, []);
 
-      (function getMenu() {
-        dispatch(actionGetMenu());
-      })();
-    }, []);
-
-// -------------------------- Return --------------------------
+  // -------------------------- Return --------------------------
 
   return (
     <div className="app">
       <AppBar />
       <Menu />
-        <div
-          className={clsx(classes.content, {
-            [classes.contentShift]: openDrawer,
-          })}
-        >
-          <Switch>
-            <Route exact path="/">
-              <div>
-                <HomePage/>
-              </div>
-            </Route>
-            <Route exact path="/inscription">
-              <div>
-                <Signup />
-              </div>
-            </Route>
-            <Route exact path="/mon-espace-personnel"
-              render={() => {
-                if (!connected) {
-                  return <Redirect to="/" />;
-                }
-                return (
-                  <div>
-                    <DashBoard/>
-                  </div>
-                );
-              }}
-            >
-            </Route>
-            <Route
-              exact
-              path="/profil"
-              render={() => {
-                if (!connected) {
-                  return <Redirect to="/" />;
-                }
-                return (
-                  <div>
-                    <Profil/>
-                  </div>
-                );
-              }}
-            >
-
-            </Route>
-          </Switch>
-          <Footer />
-        </div>
+      <div
+        className={clsx(classes.content, {
+          [classes.contentShift]: openDrawer,
+        })}
+      >
+        <Switch>
+          <Route exact path="/">
+            <div>
+              <HomePage />
+            </div>
+          </Route>
+          <Route exact path="/inscription">
+            <div>
+              <Signup />
+            </div>
+          </Route>
+          <Route
+            exact
+            path="/mon-espace-personnel"
+            render={() => {
+              if (!connected) {
+                return <Redirect to="/" />;
+              }
+              return (
+                <div>
+                  <DashBoard />
+                </div>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/profil"
+            render={() => {
+              if (!connected) {
+                return <Redirect to="/" />;
+              }
+              return (
+                <div>
+                  <Profil />
+                </div>
+              );
+            }}
+          />
+        </Switch>
+        <Footer />
+      </div>
     </div>
   );
 };

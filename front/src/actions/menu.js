@@ -7,6 +7,5 @@ export const actionGetMenu = () => ({
 
 export const actionSetMenu = (data) => ({
   type: SET_MENU,
-  data
+  data,
 });
-
