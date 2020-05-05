@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, User_profil } = require('../models');
 
 //password verify
 const emailValidator = require('email-validator');
@@ -15,8 +15,6 @@ const authController = {
 
   // connexion form
   loginAction: (req, res) => {
-    console.dir(req.body);
-
     // recup form
     const {login, password} = req.body;
     // const email = req.body.email;
@@ -35,15 +33,15 @@ const authController = {
       }
 
       // if exist, verify password
-      /*if(! bcrypt.compareSync( password, user.password ) ) {
-        // if not good => error
-        return res.send("Mauvais mot de passe");
-      }*/
-
-      if( password !== user.password  ) {
+      if(! bcrypt.compareSync( password, user.password ) ) {
         // if not good => error
         return res.send("Mauvais mot de passe");
       }
+
+      /*if( password !== user.password  ) {
+        // if not good => error
+        return res.send("Mauvais mot de passe");
+      }*/
 
       // All is good => add user on session
       req.session.user = user ;
@@ -65,37 +63,38 @@ const authController = {
   // treatement of inscription form => save new user
   signupAction: (req, res) => {
     // take the data of the form
-    const data = req.body.user;
+    const data = req.body;
 
     // NTUI => verify info
-
     // - verify if user exist
     User.findOne({
-      where: {
-        $or: [{login: data.login}, {email: data.email}]
 
-        /*$or: [
-            {
-                login:
-                {
-                    $eq: data.login
-                }
-            },
-            {
-                email:
-                {
-                    $eq: data.email
-                }
-            },
-        ]*/
+
+          //login: data.login,
+          //email: data.email
+
+        where: {
+          $or: {
+            login: data.login,
+            email: data.email
+        }
+
     }
     }).then( (user) => {
 
+      console.log("test");
       // list to take errors
       let errorsList = [];
 
       if (user) {
-        errorsList.push('Cet email existe déjà');
+        if(user.login === data.login)
+        {
+          errorsList.push('Cet utilisateur existe déjà', user.login, data.login);
+        }
+        if(user.email === data.email)
+        {
+          errorsList.push('Cet email existe déjà', data.email, user.email);
+        }
       }
 
       // - last_name and first_name, not null
@@ -120,17 +119,15 @@ const authController = {
       if (data.password.length < 8) {
         errorsList.push("Le mot de passe doit contenir un minimum de 8 caractères");
       }
-
-      // - password = confirm
-      if (data.password !== data['password-confirm'] ) {
-        errorsList.push("Le mot de passe et la confirmation ne correspondent pas");
-      }
-
+      console.log(errorsList)
       // Insertion on DB
       // errorsList is null if  "ok"
       if (errorsList.length === 0) {
+
         // create user
+
         const newUser = new User();
+        newUser.login = data.login;
         newUser.first_name = data.first_name;
         newUser.last_name = data.last_name;
         newUser.email = data.email;
@@ -142,6 +139,25 @@ const authController = {
           req.session.user = user;
           res.send(user);
         });
+
+        let myNewUser = "";
+
+        User.findOne({
+
+          where:{
+            login: data.login
+          }
+
+        }).then((user) => {
+
+          return myNewUser = user;
+
+        });
+
+        //profil
+
+        const newUser_profil = new User_profil();
+        newUser_profil.user_id = myNewUser.id;
 
       } else {
         res.send(errorsList);

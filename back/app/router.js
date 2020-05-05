@@ -10,6 +10,8 @@ const mainController = require('./controllers/mainController');
 // == require controllers
 const userController = require('./controllers/userController');
 
+const sessionControllers = require('./controllers/sesionController')
+
 const authController = require('./controllers/authController');
 
 const user_profilController = require('./controllers/user_profilController');
@@ -25,10 +27,15 @@ router.get('/', userController.homePage );
 
 router.get('/favicon.ico', (req, res) => res.status(204));
 
+router.get('/session', sessionControllers.getSession)
+
 router.get('/user/:id', user_profilController.user_profilPage );
 
 //connexion
 router.post('/login', authController.loginAction );
+
+//connexion
+router.post('/logout', authController.logout );
 
 //inscription
 router.post('/signup', authController.signupAction );
