@@ -125,3 +125,38 @@
 .right-edit-profil .MuiFormControl-root{
     margin-bottom: 1rem;
 }
+
+.add-infos-sup-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.add-infos-sup-separator{
+    margin: 0 1rem;
+    display: flex;
+    align-items: flex-end;
+}
+
+
+@media screen and (max-width: 600px) {
+    .MuiDialogContent-root{
+        flex-direction: column !important;
+    }
+    .left-edit-profil{
+        width: 100%;
+    }
+    .right-edit-profil{
+        width: 100%;
+    }
+    .MuiFormControl-root{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .group-input .MuiFormControl-root{
+        width: 100%;
+    }
+  }
+
+

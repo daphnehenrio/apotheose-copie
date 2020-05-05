@@ -16,6 +16,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import Link from '@material-ui/core/Link';
 
 // == import for connected user
 import Tooltip from '@material-ui/core/Tooltip';
@@ -31,6 +32,7 @@ import Login from 'src/components/Login';
 // == import actions local
 import { actionSetLoginForm, actionSetDrawer } from '../../actions/toggle';
 import { actionLogout } from '../../actions/user';
+import { actionChangePage } from '../../actions/routes';
 
 // == import style
 import './styles.scss';
@@ -134,6 +136,11 @@ export default function PersistentDrawerLeft() {
     const { openDrawer } = useSelector((state) => state.toggle);
     const { connected } = useSelector(state => state.user)
 
+    const preventDefault = (event, route) => {
+        event.preventDefault();
+        dispatch(actionChangePage(route, history));
+    };
+
 
 
     // -------------------------- Fonctions Dispatch --------------------------
@@ -168,17 +175,17 @@ export default function PersistentDrawerLeft() {
           </Tooltip>
           <Tooltip title="Mon espace" arrow>
             <IconButton aria-label="dashboard">
-              <a href='/mon-espace-personnel'>
+            <Link onClick={(event) => preventDefault(event, '/mon-espace-personnel')}>
                 <Badge badgeContent={4} color="secondary">
                   <DashboardIcon />
                 </Badge>
-              </a>
+              </Link>
             </IconButton>
           </Tooltip>
           <IconButton aria-label="avatar">
-              <a href='/profil'>
+              <Link onClick={(event) => preventDefault(event, '/profil')}>
                   <Avatar>H</Avatar>
-              </a>
+              </Link>
           </IconButton>
         </>
       )
