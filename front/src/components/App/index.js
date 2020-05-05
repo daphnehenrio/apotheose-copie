@@ -19,6 +19,7 @@ import Footer from 'src/components/Footer';
 import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
 import DashBoard from 'src/components/DashBoard';
+import Profil from 'src/components/Profil';
 
 // == import action
 import { actionGetMenu } from '../../actions/menu';
@@ -95,6 +96,11 @@ const App = () => {
             <Route exact path="/mon-espace-personnel">
               <div>
                 <DashBoard />
+              </div>
+            </Route>
+            <Route exaact path="/profil">
+              <div>
+                <Profil/>
               </div>
             </Route>
           </Switch>

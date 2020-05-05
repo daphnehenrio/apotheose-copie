@@ -204,7 +204,9 @@ export default function PersistentDrawerLeft() {
                         </IconButton>
                     </Tooltip>
                     <IconButton aria-label="avatar">
-                        <Avatar>H</Avatar>
+                        <a href='/profil'>
+                            <Avatar>H</Avatar>
+                        </a>
                     </IconButton>
                     <Button
                         className="styled button"
