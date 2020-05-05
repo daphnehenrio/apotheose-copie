@@ -1,5 +1,5 @@
 // == Import npm
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -66,11 +66,15 @@ const App = () => {
   let classesContent = "menu--content";
   classesContent += openDrawer ? ' contentShift' : '';
 
-
-    useEffect(() => {
+     /*useLayoutEffect(() => {
       (function checkSession() {
         dispatch(actionCheckSession());
       })();
+     })*/
+
+
+    useEffect(() => {
+
       (function getMenu() {
         dispatch(actionGetMenu());
       })();
