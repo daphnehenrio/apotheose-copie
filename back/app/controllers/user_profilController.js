@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, User_profil } = require('../models');
 
 const user_profilController = {
 
@@ -25,7 +25,7 @@ const user_profilController = {
       res.status(500).render('500', {err});
     });
 
-  }
+  },
 
 };
 

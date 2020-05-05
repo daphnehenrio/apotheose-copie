@@ -75,12 +75,16 @@ export default function EditProfil() {
   const dispatch = useDispatch();
   const openEditProfil = useSelector((state) => state.profil.openEditProfil);
   const user = useSelector((state) => state.user.user);
+  const [gender, setGender] = React.useState('M');
 
   const handleEditProfil = (bool) => {
     dispatch(actionSetOpenEditProfil(bool));
   };
 
-  const [gender, setGender] = React.useState('Homme');
+  const handleChange = (event) => {
+    setGender(event.target.value);
+};
+
 
 
   return (
@@ -136,8 +140,8 @@ export default function EditProfil() {
                   onChange={handleChange}
                   label="Genre"
                 >
-                  <MenuItem value="Homme">Homme</MenuItem>
-                  <MenuItem value="Femme">Femme</MenuItem>
+                  <MenuItem value="Homme">M</MenuItem>
+                  <MenuItem value="Femme">Mme</MenuItem>
                 </Select>
               </GenderInput>
               <GenderInput variant="outlined">

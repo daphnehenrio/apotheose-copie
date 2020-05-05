@@ -103,6 +103,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Profil() {
 
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+  const dispatch = useDispatch();
+  const {
+    login,
+    firstName,
+    lastName,
+    email,
+    gender,
+    cellphoneNumber,
+    fixNumber,
+    workPhone,
+    zipCode,
+    city,
+    children,
+    adress,
+    age,
+    statut,
+  } = useSelector((state) => state.user.user);
+  const openAddInfoSup = useSelector((state) => state.profil.openAddInfoSup);
+  const infoSup = useSelector((state) => state.profil.infoSupToAdd);
+  const infosSup = useSelector((state) => state.profil.infosSup);
+  const infosSupList = infosSup.map((info) => (
+    <li key={info.title} className="infos-content">{info.title} : {info.value}</li>
+  ));
+
+  const handleEditProfil = (bool) => {
+    dispatch(actionSetOpenEditProfil(bool));
+  };
+
+
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const dispatch = useDispatch();
@@ -168,9 +199,13 @@ export default function Profil() {
         dispatch(actionSetOpenEditProfil(bool));
     }
 
+
+  console.log(login)
+
     const handleAddInfoSup = (bool) => {
         dispatch(actionSetOpenAddInfoSup(bool));
     }
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -191,6 +226,40 @@ export default function Profil() {
                     aria-label="Vertical tabs example"
                     className={classes.tabs}
 
+
+  return (
+    <div className="profil">
+      <h3 className="profil-title">Mon Profil</h3>
+      <div className={classes.root}>
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          className={classes.tabs}
+        >
+          <Category label="Moi" {...a11yProps(0)} />
+          <Category label="Infos supplémentaires" {...a11yProps(1)} />
+          <Category label="Santé" {...a11yProps(2)} />
+          <Category label="Caf" {...a11yProps(3)} />
+        </Tabs>
+        <TabPanel className="category-content" value={value} index={0}>
+          <div className="card-container">
+            <div className="card-header">
+              <div className="card-header-left">
+                <Avatar aria-label="recipe">
+                  {login.substring(0, 1).toUpperCase}
+                </Avatar>
+                <h3>Mes Informations</h3>
+              </div>
+              <div className="card-header-right">
+                <IconButton
+                  aria-label="settings"
+                  onClick={(evt) => {
+                    handleEditProfil(true);
+                  }}
+
                 >
                   <EditIcon />
                 </IconButton>
@@ -201,14 +270,14 @@ export default function Profil() {
                 <div className="sub-container">
                   <h5>Nom et prénom :</h5>
                   <div className="sub-container-content">
-                    <li className="infos-content">LAURENT Henri</li>
+                    <li className="infos-content">{lastName.toUpperCase} {firstName}</li>
                   </div>
 
                 </div>
                 <div className="sub-container">
                   <h5>Adresse :</h5>
                   <div className="sub-container-content">
-                    <li className="infos-content">2 allée Louise Michel, 29000 QUIMPER</li>
+                    <li className="infos-content">{adress}, {zipCode} {city.toUpperCase}</li>
                   </div>
 
                 </div>
@@ -217,8 +286,13 @@ export default function Profil() {
                   <div className="sub-container-content">
                     <div className="sub-container">
                       <h5>Travail :</h5>
-                      <li className="infos-content">0651289512</li>
+                      <li className="infos-content">{workPhone}</li>
                     </div>
+
+                    <div className="sub-container">
+                      <h5>Perso :</h5>
+                      <li className="infos-content">{cellphoneNumber}</li>
+
 
                 </TabPanel>
                 <TabPanel className='category-content' value={value} index={1}>
@@ -282,10 +356,11 @@ export default function Profil() {
                             </ul>
                         </div>
 
+
                     </div>
                     <div className="sub-container">
                       <h5>Fix :</h5>
-                      <li className="infos-content">0651289512</li>
+                      <li className="infos-content">{fixNumber}</li>
                     </div>
                   </div>
 
@@ -294,8 +369,8 @@ export default function Profil() {
                   <h5>Autre :</h5>
                   <div className="sub-container-content">
                     <li className="infos-content">Age : 20</li>
-                    <li className="infos-content">Civilité : Homme</li>
-                    <li className="infos-content">Status : EN couple</li>
+                    <li className="infos-content">Civilité : {age} </li>
+                    <li className="infos-content">Status : {statut}</li>
                   </div>
 
                 </div>
@@ -308,7 +383,7 @@ export default function Profil() {
             <div className="card-header">
               <div className="card-header-left">
                 <Avatar aria-label="recipe">
-                  H
+                {login.substring(0, 1).toUpperCase}
                 </Avatar>
                 <h3>Informations supplémentaires</h3>
               </div>
