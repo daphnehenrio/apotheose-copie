@@ -19,7 +19,6 @@ const leftMenu = {
     if (!menu) {
       return next();
     }
-    console.log([menu])
     res.send([menu]);
 
   },

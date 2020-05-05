@@ -18,13 +18,14 @@ export default (store) => (next) => (action) => {
             password: user.password,
             email: user.email,
             gender: user.gender,
-            cellphoneNumber: user.cellphoneNumber,
-            fixNumber: user.fixNumber,
-            workPhone: user.workPhone,
-            zipCode: user.zipCode,
+            cellphone_number: user.cellphoneNumber,
+            phone_number: user.fixNumber,
+            phone_work: user.workPhone,
+            zip_code: user.zipCode,
             city: user.city,
-            children: user.children,
-            adress: user.adress,
+            children: user.children ? user.children : 0,
+            address: user.adress,
+
           }
             axios
                 .post('http://localhost:5050/signup',
