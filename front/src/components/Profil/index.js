@@ -214,7 +214,10 @@ export default function Profil() {
                                 <h3>Informations supplémentaires</h3>
                             </div>
                             <div className='card-header-right'>
-                                <IconButton aria-label="settings" onClick={(evt) => { handleAddInfoSup(true) }}>
+                                <IconButton aria-label="settings" onClick={(evt) => { 
+                                    handleAddInfoSup(true);
+                                    document.getElementById('add-info-sup-title').focus();
+                                    }}>
                                     <AddIcon />
                                 </IconButton>
                                 <IconButton aria-label="settings">

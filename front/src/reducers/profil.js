@@ -27,7 +27,6 @@ const initialState = {
 export default (state = initialState, action = {}) => {
     switch (action.type) {
         case SET_NOTE_CONTENT: {
-            console.log('ACTION', action.note);
             return {
                 ...state,
                 noteContent: {id: action.note.id, title: action.note.title, content: action.note.content},
@@ -37,9 +36,7 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 notes: state.notes.map(note => {
-                    console.log('RETURN', note, action.note);
                     if (note.id === action.note.id) {
-                        console.log('SUCCESSSS');
                         return {
                             ...note,title: action.note.title, content: action.note.content
                         }
