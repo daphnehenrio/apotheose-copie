@@ -22,6 +22,8 @@ export const CHECK_EMAIL_EXISTS = 'action/CHECK_EMAIL_EXISTS';
 export const LOGIN = 'action/LOGIN';
 export const LOG_USER = 'action/LOG_USER';
 export const ERROR_LOGIN = 'action/ERROR_LOGIN';
+export const LOGOUT = 'action/LOGOUT';
+
 
 
 
@@ -129,5 +131,10 @@ export const actionLogUser = (user) => ({
 export const actionErrorLogin = (message) => ({
   type: ERROR_LOGIN,
   message
+});
+
+export const actionLogout = (history) => ({
+  type: LOGOUT,
+  history
 });
 

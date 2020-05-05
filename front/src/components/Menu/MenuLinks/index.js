@@ -36,7 +36,6 @@ export default function FileSystemNavigator() {
     const history = useHistory();
     const dispatch = useDispatch();
     const menu = useSelector(state => state.menu.category )
-    console.log('menu.cat', menu)
 
 // -------------------------- Fonctions Dispatch --------------------------
 
@@ -86,9 +85,9 @@ export default function FileSystemNavigator() {
     const ArticlesLinks = menu.map((category) => {
       const imageName = `${slugify(category.name)}.png`
       const image = require(`src/assets/image/menu-category/${imageName}`)
-      console.log(image)
+
       if (!category.sub_category || category.sub_category?.length === 0) {
-        console.log('err')
+
         return /*(
           <Link key={category.name} className="menu--sublink" href={`articles/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/articles/${slugify(category.name)}`)}>
 

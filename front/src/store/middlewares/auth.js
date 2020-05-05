@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import {
-    LOGIN, actionLogUser, actionErrorLogin
+    LOGIN, actionLogUser, actionErrorLogin, LOGOUT
 } from '../../actions/user';
 import { actionChangePage } from '../../actions/routes';
 import { actionSetLoginForm } from '../../actions/toggle';
@@ -31,7 +31,7 @@ export default (store) => (next) => (action) => {
                         } else {
                           store.dispatch(actionLogUser(res.data));
                           store.dispatch(actionSetLoginForm());
-                          store.dispatch(actionChangePage("espace-personnel", history));
+                          store.dispatch(actionChangePage("mon-espace-personnel", history));
                         }
                       } else {
                         store.dispatch(actionErrorLogin("Une erreur est survenue"))
@@ -42,6 +42,21 @@ export default (store) => (next) => (action) => {
                   });
               return;
           }
+        case LOGOUT: {
+          const history = action.history;
+          axios
+          .post('http://localhost:5050/logout',
+          {
+              withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res)
+            store.dispatch(actionChangePage("/", history));
+          })
+          .catch((err) => {
+              console.log(err);
+          });
+        }
           default: {
               next(action);
           }

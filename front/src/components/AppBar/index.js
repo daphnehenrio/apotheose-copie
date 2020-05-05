@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux';
 
 // == import Material UI
@@ -29,6 +30,7 @@ import Login from 'src/components/Login';
 
 // == import actions local
 import { actionSetLoginForm, actionSetDrawer } from '../../actions/toggle';
+import { actionLogout } from '../../actions/user';
 
 // == import style
 import './styles.scss';
@@ -127,8 +129,10 @@ export default function PersistentDrawerLeft() {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory()
     // Get the state of the drawer to check if it's open or close (true or false)
     const { openDrawer } = useSelector((state) => state.toggle);
+    const { connected } = useSelector(state => state.user)
 
 
 
@@ -139,13 +143,46 @@ export default function PersistentDrawerLeft() {
     };
 
     const handleLogin = () => {
-        dispatch(actionSetLoginForm());
+      connected
+        ? dispatch(actionLogout(history))
+        : dispatch(actionSetLoginForm());
 
     };
 
 
 
     console.log(screen.width)
+
+    const ProfilIcon = () => {
+      return (
+        <>
+          <Tooltip title="Bloc note" arrow>
+            <IconButton aria-label="note">
+                <CreateIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Mes documents" arrow>
+            <IconButton aria-label="documents">
+              <FolderIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Mon espace" arrow>
+            <IconButton aria-label="dashboard">
+              <a href='/mon-espace-personnel'>
+                <Badge badgeContent={4} color="secondary">
+                  <DashboardIcon />
+                </Badge>
+              </a>
+            </IconButton>
+          </Tooltip>
+          <IconButton aria-label="avatar">
+              <a href='/profil'>
+                  <Avatar>H</Avatar>
+              </a>
+          </IconButton>
+        </>
+      )
+    }
     // -------------------------- Return --------------------------
 
     return (
@@ -184,36 +221,13 @@ export default function PersistentDrawerLeft() {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
-                    <Tooltip title="Bloc note" arrow>
-                        <IconButton aria-label="note">
-                            <CreateIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Mes documents" arrow>
-                        <IconButton aria-label="documents">
-                            <FolderIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Mon espace" arrow>
-                        <IconButton aria-label="dashboard">
-                            <a href='/mon-espace-personnel'>
-                                <Badge badgeContent={4} color="secondary">
-                                    <DashboardIcon />
-                                </Badge>
-                            </a>
-                        </IconButton>
-                    </Tooltip>
-                    <IconButton aria-label="avatar">
-                        <a href='/profil'>
-                            <Avatar>H</Avatar>
-                        </a>
-                    </IconButton>
+                  {connected ? <ProfilIcon/> : '' }
                     <Button
                         className="styled button"
                         variant="contained"
                         onClick={handleLogin}
                     >
-                        Connexion
+                        {connected ? 'Déconnexion' : 'Connexion'}
                     </Button>
                 </Toolbar>
             </AppBar>

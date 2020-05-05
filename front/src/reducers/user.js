@@ -18,7 +18,8 @@ import {
   CHECK_PASSWORD_STRENGTH,
   CHECK_EMAIL_EXISTS,
   LOG_USER,
-  ERROR_LOGIN
+  ERROR_LOGIN,
+  LOGOUT
 } from '../actions/user';
 
 import {
@@ -48,6 +49,7 @@ const initialState = {
   emailExists: 'init',
   isLoginCorrect: 'init',
   messageWrongLogin: false,
+  connected: false,
 
 };
 
@@ -241,6 +243,7 @@ export default (state = initialState, action = {}) => {
           adress: adress,
         },
         isLoginCorrect: true,
+        connected: true,
       }
     }
     case ERROR_LOGIN : {
@@ -255,6 +258,11 @@ export default (state = initialState, action = {}) => {
         ...state,
         messageWrongLogin: false,
       }
+  }
+  case LOGOUT: {
+    return {
+      ...initialState,
+    }
   }
     default: {
       return state;
