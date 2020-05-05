@@ -18,7 +18,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import {
     actionSetOpenEditProfil,
+    actionSetLastName,
+    actionSetFirstName,
+    actionSetLogin,
+    actionSetPassword,
+    actionSetConfirmPasswordValue,
+    actionSetConfirmPassword,
+    actionSetEmail,
+    actionSetAddress,
+    actionSetZipCode,
+    actionSetCity,
+    actionSetFixNumber,
+    actionSetCellphoneNumber,
+    actionSetWorkPhone,
+    actionSetChildren,
+    actionSetGender,
 } from '../../../actions/profil';
+
 
 const EditFormContent = withStyles({
     root: {
@@ -28,8 +44,8 @@ const EditFormContent = withStyles({
         width: '100%',
         '&::-webkit-scrollbar': {
             width: '0',
-          }
-          
+        }
+
     },
 })(DialogContent);
 

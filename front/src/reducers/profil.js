@@ -7,6 +7,9 @@ import {
     SET_INFO_SUP_TITLE,
     SET_INFO_SUP_VALUE,
     CLEAR_INFO_SUP,
+    EDIT_INFO_SUP,
+    EDIT_INFO_SUP_CONTENT,
+    CLOSE_EDIT_INFO_SUP,
 } from '../actions/profil';
 
 const initialState = {
@@ -18,8 +21,8 @@ const initialState = {
     openEditProfil: false,
     openAddInfoSup: false,
     infosSup: [
-        {title: 'Ecole', value:'Poudlard'},
-        {title: 'Nounou', value:'Joséphine'},
+        {id: 1,title: 'Ecole', value:'Poudlard', edit:false},
+        {id: 2,title: 'Nounou', value:'Joséphine', edit:false},
     ],
     infoSupToAdd: {title: '', value: ''},
 };
@@ -76,7 +79,7 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 infosSup: [
                     ...state.infosSup,
-                    {title: action.info.title, value: action.info.value},
+                    {id: action.info.id, title: action.info.title, value: action.info.value, edit: false},
                 ],
             }
         }
@@ -84,6 +87,50 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 infoSupToAdd:{title: '', value: ''},
+            }
+        }
+        case EDIT_INFO_SUP: {
+            return {
+                ...state,
+                infosSup: state.infosSup.map(info => {
+                    if (info.id === action.id) {
+                        return {
+                            ...info, edit: true,
+                        }
+                    } else return {
+                        ...info,
+                    }
+                }
+                ),
+            }
+        }
+        case EDIT_INFO_SUP_CONTENT: {
+            console.log('TEST EDIT', action.info);
+            return {
+                ...state,
+                infosSup: state.infosSup.map(info => {
+                    if(info.id === action.info.id){
+                        return {
+                            ...info, title: action.info.title, value: action.info.value, edit:false,
+                        }
+                    } else return {
+                        ...info,
+                    }
+                })
+            }
+        }
+        case CLOSE_EDIT_INFO_SUP: {
+            return {
+                ...state,
+                infosSup: state.infosSup.map(info => {
+                    if(info.id === action.id){
+                        return {
+                            ...info, edit: false,
+                        }
+                    } else return {
+                        ...info,
+                    }
+                })
             }
         }
         default: {

@@ -25,6 +25,9 @@ import {
     actionSetInfoSupTitle,
     actionSetInfoSupValue,
     actionClearAddInfoSup,
+    actionEditInfoSup,
+    actionEditInfosSupContent,
+    actionCloseEditInfoSup,
 } from '../../actions/profil';
 
 // == import utils
@@ -105,9 +108,58 @@ export default function Profil() {
     const infoSup = useSelector((state) => state.profil.infoSupToAdd);
     const infosSup = useSelector((state) => state.profil.infosSup);
     const infosSupList = infosSup.map(info => {
-        return (
-            <li key={info.title} className='infos-content'>{info.title} : {info.value}</li>
-        )
+        if(info.edit === false){
+            return (
+                <li key={info.id} className='infos-content' onDoubleClick={(evt) => {
+                    dispatch(actionEditInfoSup(info.id));
+                }}>{info.title} : {info.value}</li>
+            )
+        } else {
+            return (
+                <form onSubmit={(evt) => {
+                    evt.preventDefault();
+                    let title;
+                    let value;
+                    if(handdleVerifEmptyValue(infoSup.title)){
+                        title = info.title;
+                    } else {
+                        title = infoSup.title;
+                    }
+                    if(handdleVerifEmptyValue(infoSup.value)){
+                        value = info.value;
+                    } else {
+                        value = infoSup.value;
+                    }
+                    const infoToEdit = {
+                        id : info.id,
+                        title: title,
+                        value: value,
+                    }
+                    dispatch(actionEditInfosSupContent(infoToEdit));
+                    dispatch(actionClearAddInfoSup());
+                }}
+                    className='add-infos-sup-container'>
+                    <TextField
+                        id="add-info-sup-title"
+                        defaultValue={info.title}
+                        autoFocus
+                        onChange={(evt) => { dispatch(actionSetInfoSupTitle(evt.target.value)) }}
+                    />
+                    <p className='add-infos-sup-separator'> : </p>
+                    <TextField
+                        id="standard-basic"
+                        defaultValue={info.value}
+                        onChange={(evt) => { dispatch(actionSetInfoSupValue(evt.target.value)); console.log(infoSup) }}
+                    />
+                    <IconButton aria-label="close" onClick= {(evt) => {
+                        dispatch(actionCloseEditInfoSup(info.id));
+                    }}>
+                        <CloseIcon />
+                    </IconButton>
+                    <input className='hidden' type='submit' />
+                </form>
+            )
+        }
     });
 
     const handleEditProfil = (bool) => {
@@ -214,10 +266,10 @@ export default function Profil() {
                                 <h3>Informations supplémentaires</h3>
                             </div>
                             <div className='card-header-right'>
-                                <IconButton aria-label="settings" onClick={(evt) => { 
+                                <IconButton aria-label="settings" onClick={(evt) => {
                                     handleAddInfoSup(true);
                                     document.getElementById('add-info-sup-title').focus();
-                                    }}>
+                                }}>
                                     <AddIcon />
                                 </IconButton>
                                 <IconButton aria-label="settings">
@@ -230,12 +282,17 @@ export default function Profil() {
                                 {infosSupList}
                                 {openAddInfoSup && (
                                     <form onSubmit={(evt) => {
-                                        console.log('SUBMIT DU FORM');
                                         evt.preventDefault();
                                         if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
-                                            dispatch(actionAddInfoSup(infoSup));
+                                            const infos = {
+                                                id: infosSup.length+1,
+                                                title: infoSup.title,
+                                                value: infoSup.value,
+                                            }
+                                            dispatch(actionAddInfoSup(infos));
                                             dispatch(actionClearAddInfoSup());
                                             document.getElementById('add-info-sup-title').focus();
+                                            console.log(infosSup);
                                         }
                                     }}
                                         className='add-infos-sup-container'>
