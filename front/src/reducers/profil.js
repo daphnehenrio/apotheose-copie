@@ -1,4 +1,5 @@
 import {
+
     SET_NOTE_CONTENT,
     CHANGE_NOTE_CONTENT,
     SET_OPEN_EDIT_PROFIL,
@@ -90,4 +91,5 @@ export default (state = initialState, action = {}) => {
             return state;
         }
     }
+  }
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 import { CHANGE_PAGE } from "../../actions/routes";
 
 

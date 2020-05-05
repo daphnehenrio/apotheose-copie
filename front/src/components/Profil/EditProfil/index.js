@@ -17,42 +17,43 @@ import MenuItem from '@material-ui/core/MenuItem';
 // == Import actions
 
 import {
-    actionSetOpenEditProfil,
+  actionSetOpenEditProfil,
 } from '../../../actions/profil';
 
 const EditFormContent = withStyles({
-    root: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        '&::-webkit-scrollbar': {
-            width: '0',
-          }
-          
+
+  root: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    '&::-webkit-scrollbar': {
+      width: '0',
     },
+  },
+
 })(DialogContent);
 
 const EditForm = withStyles({
-    root: {
-        width: ' 100%',
-    },
-    paper: {
-        width: '70rem',
-        maxWidth: '70rem',
-        height: '80vh'
-    },
+  root: {
+    width: ' 100%',
+  },
+  paper: {
+    width: '70rem',
+    maxWidth: '70rem',
+    height: '80vh',
+  },
 })(Dialog);
 
 const GenderInput = withStyles({
-    root: {
-        width: ' 50%',
-    },
+  root: {
+    width: ' 50%',
+  },
 })(FormControl);
 
 
-
 export default function EditProfil() {
+
     const dispatch = useDispatch();
     const openEditProfil = useSelector((state) => state.profil.openEditProfil);
     const user = useSelector((state) => state.user.user);
@@ -61,11 +62,13 @@ export default function EditProfil() {
         dispatch(actionSetOpenEditProfil(bool));
     }
 
-    const [gender, setGender] = React.useState('Homme');
 
-    const handleChange = (event) => {
-        setGender(event.target.value);
-    };
+  const handleEditProfil = (bool) => {
+    dispatch(actionSetOpenEditProfil(bool));
+  };
+
+  const [gender, setGender] = React.useState('Homme');
+
 
     return (
         <div className='edit-profil-form'>
@@ -191,17 +194,18 @@ export default function EditProfil() {
                             />
                         </div>
 
-                    </div>
-                </EditFormContent>
-                <DialogActions>
-                    <Button onClick={(evt) => handleEditProfil(false)} color="primary">
-                        Cancel
+
+          </div>
+        </EditFormContent>
+        <DialogActions>
+          <Button onClick={(evt) => handleEditProfil(false)} color="primary">
+            Cancel
           </Button>
-                    <Button onClick={(evt) => handleEditProfil(false)} color="primary">
-                        Subscribe
+          <Button onClick={(evt) => handleEditProfil(false)} color="primary">
+            Subscribe
           </Button>
-                </DialogActions>
-            </EditForm>
-        </div>
-    );
+        </DialogActions>
+      </EditForm>
+    </div>
+  );
 }

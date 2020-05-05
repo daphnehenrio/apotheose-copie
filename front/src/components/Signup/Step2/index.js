@@ -12,7 +12,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Alert from '@material-ui/lab/Alert';
 
 // == import utils
-import {handdleVerifEmptyValue} from 'src/utils/checkSpaces';
+import { handdleVerifEmptyValue } from 'src/utils/checkSpaces';
 
 
 // == import actions local
@@ -35,14 +35,14 @@ const RadioGroupGender = () => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-// -------------------------- Fonctions State & Dispatch --------------------------
+  // -------------------------- Fonctions State & Dispatch --------------------------
 
   const handleChange = (event) => {
     setValue(event.target.value);
     dispatch(actionSetGender(event.target.value));
   };
 
-// -------------------------- Return --------------------------
+  // -------------------------- Return --------------------------
 
   return (
     <FormControl component="fieldset" className="form-group--gender">
@@ -53,8 +53,7 @@ const RadioGroupGender = () => {
       </RadioGroup>
     </FormControl>
   );
-}
-
+};
 
 
 export default function Step1() {
@@ -65,24 +64,22 @@ export default function Step1() {
   return (
     <form className="form-group" noValidate autoComplete="off">
       <Alert severity="info" className="form-group--info">Toutes ces informations sont falcutatives. Elles serviront à compléter votre profil. Ces données vous permettront par la suite de simplifier les actions sur la plateforme en ayant accès à du contenu pré rempli. Vous pourrez toujours y accéder plus tard, dirrectement dans votre profil.</Alert>
-      <RadioGroupGender
-
-      />
+      <RadioGroupGender />
       <FormLabel component="legend" className="form-group--label">Adresse domicile</FormLabel>
       <TextField
-          className='group-input--input'
-          id="address"
-          label="Adresse"
-          value={user.adress}
-          variant="outlined"
-          onChange={(evt) => {
-            dispatch(actionSetAddress(evt.target.value));
-          }}
-          autoFocus
+        className="group-input--input"
+        id="address"
+        label="Adresse"
+        value={user.adress}
+        variant="outlined"
+        onChange={(evt) => {
+          dispatch(actionSetAddress(evt.target.value));
+        }}
+        autoFocus
       />
-      <div className='group-input'>
-      <TextField
-          className='group-input--input'
+      <div className="group-input">
+        <TextField
+          className="group-input--input"
           id="zip_code"
           label="Code Postal"
           value={user.zipCode}
@@ -90,9 +87,9 @@ export default function Step1() {
           onChange={(evt) => {
             dispatch(actionSetZipCode(evt.target.value));
           }}
-      />
-      <TextField
-          className='group-input--input'
+        />
+        <TextField
+          className="group-input--input"
           id="city"
           label="Ville"
           variant="outlined"
@@ -100,54 +97,54 @@ export default function Step1() {
           onChange={(evt) => {
             dispatch(actionSetCity(evt.target.value));
           }}
-      />
+        />
       </div>
-        <FormLabel component="legend" className="form-group--label">Téléphonne</FormLabel>
-      <div className='group-input'>
+      <FormLabel component="legend" className="form-group--label">Téléphonne</FormLabel>
+      <div className="group-input">
         <TextField
-            className='group-input--input'
-            id="phone_number"
-            value={user.fixNumber}
-            label="Fix"
-            variant="outlined"
-            onChange={(evt) => {
-              dispatch(actionSetFixNumber(evt.target.value));
-            }}
+          className="group-input--input"
+          id="phone_number"
+          value={user.fixNumber}
+          label="Fix"
+          variant="outlined"
+          onChange={(evt) => {
+            dispatch(actionSetFixNumber(evt.target.value));
+          }}
         />
         <TextField
-            className='group-input--input'
-            id="cellphone_number"
-            label="Portable"
-            value={user.cellphoneNumber}
-            variant="outlined"
-            type="tel"
-            onChange={(evt) => {
-              dispatch(actionSetCellphoneNumber(evt.target.value));
-            }}
+          className="group-input--input"
+          id="cellphone_number"
+          label="Portable"
+          value={user.cellphoneNumber}
+          variant="outlined"
+          type="tel"
+          onChange={(evt) => {
+            dispatch(actionSetCellphoneNumber(evt.target.value));
+          }}
         />
         <TextField
-            className='group-input--input'
-            id="phone_work"
-            label="Travail"
-            value={user.workPhone}
-            variant="outlined"
-            onChange={(evt) => {
-              dispatch(actionSetWorkPhone(evt.target.value));
-            }}
+          className="group-input--input"
+          id="phone_work"
+          label="Travail"
+          value={user.workPhone}
+          variant="outlined"
+          onChange={(evt) => {
+            dispatch(actionSetWorkPhone(evt.target.value));
+          }}
         />
       </div>
 
       <FormLabel component="legend" className="form-group--label">Nombre d'enfants</FormLabel>
       <TextField
-          className='group-input--input'
-          value={user.children}
-          id="children"
-          label="Enfant"
-          variant="outlined"
-          type="Number"
-          onChange={(evt) => {
-            dispatch(actionSetChildren(evt.target.value));
-          }}
+        className="group-input--input"
+        value={user.children}
+        id="children"
+        label="Enfant"
+        variant="outlined"
+        type="Number"
+        onChange={(evt) => {
+          dispatch(actionSetChildren(evt.target.value));
+        }}
       />
 
 

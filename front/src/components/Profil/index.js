@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { withStyles } from '@material-ui/core/styles';
+
 import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,6 +19,7 @@ import CloseIcon from '@material-ui/icons/Close';
 // == Import actions
 
 import {
+
     actionSetOpenEditProfil,
     actionSetOpenAddInfoSup,
     actionAddInfoSup,
@@ -31,6 +32,7 @@ import {
 import { handdleVerifEmptyValue } from 'src/utils/checkSpaces';
 
 
+
 // == Import styles
 import './styles.scss';
 
@@ -39,65 +41,66 @@ import EditProfil from 'src/components/Profil/EditProfil';
 
 
 const Category = withStyles({
-    root: {
-        padding: '2rem',
-        letterSpacing: '0.1rem',
-        textAlign: 'left',
-    }
+  root: {
+    padding: '2rem',
+    letterSpacing: '0.1rem',
+    textAlign: 'left',
+  },
 })(Tab);
 
 
-
-
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`vertical-tabpanel-${index}`}
-            aria-labelledby={`vertical-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box p={3}>
-                    <div>{children}</div>
-                </Box>
-            )}
-        </div>
-    );
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <div>{children}</div>
+        </Box>
+      )}
+    </div>
+  );
 }
 
 TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
-    return {
-        id: `vertical-tab-${index}`,
-        'aria-controls': `vertical-tabpanel-${index}`,
-    };
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        display: 'flex',
-        margin: '0 5rem',
-        minWidth: '1050px',
-    },
-    tabs: {
-        borderRight: `1px solid ${theme.palette.divider}`,
-    },
+  root: {
+    flexGrow: 1,
+    display: 'flex',
+    margin: '0 5rem',
+    minWidth: '1050px',
+  },
+  tabs: {
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
 }));
 
 
 // -------------------------- Export --------------------------
 
 export default function Profil() {
+
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const dispatch = useDispatch();

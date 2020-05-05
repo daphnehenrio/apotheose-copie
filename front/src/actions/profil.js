@@ -7,19 +7,19 @@ export const SET_INFO_SUP_TITLE = 'action/SET_INFO_SUP_TITLE';
 export const SET_INFO_SUP_VALUE = 'action/SET_INFO_SUP_VALUE';
 export const CLEAR_INFO_SUP = 'action/CLEAR_INFO_SUP';
 
-export const actionSetNoteContent = (note) => ({ 
-    type: SET_NOTE_CONTENT,
-    note, 
+export const actionSetNoteContent = (note) => ({
+  type: SET_NOTE_CONTENT,
+  note,
 });
 
 export const actionChangeNoteContent = (note) => ({
-    type: CHANGE_NOTE_CONTENT,
-    note,
+  type: CHANGE_NOTE_CONTENT,
+  note,
 });
 
 export const actionSetOpenEditProfil = (bool) => ({
-    type: SET_OPEN_EDIT_PROFIL,
-    bool,
+  type: SET_OPEN_EDIT_PROFIL,
+  bool,
 });
 
 export const actionSetOpenAddInfoSup = (bool) => ({

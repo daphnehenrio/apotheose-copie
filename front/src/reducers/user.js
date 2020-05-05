@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   SET_LAST_NAME,
   SET_FIRST_NAME,
@@ -19,7 +20,7 @@ import {
   CHECK_EMAIL_EXISTS,
   LOG_USER,
   ERROR_LOGIN,
-  LOGOUT
+  LOGOUT,
 } from '../actions/user';
 
 import {
@@ -56,13 +57,13 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_LAST_NAME: {
-      return{
+      return {
         ...state,
         user: {
           ...state.user,
           lastName: action.lastName,
         },
-      }
+      };
     }
     case SET_FIRST_NAME: {
       return {
@@ -70,8 +71,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           firstName: action.firstName,
-        }
-      }
+        },
+      };
     }
     case SET_LOGIN: {
       return {
@@ -79,8 +80,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           login: action.login,
-        }
-      }
+        },
+      };
     }
     case SET_PASSWORD: {
       return {
@@ -88,8 +89,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           password: action.password,
-        }
-      }
+        },
+      };
     }
     case SET_CONFIRM_PASSWORD: {
       return {
@@ -97,21 +98,20 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           confirmPassword: action.password,
-        }
-      }
+        },
+      };
     }
-    case CONFIRM_PASSWORD : {
-      if(state.user.password === action.password){
+    case CONFIRM_PASSWORD: {
+      if (state.user.password === action.password) {
         return {
           ...state,
           isPasswordCorrect: true,
-        }
-      } else {
-        return {
-          ...state,
-          isPasswordCorrect: false,
-        }
+        };
       }
+      return {
+        ...state,
+        isPasswordCorrect: false,
+      };
     }
     case SET_EMAIL: {
       return {
@@ -119,8 +119,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           email: action.email,
-        }
-      }
+        },
+      };
     }
     case SET_ADDRESS: {
       return {
@@ -128,8 +128,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           adress: action.adress,
-        }
-      }
+        },
+      };
     }
     case SET_ZIPCODE: {
       return {
@@ -137,8 +137,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           zipCode: action.zipCode,
-        }
-      }
+        },
+      };
     }
     case SET_CITY: {
       return {
@@ -146,8 +146,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           city: action.city,
-        }
-      }
+        },
+      };
     }
     case SET_FIX_NUMBER: {
       return {
@@ -155,8 +155,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           fixNumber: action.fixNumber,
-        }
-      }
+        },
+      };
     }
     case SET_CELLPHONE_NUMBER: {
       return {
@@ -164,8 +164,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           cellphoneNumber: action.cellphoneNumber,
-        }
-      }
+        },
+      };
     }
     case SET_WORK_PHONE: {
       return {
@@ -173,8 +173,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           workPhone: action.workPhone,
-        }
-      }
+        },
+      };
     }
     case SET_CHILDREN: {
       return {
@@ -182,8 +182,8 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           children: action.children,
-        }
-      }
+        },
+      };
     }
     case SET_GENDER: {
       return {
@@ -191,26 +191,26 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           gender: action.gender,
-        }
-      }
+        },
+      };
     }
     case MISSING_FIELD: {
       return {
         ...state,
         missingField: true,
-      }
+      };
     }
     case CHECK_PASSWORD_STRENGTH: {
       return {
         ...state,
         passwordStrength: action.isStrong,
-      }
+      };
     }
     case CHECK_EMAIL_EXISTS: {
       return {
         ...state,
         emailExists: action.exists,
-      }
+      };
     }
     case LOG_USER: {
       const {
@@ -218,13 +218,13 @@ export default (state = initialState, action = {}) => {
         last_name,
         email,
         gender,
-        cellphoneNumber,
-        fixNumber,
-        workPhone,
-        zipCode,
+        cellphone_number,
+        phone_number,
+        phone_work,
+        zip_code,
         city,
         children,
-        adress
+        address,
       } = action.user;
       return {
         ...state,
@@ -232,38 +232,38 @@ export default (state = initialState, action = {}) => {
           ...state.user,
           firstName: first_name,
           lastName: last_name,
-          email: email,
-          gender: gender,
-          cellphoneNumber: cellphoneNumber,
-          fixNumber: fixNumber,
-          workPhone: workPhone,
-          zipCode: zipCode,
-          city: city,
-          children: children,
-          adress: adress,
+          email,
+          gender,
+          cellphoneNumber: cellphone_number,
+          fixNumber: phone_number,
+          workPhone: phone_work,
+          zipCode: zip_code,
+          city,
+          children,
+          adress: address,
         },
         isLoginCorrect: true,
         connected: true,
-      }
+      };
     }
-    case ERROR_LOGIN : {
+    case ERROR_LOGIN: {
       return {
         ...state,
         isLoginCorrect: false,
-        messageWrongLogin: action.message
-      }
+        messageWrongLogin: action.message,
+      };
     }
     case SET_LOGIN_FORM: {
       return {
         ...state,
         messageWrongLogin: false,
-      }
-  }
-  case LOGOUT: {
-    return {
-      ...initialState,
+      };
     }
-  }
+    case LOGOUT: {
+      return {
+        ...initialState,
+      };
+    }
     default: {
       return state;
     }
