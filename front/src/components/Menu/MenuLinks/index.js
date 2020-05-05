@@ -29,6 +29,7 @@ import { actionChangePage } from '../../../actions/routes';
 
 
 
+
 // -------------------------- Export --------------------------
 
 export default function FileSystemNavigator() {
@@ -44,14 +45,24 @@ export default function FileSystemNavigator() {
         dispatch(actionChangePage(route, history));
     };
 
+
+
 // Compnents
 
     const ServicesLinks = menu.map((category) => {
       if(menu.length > 0 ){
+
+        const imageName = `${slugify(category.name)}.png`
+        const image = require(`src/assets/image/menu-category/${imageName}`)
+
         return (
           <Link key={category.name} className="menu--sublink" href={`services/${slugify(category.name)}`} onClick={(event) => preventDefault(event, `/services/${slugify(category.name)}`)}>
 
             <p className='tree-item-link'>
+            <img
+              className="icon-menu"
+              src={image.default}
+            />
                 {category.name}
             </p>
           </Link>
@@ -65,6 +76,7 @@ export default function FileSystemNavigator() {
 
 
           <p className='tree-item-link'>
+
               {sousCat.name}
           </p>
         </Link>
@@ -72,6 +84,9 @@ export default function FileSystemNavigator() {
     })
 
     const ArticlesLinks = menu.map((category) => {
+      const imageName = `${slugify(category.name)}.png`
+      const image = require(`src/assets/image/menu-category/${imageName}`)
+      console.log(image)
       if (!category.sub_category || category.sub_category?.length === 0) {
         console.log('err')
         return /*(
@@ -83,6 +98,7 @@ export default function FileSystemNavigator() {
         </Link>
         )*/
       }
+
       return (
         <ExpansionPanel className="menu--ExpansionPanel" key={category.name}>
           <ExpansionPanelSummary
@@ -90,6 +106,10 @@ export default function FileSystemNavigator() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
+            <img
+              className="icon-menu"
+              src={image.default}
+            />
             <Typography >{category.name}</Typography>
           </ExpansionPanelSummary>
 
