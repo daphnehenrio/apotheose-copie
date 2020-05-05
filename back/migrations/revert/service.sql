@@ -2,6 +2,6 @@
 
 BEGIN;
 
-TRUNCATE TABLE "service" CASCADE;
+
 
 COMMIT;

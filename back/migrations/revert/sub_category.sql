@@ -2,6 +2,6 @@
 
 BEGIN;
 
-TRUNCATE TABLE sub_category CASCADE;
+
 
 COMMIT;
