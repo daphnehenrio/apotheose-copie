@@ -3,7 +3,7 @@
 BEGIN;
 
 
-TRUNCATE TABLE service_has_category CASCADE;
+
 
 
 COMMIT;

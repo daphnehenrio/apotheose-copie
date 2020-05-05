@@ -8,8 +8,8 @@ import menu from './menu';
 
 export default applyMiddleware(
   loggers,
+  auth,
   menu,
   routesMW,
-  auth,
   signup,
 );

@@ -1,5 +1,5 @@
 // == Import npm
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,6 +23,7 @@ import Profil from 'src/components/Profil';
 
 // == import action
 import { actionGetMenu } from '../../actions/menu';
+import { actionCheckSession } from '../../actions/user';
 
 
 // -------------------------- styles composants --------------------------
@@ -58,54 +59,75 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const { openDrawer } = useSelector((state) => state.toggle);
+  const { connected } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-
-  let classesContent = "menu--content";
-  classesContent += openDrawer ? ' contentShift' : '';
-
-
-    useEffect(() => {
-      (function getMenu() {
-        dispatch(actionGetMenu());
+  /* useLayoutEffect(() => {
+      (function checkSession() {
+        dispatch(actionCheckSession());
       })();
-    }, []);
+     }) */
 
-// -------------------------- Return --------------------------
+
+  useEffect(() => {
+    (function getMenu() {
+      dispatch(actionGetMenu());
+    }());
+  }, []);
+
+  // -------------------------- Return --------------------------
 
   return (
     <div className="app">
       <AppBar />
       <Menu />
-        <div
-          className={clsx(classes.content, {
-            [classes.contentShift]: openDrawer,
-          })}
-        >
-          <Switch>
-            <Route exact path="/">
-              <div>
-                <HomePage/>
-              </div>
-            </Route>
-            <Route exact path="/inscription">
-              <div>
-                <Signup />
-              </div>
-            </Route>
-            <Route exact path="/mon-espace-personnel">
-              <div>
-                <DashBoard />
-              </div>
-            </Route>
-            <Route exaact path="/profil">
-              <div>
-                <Profil/>
-              </div>
-            </Route>
-          </Switch>
-          <Footer />
-        </div>
+      <div
+        className={clsx(classes.content, {
+          [classes.contentShift]: openDrawer,
+        })}
+      >
+        <Switch>
+          <Route exact path="/">
+            <div>
+              <HomePage />
+            </div>
+          </Route>
+          <Route exact path="/inscription">
+            <div>
+              <Signup />
+            </div>
+          </Route>
+          <Route
+            exact
+            path="/mon-espace-personnel"
+            render={() => {
+              if (!connected) {
+                return <Redirect to="/" />;
+              }
+              return (
+                <div>
+                  <DashBoard />
+                </div>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/profil"
+            render={() => {
+              if (!connected) {
+                return <Redirect to="/" />;
+              }
+              return (
+                <div>
+                  <Profil />
+                </div>
+              );
+            }}
+          />
+        </Switch>
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -10,19 +10,19 @@ export const EDIT_INFO_SUP = 'action/EDIT_INFO_SUP';
 export const EDIT_INFO_SUP_CONTENT = 'action/EDIT_INFO_SUP_CONTENT';
 export const CLOSE_EDIT_INFO_SUP = 'action/CLOSE_EDIT_INFO_SUP';
 
-export const actionSetNoteContent = (note) => ({ 
-    type: SET_NOTE_CONTENT,
-    note, 
+export const actionSetNoteContent = (note) => ({
+  type: SET_NOTE_CONTENT,
+  note,
 });
 
 export const actionChangeNoteContent = (note) => ({
-    type: CHANGE_NOTE_CONTENT,
-    note,
+  type: CHANGE_NOTE_CONTENT,
+  note,
 });
 
 export const actionSetOpenEditProfil = (bool) => ({
-    type: SET_OPEN_EDIT_PROFIL,
-    bool,
+  type: SET_OPEN_EDIT_PROFIL,
+  bool,
 });
 
 export const actionSetOpenAddInfoSup = (bool) => ({
