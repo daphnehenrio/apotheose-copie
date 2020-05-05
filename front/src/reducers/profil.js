@@ -2,6 +2,7 @@ import {
     SET_NOTE_CONTENT,
     CHANGE_NOTE_CONTENT,
     SET_OPEN_EDIT_PROFIL,
+    SET_OPEN_ADD_INFO_SUP,
     ADD_INFO_SUP,
     SET_INFO_SUP_TITLE,
     SET_INFO_SUP_VALUE,
@@ -15,6 +16,7 @@ const initialState = {
         { id: 2, title: 'Note 2', content: 'Je suis la note numéro 2' },
     ],
     openEditProfil: false,
+    openAddInfoSup: false,
     infosSup: [
         {title: 'Ecole', value:'Poudlard'},
         {title: 'Nounou', value:'Joséphine'},
@@ -52,6 +54,12 @@ export default (state = initialState, action = {}) => {
             return{
                 ...state,
                 openEditProfil: action.bool,
+            }
+        }
+        case SET_OPEN_ADD_INFO_SUP: {
+            return {
+                ...state,
+                openAddInfoSup: action.bool,
             }
         }
         case SET_INFO_SUP_TITLE: {
