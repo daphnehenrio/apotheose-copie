@@ -59,7 +59,22 @@ export default (store) => (next) => (action) => {
               store.dispatch(actionErrorLogin(res.data));
             }
             else {
-              store.dispatch(actionLogUser(res.data));
+              const user = {
+                first_name: res.data.first_name,
+                last_name: res.data.last_name,
+                email: res.data.email,
+                gender: res.data.user_profil.genrder,
+                cellphone_number: res.data.user_profil.cellphone_number,
+                phone_number: res.data.user_profil.phone_number,
+                phone_work: res.data.user_profil.phone_work,
+                zip_code: res.data.user_profil.zip_code,
+                city: res.data.user_profil.city,
+                children: res.data.user_profil.children,
+                address: res.data.user_profil.address,
+                age: res.data.user_profil.age,
+                statut: res.data.user_profil.statut,
+              };
+              store.dispatch(actionLogUser(user));
               store.dispatch(actionSetLoginForm());
               store.dispatch(actionChangePage('mon-espace-personnel', history));
             }

@@ -43,6 +43,8 @@ const initialState = {
     city: '',
     children: '',
     adress: '',
+    age: '',
+    statut: '',
   },
   isPasswordCorrect: 'init',
   missingField: false,
@@ -225,6 +227,8 @@ export default (state = initialState, action = {}) => {
         city,
         children,
         address,
+        age,
+        statut,
       } = action.user;
       return {
         ...state,
@@ -241,6 +245,8 @@ export default (state = initialState, action = {}) => {
           city,
           children,
           adress: address,
+          age,
+          statut,
         },
         isLoginCorrect: true,
         connected: true,
