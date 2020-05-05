@@ -19,12 +19,16 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import {
 
-  actionSetOpenEditProfil,
-  actionSetOpenAddInfoSup,
-  actionAddInfoSup,
-  actionSetInfoSupTitle,
-  actionSetInfoSupValue,
-  actionClearAddInfoSup,
+    actionSetOpenEditProfil,
+    actionSetOpenAddInfoSup,
+    actionAddInfoSup,
+    actionSetInfoSupTitle,
+    actionSetInfoSupValue,
+    actionClearAddInfoSup,
+    actionEditInfoSup,
+    actionEditInfosSupContent,
+    actionCloseEditInfoSup,
+
 } from '../../actions/profil';
 
 // == import utils
@@ -98,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
 // -------------------------- Export --------------------------
 
 export default function Profil() {
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
@@ -128,17 +133,99 @@ export default function Profil() {
     dispatch(actionSetOpenEditProfil(bool));
   };
 
-  const handleAddInfoSup = (bool) => {
-    dispatch(actionSetOpenAddInfoSup(bool));
-  };
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
+    const dispatch = useDispatch();
+    const openAddInfoSup = useSelector((state) => state.profil.openAddInfoSup);
+    const infoSup = useSelector((state) => state.profil.infoSupToAdd);
+    const infosSup = useSelector((state) => state.profil.infosSup);
+    const infosSupList = infosSup.map(info => {
+        if(info.edit === false){
+            return (
+                <li key={info.id} className='infos-content' onDoubleClick={(evt) => {
+                    dispatch(actionEditInfoSup(info.id));
+                }}>{info.title} : {info.value}</li>
+            )
+        } else {
+            return (
+                <form onSubmit={(evt) => {
+                    evt.preventDefault();
+                    let title;
+                    let value;
+                    if(handdleVerifEmptyValue(infoSup.title)){
+                        title = info.title;
+                    } else {
+                        title = infoSup.title;
+                    }
+                    if(handdleVerifEmptyValue(infoSup.value)){
+                        value = info.value;
+                    } else {
+                        value = infoSup.value;
+                    }
+                    const infoToEdit = {
+                        id : info.id,
+                        title: title,
+                        value: value,
+                    }
+                    dispatch(actionEditInfosSupContent(infoToEdit));
+                    dispatch(actionClearAddInfoSup());
+                }}
+                    className='add-infos-sup-container'>
+                    <TextField
+                        id="add-info-sup-title"
+                        defaultValue={info.title}
+                        autoFocus
+                        onChange={(evt) => { dispatch(actionSetInfoSupTitle(evt.target.value)) }}
+                    />
+                    <p className='add-infos-sup-separator'> : </p>
+                    <TextField
+                        id="standard-basic"
+                        defaultValue={info.value}
+                        onChange={(evt) => { dispatch(actionSetInfoSupValue(evt.target.value)); console.log(infoSup) }}
+                    />
+                    <IconButton aria-label="close" onClick= {(evt) => {
+                        dispatch(actionCloseEditInfoSup(info.id));
+                    }}>
+                        <CloseIcon />
+                    </IconButton>
+                    <input className='hidden' type='submit' />
+                </form>
+            )
+        }
+    });
+
+    const handleEditProfil = (bool) => {
+        dispatch(actionSetOpenEditProfil(bool));
+    }
+
 
   console.log(login)
 
-  // -------------------------- Return --------------------------
+    const handleAddInfoSup = (bool) => {
+        dispatch(actionSetOpenAddInfoSup(bool));
+    }
+
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+
+    // -------------------------- Return --------------------------
+
+    return (
+        <div className='profil'>
+            <h3 className='profil-title'>Mon Profil</h3>
+            <div className={classes.root}>
+                <Tabs
+                    orientation="vertical"
+                    variant="scrollable"
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="Vertical tabs example"
+                    className={classes.tabs}
+
 
   return (
     <div className="profil">
@@ -172,6 +259,7 @@ export default function Profil() {
                   onClick={(evt) => {
                     handleEditProfil(true);
                   }}
+
                 >
                   <EditIcon />
                 </IconButton>
@@ -200,9 +288,75 @@ export default function Profil() {
                       <h5>Travail :</h5>
                       <li className="infos-content">{workPhone}</li>
                     </div>
+
                     <div className="sub-container">
                       <h5>Perso :</h5>
                       <li className="infos-content">{cellphoneNumber}</li>
+
+
+                </TabPanel>
+                <TabPanel className='category-content' value={value} index={1}>
+                    <div className='card-container'>
+                        <div className='card-header'>
+                            <div className='card-header-left'>
+                                <Avatar aria-label="recipe">
+                                    H
+                                </Avatar>
+                                <h3>Informations supplémentaires</h3>
+                            </div>
+                            <div className='card-header-right'>
+                                <IconButton aria-label="settings" onClick={(evt) => {
+                                    handleAddInfoSup(true);
+                                    document.getElementById('add-info-sup-title').focus();
+                                }}>
+                                    <AddIcon />
+                                </IconButton>
+                                <IconButton aria-label="settings">
+                                    <EditIcon />
+                                </IconButton>
+                            </div>
+                        </div>
+                        <div className='card-content'>
+                            <ul className='infos-container'>
+                                {infosSupList}
+                                {openAddInfoSup && (
+                                    <form onSubmit={(evt) => {
+                                        evt.preventDefault();
+                                        if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
+                                            const infos = {
+                                                id: infosSup.length+1,
+                                                title: infoSup.title,
+                                                value: infoSup.value,
+                                            }
+                                            dispatch(actionAddInfoSup(infos));
+                                            dispatch(actionClearAddInfoSup());
+                                            document.getElementById('add-info-sup-title').focus();
+                                            console.log(infosSup);
+                                        }
+                                    }}
+                                        className='add-infos-sup-container'>
+                                        <TextField
+                                            id="add-info-sup-title"
+                                            onChange={(evt) => { dispatch(actionSetInfoSupTitle(evt.target.value)) }}
+                                            value={infoSup.title}
+                                            autoFocus
+                                        />
+                                        <p className='add-infos-sup-separator'> : </p>
+                                        <TextField
+                                            id="standard-basic"
+                                            onChange={(evt) => { dispatch(actionSetInfoSupValue(evt.target.value)) }}
+                                            value={infoSup.value}
+                                        />
+                                        <IconButton aria-label="delete" onClick={(evt) => { handleAddInfoSup(false) }}>
+                                            <CloseIcon />
+                                        </IconButton>
+                                        <input className='hidden' type='submit' />
+                                    </form>
+                                )}
+                            </ul>
+                        </div>
+
+
                     </div>
                     <div className="sub-container">
                       <h5>Fix :</h5>
