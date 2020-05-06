@@ -44,19 +44,19 @@ const initialState = {
     infoSupToAdd: {title: '', value: ''},
     user: {
       login: '',
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       password: '',
       confirmPassword: '',
       email: '',
       gender: '',
-      cellphoneNumber: '',
-      fixNumber: '',
-      workPhone: '',
-      zipCode: '',
+      cellphone_number: '',
+      fix_number: '',
+      phone_work: '',
+      zip_code: '',
       city: '',
       children: '',
-      adress: '',
+      address: '',
       age: '',
       statut: '',
     },
@@ -173,7 +173,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              lastName: action.lastName,
+              last_name: action.last_name,
             },
           };
         }
@@ -182,7 +182,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              firstName: action.firstName,
+              first_name: action.first_name,
             },
           };
         }
@@ -210,7 +210,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              adress: action.adress,
+              address: action.address,
             },
           };
         }
@@ -219,7 +219,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              zipCode: action.zipCode,
+              zip_code: action.zip_code,
             },
           };
         }
@@ -237,7 +237,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              fixNumber: action.fixNumber,
+              fix_number: action.fix_number,
             },
           };
         }
@@ -246,7 +246,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              cellphoneNumber: action.cellphoneNumber,
+              cellphone_number: action.cellphone_number,
             },
           };
         }
@@ -255,7 +255,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              workPhone: action.workPhone,
+              phone_work: action.phone_work,
             },
           };
         }

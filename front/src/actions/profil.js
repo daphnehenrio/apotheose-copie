@@ -83,14 +83,14 @@ export const actionSaveUpdateProfil = () => ({
   type: SAVE_UPDATE_PROFIL,
 });
 
-export const actionUpdateLastName = (lastName) => ({
+export const actionUpdateLastName = (last_name) => ({
   type: UPDATE_LAST_NAME,
-  lastName,
+  last_name,
 });
 
-export const actionUpdateFirstName = (firstName) => ({
+export const actionUpdateFirstName = (first_name) => ({
   type: UPDATE_FIRST_NAME,
-  firstName,
+  first_name,
 });
 
 export const actionUpdateLogin = (login) => ({
@@ -109,29 +109,29 @@ export const actionUpdateGender = (gender) => ({
   gender,
 });
 
-export const actionUpdateAddress = (adress) => ({
+export const actionUpdateAddress = (address) => ({
   type: UPDATE_ADDRESS,
-  adress,
+  address,
 });
-export const actionUpdateZipCode = (zipCode) => ({
-  type: UPDATE_ZIPCODE,
-  zipCode,
+export const actionUpdateZipCode = (zip_code) => ({
+  type: UPDATE_ZIP_CODE,
+  zip_code,
 });
 export const actionUpdateCity = (city) => ({
   type: UPDATE_CITY,
   city,
 });
-export const actionUpdateFixNumber = (fixNumber) => ({
+export const actionUpdateFixNumber = (phone_number) => ({
   type: UPDATE_FIX_NUMBER,
-  fixNumber,
+  phone_number,
 });
-export const actionUpdateCellphoneNumber = (cellphoneNumber) => ({
+export const actionUpdateCellphoneNumber = (cellphone_number) => ({
   type: UPDATE_CELLPHONE_NUMBER,
-  cellphoneNumber,
+  cellphone_number,
 });
-export const actionUpdateWorkPhone = (workPhone) => ({
+export const actionUpdateWorkPhone = (phone_work) => ({
   type: UPDATE_WORK_PHONE,
-  workPhone,
+  phone_work,
 });
 export const actionUpdateChildren = (children) => ({
   type: UPDATE_CHILDREN,

@@ -197,7 +197,7 @@ export default function EditProfil() {
               label="Adresse"
               variant="outlined"
               fullWidth
-              defaultValue={user.adress}
+              defaultValue={user.address}
               onChange={() => dispatch(actionUpdateAddress(event.target.value))}
             />
             <div className="group-input">
@@ -212,7 +212,7 @@ export default function EditProfil() {
                 id="zip-code"
                 label="Code Postal"
                 variant="outlined"
-                defaultValue={user.zipCode}
+                defaultValue={user.zip_code}
                 onChange={() => dispatch(actionUpdateZipCode(event.target.value))}
               />
             </div>
@@ -222,21 +222,21 @@ export default function EditProfil() {
                 id="fix"
                 label="Fix"
                 variant="outlined"
-                defaultValue={user.fixNumber}
+                defaultValue={user.phone_number}
                 onChange={() => dispatch(actionUpdateFixNumber(event.target.value))}
               />
               <TextField
                 id="cellphone"
                 label="Portable"
                 variant="outlined"
-                defaultValue={user.cellphoneNumber}
+                defaultValue={user.cellphone_number}
                 onChange={() => dispatch(actionUpdateCellphoneNumber(event.target.value))}
               />
               <TextField
                 id="work"
                 label="Travail"
                 variant="outlined"
-                defaultValue={user.workPhone}
+                defaultValue={user.phone_work}
                 onChange={() => dispatch(actionUpdateWorkPhone(event.target.value))}
               />
             </div>

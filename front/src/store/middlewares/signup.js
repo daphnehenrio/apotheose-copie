@@ -14,18 +14,18 @@ export default (store) => (next) => (action) => {
       console.log(user);
       const userInfo = {
         login: user.login,
-        first_name: user.firstName,
-        last_name: user.lastName,
+        first_name: user.first_name,
+        last_name: user.last_name,
         password: user.password,
         email: user.email,
         gender: user.gender,
-        cellphone_number: user.cellphoneNumber,
-        phone_number: user.fixNumber,
-        phone_work: user.workPhone,
-        zip_code: user.zipCode,
+        cellphone_number: user.cellphone_number,
+        phone_number: user.phone_umber,
+        phone_work: user.phone_work,
+        zip_code: user.zip_code,
         city: user.city,
         children: user.children ? user.children : 0,
-        address: user.adress,
+        address: user.address,
 
       };
       axios

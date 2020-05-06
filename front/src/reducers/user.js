@@ -8,7 +8,7 @@ import {
   CONFIRM_PASSWORD,
   SET_EMAIL,
   SET_ADDRESS,
-  SET_ZIPCODE,
+  SET_ZIP_CODE,
   SET_CITY,
   SET_FIX_NUMBER,
   SET_CELLPHONE_NUMBER,
@@ -31,19 +31,19 @@ import { SAVE_UPDATE_PROFIL } from '../actions/profil';
 const initialState = {
   user: {
     login: '',
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     password: '',
     confirmPassword: '',
     email: '',
     gender: '',
-    cellphoneNumber: '',
-    fixNumber: '',
-    workPhone: '',
-    zipCode: '',
+    cellphone_number: '',
+    phone_number: '',
+    phone_work: '',
+    zip_Code: '',
     city: '',
     children: '',
-    adress: '',
+    address: '',
     age: '',
     statut: '',
   },
@@ -64,7 +64,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         user: {
           ...state.user,
-          lastName: action.lastName,
+          last_name: action.last_name,
         },
       };
     }
@@ -73,7 +73,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         user: {
           ...state.user,
-          firstName: action.firstName,
+          first_name: action.first_name,
         },
       };
     }
@@ -130,16 +130,16 @@ export default (state = initialState, action = {}) => {
         ...state,
         user: {
           ...state.user,
-          adress: action.adress,
+          address: action.address,
         },
       };
     }
-    case SET_ZIPCODE: {
+    case SET_ZIP_CODE: {
       return {
         ...state,
         user: {
           ...state.user,
-          zipCode: action.zipCode,
+          zip_Code: action.zip_Code,
         },
       };
     }
@@ -157,7 +157,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         user: {
           ...state.user,
-          fixNumber: action.fixNumber,
+          phone_number: action.phone_number,
         },
       };
     }
@@ -166,7 +166,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         user: {
           ...state.user,
-          cellphoneNumber: action.cellphoneNumber,
+          cellphone_number: action.cellphone_number,
         },
       };
     }
@@ -175,7 +175,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         user: {
           ...state.user,
-          workPhone: action.workPhone,
+          phone_work: action.phone_work,
         },
       };
     }
@@ -237,17 +237,17 @@ export default (state = initialState, action = {}) => {
         user: {
           ...state.user,
           login: login ? login : state.user.login,
-          firstName: first_name,
-          lastName: last_name,
+          first_name: first_name,
+          last_name: last_name,
           email,
           gender,
-          cellphoneNumber: cellphone_number,
-          fixNumber: phone_number,
-          workPhone: phone_work,
-          zipCode: zip_code,
+          cellphone_number: cellphone_number,
+          phone_number: phone_number,
+          phone_work: phone_work,
+          zip_Code: zip_code,
           city,
           children,
-          adress: address,
+          address: address,
           age,
           statut,
         },
@@ -295,17 +295,17 @@ export default (state = initialState, action = {}) => {
           user: {
             ...state.user,
             login: login ? login : state.user.login,
-            firstName: first_name,
-            lastName: last_name,
+            first_name: first_name,
+            last_name: last_name,
             email,
             gender,
             cellphoneNumber: cellphone_number,
-            fixNumber: phone_number,
-            workPhone: phone_work,
-            zipCode: zip_code,
+            phone_number: phone_number,
+            phone_work: phone_work,
+            zip_Code: zip_code,
             city,
             children,
-            adress: address,
+            address: address,
             age,
             statut,
           },

@@ -105,17 +105,17 @@ export default function Profil() {
 
   const {
     login,
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     email,
     gender,
-    cellphoneNumber,
-    fixNumber,
-    workPhone,
-    zipCode,
+    cellphone_number,
+    phone_number,
+    phone_work,
+    zip_code,
     city,
     children,
-    adress,
+    address,
     age,
     statut,
   } = useSelector((state) => state.user.user);
@@ -238,14 +238,14 @@ export default function Profil() {
                               <div className='sub-container'>
                                   <h5>Nom et prénom :</h5>
                                   <div className='sub-container-content'>
-                                      <li className='infos-content'>{lastName.toUpperCase} {firstName}</li>
+                                      <li className='infos-content'>{last_name.toUpperCase} {first_name}</li>
                                   </div>
 
                               </div>
                               <div className='sub-container'>
                                   <h5>Adresse :</h5>
                                   <div className='sub-container-content'>
-                                      <li className='infos-content'>{adress}, {zipCode} {city.toUpperCase()}</li>
+                                      <li className='infos-content'>{address}, {zip_code} {city.toUpperCase()}</li>
                                   </div>
 
                               </div>
@@ -254,15 +254,15 @@ export default function Profil() {
                                   <div className='sub-container-content'>
                                       <div className='sub-container'>
                                           <h5>Travail :</h5>
-                                          <li className='infos-content'>{workPhone}</li>
+                                          <li className='infos-content'>{phone_work}</li>
                                       </div>
                                       <div className='sub-container'>
                                           <h5>Perso :</h5>
-                                          <li className='infos-content'>{cellphoneNumber}</li>
+                                          <li className='infos-content'>{cellphone_number}</li>
                                       </div>
                                       <div className='sub-container'>
                                           <h5>Fix :</h5>
-                                          <li className='infos-content'>{fixNumber}</li>
+                                          <li className='infos-content'>{phone_number}</li>
                                       </div>
                                   </div>
 
