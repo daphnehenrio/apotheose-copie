@@ -80,12 +80,13 @@ export default function EditProfil() {
 
   const handleEditProfil = (bool) => {
     if(!bool){
-      return dispatch(actionSetOpenEditProfil());
+      return dispatch(actionSetOpenEditProfil(bool));
     }
     if(bool){
       console.log('true save profil')
-      dispatch(actionSaveUpdateProfil());
-      dispatch(actionSetOpenEditProfil());
+
+
+      dispatch(actionSetOpenEditProfil(!bool));
 
     }
   };
@@ -245,7 +246,11 @@ export default function EditProfil() {
           <Button onClick={(evt) => handleEditProfil(false)} color="primary">
             Cancel
           </Button>
-          <Button onClick={(evt) => handleEditProfil(true)} color="primary">
+          <Button onClick={(evt) => {
+            dispatch(actionSaveUpdateProfil());
+            handleEditProfil(true);
+            }}
+            color="primary">
             Subscribe
           </Button>
         </DialogActions>

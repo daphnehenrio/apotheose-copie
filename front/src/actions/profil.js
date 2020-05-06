@@ -15,8 +15,8 @@ export const UPDATE_FIRST_NAME = 'action/UPDATE_FIRST_NAME';
 export const UPDATE_LOGIN = 'action/UPDATE_LOGIN';
 export const UPDATE_EMAIL = 'action/UPDATE_EMAIL';
 export const UPDATE_ADDRESS = 'action/UPDATE_ADDRESS';
-export const actionSetZipCode = 'action/UPDATE_ZIP_CODE';
-export const UPDATE_ZIP_CODE = 'action/UPDATE_CITY';
+export const UPDATE_ZIP_CODE = 'action/UPDATE_ZIP_CODE';
+export const UPDATE_CITY = 'action/UPDATE_CITY';
 export const UPDATE_FIX_NUMBER = 'action/UPDATE_FIX_NUMBER';
 export const UPDATE_CELLPHONE_NUMBER = 'action/UPDATE_CELLPHONE_NUMBER';
 export const UPDATE_WORK_PHONE = 'action/UPDATE_WORK_PHONE';
@@ -79,9 +79,9 @@ export const actionCloseEditInfoSup = (id) => ({
     id,
 });
 
-export const actionSaveUpdateProfil = ({
+export const actionSaveUpdateProfil = () => ({
   type: SAVE_UPDATE_PROFIL,
-})
+});
 
 export const actionUpdateLastName = (lastName) => ({
   type: UPDATE_LAST_NAME,

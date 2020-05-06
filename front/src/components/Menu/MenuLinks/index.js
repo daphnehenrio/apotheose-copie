@@ -42,7 +42,7 @@ export default function FileSystemNavigator() {
   // Compnents
 
   const ServicesLinks = menu.map((category) => {
-    if (menu.length > 0) {
+    if (menu.length > 0 && category.id < 5) {
       const imageName = `${slugify(category.name)}.png`;
       const image = require(`src/assets/image/menu-category/${imageName}`);
 
@@ -88,6 +88,10 @@ export default function FileSystemNavigator() {
         ) */
     }
 
+    if(category.id > 5 && category.id <10) {
+
+
+
     return (
       <ExpansionPanel className="menu--ExpansionPanel" key={category.name}>
         <ExpansionPanelSummary
@@ -95,6 +99,7 @@ export default function FileSystemNavigator() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
+
           <img
             className="icon-menu"
             src={image.default}
@@ -108,6 +113,7 @@ export default function FileSystemNavigator() {
         </ExpansionPanelDetails>
       </ExpansionPanel>
     );
+   }
   });
 
   // -------------------------- Return --------------------------

@@ -35,6 +35,7 @@ User.init({
     allowNull: false
   },
 
+
 }, {
   sequelize: dbConnection,
   tableName: "user",

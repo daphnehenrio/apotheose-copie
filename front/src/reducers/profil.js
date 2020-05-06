@@ -11,7 +11,23 @@ import {
     EDIT_INFO_SUP,
     EDIT_INFO_SUP_CONTENT,
     CLOSE_EDIT_INFO_SUP,
+    UPDATE_LAST_NAME,
+    UPDATE_FIRST_NAME,
+    UPDATE_LOGIN,
+    UPDATE_EMAIL,
+    UPDATE_ADDRESS,
+    UPDATE_ZIP_CODE,
+    UPDATE_FIX_NUMBER,
+    UPDATE_CELLPHONE_NUMBER,
+    UPDATE_WORK_PHONE,
+    UPDATE_CHILDREN,
+    UPDATE_GENDER,
+    UPDATE_AGE,
+    UPDATE_STATUT,
+    UPDATE_CITY,
+
 } from '../actions/profil';
+
 
 const initialState = {
     noteContent: { id: '',title: '', content: '' },
@@ -152,9 +168,137 @@ export default (state = initialState, action = {}) => {
                 })
             }
         }
+        case UPDATE_LAST_NAME: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              lastName: action.lastName,
+            },
+          };
+        }
+        case UPDATE_FIRST_NAME: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              firstName: action.firstName,
+            },
+          };
+        }
+        case UPDATE_LOGIN: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              login: action.login,
+            },
+          };
+        }
+
+        case UPDATE_EMAIL: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              email: action.email,
+            },
+          };
+        }
+        case UPDATE_ADDRESS: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              adress: action.adress,
+            },
+          };
+        }
+        case UPDATE_ZIP_CODE: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              zipCode: action.zipCode,
+            },
+          };
+        }
+        case UPDATE_CITY: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              city: action.city,
+            },
+          };
+        }
+        case UPDATE_FIX_NUMBER: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              fixNumber: action.fixNumber,
+            },
+          };
+        }
+        case UPDATE_CELLPHONE_NUMBER: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              cellphoneNumber: action.cellphoneNumber,
+            },
+          };
+        }
+        case UPDATE_WORK_PHONE: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              workPhone: action.workPhone,
+            },
+          };
+        }
+        case UPDATE_CHILDREN: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              children: action.children,
+            },
+          };
+        }
+        case UPDATE_GENDER: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              gender: action.gender,
+            },
+          };
+        }
+        case UPDATE_AGE: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              age: action.age,
+            },
+          };
+        }
+        case UPDATE_STATUT: {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              gender: action.statut,
+            },
+          };
+        }
         default: {
             return state;
         }
 
     }
+
 };

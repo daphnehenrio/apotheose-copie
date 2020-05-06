@@ -173,7 +173,8 @@ CREATE TABLE user_profil (
     "phone_work"       varchar(40),
     "children"         int,
     "statut"           varchar(40),
-    "gender"           varchar(40)
+    "gender"           varchar(40),
+    "age"              int
 
 );
 

@@ -51,6 +51,11 @@ User_profil.init({
     allowNull: true
   },
 
+  age: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
+
 }, {
   sequelize: dbConnection,
   tableName: "user_profil",

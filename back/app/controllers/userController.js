@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, User_profil } = require('../models');
 
 const userController = {
 
@@ -25,6 +25,7 @@ const userController = {
 
   update: async (req, res, next) => {
 
+    console.log('bouh')
     try {
 
       const userLogin = req.body.login;
@@ -43,7 +44,18 @@ const userController = {
 
       await user_profil.update(req.body);
 
-      res.send(user);
+      const userUpdate = await User.findOne(({
+        where: {
+          login: userLogin
+        },
+        include : [
+          {
+            association : 'user_profil',
+          }
+      ]
+      }));
+
+      res.send(userUpdate);
 
     } catch (error) {
       console.trace(error);
