@@ -17,18 +17,20 @@ export default (store) => (next) => (action) => {
           })
         .then((res) => {
           const user = {
-            firstname: res.data.first_name,
-            lastname: res.data.last_name,
+            login: res.data.login,
+            first_name: res.data.first_name,
+            last_name: res.data.last_name,
             email: res.data.email,
-            gender: '',
-            cellphoneNumber: '',
-            fixNumber: '',
-            workPhone: '',
-            zipCode: '',
-            city: '',
-            children: '',
-            adress: '',
-
+            gender: res.data.user_profil.gender,
+            cellphone_number: res.data.user_profil.cellphone_number,
+            phone_number: res.data.user_profil.phone_number,
+            phone_work: res.data.user_profil.phone_work,
+            zip_code: res.data.user_profil.zip_code,
+            city: res.data.user_profil.city,
+            children: res.data.user_profil.children,
+            address: res.data.user_profil.address,
+            age: res.data.user_profil.age,
+            statut: res.data.user_profil.statut,
           };
           console.log(user);
           store.dispatch(actionLogUser(user));
@@ -60,10 +62,11 @@ export default (store) => (next) => (action) => {
             }
             else {
               const user = {
+                login: res.data.login,
                 first_name: res.data.first_name,
                 last_name: res.data.last_name,
                 email: res.data.email,
-                gender: res.data.user_profil.genrder,
+                gender: res.data.user_profil.gender,
                 cellphone_number: res.data.user_profil.cellphone_number,
                 phone_number: res.data.user_profil.phone_number,
                 phone_work: res.data.user_profil.phone_work,

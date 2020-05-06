@@ -26,6 +26,7 @@ import {
 import {
   SET_LOGIN_FORM,
 } from '../actions/toggle';
+import { SAVE_UPDATE_PROFIL } from '../actions/profil';
 
 const initialState = {
   user: {
@@ -216,6 +217,7 @@ export default (state = initialState, action = {}) => {
     }
     case LOG_USER: {
       const {
+        login,
         first_name,
         last_name,
         email,
@@ -234,6 +236,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         user: {
           ...state.user,
+          login: login ? login : state.user.login,
           firstName: first_name,
           lastName: last_name,
           email,
@@ -269,6 +272,44 @@ export default (state = initialState, action = {}) => {
       return {
         ...initialState,
       };
+    }
+    case SAVE_UPDATE_PROFIL: {
+        const {
+          login,
+          first_name,
+          last_name,
+          email,
+          gender,
+          cellphone_number,
+          phone_number,
+          phone_work,
+          zip_code,
+          city,
+          children,
+          address,
+          age,
+          statut,
+        } = action.user;
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            login: login ? login : state.user.login,
+            firstName: first_name,
+            lastName: last_name,
+            email,
+            gender,
+            cellphoneNumber: cellphone_number,
+            fixNumber: phone_number,
+            workPhone: phone_work,
+            zipCode: zip_code,
+            city,
+            children,
+            adress: address,
+            age,
+            statut,
+          },
+      }
     }
     default: {
       return state;

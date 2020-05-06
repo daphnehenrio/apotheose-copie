@@ -19,21 +19,21 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {
 
     actionSetOpenEditProfil,
-    actionSetLastName,
-    actionSetFirstName,
-    actionSetLogin,
-    actionSetPassword,
-    actionSetConfirmPasswordValue,
-    actionSetConfirmPassword,
-    actionSetEmail,
-    actionSetAddress,
-    actionSetZipCode,
-    actionSetCity,
-    actionSetFixNumber,
-    actionSetCellphoneNumber,
-    actionSetWorkPhone,
-    actionSetChildren,
-    actionSetGender,
+    actionSaveUpdateProfil,
+    actionUpdateLastName,
+    actionUpdateFirstName,
+    actionUpdateLogin,
+    actionUpdateEmail,
+    actionUpdateAge,
+    actionUpdateStatut,
+    actionUpdateGender,
+    actionUpdateAddress,
+    actionUpdateZipCode,
+    actionUpdateCity,
+    actionUpdateFixNumber,
+    actionUpdateCellphoneNumber,
+    actionUpdateWorkPhone,
+    actionUpdateChildren
 
 } from '../../../actions/profil';
 
@@ -75,15 +75,32 @@ export default function EditProfil() {
   const dispatch = useDispatch();
   const openEditProfil = useSelector((state) => state.profil.openEditProfil);
   const user = useSelector((state) => state.user.user);
-  const [gender, setGender] = React.useState('M');
+  const [gender, setGender] = React.useState(user.gender);
+  const [statut, setStatut] = React.useState(user.statut);
 
   const handleEditProfil = (bool) => {
-    dispatch(actionSetOpenEditProfil(bool));
+    if(!bool){
+      return dispatch(actionSetOpenEditProfil());
+    }
+    if(bool){
+      console.log('true save profil')
+      dispatch(actionSaveUpdateProfil());
+      dispatch(actionSetOpenEditProfil());
+
+    }
   };
 
-  const handleChange = (event) => {
+  const handleChangeGender = (event) => {
     setGender(event.target.value);
+    dispatch(actionUpdateGender(event.target.value))
 };
+
+  const handleChangeStatut = (event) => {
+    setStatut(event.target.value);
+    dispatch(actionUpdateStatut(event.target.value))
+  };
+
+
 
 
 
@@ -100,6 +117,7 @@ export default function EditProfil() {
                 label="Nom"
                 variant="outlined"
                 defaultValue={user.lastName}
+                onChange={() => dispatch(actionUpdateLastName(event.target.value))}
                 autoFocus
               />
               <TextField
@@ -107,6 +125,7 @@ export default function EditProfil() {
                 label="Prénom"
                 variant="outlined"
                 defaultValue={user.firstName}
+                onChange={() => dispatch(actionUpdateFirstName(event.target.value))}
               />
             </div>
             <FormLabel component="legend" className="form-group-label">Information de connexion</FormLabel>
@@ -116,6 +135,7 @@ export default function EditProfil() {
               variant="outlined"
               fullWidth
               defaultValue={user.login}
+              onChange={() => dispatch(actionUpdateLogin(event.target.value))}
             />
             <TextField
               id="email"
@@ -124,6 +144,7 @@ export default function EditProfil() {
               fullWidth
               type="email"
               defaultValue={user.email}
+              onChange={() => dispatch(actionUpdateEmail(event.target.value))}
             />
             <FormLabel component="legend" className="form-group-label">Social</FormLabel>
             <div className="group-input">
@@ -132,12 +153,13 @@ export default function EditProfil() {
                 label="Age"
                 variant="outlined"
                 defaultValue={user.age}
+                onChange={() => dispatch(actionUpdateAge(event.target.value))}
               />
               <GenderInput variant="outlined">
                 <InputLabel id="demo-simple-select-outlined-label">Genre</InputLabel>
                 <Select
                   value={gender}
-                  onChange={handleChange}
+                  onChange={handleChangeGender}
                   label="Genre"
                 >
                   <MenuItem value="Homme">M</MenuItem>
@@ -147,14 +169,14 @@ export default function EditProfil() {
               <GenderInput variant="outlined">
                 <InputLabel id="demo-simple-select-outlined-label">Statut</InputLabel>
                 <Select
-                  value={gender}
-                  onChange={handleChange}
+                  value={statut}
+                  onChange={handleChangeStatut}
                   label="Statut"
                 >
-                  <MenuItem value="Homme">Marié</MenuItem>
-                  <MenuItem value="Femme">Célibataire</MenuItem>
-                  <MenuItem value="Femme">Pacsé</MenuItem>
-                  <MenuItem value="Femme">En concubinage</MenuItem>
+                  <MenuItem value="Marié">Marié</MenuItem>
+                  <MenuItem value="Célibataire">Célibataire</MenuItem>
+                  <MenuItem value="Pacsé">Pacsé</MenuItem>
+                  <MenuItem value="concubinage">En concubinage</MenuItem>
                 </Select>
               </GenderInput>
               <TextField
@@ -163,6 +185,7 @@ export default function EditProfil() {
                 variant="outlined"
                 type="Number"
                 defaultValue={user.children}
+                onChange={() => dispatch(actionUpdateChildren(event.target.value))}
               />
             </div>
           </div>
@@ -174,6 +197,7 @@ export default function EditProfil() {
               variant="outlined"
               fullWidth
               defaultValue={user.adress}
+              onChange={() => dispatch(actionUpdateAddress(event.target.value))}
             />
             <div className="group-input">
               <TextField
@@ -181,12 +205,14 @@ export default function EditProfil() {
                 label="Ville"
                 variant="outlined"
                 defaultValue={user.city}
+                onChange={() => dispatch(actionUpdateCity(event.target.value))}
               />
               <TextField
                 id="zip-code"
                 label="Code Postal"
                 variant="outlined"
                 defaultValue={user.zipCode}
+                onChange={() => dispatch(actionUpdateZipCode(event.target.value))}
               />
             </div>
             <FormLabel component="legend" className="form-group-label">Téléphones</FormLabel>
@@ -196,18 +222,21 @@ export default function EditProfil() {
                 label="Fix"
                 variant="outlined"
                 defaultValue={user.fixNumber}
+                onChange={() => dispatch(actionUpdateFixNumber(event.target.value))}
               />
               <TextField
                 id="cellphone"
                 label="Portable"
                 variant="outlined"
                 defaultValue={user.cellphoneNumber}
+                onChange={() => dispatch(actionUpdateCellphoneNumber(event.target.value))}
               />
               <TextField
                 id="work"
                 label="Travail"
                 variant="outlined"
                 defaultValue={user.workPhone}
+                onChange={() => dispatch(actionUpdateWorkPhone(event.target.value))}
               />
             </div>
           </div>
@@ -216,7 +245,7 @@ export default function EditProfil() {
           <Button onClick={(evt) => handleEditProfil(false)} color="primary">
             Cancel
           </Button>
-          <Button onClick={(evt) => handleEditProfil(false)} color="primary">
+          <Button onClick={(evt) => handleEditProfil(true)} color="primary">
             Subscribe
           </Button>
         </DialogActions>

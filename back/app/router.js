@@ -31,6 +31,8 @@ router.get('/session', sessionControllers.getSession)
 
 router.get('/user/:id', user_profilController.user_profilPage );
 
+router.post('/update-user', userController.update );
+
 //connexion
 router.post('/login', authController.loginAction );
 

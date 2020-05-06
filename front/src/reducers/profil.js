@@ -26,6 +26,24 @@ const initialState = {
         {id: 2,title: 'Nounou', value:'Joséphine', edit:false},
     ],
     infoSupToAdd: {title: '', value: ''},
+    user: {
+      login: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      confirmPassword: '',
+      email: '',
+      gender: '',
+      cellphoneNumber: '',
+      fixNumber: '',
+      workPhone: '',
+      zipCode: '',
+      city: '',
+      children: '',
+      adress: '',
+      age: '',
+      statut: '',
+    },
 };
 
 export default (state = initialState, action = {}) => {
@@ -139,5 +157,4 @@ export default (state = initialState, action = {}) => {
         }
 
     }
-  }
 };
