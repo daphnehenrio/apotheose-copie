@@ -121,8 +121,8 @@ export default function Signup() {
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const { user, isPasswordCorrect, missingField } = useSelector((state) => state.user);
-  const isEmpty = handdleVerifEmptyValue(user.firstName)
-    || handdleVerifEmptyValue(user.lastName)
+  const isEmpty = handdleVerifEmptyValue(user.first_name)
+    || handdleVerifEmptyValue(user.last_name)
     || handdleVerifEmptyValue(user.email)
     || handdleVerifEmptyValue(user.login);
 
@@ -134,8 +134,8 @@ export default function Signup() {
     // First checkup : check if user has complete first step (if inputs are not empty)
     // if passwords are matching
     // and if user did not filled up inputs with just spaces
-    if (user.firstName
-      && user.lastName
+    if (user.first_name
+      && user.last_name
       && user.login
       && user.email
       && user.password

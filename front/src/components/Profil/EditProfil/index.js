@@ -117,7 +117,7 @@ export default function EditProfil() {
                 id="last_name"
                 label="Nom"
                 variant="outlined"
-                defaultValue={user.lastName}
+                defaultValue={user.last_name}
                 onChange={() => dispatch(actionUpdateLastName(event.target.value))}
                 autoFocus
               />
@@ -125,7 +125,7 @@ export default function EditProfil() {
                 id="first_name"
                 label="Prénom"
                 variant="outlined"
-                defaultValue={user.firstName}
+                defaultValue={user.first_name}
                 onChange={() => dispatch(actionUpdateFirstName(event.target.value))}
               />
             </div>

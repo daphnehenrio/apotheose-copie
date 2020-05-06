@@ -42,14 +42,14 @@ export default function Step3() {
           variant="outlined"
           disabled
           autoFocus
-          value={user.lastName}
+          value={user.last_name}
         />
         <TextField
           id="first_name"
           label="Prénom"
           variant="outlined"
           disabled
-          value={user.firstName}
+          value={user.first_name}
         />
       </div>
       <TextField
