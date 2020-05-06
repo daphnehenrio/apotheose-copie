@@ -60,6 +60,7 @@ const App = () => {
   const classes = useStyles();
   const { openDrawer } = useSelector((state) => state.toggle);
   const { connected } = useSelector((state) => state.user);
+  const { menuOK } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
 
   /* useLayoutEffect(() => {
@@ -68,12 +69,20 @@ const App = () => {
       })();
      }) */
 
+     useLayoutEffect(() => {
+      (function checkSession() {
+        dispatch(actionCheckSession());
+      })();
+    }, []);
 
-  useEffect(() => {
-    (function getMenu() {
-      dispatch(actionGetMenu());
-    }());
-  }, []);
+
+
+  if(!menuOK){
+    dispatch(actionGetMenu());
+  }
+
+
+
 
   // -------------------------- Return --------------------------
 

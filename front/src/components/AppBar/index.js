@@ -132,7 +132,7 @@ export default function PersistentDrawerLeft() {
   const history = useHistory();
   // Get the state of the drawer to check if it's open or close (true or false)
   const { openDrawer } = useSelector((state) => state.toggle);
-  const { connected } = useSelector((state) => state.user);
+  const { user, connected } = useSelector((state) => state.user);
 
   // -------------------------- Fonctions Dispatch --------------------------
 
@@ -175,7 +175,7 @@ export default function PersistentDrawerLeft() {
       </Tooltip>
       <IconButton aria-label="avatar">
         <Link onClick={(event) => preventDefault(event, '/profil')}>
-          <Avatar>H</Avatar>
+          <Avatar>{user.login.substring(0, 1).toUpperCase()}</Avatar>
         </Link>
       </IconButton>
     </>
