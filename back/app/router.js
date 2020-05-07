@@ -42,6 +42,9 @@ router.post('/logout', authController.logout );
 //inscription
 router.post('/signup', authController.signupAction );
 
+//account suppression
+router.delete('/profil/:id', userController.delete);
+
 //left menu
 router.get('/left-menu', capture(leftMenu.getMenu) );
 

@@ -117,7 +117,7 @@ export default function EditProfil() {
                 id="last_name"
                 label="Nom"
                 variant="outlined"
-                defaultValue={user.lastName}
+                defaultValue={user.last_name}
                 onChange={() => dispatch(actionUpdateLastName(event.target.value))}
                 autoFocus
               />
@@ -125,7 +125,7 @@ export default function EditProfil() {
                 id="first_name"
                 label="Prénom"
                 variant="outlined"
-                defaultValue={user.firstName}
+                defaultValue={user.first_name}
                 onChange={() => dispatch(actionUpdateFirstName(event.target.value))}
               />
             </div>
@@ -197,7 +197,7 @@ export default function EditProfil() {
               label="Adresse"
               variant="outlined"
               fullWidth
-              defaultValue={user.adress}
+              defaultValue={user.address}
               onChange={() => dispatch(actionUpdateAddress(event.target.value))}
             />
             <div className="group-input">
@@ -212,7 +212,7 @@ export default function EditProfil() {
                 id="zip-code"
                 label="Code Postal"
                 variant="outlined"
-                defaultValue={user.zipCode}
+                defaultValue={user.zip_code}
                 onChange={() => dispatch(actionUpdateZipCode(event.target.value))}
               />
             </div>
@@ -222,21 +222,21 @@ export default function EditProfil() {
                 id="fix"
                 label="Fix"
                 variant="outlined"
-                defaultValue={user.fixNumber}
+                defaultValue={user.phone_number}
                 onChange={() => dispatch(actionUpdateFixNumber(event.target.value))}
               />
               <TextField
                 id="cellphone"
                 label="Portable"
                 variant="outlined"
-                defaultValue={user.cellphoneNumber}
+                defaultValue={user.cellphone_number}
                 onChange={() => dispatch(actionUpdateCellphoneNumber(event.target.value))}
               />
               <TextField
                 id="work"
                 label="Travail"
                 variant="outlined"
-                defaultValue={user.workPhone}
+                defaultValue={user.phone_work}
                 onChange={() => dispatch(actionUpdateWorkPhone(event.target.value))}
               />
             </div>

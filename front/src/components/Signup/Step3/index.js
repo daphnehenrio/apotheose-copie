@@ -42,14 +42,14 @@ export default function Step3() {
           variant="outlined"
           disabled
           autoFocus
-          value={user.lastName}
+          value={user.last_name}
         />
         <TextField
           id="first_name"
           label="Prénom"
           variant="outlined"
           disabled
-          value={user.firstName}
+          value={user.first_name}
         />
       </div>
       <TextField
@@ -69,10 +69,10 @@ export default function Step3() {
         disabled
         value={user.email}
       />
-      {user.adress || user.zipCode || user.city || user.fixNumber || user.cellphoneNumber || user.workPhone || user.children
+      {user.address || user.zip_code || user.city || user.phone_number || user.cellphone_number || user.phone_work || user.children
         ? <FormLabel component="legend" className="form-group--label">Informations secondaires</FormLabel>
         : null}
-      {user.adress
+      {user.address
         ? (
           <TextField
             className="group-input--input"
@@ -81,12 +81,12 @@ export default function Step3() {
             variant="outlined"
             disabled
             autoFocus
-            value={user.adress}
+            value={user.address}
           />
         )
         : null}
       <div className="group-input">
-        {user.zipCode
+        {user.zip_code
           ? (
             <TextField
               className="group-input--input"
@@ -94,7 +94,7 @@ export default function Step3() {
               label="Code Postal"
               variant="outlined"
               disabled
-              value={user.zipCode}
+              value={user.zip_code}
             />
           )
           : null}
@@ -112,7 +112,7 @@ export default function Step3() {
           : null}
       </div>
       <div className="group-input">
-        {user.fixNumber
+        {user.phone_number
           ? (
             <TextField
               className="group-input--input"
@@ -120,11 +120,11 @@ export default function Step3() {
               label="Fix"
               variant="outlined"
               disabled
-              value={user.fixNumber}
+              value={user.phone_number}
             />
           )
           : null}
-        {user.cellphoneNumber
+        {user.cellphone_number
           ? (
             <TextField
               className="group-input--input"
@@ -133,11 +133,11 @@ export default function Step3() {
               variant="outlined"
               type="tel"
               disabled
-              value={user.cellphoneNumber}
+              value={user.cellphone_number}
             />
           )
           : null}
-        {user.workPhone && !handdleVerifEmptyValue(user.workPhone)
+        {user.phone_work && !handdleVerifEmptyValue(user.phone_work)
           ? (
             <TextField
               className="group-input--input"
@@ -145,7 +145,7 @@ export default function Step3() {
               label="Travail"
               variant="outlined"
               disabled
-              value={user.workPhone}
+              value={user.phone_work}
             />
           )
           : null}

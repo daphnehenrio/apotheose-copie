@@ -70,7 +70,7 @@ export default function Step1() {
         className="group-input--input"
         id="address"
         label="Adresse"
-        value={user.adress}
+        value={user.address}
         variant="outlined"
         onChange={(evt) => {
           dispatch(actionSetAddress(evt.target.value));
@@ -82,7 +82,7 @@ export default function Step1() {
           className="group-input--input"
           id="zip_code"
           label="Code Postal"
-          value={user.zipCode}
+          value={user.zip_code}
           variant="outlined"
           onChange={(evt) => {
             dispatch(actionSetZipCode(evt.target.value));
@@ -104,7 +104,7 @@ export default function Step1() {
         <TextField
           className="group-input--input"
           id="phone_number"
-          value={user.fixNumber}
+          value={user.phone_number}
           label="Fix"
           variant="outlined"
           onChange={(evt) => {
@@ -115,7 +115,7 @@ export default function Step1() {
           className="group-input--input"
           id="cellphone_number"
           label="Portable"
-          value={user.cellphoneNumber}
+          value={user.cellphone_number}
           variant="outlined"
           type="tel"
           onChange={(evt) => {
@@ -126,7 +126,7 @@ export default function Step1() {
           className="group-input--input"
           id="phone_work"
           label="Travail"
-          value={user.workPhone}
+          value={user.phone_work}
           variant="outlined"
           onChange={(evt) => {
             dispatch(actionSetWorkPhone(evt.target.value));

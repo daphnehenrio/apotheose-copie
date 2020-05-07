@@ -6,7 +6,7 @@ export const SET_CONFIRM_PASSWORD = 'action/SET_CONFIRM_PASSWORD';
 export const CONFIRM_PASSWORD = 'action/CONFIRM_PASSWORD';
 export const SET_EMAIL = 'action/SET_EMAIL';
 export const SET_ADDRESS = 'action/SET_ADDRESS';
-export const SET_ZIPCODE = 'action/SET_ZIPCODE';
+export const SET_ZIP_CODE = 'action/SET_ZIP_CODE';
 export const SET_CITY = 'action/SET_CITY';
 export const SET_FIX_NUMBER = 'action/SET_FIX_NUMBER';
 export const SET_CELLPHONE_NUMBER = 'action/SET_CELLPHONE_NUMBER';
@@ -23,14 +23,14 @@ export const ERROR_LOGIN = 'action/ERROR_LOGIN';
 export const LOGOUT = 'action/LOGOUT';
 export const CHECK_SESSION = 'action/CHECK_SESSION';
 
-export const actionSetLastName = (lastName) => ({
+export const actionSetLastName = (last_name) => ({
   type: SET_LAST_NAME,
-  lastName,
+  last_name,
 });
 
-export const actionSetFirstName = (firstName) => ({
+export const actionSetFirstName = (first_name) => ({
   type: SET_FIRST_NAME,
-  firstName,
+  first_name,
 });
 
 export const actionSetLogin = (login) => ({
@@ -63,29 +63,29 @@ export const actionSetGender = (gender) => ({
   gender,
 });
 
-export const actionSetAddress = (adress) => ({
+export const actionSetAddress = (address) => ({
   type: SET_ADDRESS,
-  adress,
+  address,
 });
-export const actionSetZipCode = (zipCode) => ({
-  type: SET_ZIPCODE,
-  zipCode,
+export const actionSetZipCode = (zip_code) => ({
+  type: SET_ZIP_CODE,
+  zip_code,
 });
 export const actionSetCity = (city) => ({
   type: SET_CITY,
   city,
 });
-export const actionSetFixNumber = (fixNumber) => ({
+export const actionSetFixNumber = (phone_number) => ({
   type: SET_FIX_NUMBER,
-  fixNumber,
+  phone_number,
 });
-export const actionSetCellphoneNumber = (cellphoneNumber) => ({
+export const actionSetCellphoneNumber = (cellphone_number) => ({
   type: SET_CELLPHONE_NUMBER,
-  cellphoneNumber,
+  cellphone_number,
 });
-export const actionSetWorkPhone = (workPhone) => ({
+export const actionSetWorkPhone = (phone_work) => ({
   type: SET_WORK_PHONE,
-  workPhone,
+  phone_work,
 });
 export const actionSetChildren = (children) => ({
   type: SET_CHILDREN,

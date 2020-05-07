@@ -76,9 +76,9 @@ export default function Step1() {
         <TextField
           id="first_name"
           required
-          value={user.firstName}
-          error={!user.firstName && missingField}
-          helperText={(!user.firstName && missingField) ? 'Champs vide' : null}
+          value={user.first_name}
+          error={!user.first_name && missingField}
+          helperText={(!user.first_name && missingField) ? 'Champs vide' : null}
           label="Prénom"
           variant="outlined"
           onChange={(evt) => {
