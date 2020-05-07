@@ -18,6 +18,8 @@ const user_profilController = require('./controllers/user_profilController');
 
 const leftMenu = require('./controllers/leftMenu');
 
+const articleController = require('./controllers/articleController');
+
 // == router
 const router = express.Router();
 
@@ -47,6 +49,12 @@ router.delete('/profil/:id', userController.delete);
 
 //left menu
 router.get('/left-menu', capture(leftMenu.getMenu) );
+
+//lastArticle
+router.get('/last-article', articleController.homePage);
+
+//article_upated_date upload "delete this"
+router.post('/article', articleController.update);
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD

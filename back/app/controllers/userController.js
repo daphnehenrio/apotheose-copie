@@ -25,7 +25,6 @@ const userController = {
 
   update: async (req, res, next) => {
 
-    console.log('bouh')
     try {
 
       const userLogin = req.body.login;
