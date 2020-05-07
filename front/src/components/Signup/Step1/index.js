@@ -64,10 +64,10 @@ export default function Step1() {
           id="last_name"
           required
           label="Nom"
-          value={user.lastName}
+          value={user.last_name}
           variant="outlined"
-          error={!user.lastName && missingField}
-          helperText={(!user.lastName && missingField) ? 'Champs vide' : null}
+          error={!user.last_name && missingField}
+          helperText={(!user.last_name && missingField) ? 'Champs vide' : null}
           autoFocus
           onChange={(evt) => {
             dispatch(actionSetLastName(evt.target.value));

@@ -51,7 +51,7 @@ const initialState = {
       email: '',
       gender: '',
       cellphone_number: '',
-      fix_number: '',
+      phone_number: '',
       phone_work: '',
       zip_code: '',
       city: '',
@@ -237,7 +237,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              fix_number: action.fix_number,
+              phone_number: action.phone_number,
             },
           };
         }
@@ -291,7 +291,7 @@ export default (state = initialState, action = {}) => {
             ...state,
             user: {
               ...state.user,
-              gender: action.statut,
+              statut: action.statut,
             },
           };
         }

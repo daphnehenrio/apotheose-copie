@@ -238,14 +238,14 @@ export default function Profil() {
                               <div className='sub-container'>
                                   <h5>Nom et prénom :</h5>
                                   <div className='sub-container-content'>
-                                      <li className='infos-content'>{last_name.toUpperCase} {first_name}</li>
+                                      <li className='infos-content'>{last_name.toUpperCase()} {first_name}</li>
                                   </div>
 
                               </div>
                               <div className='sub-container'>
                                   <h5>Adresse :</h5>
                                   <div className='sub-container-content'>
-                                      <li className='infos-content'>{address}, {zip_code} {city.toUpperCase()}</li>
+                                      <li className='infos-content'>{address}, {zip_code}, {city.toUpperCase()}</li>
                                   </div>
 
                               </div>
