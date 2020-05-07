@@ -2,10 +2,11 @@
 
 .app {
   display: flex;
-  background-color: #1B4353;
+  background-color: $color-white;
   min-height: 100vh;
-  color: white;
+  color: $color-dark;
   overflow-y: hidden;
+  font-family: 'Varela Round', sans-serif;
 
 }
 

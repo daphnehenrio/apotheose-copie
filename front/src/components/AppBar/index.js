@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: '#001B2E',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -218,7 +217,7 @@ export default function PersistentDrawerLeft() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          {connected ? <ProfilIcon /> : '' }
+          {connected ? <ProfilIcon /> : ''}
           <Button
             className="styled button"
             variant="contained"

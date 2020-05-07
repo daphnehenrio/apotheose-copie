@@ -14,6 +14,8 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
+
+
 // == Import actions
 
 import {
@@ -185,6 +187,7 @@ export default function EditProfil() {
                 label="Enfant"
                 variant="outlined"
                 type="Number"
+                min="0"
                 defaultValue={user.children}
                 onChange={() => dispatch(actionUpdateChildren(event.target.value))}
               />

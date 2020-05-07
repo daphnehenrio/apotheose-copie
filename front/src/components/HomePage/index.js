@@ -32,6 +32,7 @@ export default function HomePage() {
         justify="space-evenly"
         alignItems="center"
         spacing={5}
+        
       >
 
         <Grid item>
@@ -55,6 +56,7 @@ export default function HomePage() {
           justify="space-between"
           alignItems="center"
           spacing={3}
+          className = 'container-main-home'
         >
           <h3 className="page-content-title">Derniers articles</h3>
           <Grid

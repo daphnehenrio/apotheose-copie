@@ -1,12 +1,12 @@
 @import 'src/styles/vars';
 
 .MuiAppBar-colorPrimary {
-  background-color: $color-primary;
+  background-color: $color-primary !important;
 }
 
 .styled.button {
 
-  background: $gradient-orange-violin;
+  background: $color-background;
   color: white;
   &:hover {
     background-color: $color-background;
@@ -15,4 +15,9 @@
 
 .MuiToolbar-root .MuiSvgIcon-root{
   color: white;
+}
+
+
+.MuiAppBar-root{
+  background-color: #F50057;
 }
