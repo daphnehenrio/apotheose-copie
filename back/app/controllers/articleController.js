@@ -1,16 +1,7 @@
 const moment = require('moment');
-const { Op } = require('sequelize')
 const { Article, Sub_category } = require('../models');
 
-/*Post.findAll({
-    where: {
-      authorId: {
-        [Op.eq]: 2
-      }
-    }
-  });*/
-
-  const articleController = {
+const articleController = {
 
     homePage: async (req, res) => {
       try {
@@ -30,29 +21,7 @@ const { Article, Sub_category } = require('../models');
       }
   
     },
-
-  //delete this
-  update: async (req, res, next) => {
-
-    try {
-
-      const articleUpdated = req.body.updated_at;
-      const article = await Article.findOne(({
-        where: {
-          updated_at: articleUpdated 
-        },
-      }));
-
-      await article.update(req.body);
-
-      res.send(articleUpdated);
-
-    } catch (error) {
-      console.trace(error);
-      res.status(500).send(error);
-
-    }
-  },
+  
   
 };
   
