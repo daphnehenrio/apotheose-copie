@@ -4,10 +4,12 @@ import user from './user';
 import toggle from './toggle';
 import profil from './profil';
 import menu from './menu';
+import document from './document';
 
 export default combineReducers({
   user,
   toggle,
   profil,
   menu,
+  document,
 });
