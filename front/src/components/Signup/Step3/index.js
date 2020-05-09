@@ -16,8 +16,7 @@ import { handdleVerifEmptyValue } from 'src/utils/checkSpaces';
 // -------------------------- Export --------------------------
 
 export default function Step3() {
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.signup);
 
 
   // -------------------------- Return --------------------------
@@ -69,9 +68,17 @@ export default function Step3() {
         disabled
         value={user.email}
       />
-      {user.address || user.zip_code || user.city || user.phone_number || user.cellphone_number || user.phone_work || user.children
-        ? <FormLabel component="legend" className="form-group--label">Informations secondaires</FormLabel>
-        : null}
+      {
+        user.address
+        || user.zip_code
+        || user.city
+        || user.phone_number
+        || user.cellphone_number
+        || user.phone_work
+        || user.children
+          ? <FormLabel component="legend" className="form-group--label">Informations secondaires</FormLabel>
+          : null
+      }
       {user.address
         ? (
           <TextField

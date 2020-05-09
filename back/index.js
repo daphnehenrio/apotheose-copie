@@ -16,10 +16,9 @@ app.use(bodyParser.json()); // => req.body convert the JSON of the req
 // Setup CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
-
   res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, PATCH, POST, OPTIONS, PUT, DELETE');
 
   if (req.method === "OPTIONS") {
     return res.status(200).send("OK");
@@ -31,7 +30,7 @@ app.use((req, res, next) => {
 app.use(cookieParser());
 
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.TOKEN_SESSION,
     resave: true,
     saveUninitialized: true,
     cookie: {

@@ -7,10 +7,11 @@ const capture = require('./controllers/capture');
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 const mainController = require('./controllers/mainController');
 
+// == require middleware
+const auth = require('./middlewares/auth');
+
 // == require controllers
 const userController = require('./controllers/userController');
-
-const sessionControllers = require('./controllers/sesionController')
 
 const authController = require('./controllers/authController');
 
@@ -27,14 +28,12 @@ router.get('/', userController.homePage );
 
 router.get('/favicon.ico', (req, res) => res.status(204));
 
-router.get('/session', sessionControllers.getSession)
+router.get('/user/:id',  user_profilController.user_profilPage );
 
-router.get('/user/:id', user_profilController.user_profilPage );
-
-router.post('/update-user', capture(userController.update) );
+router.patch('/update-user', auth, capture(userController.update) );
 
 //connexion
-router.post('/login', authController.loginAction );
+router.post('/login',  authController.loginAction );
 
 //connexion
 router.post('/logout', authController.logout );

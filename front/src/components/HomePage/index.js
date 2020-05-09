@@ -75,19 +75,19 @@ export default function HomePage() {
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        Titre
-                                            </Typography>
+                      Titre
+                    </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                        ad minim veniam, quis nostrud exercitation
-                                             </Typography>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                      ad minim veniam, quis nostrud exercitation
+                    </Typography>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
                   <div className="card-label">
                     Service
-                                        </div>
+                  </div>
                 </CardActions>
               </Card>
             </Grid>
@@ -102,19 +102,19 @@ export default function HomePage() {
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        Titre
-                                            </Typography>
+                      Titre
+                    </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                        ad minim veniam, quis nostrud exercitation
-                                             </Typography>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                      ad minim veniam, quis nostrud exercitation
+                    </Typography>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
                   <div className="card-label">
                     Service
-                                        </div>
+                  </div>
                 </CardActions>
               </Card>
             </Grid>
@@ -129,19 +129,19 @@ export default function HomePage() {
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        Titre
-                                            </Typography>
+                      Titre
+                    </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                        ad minim veniam, quis nostrud exercitation
-                                             </Typography>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                      ad minim veniam, quis nostrud exercitation
+                    </Typography>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
                   <div className="card-label">
                     Service
-                                        </div>
+                  </div>
                 </CardActions>
               </Card>
             </Grid>

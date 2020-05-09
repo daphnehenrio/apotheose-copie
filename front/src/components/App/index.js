@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // == import Material UI
 
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 // == Import styles
 import './styles.scss';
@@ -23,7 +23,7 @@ import Profil from 'src/components/Profil';
 
 // == import action
 import { actionGetMenu } from '../../actions/menu';
-import { actionCheckSession } from '../../actions/user';
+import { actionSetConnected } from 'src/actions/user_profil';
 
 
 // -------------------------- styles composants --------------------------
@@ -58,31 +58,19 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const { openDrawer } = useSelector((state) => state.toggle);
-  const { connected } = useSelector((state) => state.user);
-  const { menuOK } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
-
-  /* useLayoutEffect(() => {
-      (function checkSession() {
-        dispatch(actionCheckSession());
-      })();
-     }) */
-
-     useLayoutEffect(() => {
-      (function checkSession() {
-        dispatch(actionCheckSession());
-      })();
-    }, []);
+  const { menuOK } = useSelector((state) => state.menu);
+  const { openDrawer } = useSelector((state) => state.toggle);
+  const { connected } = useSelector((state) => state.user_profil);
+  const userSession  = JSON.parse(window.sessionStorage.getItem("user"));
 
 
 
-  if(!menuOK){
-    dispatch(actionGetMenu());
-  }
-
-
-
+  useEffect(() => {
+    if(!menuOK){
+      dispatch(actionGetMenu());
+    }
+  }, [!menuOK])
 
   // -------------------------- Return --------------------------
 
@@ -110,7 +98,7 @@ const App = () => {
             exact
             path="/mon-espace-personnel"
             render={() => {
-              if (!connected) {
+              if (!userSession.token) {
                 return <Redirect to="/" />;
               }
               return (
@@ -124,7 +112,7 @@ const App = () => {
             exact
             path="/profil"
             render={() => {
-              if (!connected) {
+              if (!userSession.token) {
                 return <Redirect to="/" />;
               }
               return (

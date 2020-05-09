@@ -6,8 +6,6 @@ import slugify from '@sindresorhus/slugify';
 
 // == import Material UI
 
-
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
@@ -17,11 +15,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 
-import DescriptionIcon from '@material-ui/icons/Description';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 
-import { actionChangePage } from '../../../actions/routes';
+import { actionChangePage } from 'src/actions/routes';
 
 
 // -------------------------- Export --------------------------
@@ -88,32 +83,29 @@ export default function FileSystemNavigator() {
         ) */
     }
 
-    if(category.id > 5 && category.id <10) {
+    if (category.id > 5 && category.id < 10) {
+      return (
+        <ExpansionPanel className="menu--ExpansionPanel" key={category.name}>
+          <ExpansionPanelSummary
+            expandIcon={<ExpandMoreIcon className="menu--ExpandMoreIcon" />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
 
+            <img
+              className="icon-menu"
+              src={image.default}
+              alt={category.name}
+            />
+            <Typography>{category.name}</Typography>
+          </ExpansionPanelSummary>
 
-
-    return (
-      <ExpansionPanel className="menu--ExpansionPanel" key={category.name}>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon className="menu--ExpandMoreIcon" />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-
-          <img
-            className="icon-menu"
-            src={image.default}
-            alt={category.name}
-          />
-          <Typography>{category.name}</Typography>
-        </ExpansionPanelSummary>
-
-        <ExpansionPanelDetails>
-          {ArticlesCategoryLinks(category.sub_category, category.name)}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    );
-   }
+          <ExpansionPanelDetails>
+            {ArticlesCategoryLinks(category.sub_category, category.name)}
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      );
+    }
   });
 
   // -------------------------- Return --------------------------

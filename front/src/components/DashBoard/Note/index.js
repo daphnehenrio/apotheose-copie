@@ -19,7 +19,7 @@ import InputBase from '@material-ui/core/InputBase';
 import {
   actionSetNoteContent,
   actionChangeNoteContent,
-} from '../../../actions/profil';
+} from 'src/actions/user_note';
 
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
@@ -41,9 +41,7 @@ const NotepadContent = withStyles({
 const Note = () => {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
-  const noteContent = useSelector(((state) => state.profil.noteContent));
-  const notes = useSelector((state) => state.profil.notes);
-  console.log('notecontent', noteContent);
+  const { noteContent, notes } = useSelector(((state) => state.user_note));
 
 
   const handleClickOpen = (noteContent, noteID, noteTitle) => {

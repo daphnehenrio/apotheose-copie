@@ -4,7 +4,6 @@ import React from 'react';
 // == import Material UI
 
 import Box from '@material-ui/core/Box';
-import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 
 import './styles.scss';

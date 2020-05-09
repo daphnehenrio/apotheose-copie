@@ -29,9 +29,10 @@ import Badge from '@material-ui/core/Badge';
 import Login from 'src/components/Login';
 
 // == import actions local
-import { actionSetLoginForm, actionSetDrawer } from '../../actions/toggle';
-import { actionLogout } from '../../actions/user';
-import { actionChangePage } from '../../actions/routes';
+import { actionSetLoginForm, actionSetDrawer } from 'src/actions/toggle';
+import { actionLogout } from 'src/actions/login';
+import { actionChangePage } from 'src/actions/routes';
+import { actionSetConnected } from 'src/actions/user_profil';
 
 // == import style
 import './styles.scss';
@@ -132,7 +133,12 @@ export default function PersistentDrawerLeft() {
   const history = useHistory();
   // Get the state of the drawer to check if it's open or close (true or false)
   const { openDrawer } = useSelector((state) => state.toggle);
-  const { user, connected } = useSelector((state) => state.user);
+  const { connected } = useSelector((state) => state.user_profil);
+  const userSession  = JSON.parse(window.sessionStorage.getItem("user"));
+
+  if(userSession && userSession.token && userSession.login && userSession.user_id && !connected) {
+     dispatch(actionSetConnected())
+  }
 
   // -------------------------- Fonctions Dispatch --------------------------
 
@@ -175,7 +181,7 @@ export default function PersistentDrawerLeft() {
       </Tooltip>
       <IconButton aria-label="avatar">
         <Link onClick={(event) => preventDefault(event, '/profil')}>
-          <Avatar>{user.login.substring(0, 1).toUpperCase()}</Avatar>
+          <Avatar>{userSession.login.substring(0, 1).toUpperCase()}</Avatar>
         </Link>
       </IconButton>
     </>
