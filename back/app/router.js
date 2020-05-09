@@ -18,6 +18,14 @@ const user_profilController = require('./controllers/user_profilController');
 
 const leftMenu = require('./controllers/leftMenu');
 
+const articleController = require('./controllers/articleController');
+
+const categoryController = require('./controllers/categoryController');
+
+const serviceController = require('./controllers/serviceController');
+
+const documentController = require('./controllers/documentController');
+
 // == router
 const router = express.Router();
 
@@ -47,6 +55,21 @@ router.delete('/profil/:id', userController.delete);
 
 //left menu
 router.get('/left-menu', capture(leftMenu.getMenu) );
+
+//article
+router.get('/article', articleController.homePage);
+
+//categories
+router.get('/categories', categoryController.categoriesPage);
+
+//specific category
+router.get('/categories/:name', categoryController.categoryPage);
+
+//services
+router.get('/services', serviceController.servicesPage);
+
+//upload doc
+router.post('/document', documentController.upload);
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD

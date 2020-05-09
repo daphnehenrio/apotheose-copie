@@ -313,14 +313,16 @@ Article.belongsToMany( Sub_category, {
   through: "article_has_sub_category",
   foreignKey: "article_id",
   otherKey: "sub_category_id",
-  as: "sub_category"
+  as: "sub_category",
+  timestamps: false
 });
 
 Sub_category.belongsToMany( Article, {
   through: "article_has_sub_category",
   foreignKey: "sub_category_id",
   otherKey: "article_id",
-  as: "article"
+  as: "article",
+  timestamps: false
 });
 
 // -------------------- article_has_letter_type --------------------
@@ -329,14 +331,16 @@ Article.belongsToMany( Letter_type, {
   through: "article_has_letter_type",
   foreignKey: "article_id",
   otherKey: "letter_type_id",
-  as: "letter_type"
+  as: "letter_type",
+  timestamps: false
 });
 
 Letter_type.belongsToMany( Article, {
   through: "article_has_letter_type",
   foreignKey: "letter_type_id",
   otherKey: "article_id",
-  as: "article"
+  as: "article",
+  timestamps: false
 });
 
 // -------------------- article_has_checklist --------------------
@@ -345,14 +349,16 @@ Article.belongsToMany( Checklist, {
   through: "article_has_checklist",
   foreignKey: "article_id",
   otherKey: "checklist_id",
-  as: "checklist"
+  as: "checklist",
+  timestamps: false
 });
 
 Checklist.belongsToMany( Article, {
   through: "article_has_checklist",
   foreignKey: "checklist_id",
   otherKey: "article_id",
-  as: "article"
+  as: "article",
+  timestamps: false
 });
 
 // -------------------- article_has_simulation --------------------
@@ -361,14 +367,16 @@ Article.belongsToMany( Simulation, {
   through: "article_has_simulation",
   foreignKey: "article_id",
   otherKey: "simulation_id",
-  as: "simulation"
+  as: "simulation",
+  timestamps: false
 });
 
 Simulation.belongsToMany( Article, {
   through: "article_has_simulation",
   foreignKey: "simulation_id",
   otherKey: "article_id",
-  as: "article"
+  as: "article",
+  timestamps: false
 });
 
 /* ---------------------------------------- LETTER TYPE ---------------------------------------- */
@@ -379,14 +387,16 @@ Letter_type.belongsToMany( Sub_category, {
   through: "letter_type_has_sub_category",
   foreignKey: "letter_type_id",
   otherKey: "sub_category_id",
-  as: "sub_category"
+  as: "sub_category",
+  timestamps: false
 });
 
 Sub_category.belongsToMany( Letter_type, {
   through: "letter_type_has_sub_category",
   foreignKey: "sub_category_id",
   otherKey: "letter_type_id",
-  as: "letter_type"
+  as: "letter_type",
+  timestamps: false
 });
 
 /* ---------------------------------------- SIMULATION ---------------------------------------- */
@@ -397,14 +407,16 @@ Simulation.belongsToMany( Sub_category, {
   through: "simulation_has_sub_category",
   foreignKey: "simulation_id",
   otherKey: "sub_category_id",
-  as: "sub_category"
+  as: "sub_category",
+  timestamps: false
 });
 
 Sub_category.belongsToMany( Simulation, {
   through: "simulation_has_sub_category",
   foreignKey: "sub_category_id",
   otherKey: "simulation_id",
-  as: "simulation"
+  as: "simulation",
+  timestamps: false
 });
 
 /* ---------------------------------------- CHECKLIST ---------------------------------------- */
@@ -415,14 +427,16 @@ Checklist.belongsToMany( Sub_category, {
   through: "checklist_has_sub_category",
   foreignKey: "checklist_id",
   otherKey: "sub_category_id",
-  as: "sub_category"
+  as: "sub_category",
+  timestamps: false
 });
 
 Sub_category.belongsToMany( Checklist, {
   through: "checklist_has_sub_category",
   foreignKey: "sub_category_id",
   otherKey: "checklist_id",
-  as: "checklist"
+  as: "checklist",
+  timestamps: false
 });
 
 // -------------------- checklist_has_checklist_item --------------------
@@ -431,14 +445,16 @@ Checklist.belongsToMany( Checklist_item, {
   through: "checklist_has_checklist_item",
   foreignKey: "checklist_id",
   otherKey: "checklist_item_id",
-  as: "checklist_item"
+  as: "checklist_item",
+  timestamps: false
 });
 
 Checklist_item.belongsToMany( Checklist, {
   through: "checklist_has_checklist_item",
   foreignKey: "checklist_item_id",
   otherKey: "checklist_id",
-  as: "checklist"
+  as: "checklist",
+  timestamps: false
 });
 
 // -------------------- user_checklist_has_checklist_item --------------------
@@ -447,14 +463,16 @@ User_checklist.belongsToMany( Checklist_item, {
   through: "user_checklist_has_checklist_item",
   foreignKey: "user_checklist_id",
   otherKey: "checklist_item_id",
-  as: "checklist_item"
+  as: "checklist_item",
+  timestamps: false
 });
 
 Checklist_item.belongsToMany( User_checklist, {
   through: "user_checklist_has_checklist_item",
   foreignKey: "checklist_item_id",
   otherKey: "user_checklist_id",
-  as: "user_checklist"
+  as: "user_checklist",
+  timestamps: false
 });
 
 
