@@ -166,9 +166,11 @@ export default function PersistentDrawerLeft() {
         </IconButton>
       </Tooltip>
       <Tooltip title="Mes documents" arrow>
-        <IconButton aria-label="documents">
-          <FolderIcon />
-        </IconButton>
+        <Link onClick={(event) => preventDefault(event, '/mes-documents')}>
+          <IconButton aria-label="documents">
+            <FolderIcon />
+          </IconButton>
+        </Link>
       </Tooltip>
       <Tooltip title="Mon espace" arrow>
         <IconButton aria-label="dashboard">
@@ -224,7 +226,7 @@ export default function PersistentDrawerLeft() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          {connected ? <ProfilIcon /> : '' }
+          {connected ? <ProfilIcon /> : ''}
           <Button
             className="styled button"
             variant="contained"

@@ -20,6 +20,8 @@ import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
 import DashBoard from 'src/components/DashBoard';
 import Profil from 'src/components/Profil';
+import Documents from 'src/components/Documents';
+import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
 
 // == import action
 import { actionGetMenu } from '../../actions/menu';
@@ -122,6 +124,19 @@ const App = () => {
               );
             }}
           />
+          <Route 
+            exact 
+            path="/mes-documents"
+            >
+              <div>
+                <Documents/>
+              </div>
+            </Route>
+            <Route exact path='/mes-documents/documents'>
+              <div>
+                <TargetedDocuments/>
+              </div>
+            </Route>
         </Switch>
         <Footer />
       </div>

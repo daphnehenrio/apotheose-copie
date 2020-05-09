@@ -1,0 +1,96 @@
+
+
+.document-page{
+    display: flex;
+    flex-direction: column;
+    margin-top: 8rem;
+    padding: 1rem 5rem 5rem 5rem;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.MuiSelect-select.MuiSelect-select {
+    padding-right: 36px !important;
+}
+
+.document-page-title{
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+    margin-bottom: 4rem;
+}
+
+.header-document-page{
+    margin-bottom: 4rem;
+}
+
+.breadcrumb{
+    color: white !important;
+    font-size: 1.4rem !important;
+}
+
+.link-document{
+    font-size: 1.4rem;
+    color: white !important;
+    padding: 0.5rem 1rem;
+    &:hover{
+        background-color: rgba(grey, $alpha: 0.3);
+        border-radius: 10px;
+        text-decoration: none !important;
+    }
+}
+
+.doc-title{
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.documents-container{
+    margin-left: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.single-document-container{
+    display: flex;
+    flex-direction: column;
+    margin-right: 4rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s;
+    &:hover{
+        transform: translateY(-3px);
+    }
+    p{
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+}
+
+.form-upload{
+    display: flex !important;
+    
+}
+
+.image-upload-container > input
+{
+    display: none;
+}
+
+.image-upload
+{
+    width: 3rem;
+    height: 3rem;
+}
+
+.plus{
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+}
+
+
+.img-folder{
+    width: 6rem;
+    cursor: pointer;
+}
+
