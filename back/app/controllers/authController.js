@@ -1,11 +1,12 @@
 const { User, User_profil } = require('../models');
 const Sequelize = require('sequelize');
+const jwt = require('jsonwebtoken');
 
 //password verify
 const emailValidator = require('email-validator');
 
 // bcrypt = hash
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const authController = {
 
@@ -30,13 +31,17 @@ const authController = {
       // if exist, verify password
       if(! bcrypt.compareSync( password, user.password ) ) {
         // if not good => error
-        return res.send("Mauvais mot de passe");
+        return res.send("Le mot de passe saisi est incorrect");
       }
+
+      const token = jwt.sign({ userId: user.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
+      console.log(token)
 
       // All is good => add user on session
       req.session.user = user ;
       // redirect user at "/"
-      res.send(user);
+
+      res.send({ user, token });
 
     }).catch( err => {
       console.trace(err);
@@ -69,11 +74,11 @@ const authController = {
       if (user) {
         if(user.login === data.login)
         {
-          errorsList.push('Cet utilisateur existe déjà');
+          errorsList.push(`L'utilisateur ${data.login} existe déjà`);
         }
         if(user.email === data.email)
         {
-          errorsList.push('Cet email existe déjà');
+          errorsList.push(`L'email ${data.email} existe déjà`);
         }
       }
 
@@ -92,7 +97,7 @@ const authController = {
 
       // - good format for email
       if (!emailValidator.validate(data.email)) {
-        errorsList.push("L'email n'est pas un email correct");
+        errorsList.push(`L'email ${data.email} n'est pas un email correct`);
       }
 
       // - minimum length of the password
@@ -100,10 +105,10 @@ const authController = {
         errorsList.push("Le mot de passe doit contenir un minimum de 8 caractères");
       }
       console.log(errorsList)
+
       // Insertion on DB
       // errorsList is null if  "ok"
       if (errorsList.length === 0) {
-
         // create user
 
         const newUser = new User();
@@ -117,7 +122,6 @@ const authController = {
         await newUser.save().then( (user) => {
           // recup user on session
           req.session.user = user;
-          res.send(user);
         });
 
         const myNewUser = await User.findOne({
@@ -127,7 +131,6 @@ const authController = {
           }
 
         })
-        console.log(myNewUser)
         //profil
 
         const newUser_profil = new User_profil();
@@ -142,10 +145,29 @@ const authController = {
         newUser_profil.statut = data.statut;
         newUser_profil.gender = data.gender;
 
-        newUser_profil.save()
-        console.log(newUser_profil)
+        await newUser_profil.save()
+
+        const sendUser = await User.findOne({
+
+          where:{
+            login: data.login
+          },
+          include: [
+            "user_profil"
+          ]
+
+        })
+
+        const token = jwt.sign({ userId: myNewUser.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
+        console.log(token)
+
+        console.log(sendUser)
+
+        res.send({sendUser, token});
+
+
       } else {
-        res.send(errorsList);
+        res.status(400).send(errorsList);
       }
 
     }).catch( err => {

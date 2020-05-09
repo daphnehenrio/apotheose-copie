@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useForm } from 'react-hook-form';
 
 // == import Material UI
 
@@ -21,9 +22,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 
 import {
   actionLogin,
-  actionSetLogin,
-  actionSetPassword,
-} from '../../actions/user';
+} from '../../actions/login';
 
 import {
   actionSetLoginForm,
@@ -38,20 +37,17 @@ import './styles.scss';
 
 export default function Login() {
   const dispatch = useDispatch();
-  const openLoginForm = useSelector((state) => state.toggle.openLoginForm);
-  const { user, messageWrongLogin } = useSelector((state) => state.user);
+  const history = useHistory();
+  const { register, handleSubmit, errors } = useForm();
+  const { openLoginForm } = useSelector((state) => state.toggle);
+  const { messageWrongLogin } = useSelector((state) => state.login);
 
   const [values, setValues] = React.useState({
     showPassword: false,
   });
 
-  const history = useHistory();
 
   // -------------------------- Fonctions State & Dispatch --------------------------
-
-  const handleLogin = () => {
-    dispatch(actionLogin(history));
-  };
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -65,36 +61,44 @@ export default function Login() {
     dispatch(actionSetLoginForm());
   };
 
+  const onSubmit = (data) => {
+    console.log('login submit data : ', data);
+    console.log('login submit errors : ', errors);
+
+    dispatch(actionLogin(data, history));
+  };
+
   // -------------------------- Return --------------------------
 
   return (
 
     <Dialog className="login-dialog" open={openLoginForm} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Connexion</DialogTitle>
-      <DialogContent>
-        <form className="form-group" noValidate autoComplete="off" onSubmit={handleLogin}>
+      <form className="form-group" noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+
+        <DialogContent>
           <TextField
-            id="outlined-basic"
+            id="outlined-adornment-login"
             label="Nom d'utilisateur"
+            name="login"
             variant="outlined"
-            error={!user.login && typeof messageWrongLogin === 'string'}
+            inputRef={register({ required: true, maxLength: 76 })}
+            error={errors.login || (typeof messageWrongLogin === 'string' && (messageWrongLogin.search('login') > 0))}
+            helperText={(errors.login && errors.login.type === 'required') && 'Ce champs est obligatoire' || (errors.login && errors.login.type === 'maxLength') && ('maximum 76 caractères')}
             fullWidth
             autoFocus
-            onChange={(evt) => {
-              dispatch(actionSetLogin(evt.target.value));
-            }}
           />
 
           <TextField
             variant="outlined"
             id="outlined-adornment-password"
             label="Mot de passe"
-            error={!user.password && typeof messageWrongLogin === 'string'}
+            name="password"
+            inputRef={register({ required: true, maxLength: 76 })}
+            error={errors.password || typeof messageWrongLogin === 'string'}
+            helperText={(errors.password && errors.password.type === 'required') && 'Ce champs est obligatoire' || (errors.password && errors.password.type === 'maxLength') && ('maximum 76 caractères')}
             fullWidth
             type={values.showPassword ? 'text' : 'password'}
-            onChange={(evt) => {
-              dispatch(actionSetPassword(evt.target.value));
-            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -121,19 +125,20 @@ export default function Login() {
               : ''
           }
 
-        </form>
-        <Link className="login-dialog--link" href="/inscription">
-          Créer un compte
-        </Link>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="secondary">
-          Annuler
-        </Button>
-        <Button className="login-dialog--button" onClick={handleLogin} variant="contained">
-          Valider
-        </Button>
-      </DialogActions>
+
+          <Link className="login-dialog--link" href="/inscription">
+            Créer un compte
+          </Link>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary">
+            Annuler
+          </Button>
+          <Button type="submit" className="MuiButtonBase-root MuiButton-root MuiButton-contained login-dialog--button" variant="contained">
+            Valider
+          </Button>
+        </DialogActions>
+      </form>
     </Dialog>
 
   );

@@ -1,9 +1,123 @@
-# project-administration-facile
+# Aldahe (All documents are here)
 
-## Lancer l'application
+## Create db
 
-* api : `node server.js`
-* front : `yarn start`
+In shell
+
+```shell
+
+sudo -i -u postgres
+
+psql
+
+```
+
+```psql
+
+CREATE ROLE username WITH LOGIN PASSWORD "password";
+
+CREATE DATABASE db_name OWNER username;
+
+```
+
+### At the root of the project
+
+In shell
+
+#### Create table
+
+```shell
+
+cd back
+
+psql -U username -d db_name -f ./app/data/create_db.sql
+
+## enter the password
+
+cd migrations
+
+sqitch deploy
+
+```
+
+**If you don't have `sqitch` after `## enter the password`**
+
+```shell
+
+cd migrations/deploy
+
+psql -U username -d db_name -f category.sql
+
+## enter the password
+
+psql -U username -d db_name -f sub_category.sql
+
+## enter the password
+
+psql -U username -d db_name -f service.sql
+
+## enter the password
+
+psql -U username -d db_name -f service_has_sub_category.sql
+
+## enter the password
+
+
+```
+
+#### Drop all tables
+
+```shell
+
+cd back/app/migrations
+
+sqitch revert
+
+cd ..
+
+psql -U username -d db_name -f ./app/data/drop_table.sql
+
+## enter the password
+
+```
+
+## .env
+
+```.env
+PG_URL=postgres://usernname:password@address:port/db_name
+TOKEN_GENERATE_TOKEN=RANDOM_TOKEN
+TOKEN_SESSION=OTHER_RANDOM_TOKEN
+```
+
+## Launch application
+
+At the root of the project in shell
+
+* api :
+
+```shell
+cd back
+
+npm i
+
+node server.js
+```
+
+At the root of the project in shell
+
+* front :
+
+```shell
+cd front
+
+yarn
+
+yarn start
+```
+
+-------------------------------
+
+-------------------------------
 
 ## Détail de l'application
 

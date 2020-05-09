@@ -1,32 +1,26 @@
-/* eslint-disable camelcase */
 import {
+  SET_STEP,
   SET_LAST_NAME,
   SET_FIRST_NAME,
   SET_LOGIN,
   SET_PASSWORD,
   SET_CONFIRM_PASSWORD,
   CONFIRM_PASSWORD,
+  CHECK_PASSWORD_STRENGTH,
   SET_EMAIL,
+  CHECK_EMAIL_EXISTS,
+  SET_GENDER,
   SET_ADDRESS,
   SET_ZIP_CODE,
   SET_CITY,
-  SET_FIX_NUMBER,
+  SET_PHONE_NUMBER,
   SET_CELLPHONE_NUMBER,
   SET_WORK_PHONE,
   SET_CHILDREN,
-  SET_GENDER,
   MISSING_FIELD,
-  CHECK_PASSWORD_STRENGTH,
-  CHECK_EMAIL_EXISTS,
-  LOG_USER,
-  ERROR_LOGIN,
-  LOGOUT,
-} from '../actions/user';
+  ERROR_LIST_SIGNUP,
+} from 'src/actions/signup';
 
-import {
-  SET_LOGIN_FORM,
-} from '../actions/toggle';
-import { SAVE_UPDATE_PROFIL } from '../actions/profil';
 
 const initialState = {
   user: {
@@ -40,25 +34,35 @@ const initialState = {
     cellphone_number: '',
     phone_number: '',
     phone_work: '',
-    zip_Code: '',
+    zip_code: '',
     city: '',
     children: '',
     address: '',
     age: '',
     statut: '',
   },
+  activeStep: 0,
   isPasswordCorrect: 'init',
   missingField: false,
   passwordStrength: 'init',
   emailExists: 'init',
-  isLoginCorrect: 'init',
-  messageWrongLogin: false,
-  connected: false,
-
+  errorListSignup: false,
 };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
+
+    // set step
+
+    case SET_STEP: {
+      return {
+        ...state,
+        activeStep: action.step,
+      }
+    }
+
+    // --------------- step one ---------------
+
     case SET_LAST_NAME: {
       return {
         ...state,
@@ -68,6 +72,7 @@ export default (state = initialState, action = {}) => {
         },
       };
     }
+
     case SET_FIRST_NAME: {
       return {
         ...state,
@@ -77,6 +82,7 @@ export default (state = initialState, action = {}) => {
         },
       };
     }
+
     case SET_LOGIN: {
       return {
         ...state,
@@ -86,6 +92,7 @@ export default (state = initialState, action = {}) => {
         },
       };
     }
+
     case SET_PASSWORD: {
       return {
         ...state,
@@ -95,6 +102,7 @@ export default (state = initialState, action = {}) => {
         },
       };
     }
+
     case SET_CONFIRM_PASSWORD: {
       return {
         ...state,
@@ -104,6 +112,7 @@ export default (state = initialState, action = {}) => {
         },
       };
     }
+
     case CONFIRM_PASSWORD: {
       if (state.user.password === action.password) {
         return {
@@ -116,6 +125,7 @@ export default (state = initialState, action = {}) => {
         isPasswordCorrect: false,
       };
     }
+
     case SET_EMAIL: {
       return {
         ...state,
@@ -125,69 +135,9 @@ export default (state = initialState, action = {}) => {
         },
       };
     }
-    case SET_ADDRESS: {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          address: action.address,
-        },
-      };
-    }
-    case SET_ZIP_CODE: {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          zip_Code: action.zip_Code,
-        },
-      };
-    }
-    case SET_CITY: {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          city: action.city,
-        },
-      };
-    }
-    case SET_FIX_NUMBER: {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          phone_number: action.phone_number,
-        },
-      };
-    }
-    case SET_CELLPHONE_NUMBER: {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          cellphone_number: action.cellphone_number,
-        },
-      };
-    }
-    case SET_WORK_PHONE: {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          phone_work: action.phone_work,
-        },
-      };
-    }
-    case SET_CHILDREN: {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          children: action.children,
-        },
-      };
-    }
+
+    // --------------- step two ---------------
+
     case SET_GENDER: {
       return {
         ...state,
@@ -197,120 +147,110 @@ export default (state = initialState, action = {}) => {
         },
       };
     }
+
+    // address
+    case SET_ADDRESS: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          address: action.address,
+        },
+      };
+    }
+
+    case SET_ZIP_CODE: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          zip_code: action.zip_code,
+        },
+      };
+    }
+
+    case SET_CITY: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          city: action.city,
+        },
+      };
+    }
+
+    // phones
+    case SET_PHONE_NUMBER: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          phone_number: action.phone_number,
+        },
+      };
+    }
+
+    case SET_CELLPHONE_NUMBER: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          cellphone_number: action.cellphone_number,
+        },
+      };
+    }
+
+    case SET_WORK_PHONE: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          phone_work: action.phone_work,
+        },
+      };
+    }
+
+    // childrens
+    case SET_CHILDREN: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          children: action.children,
+        },
+      };
+    }
+
+    // --------------- validations ---------------
+
     case MISSING_FIELD: {
       return {
         ...state,
         missingField: true,
       };
     }
+
     case CHECK_PASSWORD_STRENGTH: {
       return {
         ...state,
         passwordStrength: action.isStrong,
       };
     }
+
     case CHECK_EMAIL_EXISTS: {
       return {
         ...state,
         emailExists: action.exists,
       };
     }
-    case LOG_USER: {
-      const {
-        login,
-        first_name,
-        last_name,
-        email,
-        gender,
-        cellphone_number,
-        phone_number,
-        phone_work,
-        zip_code,
-        city,
-        children,
-        address,
-        age,
-        statut,
-      } = action.user;
+
+    case ERROR_LIST_SIGNUP: {
       return {
         ...state,
-        user: {
-          ...state.user,
-          login: login ? login : state.user.login,
-          first_name: first_name,
-          last_name: last_name,
-          email,
-          gender,
-          cellphone_number: cellphone_number,
-          phone_number: phone_number,
-          phone_work: phone_work,
-          zip_Code: zip_code,
-          city,
-          children,
-          address: address,
-          age,
-          statut,
-        },
-        isLoginCorrect: true,
-        connected: true,
-      };
-    }
-    case ERROR_LOGIN: {
-      return {
-        ...state,
-        isLoginCorrect: false,
-        messageWrongLogin: action.message,
-      };
-    }
-    case SET_LOGIN_FORM: {
-      return {
-        ...state,
-        messageWrongLogin: false,
-      };
-    }
-    case LOGOUT: {
-      return {
-        ...initialState,
-      };
-    }
-    case SAVE_UPDATE_PROFIL: {
-        const {
-          login,
-          first_name,
-          last_name,
-          email,
-          gender,
-          cellphone_number,
-          phone_number,
-          phone_work,
-          zip_code,
-          city,
-          children,
-          address,
-          age,
-          statut,
-        } = action.user;
-        return {
-          ...state,
-          user: {
-            ...state.user,
-            login: login ? login : state.user.login,
-            first_name: first_name,
-            last_name: last_name,
-            email,
-            gender,
-            cellphoneNumber: cellphone_number,
-            phone_number: phone_number,
-            phone_work: phone_work,
-            zip_Code: zip_code,
-            city,
-            children,
-            address: address,
-            age,
-            statut,
-          },
+        errorListSignup: action.errors,
       }
     }
+
     default: {
       return state;
     }

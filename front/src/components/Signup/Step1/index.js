@@ -19,7 +19,7 @@ import {
   actionSetConfirmPasswordValue,
   actionSetConfirmPassword,
   actionSetEmail,
-} from '../../../actions/user';
+} from 'src/actions/signup';
 
 
 // -------------------------- Export --------------------------
@@ -27,11 +27,13 @@ import {
 export default function Step1() {
   const dispatch = useDispatch();
   const {
-    user, missingField, isPasswordCorrect, passwordStrength, emailExists,
-  } = useSelector((state) => state.user);
+    user, missingField, isPasswordCorrect, passwordStrength, emailExists, errorListSignup,
+  } = useSelector((state) => state.signup);
+  console.log(user);
   const [values, setValues] = React.useState({
     showPassword: false,
   });
+
 
   // -------------------------- Fonctions State & Dispatch --------------------------
 
@@ -68,7 +70,7 @@ export default function Step1() {
           variant="outlined"
           error={!user.last_name && missingField}
           helperText={(!user.last_name && missingField) ? 'Champs vide' : null}
-          autoFocus
+          autoFocus={!errorListSignup}
           onChange={(evt) => {
             dispatch(actionSetLastName(evt.target.value));
           }}
@@ -92,7 +94,7 @@ export default function Step1() {
         id="login"
         required
         value={user.login}
-        error={!user.login && missingField}
+        error={!user.login && missingField || (errorListSignup && errorListSignup.find((err) => err.search('utilisateur') > 0))}
         helperText={(!user.login && missingField) ? 'Champs vide' : null}
         label="Nom d'utilisateur"
         variant="outlined"
@@ -100,13 +102,14 @@ export default function Step1() {
         onChange={(evt) => {
           dispatch(actionSetLogin(evt.target.value));
         }}
+        autoFocus={errorListSignup && errorListSignup.find((err) => err.search('utilisateur') > 0)}
 
       />
       <TextField
         id="email"
         required
         value={user.email}
-        error={!user.email && missingField || !emailExists}
+        error={!user.email && missingField || !emailExists || (errorListSignup && errorListSignup.find((err) => err.search('email') > 0))}
         helperText={(!user.email && missingField) ? 'Champs vide' : (!emailExists) ? 'Email invalide' : null}
         label="Email"
         variant="outlined"
@@ -115,6 +118,7 @@ export default function Step1() {
         onChange={(evt) => {
           dispatch(actionSetEmail(evt.target.value));
         }}
+        autoFocus={errorListSignup && errorListSignup.find((err) => err.search('utilisateur') < 0 && errorListSignup.find((err) => err.search('email') > 0))}
       />
       <div className="group-input--password">
         <TextField
@@ -180,6 +184,16 @@ export default function Step1() {
         <Alert severity="error">
           <AlertTitle>Erreur</AlertTitle>
           Le mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 nombre et un caractère spécial.
+        </Alert>
+      )}
+      {errorListSignup && (
+        <Alert severity="error">
+          <AlertTitle>Erreur</AlertTitle>
+          {errorListSignup.map((error) => (
+            <p key={error}>
+              {error}
+            </p>
+          ))}
         </Alert>
       )}
     </form>

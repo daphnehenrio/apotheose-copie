@@ -30,8 +30,12 @@ import Step3 from './Step3';
 
 // == import actions local
 import {
-  actionSetMissingField, actionSignup, actionPasswordValidation, actionEmailValidation,
-} from '../../actions/user';
+  actionSetStep,
+  actionSetMissingField,
+  actionSignup,
+  actionPasswordValidation,
+  actionEmailValidation,
+} from '../../actions/signup';
 
 // == import styles
 import './styles.scss';
@@ -118,9 +122,10 @@ schema
 export default function Signup() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-  const { user, isPasswordCorrect, missingField } = useSelector((state) => state.user);
+  const {
+    user, isPasswordCorrect, errorListSignup, activeStep,
+  } = useSelector((state) => state.signup);
   const isEmpty = handdleVerifEmptyValue(user.first_name)
     || handdleVerifEmptyValue(user.last_name)
     || handdleVerifEmptyValue(user.email)
@@ -151,7 +156,7 @@ export default function Signup() {
         if (emailValidator.validate(user.email)) {
           // If all ok, go to next step
           dispatch(actionEmailValidation(true));
-          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          dispatch(actionSetStep(activeStep + 1));
         }
         else {
           dispatch(actionEmailValidation(false));
@@ -169,15 +174,18 @@ export default function Signup() {
     if (activeStep === steps.length - 1) {
       // If final step send axios request in actionSignup
       dispatch(actionSignup(history));
+      if (errorListSignup) {
+        dispatch(actionSetStep(0));
+      }
     }
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    dispatch(actionSetStep(activeStep - 1));
   };
 
   const handleReset = () => {
-    setActiveStep(0);
+    dispatch(actionSetStep(0));
   };
 
   // -------------------------- Return --------------------------

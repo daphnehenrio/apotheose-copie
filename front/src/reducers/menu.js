@@ -1,6 +1,6 @@
 import {
   SET_MENU,
-} from '../actions/menu';
+} from 'src/actions/menu';
 
 const initialState = {
   category: [],

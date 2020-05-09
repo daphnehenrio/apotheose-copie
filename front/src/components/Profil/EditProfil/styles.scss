@@ -1,0 +1,11 @@
+.form--edit-profil {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+
+  .MuiAlert-standardWarning {
+    color: rgb(102, 60, 0);
+    background-color: rgb(255, 244, 229);
+    margin-bottom: 30px;
+}
+}
