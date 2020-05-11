@@ -32,10 +32,10 @@ export default (store) => (next) => (action) => {
           user_id: userSession.user_id
         };
         const token = userSession.token
+        console.log(token)
 
         axios
         .get(`${base_url}/user/${userSession.user_id}`,
-        userInfo,
         {
           withCredentials: true,
           headers: {
