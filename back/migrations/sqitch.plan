@@ -1,0 +1,11 @@
+%syntax-version=1.0.0
+%project=nom-du-projet
+
+oneuser 2020-04-30T13:29:57Z aldahe <aldahe@oclock.io> # signup
+category 2020-05-01T08:54:44Z kaihatsusha,,, <kaihatsusha@kaihatsusha-linux> # add category
+service 2020-05-01T09:01:35Z kaihatsusha,,, <kaihatsusha@kaihatsusha-linux> # add service
+sub_category 2020-05-01T12:38:12Z kaihatsusha,,, <kaihatsusha@kaihatsusha-linux> # add sub_category
+
+service_has_category 2020-05-03T23:32:13Z kaihatsusha,,, <kaihatsusha@kaihatsusha-linux> # add service_has_category
+article 2020-05-07T08:31:34Z aldahe <aldahe@oclock.io> # article
+article_has_sub_category 2020-05-07T08:38:10Z aldahe <aldahe@oclock.io> # article_has_sub_category

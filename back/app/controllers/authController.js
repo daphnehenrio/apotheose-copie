@@ -1,32 +1,26 @@
-const { User } = require('../models');
+const { User, User_profil } = require('../models');
+const Sequelize = require('sequelize');
+const jwt = require('jsonwebtoken');
 
 //password verify
 const emailValidator = require('email-validator');
 
 // bcrypt = hash
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const authController = {
 
-  /* show connexion form
-  loginPage: (req, res) => {
-    res.render('login');
-  },*/
-
   // connexion form
-  loginAction: (req, res) => {
-    console.dir(req.body);
-
+  loginAction:  (req, res) => {
     // recup form
     const {login, password} = req.body;
-    // const email = req.body.email;
-    // const password = req.body.password;
 
     // recup user with login
     User.findOne({
       where: {
         login: login
       },
+      include:  ["user_profil"]
     }).then( (user) => {
 
       // if not exist => error
@@ -35,21 +29,19 @@ const authController = {
       }
 
       // if exist, verify password
-      /*if(! bcrypt.compareSync( password, user.password ) ) {
+      if(! bcrypt.compareSync( password, user.password ) ) {
         // if not good => error
-        return res.send("Mauvais mot de passe");
-      }*/
-
-      if( password !== user.password  ) {
-        // if not good => error
-        return res.send("Mauvais mot de passe");
+        return res.send("Le mot de passe saisi est incorrect");
       }
+
+      const token = jwt.sign({ userId: user.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
+      console.log(token)
 
       // All is good => add user on session
       req.session.user = user ;
       // redirect user at "/"
-      res.send(user);
 
+      res.send({ user, token });
 
     }).catch( err => {
       console.trace(err);
@@ -58,45 +50,36 @@ const authController = {
 
   },
 
-  /* show inscription form
-  signupPage: (req, res) => {
-    res.render('signup');
-  },*/
-
   // treatement of inscription form => save new user
-  signupAction: (req, res) => {
+  signupAction: async (req, res) => {
     // take the data of the form
-    const data = req.body.user;
+    const data = req.body;
 
     // NTUI => verify info
-
     // - verify if user exist
     User.findOne({
-      where: {
-        $or: [{login: data.login}, {email: data.email}]
 
-        /*$or: [
-            {
-                login:
-                {
-                    $eq: data.login
-                }
-            },
-            {
-                email:
-                {
-                    $eq: data.email
-                }
-            },
-        ]*/
-    }
-    }).then( (user) => {
+        where:
+          Sequelize.or(
+            { login: data.login },
+            { email: data.email }
+          )
 
+    }).then( async (user) => {
+
+      console.log("test");
       // list to take errors
       let errorsList = [];
 
       if (user) {
-        errorsList.push('Cet email existe déjà');
+        if(user.login === data.login)
+        {
+          errorsList.push(`L'utilisateur ${data.login} existe déjà`);
+        }
+        if(user.email === data.email)
+        {
+          errorsList.push(`L'email ${data.email} existe déjà`);
+        }
       }
 
       // - last_name and first_name, not null
@@ -114,38 +97,77 @@ const authController = {
 
       // - good format for email
       if (!emailValidator.validate(data.email)) {
-        errorsList.push("L'email n'est pas un email correct");
+        errorsList.push(`L'email ${data.email} n'est pas un email correct`);
       }
 
       // - minimum length of the password
       if (data.password.length < 8) {
         errorsList.push("Le mot de passe doit contenir un minimum de 8 caractères");
       }
-
-      // - password = confirm
-      if (data.password !== data['password-confirm'] ) {
-        errorsList.push("Le mot de passe et la confirmation ne correspondent pas");
-      }
+      console.log(errorsList)
 
       // Insertion on DB
       // errorsList is null if  "ok"
       if (errorsList.length === 0) {
         // create user
+
         const newUser = new User();
+        newUser.login = data.login;
         newUser.first_name = data.first_name;
         newUser.last_name = data.last_name;
         newUser.email = data.email;
         // HASH password
         newUser.password = bcrypt.hashSync(data.password, 10);
 
-        newUser.save().then( (user) => {
+        await newUser.save().then( (user) => {
           // recup user on session
           req.session.user = user;
-          res.send(user);
         });
 
+        const myNewUser = await User.findOne({
+
+          where:{
+            login: data.login
+          }
+
+        })
+        //profil
+
+        const newUser_profil = new User_profil();
+        newUser_profil.user_id = myNewUser.id;
+        newUser_profil.address = data.address;
+        newUser_profil.zip_code = data.zip_code;
+        newUser_profil.city = data.city;
+        newUser_profil.phone_number = data.phone_number;
+        newUser_profil.cellphone_number = data.cellphone_number;
+        newUser_profil.phone_work = data.phone_work;
+        newUser_profil.children = data.children;
+        newUser_profil.statut = data.statut;
+        newUser_profil.gender = data.gender;
+
+        await newUser_profil.save()
+
+        const sendUser = await User.findOne({
+
+          where:{
+            login: data.login
+          },
+          include: [
+            "user_profil"
+          ]
+
+        })
+
+        const token = jwt.sign({ userId: myNewUser.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
+        console.log(token)
+
+        console.log(sendUser)
+
+        res.send({sendUser, token});
+
+
       } else {
-        res.send(errorsList);
+        res.status(400).send(errorsList);
       }
 
     }).catch( err => {
@@ -157,7 +179,8 @@ const authController = {
 
   logout: (req, res) => {
     delete req.session.user;
-    res.send('Compte bien supprimer');
+    console.log(req.session.user)
+    res.send('la session à bien été supprimée');
   }
 
 };

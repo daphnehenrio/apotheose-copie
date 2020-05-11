@@ -1,10 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 // == import Material UI
 
 import clsx from 'clsx';
-import {fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,15 +13,26 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import Link from '@material-ui/core/Link';
+
+// == import for connected user
+import Tooltip from '@material-ui/core/Tooltip';
+import Avatar from '@material-ui/core/Avatar';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import FolderIcon from '@material-ui/icons/Folder';
+import CreateIcon from '@material-ui/icons/Create';
+import Badge from '@material-ui/core/Badge';
 
 // == import composants local
 import Login from 'src/components/Login';
 
 // == import actions local
-import { actionSetLoginForm,  actionSetDrawer} from '../../actions/toggle';
+import { actionSetLoginForm, actionSetDrawer } from 'src/actions/toggle';
+import { actionLogout } from 'src/actions/login';
+import { actionChangePage } from 'src/actions/routes';
+import { actionSetConnected } from 'src/actions/user_profil';
 
 // == import style
 import './styles.scss';
@@ -31,13 +43,13 @@ import './styles.scss';
 const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
   '@global': {
-      // You should target [class*="MuiButton-root"] instead if you nest themes.
-      '.MuiAppBar-colorPrimary': {
-        backgroundColor: '#0f4c81',
-      },
-     /*  '.MuiToolbar-root': {
-        minWidth: '870px',
-      } */
+    // You should target [class*="MuiButton-root"] instead if you nest themes.
+    '.MuiAppBar-colorPrimary': {
+      backgroundColor: '#0f4c81',
+    },
+    /*  '.MuiToolbar-root': {
+           minWidth: '870px',
+         } */
 
   },
 })(() => null);
@@ -118,31 +130,70 @@ const useStyles = makeStyles((theme) => ({
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   // Get the state of the drawer to check if it's open or close (true or false)
   const { openDrawer } = useSelector((state) => state.toggle);
+  const { connected } = useSelector((state) => state.user_profil);
+  const userSession  = JSON.parse(window.sessionStorage.getItem("user"));
 
+  if(userSession && userSession.token && userSession.login && userSession.user_id && !connected) {
+     dispatch(actionSetConnected())
+  }
 
-
-// -------------------------- Fonctions Dispatch --------------------------
+  // -------------------------- Fonctions Dispatch --------------------------
 
   const handleDrawer = () => {
-    dispatch(actionSetDrawer())
+    dispatch(actionSetDrawer());
   };
 
-  const handleLogin= () => {
-    dispatch(actionSetLoginForm());
+  const handleLogin = () => {
+    connected
+      ? dispatch(actionLogout(history))
+      : dispatch(actionSetLoginForm());
+  };
 
-};
+  const preventDefault = (event, route) => {
+    event.preventDefault();
+    dispatch(actionChangePage(route, history));
+  };
 
 
-
-console.log(screen.width)
-// -------------------------- Return --------------------------
+  const ProfilIcon = () => (
+    <>
+      <Tooltip title="Bloc note" arrow>
+        <IconButton aria-label="note">
+          <CreateIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Mes documents" arrow>
+        <Link onClick={(event) => preventDefault(event, '/mes-documents')}>
+          <IconButton aria-label="documents">
+            <FolderIcon />
+          </IconButton>
+        </Link>
+      </Tooltip>
+      <Tooltip title="Mon espace" arrow>
+        <IconButton aria-label="dashboard">
+          <Link onClick={(event) => preventDefault(event, '/mon-espace-personnel')}>
+            <Badge badgeContent={4} color="secondary">
+              <DashboardIcon />
+            </Badge>
+          </Link>
+        </IconButton>
+      </Tooltip>
+      <IconButton aria-label="avatar">
+        <Link onClick={(event) => preventDefault(event, '/profil')}>
+          <Avatar>{userSession.login.substring(0, 1).toUpperCase()}</Avatar>
+        </Link>
+      </IconButton>
+    </>
+  );
+  // -------------------------- Return --------------------------
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <GlobalCss/>
+      <GlobalCss />
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -175,16 +226,17 @@ console.log(screen.width)
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          {connected ? <ProfilIcon /> : ''}
           <Button
             className="styled button"
             variant="contained"
             onClick={handleLogin}
           >
-            Connexion
+            {connected ? 'Déconnexion' : 'Connexion'}
           </Button>
         </Toolbar>
       </AppBar>
-      <Login/>
+      <Login />
     </div>
   );
 }

@@ -1,12 +1,18 @@
+/* eslint-disable no-fallthrough */
+// == import action
+import { CHANGE_PAGE } from '../../actions/routes';
 
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
-    case 'CHANGE_PAGE': {
-      console.log(action)
+    // ---------------------------- CHANGE PAGE ----------------------------
+
+    case CHANGE_PAGE: {
       action.history.push(action.route);
-      break;
     }
+
+    // ---------------------------- DEFAULT ----------------------------
+
     default: {
       next(action);
     }
