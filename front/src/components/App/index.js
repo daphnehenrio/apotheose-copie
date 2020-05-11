@@ -153,7 +153,6 @@ const App = () => {
 
               category.map((cat) => {
                 return ( cat.sub_category.map((sub_cat) => {
-                  console.log(`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`);
                   return (
                     <Route key={sub_cat.name} exact path={`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`}>
                       <div>
@@ -215,11 +214,20 @@ const App = () => {
               );
             }}
           />
-          <Route exact path="/mes-documents/documents">
-            <div>
-              <TargetedDocuments />
-            </div>
-          </Route>
+          <Route
+            exact
+            path="/mes-documents/documents"
+            render={() => {
+              if (!userSession || !userSession.token) {
+                return <Redirect to="/403" />;
+              }
+              return (
+                <div>
+                  <TargetedDocuments />
+                </div>
+              );
+            }}
+          />
           <Route exact path="/403">
             <Page403 />
           </Route>
