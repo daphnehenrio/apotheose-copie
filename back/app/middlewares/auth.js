@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
       console.log('Invalid user ID')
       throw 'Invalid user ID body';
     }
-    else if (req.params.d && Number(req.params.id) !== userId) {
+    else if (req.params.id && Number(req.params.id) !== userId) {
 
         console.log('Invalid user ID params')
         throw 'Invalid user ID';
