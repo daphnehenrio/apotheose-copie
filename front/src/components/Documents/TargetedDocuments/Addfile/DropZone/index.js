@@ -16,6 +16,9 @@ import RemoveIcon from '@material-ui/icons/Remove';
 // == Import images
 import Doc from 'src/assets/image/documents/doc.png';
 
+// == import action
+import { actionSendFiles } from '../../../../../actions/document';
+
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -83,6 +86,7 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
 }
 
 const AddFileDropzone = () => {
+    const dispatch = useDispatch();
     const getUploadParams = ({ meta }) => {
         const url = 'https://httpbin.org/post'
         return { url, meta: { fileUrl: `${url}/${encodeURIComponent(meta.name)}` } }
@@ -93,9 +97,10 @@ const AddFileDropzone = () => {
     }
 
     const handleSubmit = (files, allFiles) => {
-        console.log(files.map(f => f.meta))
-        allFiles.forEach(f => f.remove())
+        console.log(files.map(f => f.meta));
+        dispatch(actionSendFiles(files));
     }
+
 
     return (
         <Dropzone
@@ -114,6 +119,7 @@ const AddFileDropzone = () => {
                 inputLabel: (files, extra) => (extra.reject ? { color: 'red', backgroundColor: 'rgba(255,0,0, 0.2)' } : {})
             }}
             submitButtonContent='Valider'
+            onSubmit= {handleSubmit}
         />
     )
 };
