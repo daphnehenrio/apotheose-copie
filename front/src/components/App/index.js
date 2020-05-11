@@ -151,9 +151,9 @@ const App = () => {
           {
             category.length > 0 && (
 
-              category.forEach((cat) => (
-                cat.sub_category.map((sub_cat) => {
-                  // console.log(`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`);
+              category.map((cat) => {
+                return ( cat.sub_category.map((sub_cat) => {
+                  console.log(`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`);
                   return (
                     <Route key={sub_cat.name} exact path={`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`}>
                       <div>
@@ -163,7 +163,8 @@ const App = () => {
 
                   );
                 })
-              ))
+                )
+              })
             )
           }
 
