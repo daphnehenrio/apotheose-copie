@@ -14,5 +14,5 @@ const enhancers = composeEnhancers(middlewares);
 // eslint-disable-next-line no-undef
 const store = createStore(rootReducer, enhancers);
 
-console.log('STORE : ', store.getState())
+console.log('STORE : ', store.getState());
 export default store;

@@ -36,7 +36,7 @@ router.get('/', userController.homePage );
 
 router.get('/favicon.ico', (req, res) => res.status(204));
 
-router.get('/user/:id',  user_profilController.user_profilPage );
+router.get('/user/:id',  auth, user_profilController.user_profilPage );
 
 router.patch('/update-user', auth, capture(userController.update) );
 
@@ -59,16 +59,19 @@ router.get('/left-menu', capture(leftMenu.getMenu) );
 router.get('/article', articleController.homePage);
 
 //categories
-router.get('/categories', categoryController.categoriesPage);
+router.get('/categories', capture(categoryController.categoriesPage));
 
 //specific category
-router.get('/categories/:name', categoryController.categoryPage);
+router.get('/categories/:name', capture(categoryController.categoryPage));
 
 //services
-router.get('/services', serviceController.servicesPage);
+router.get('/services', capture(serviceController.servicesPage));
+
+//specific services category
+router.get('/category/:id/services', capture(serviceController.servicesCategoryPage));
 
 //upload doc
-router.post('/document', documentController.upload);
+router.post('/document', capture(documentController.upload));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD

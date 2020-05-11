@@ -8,6 +8,8 @@
 
 .tree-item-link{
     margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .MuiTypography-root.menu--title {
@@ -41,11 +43,6 @@
   border-right:none;
   padding: 0 1rem;
   justify-content: flex-end;
-
-  /*
-      // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  */
 }
 
 .MuiLink-root.menu--link {
@@ -107,6 +104,29 @@
 
 .MuiSvgIcon-root.menu--ExpandMoreIcon {
   color: white;
+}
+
+.toogle-menu{
+  margin-top: .5rem;
+  padding: 1.5rem 1rem;
+  margin-bottom: .5rem;
+  display: flex;
+  align-items: center;
+
+  .icon-menu{
+    margin-right: 15px;
+  }
+
+  &--more-less{
+  font-style: italic;
+  font-size: .9em;
+  position: relative;
+  }
+
+  &--switch.MuiSwitch-root{
+    position: absolute;
+    right: 5px;
+  }
 }
 
 // global

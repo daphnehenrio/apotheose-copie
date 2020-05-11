@@ -31,7 +31,11 @@
     "react/destructuring-assignment": "warn",
     "react/no-unescaped-entities": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/state-in-constructor": "off"
+    "react/state-in-constructor": "off",
+    // NOTE: mes ajout personnel
+    "no-unused-vars": "off",
+    "no-console": "off",
+    "camelcase": "off"
   },
   "settings": {
     "import/resolver": {

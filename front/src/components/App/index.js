@@ -1,7 +1,9 @@
+/* eslint-disable camelcase */
 // == Import npm
 import React, { useEffect, useLayoutEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import slugify from '@sindresorhus/slugify';
 
 // == import Material UI
 
@@ -24,8 +26,11 @@ import Documents from 'src/components/Documents';
 import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
 
 // == import action
-import { actionGetMenu } from '../../actions/menu';
 import { actionSetConnected } from 'src/actions/user_profil';
+import { actionGetMenu } from '../../actions/menu';
+import Services from '../Services';
+import Page404 from '../ErrorPages/404';
+import Page403 from '../ErrorPages/403';
 
 
 // -------------------------- styles composants --------------------------
@@ -56,24 +61,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
 // -------------------------- Export --------------------------
 
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { menuOK } = useSelector((state) => state.menu);
+  const { category, menuOK } = useSelector((state) => state.menu);
   const { openDrawer } = useSelector((state) => state.toggle);
   const { connected } = useSelector((state) => state.user_profil);
-  const userSession  = JSON.parse(window.sessionStorage.getItem("user"));
-
+  const userSession = JSON.parse(window.sessionStorage.getItem('user'));
 
 
   useEffect(() => {
-    if(!menuOK){
+    if (!menuOK) {
       dispatch(actionGetMenu());
     }
-  }, [!menuOK])
+  }, [!menuOK]);
 
+/*
+  const catArray = category.length > 0 && (
+
+    category.map((cat) => {
+      return cat.sub_category;
+    })
+  );
+  console.log('catArray : ', catArray);
+  // Tu peux pas, le menu est dans la bdd, au premier chargement il n'est pas dans le state, faut attendre le useEffect
+
+  const newArray = category.length > 0 && (catArray.forEach((newCat) => {
+    setTimeout(newCat.forEach((test) => {
+      return test;
+    }), 3000);
+  }));
+
+  console.log('newArray : ', newArray);
+
+  const newNewArray =  category.length > 0 && (newArray.map((test) => {
+    return test;
+  }))
+
+  console.log(newNewArray);
+*/
   // -------------------------- Return --------------------------
 
   return (
@@ -91,17 +121,63 @@ const App = () => {
               <HomePage />
             </div>
           </Route>
+          {
+            category.length > 0 && (
+              <Route exact path="/services/tous-les-services">
+                <div>
+                  <Services category="Tous les services" />
+                </div>
+              </Route>
+            )
+          }
+
+          {
+            category.length > 0 && (
+
+              category.map((cat) => {
+                // console.log(`/services/${slugify(cat.name)}`);
+
+                return (
+                  <Route key={cat.name} exact path={`/services/${slugify(cat.name)}`}>
+                    <div>
+                      <Services category={cat.name} />
+                    </div>
+                  </Route>
+                );
+              })
+            )
+          }
+
+          {
+            category.length > 0 && (
+
+              category.forEach((cat) => (
+                cat.sub_category.map((sub_cat) => {
+                  // console.log(`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`);
+                  return (
+                    <Route key={sub_cat.name} exact path={`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`}>
+                      <div>
+                        <Services category={cat.name} />
+                      </div>
+                    </Route>
+
+                  );
+                })
+              ))
+            )
+          }
+
           <Route exact path="/inscription">
             <div>
               <Signup />
             </div>
           </Route>
           <Route
-            exact
             path="/mon-espace-personnel"
+            exact
             render={() => {
-              if (!userSession.token) {
-                return <Redirect to="/" />;
+              if (!userSession || !userSession.token) {
+                return <Redirect to="/403" />;
               }
               return (
                 <div>
@@ -111,11 +187,11 @@ const App = () => {
             }}
           />
           <Route
-            exact
             path="/profil"
+            exact
             render={() => {
-              if (!userSession.token) {
-                return <Redirect to="/" />;
+              if (!userSession || !userSession.token) {
+                return <Redirect to="/403" />;
               }
               return (
                 <div>
@@ -124,19 +200,32 @@ const App = () => {
               );
             }}
           />
-          <Route 
-            exact 
+          <Route
             path="/mes-documents"
-            >
-              <div>
-                <Documents/>
-              </div>
-            </Route>
-            <Route exact path='/mes-documents/documents'>
-              <div>
-                <TargetedDocuments/>
-              </div>
-            </Route>
+            exact
+            render={() => {
+              if (!userSession || !userSession.token) {
+                return <Redirect to="/403" />;
+              }
+              return (
+                <div>
+                  <Documents />
+                </div>
+              );
+            }}
+          />
+          <Route exact path="/mes-documents/documents">
+            <div>
+              <TargetedDocuments />
+            </div>
+          </Route>
+          <Route exact path="/403">
+            <Page403 />
+          </Route>
+          <Route>
+            <Page404 />
+          </Route>
+
         </Switch>
         <Footer />
       </div>

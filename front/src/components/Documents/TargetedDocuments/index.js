@@ -24,12 +24,14 @@ import Back from 'src/assets/image/documents/back.png';
 import File from 'src/assets/image/documents/file.png';
 import Plus from 'src/assets/image/documents/plus.png';
 
+// == Import Components
+import AddFile from './Addfile';
+
+
 // == Import actions
 import { actionChangePage } from '../../../actions/routes';
 import { actionOpenAddFile } from '../../../actions/document';
 
-// == Import Components
-import AddFile from 'src/components/Documents/TargetedDocuments/AddFile';
 
 
 
@@ -117,7 +119,7 @@ export default function TargetedDocuments() {
                     }} />
                 </Tooltip>
             </div>
-           <AddFile/> 
+           <AddFile/>
         </div >
     );
 }

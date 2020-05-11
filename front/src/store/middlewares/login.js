@@ -56,7 +56,7 @@ export default (store) => (next) => (action) => {
               // 4. => close form
               store.dispatch(actionSetLoginForm());
               // 5. => redirect dashboard
-              store.dispatch(actionChangePage('mon-espace-personnel', history));
+              store.dispatch(actionChangePage('/mon-espace-personnel', history));
 
             }
           }
@@ -82,7 +82,7 @@ export default (store) => (next) => (action) => {
         .then((res) => {
           console.log(res)
           window.sessionStorage.removeItem('user');
-          store.dispatch(actionCleanProfil())
+          store.dispatch(actionCleanProfil());
           store.dispatch(actionChangePage('/', history));
         })
         .catch((err) => {
