@@ -14,12 +14,15 @@ export default (store) => (next) => (action) => {
       // ---------------------------- GET MENU ----------------------------
   
       case SEND_FILES: {
+          console.log(action.files, 'TYPE OF');
+          const files = JSON.stringify(action.files);
         axios
           .post(`${base_url}/upload-files`,
-            action.files,
+            files,
             {
               withCredentials: true,
             })
+            
           .then((res) => {
             console.log('SEND FILES SUCCED')
           })
