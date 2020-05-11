@@ -20,7 +20,7 @@ import { actionOpenAddFile } from '../../../../actions/document';
 import Upload from 'src/assets/image/documents/upload.png';
 
 // == Import components
-import AddFileDropzone from 'src/components/Documents/TargetedDocuments/AddFile/DropZone';
+import AddFileDropzone from './DropZone';
 
 
 

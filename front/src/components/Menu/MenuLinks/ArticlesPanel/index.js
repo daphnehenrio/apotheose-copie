@@ -49,7 +49,6 @@ export default function ArticlesPanelMenu() {
 
   const ArticlePanel = menu.map((category) => {
     const imageName = `${slugify(category.name)}.png`;
-    const image = require(`src/assets/image/menu-category/${imageName}`);
 
     if (!category.sub_category || category.sub_category?.length === 0) {
       return;
@@ -67,7 +66,7 @@ export default function ArticlesPanelMenu() {
 
             <img
               className="icon-menu"
-              src={image.default}
+              src={`/images/menu-category/${imageName}`}
               alt={category.name}
             />
             <Typography>{category.name}</Typography>
