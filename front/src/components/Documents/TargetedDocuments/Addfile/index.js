@@ -19,6 +19,9 @@ import { actionOpenAddFile } from '../../../../actions/document';
 // == Import images
 import Upload from 'src/assets/image/documents/upload.png';
 
+// == Import components
+import AddFileDropzone from 'src/components/Documents/TargetedDocuments/AddFile/DropZone';
+
 
 
 
@@ -40,29 +43,13 @@ export default function AddFile() {
                     Ajoutez des documents. Ceux-ci seront ensuite utilisés pour remplir
                     automatiquement les checklists.
                 </DialogContentText>
-                <form className= 'form-upload'>
-                    <div className="image-upload-container">
-                        <label htmlFor="file-input">
-                            <img src={Upload} className='image-upload' />
-                        </label>
-
-                        <input id="file-input" type="file" />
-                    </div>
-                    <input type="submit" onClick={(evt) =>{
-                        evt.preventDefault();
-                    }}/>
-                </form>
+                <AddFileDropzone/>
             </DialogContent>
             <DialogActions>
                 <Button onClick={(evt) => {
                     dispatch(actionOpenAddFile(false))
                 }} color="primary">
                     Fermer
-                </Button>
-                <Button onClick={(evt) => {
-                    dispatch(actionOpenAddFile(false))
-                }} color="primary">
-                    Ajouter
                 </Button>
             </DialogActions>
         </Dialog>
