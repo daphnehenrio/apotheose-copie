@@ -3,6 +3,8 @@ const express = require('express');
 // == Factorisation du try catch
 const capture = require('./controllers/capture');
 
+const multer = require('multer');
+
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 const mainController = require('./controllers/mainController');
@@ -31,29 +33,29 @@ const documentController = require('./controllers/documentController');
 const router = express.Router();
 
 
-router.get('/', userController.homePage );
+router.get('/', userController.homePage);
 
 
 router.get('/favicon.ico', (req, res) => res.status(204));
 
-router.get('/user/:id',  auth, user_profilController.user_profilPage );
+router.get('/user/:id', auth, user_profilController.user_profilPage);
 
-router.patch('/update-user', auth, capture(userController.update) );
-
-//connexion
-router.post('/login',  authController.loginAction );
+router.patch('/update-user', auth, capture(userController.update));
 
 //connexion
-router.post('/logout', authController.logout );
+router.post('/login', authController.loginAction);
+
+//connexion
+router.post('/logout', authController.logout);
 
 //inscription
-router.post('/signup', authController.signupAction );
+router.post('/signup', authController.signupAction);
 
 //account suppression
 router.delete('/profil/:id', userController.delete);
 
 //left menu
-router.get('/left-menu', capture(leftMenu.getMenu) );
+router.get('/left-menu', capture(leftMenu.getMenu));
 
 //article
 router.get('/article', articleController.homePage);
@@ -71,15 +73,29 @@ router.get('/services', capture(serviceController.servicesPage));
 router.get('/category/:id/services', capture(serviceController.servicesCategoryPage));
 
 //upload doc
-router.post('/document', capture(documentController.upload));
+router.post('/upload-files', capture(documentController.check));
+
+//documents user
+router.get('/mes-documents/:id', auth, capture(documentController.allDocuments));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
-router.get('/contenu-table/:class', capture(mainController.getAll) );
+router.get('/contenu-table/:class', capture(mainController.getAll));
 
+const storage = multer.diskStorage({
+  destination: './public/uploads',
+  filename(req, file, cb) {
+    cb(null, `${new Date()}-${file.originalname}`);
+  },
+});
+
+
+const upload = multer({ storage });
+
+router.post('/public/storage', upload.single('file'), capture(documentController.upload));
 
 // 404
-router.use( (req, res) => {
+router.use((req, res) => {
   res.status(404).send("Not Found");
 });
 

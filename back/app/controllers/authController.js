@@ -39,6 +39,8 @@ const authController = {
 
       // All is good => add user on session
       req.session.user = user ;
+
+      console.log(req.session.user, 'user login')
       // redirect user at "/"
 
       res.send({ user, token });
@@ -178,8 +180,8 @@ const authController = {
   },
 
   logout: (req, res) => {
-    delete req.session.user;
-    console.log(req.session.user)
+    delete req.session;
+    console.log(req.session);
     res.send('la session à bien été supprimée');
   }
 
