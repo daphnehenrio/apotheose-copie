@@ -73,14 +73,14 @@ router.get('/services', capture(serviceController.servicesPage));
 router.get('/category/:id/services', capture(serviceController.servicesCategoryPage));
 
 //upload doc
-router.post('/upload-files', capture(documentController.upload));
+router.post('/upload-files', capture(documentController.check));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 router.get('/contenu-table/:class', capture(mainController.getAll));
 
 const storage = multer.diskStorage({
-  destination: './files',
+  destination: './public/uploads',
   filename(req, file, cb) {
     cb(null, `${new Date()}-${file.originalname}`);
   },
@@ -89,23 +89,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post('/public/storage', upload.single('file'), capture((req, res) => {
-
-
-  const file = req.file; // file passed from client
-  const meta = req.body; // all other values passed from the client, like name, etc..
-
-  console.log(req.body);
-  console.log(req.body.meta.toString());
-  const obj = JSON.parse((req.body.meta)); // req.body = [Object: null prototype] { title: 'product' }
-
-  console.log(obj.name, 'meta'); // { title: 'product' }
-
-  console.log(file)
-
-
-  res.status(200).send('ok')
-}));
+router.post('/public/storage', upload.single('file'), capture(documentController.upload));
 
 // 404
 router.use((req, res) => {
