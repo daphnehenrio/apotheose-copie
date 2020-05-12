@@ -13,18 +13,27 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
+import Switch from '@material-ui/core/Switch';
 
 import { actionChangePage } from 'src/actions/routes';
+import { actionGetArticles } from '../../../../actions/articles';
 
 export default function ArticlesPanelMenu() {
   const history = useHistory();
   const dispatch = useDispatch();
   const menu = useSelector((state) => state.menu.category);
 
+  const [checked, setChecked] = React.useState(false);
+
   // -------------------------- Fonctions Dispatch --------------------------
 
-  const preventDefault = (event, route) => {
+  const toggleChecked = () => {
+    setChecked((prev) => !prev);
+  };
+
+  const preventDefault = (event, sub_category, route) => {
     event.preventDefault();
+    dispatch(actionGetArticles(sub_category));
     dispatch(actionChangePage(route, history));
   };
 
@@ -35,7 +44,7 @@ export default function ArticlesPanelMenu() {
       key={sousCat.id}
       className="menu--sublink"
       href={`articles/${slugify(name)}/${slugify(sousCat.name)}`}
-      onClick={(event) => preventDefault(event, `/articles/${slugify(name)}/${slugify(sousCat.name)}`)}
+      onClick={(event) => preventDefault(event, sousCat.id, `/articles/${slugify(name)}/${slugify(sousCat.name)}`)}
     >
 
 
@@ -54,7 +63,7 @@ export default function ArticlesPanelMenu() {
       return;
     }
 
-    if (counter < 5) {
+    if (!checked ? counter < 5 : true) {
       counter += 1;
       return (
         <ExpansionPanel className="menu--ExpansionPanel" key={category.name}>
@@ -86,6 +95,20 @@ export default function ArticlesPanelMenu() {
 
       { menu.length > 0 && ([ArticlePanel]) }
 
+      <div className="tree-item-link toogle-menu">
+        <img
+          className="icon-menu"
+          src={`/images/menu-category/${checked ? 'less' : 'more'}.png`}
+          alt={checked ? 'moins' : 'plus'}
+        />
+        <span className="toogle-menu--more-less">
+          Afficher {checked ? 'moins' : 'plus'}
+        </span>
+
+        <Switch className="toogle-menu--switch" checked={checked} onChange={toggleChecked} />
+      </div>
+
     </>
+
   );
 }

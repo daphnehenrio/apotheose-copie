@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 import menu from './menu';
 import services from './services';
+import articles from './articles';
 import toggle from './toggle';
 import login from './login';
 import signup from './signup';
@@ -16,6 +17,7 @@ import document from './document';
 export default combineReducers({
   menu,
   services,
+  articles,
   toggle,
   login,
   signup,

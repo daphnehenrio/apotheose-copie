@@ -8,6 +8,7 @@ import profil from './profil';
 import menu from './menu';
 import update_user from './update_user';
 import services from './services';
+import articles from './articles';
 import document from './document';
 
 
@@ -20,5 +21,6 @@ export default applyMiddleware(
   profil,
   update_user,
   services,
+  articles,
   document,
 );

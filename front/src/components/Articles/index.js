@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
+import React from 'react';
 
 // == import Material UI
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-
+import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -17,25 +15,21 @@ import Typography from '@material-ui/core/Typography';
 
 // Import styles
 import './styles.scss';
-import ArticleDescription from '../Articles/ArticleDescription';
-import { actionGetLastArticles } from '../../actions/articles';
+
+// == import oomponents
+import ArticleDescription from './ArticleDescription';
+import { useSelector } from 'react-redux';
 
 // -------------------------- styles composants --------------------------
 
 
+
+
 // -------------------------- Export --------------------------
 
-export default function HomePage() {
-
-  const dispatch = useDispatch();
+export default function Articles(titles) {
+  console.log(titles)
   const articles = useSelector(state => state.articles.articles)
-  const AccueilOk = useSelector(state => state.articles.AccueilOk)
-
-  useEffect(() => {
-    if (!AccueilOk) {
-      dispatch(actionGetLastArticles());
-    }
-  }, [!AccueilOk]);
 
 // -------------------------- Return --------------------------
 
@@ -48,20 +42,10 @@ export default function HomePage() {
         alignItems="center"
         spacing={5}
       >
+        <Grid item>
+          <h2 className='page-title'>{titles.category}</h2>
+        </Grid>
 
-        <Grid item>
-          <h2 className="page-title">ACCUEIL</h2>
-        </Grid>
-        <Grid item>
-          <div className="page-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
-          </div>
-        </Grid>
         <Grid
           item
           container
@@ -71,16 +55,17 @@ export default function HomePage() {
           alignItems="center"
           spacing={3}
         >
-          <h3 className="page-content-title">Derniers articles</h3>
+          <h3 className='title-category'>
+            {titles.sub_category}
+          </h3>
           <Grid
             container
             direction="row"
             justify="center"
             alignItems="center"
             spacing={3}
-            wrap="wrap"
+            wrap
           >
-
             {
               articles.length > 0
               ? ( articles.map((article) => <ArticleDescription key={article.title} article={article} />))
@@ -92,4 +77,5 @@ export default function HomePage() {
       </Grid>
     </div>
   );
-}
+};
+

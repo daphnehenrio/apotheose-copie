@@ -23,6 +23,10 @@ module.exports = (req, res, next) => {
         console.log('Invalid user ID params')
         throw 'Invalid user ID';
     }
+    else if(!req.params.id && !req.body.user_id) {
+      console.log('No id')
+        throw 'Invalid user ID';
+    }
     else {
       console.log('token ok')
       next();
