@@ -104,12 +104,12 @@ const AddFileDropzone = () => {
 
     return (
         <Dropzone
-            getUploadParams={getUploadParams}
+            /* getUploadParams={getUploadParams} */
             LayoutComponent={Layout}
             onChangeStatus={handleChangeStatus}
             onSubmit={handleSubmit}
             PreviewComponent={Preview}
-            accept=".pdf"
+            accept="application/pdf"
             inputContent={(files, extra) => (extra.reject ? 'Seul les fichiers pdf sont acceptés' : 'Ajoutez un document ...')}
             classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
             inputWithFilesContent='Ajoutez un document ...'
