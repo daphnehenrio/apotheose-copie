@@ -168,6 +168,11 @@ const App = () => {
             )
           }
 
+          <Route exact path="/articles/search-result">
+            <Articles article={articles}/>
+          </Route>
+
+
           <Route exact path="/inscription">
             <div>
               <Signup />

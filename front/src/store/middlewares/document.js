@@ -14,25 +14,21 @@ export default (store) => (next) => (action) => {
     // ---------------------------- GET MENU ----------------------------
 
     case SEND_FILES: {
-      const files = action.files;
-      files.forEach(file => {
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
+      const formData = action.files;
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
 
-        reader.onload = (e) => {
-          const formData = new FormData();
-          formData.append('file', file);
-          formData.append('meta', JSON.stringify(file.meta));
-        }
-      });
-      console.log(formData, 'FORM DATA HELLO');
+      if(userSession.token){
+
+        const token = userSession.token
+
         axios
           .post(`${base_url}/public/storage`,
             formData,
             {
               withCredentials: true,
               headers: {
-                'Content-Type': 'multipart/form-data; boundary=${form._boundary}'
+                'Content-Type': 'multipart/form-data; boundary=${form._boundary}',
+                'Authorization': `Bearer ${token}`
               }
             })
           .then((res) => {
@@ -41,6 +37,10 @@ export default (store) => (next) => (action) => {
           .catch((err) => {
             console.log(err);
           });
+
+      } else {
+        store.dispatch(actionChangePage('/', history));
+      }
 
 
       break;

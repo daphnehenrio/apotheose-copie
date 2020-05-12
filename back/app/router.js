@@ -66,6 +66,10 @@ router.get('/articles', capture(articleController.getAllArticles));
 //article one
 router.get('/article/:id', capture(articleController.getOneArticle));
 
+//article one
+router.get('/articles/search/:value', capture(articleController.searchArticle));
+
+
 
 //article by sub_category
 router.get('/sub-category/:id/articles', capture(articleController.articleBySubCategory));

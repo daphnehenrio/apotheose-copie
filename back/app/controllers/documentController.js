@@ -1,4 +1,5 @@
 const { User, Document } = require('../models');
+const jwt = require('jsonwebtoken');
 
 const documentController = {
 
@@ -13,29 +14,21 @@ const documentController = {
     upload: async (req, res) => {
 
         // console.log(req.session, 'REQ SESSION');
-        console.log(req.body, 'REQ BODY');
-        console.log(req.file, 'REQ FILE');
-        const parsedMeta = JSON.parse(req.body.meta);
-        console.log(parsedMeta, 'METAAAAAAAA');
-
-        const file = req.file; // file passed from client
-        const meta = parsedMeta; // all other values passed from the client, like name, etc..
-
-        //console.log(req.body);
-        //console.log(req.body.meta.toString());
-        /* console.log(req.file.path); */
-        /* const obj = req.body.meta; */ // req.body = [Object: null prototype] { title: 'product' }
-
-        //console.log(obj.name, 'meta'); // { title: 'product' }
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, process.env.TOKEN_GENERATE_TOKEN);
+        const userId = decodedToken.userId;
 
         const data = req.file;
-        const user = req.session.user;
-        console.log(user, 'user')
+        const meta = JSON.parse(req.body.meta); // all other values passed from the client, like name, etc..
 
-       const newDocument = new Document();
+        // console.log(req.body, 'REQ BODY');
+        console.log(req.file, 'REQ FILE');
+        console.log(meta, 'METAAAAAAAA');
+
+        const newDocument = new Document();
         newDocument.name = meta.name;
         newDocument.link = data.path;
-        newDocument.user_id = user.id;
+        newDocument.user_id = userId;
 
         await newDocument.save();
 

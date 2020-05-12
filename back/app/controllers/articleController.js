@@ -1,5 +1,6 @@
 const moment = require('moment');
 const { Article, Sub_category } = require('../models');
+const sequelize = require('sequelize')
 
 const articleController = {
 
@@ -9,7 +10,7 @@ const articleController = {
         order: [
           ['updated_at', 'DESC'],
         ],
-        limit: 4,
+        limit: 8,
         include : [
           {
             association : 'sub_category',
@@ -66,7 +67,7 @@ const articleController = {
 
       const subCategoryId = req.params.id
 
-        let artilecs = await Sub_category.findByPk(subCategoryId, {
+        let articles = await Sub_category.findByPk(subCategoryId, {
           include : [
             {
               association : 'article',
@@ -93,11 +94,40 @@ const articleController = {
           ],
         });
 
-        res.send(artilecs);
+        res.send(articles);
 
 
 
     },
+
+    searchArticle : async (req, res) => {
+
+
+      const lookupValue = req.params.value;
+
+      const articles = await Article.findAll({
+            limit: 20,
+            where: {
+                content: sequelize.where(sequelize.fn('LOWER', sequelize.col('content')), 'LIKE', '%' + lookupValue + '%')
+            },
+            include : [
+              {
+                association : 'sub_category',
+                order: [
+                  ['name', 'ASC'],
+                ],
+                include : [
+                  {
+                    association : 'category',
+                  },
+                ],
+              },
+            ],
+        })
+
+
+        res.send(articles);
+    }
 
 
 };

@@ -39,7 +39,7 @@ app.use(session({
       secure: false,
       maxAge: 1000 * 60 * 60,
     },
-  }));
+}));
 
 const router = require('./app/router');
 const sanitizeMiddleware = require('./app/middlewares/sanitize');

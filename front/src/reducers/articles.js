@@ -1,7 +1,7 @@
 import {
   SET_ARTICLES, SET_LAST_ARTICLES,
 } from 'src/actions/articles';
-import { SET_ALL_ARTICLES, SET_ONE_ARTICLE } from '../actions/articles';
+import { SET_ALL_ARTICLES, SET_ONE_ARTICLE, SET_SEARCH_ARTICLES } from '../actions/articles';
 
 const initialState = {
   articles: [],
@@ -39,6 +39,13 @@ export default (state = initialState, action = {}) => {
         ...state,
         allTitles: titles,
         allTitleOk: true
+      };
+    }
+    case SET_SEARCH_ARTICLES: {
+      return {
+        ...state,
+        articles: action.articles,
+        AccueilOk: false,
       };
     }
 

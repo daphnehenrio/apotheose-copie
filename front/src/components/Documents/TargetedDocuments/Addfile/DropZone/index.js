@@ -102,18 +102,18 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
 
 const AddFileDropzone = () => {
     const dispatch = useDispatch();
-    const files = useSelector((state) => state.document.filesToUpload);
-    const axios = require('axios')
+    // const files = useSelector((state) => state.document.filesToUpload);
+
     const getUploadParams = ({ file, meta }) => {
-        const url = 'http://localhost:5050/public/storage';
+
         const body = new FormData();
         body.append('file', file);
         meta.name = 'tets';
-        console.log('C LA METAAAAA', meta);
         body.append('meta', JSON.stringify(meta));
-        console.log(Array.from(body), 'C LE BOOOODYYYY');
-        axios.post(url, body)
-        return { url, body }
+        // console.log('C LA METAAAAA', meta);
+        // console.log(Array.from(body), 'C LE BOOOODYYYY');
+
+        dispatch(actionSendFiles(body))
     }
 
     const handleChangeStatus = ({ meta }) => {

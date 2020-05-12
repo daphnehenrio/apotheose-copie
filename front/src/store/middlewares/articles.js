@@ -5,7 +5,18 @@ import axios from 'axios';
 
 // == import local
 import { base_url } from 'src/utils/axios';
-import { GET_ARTICLES, GET_LAST_ARTICLES, actionSetArticles , actionSetLastArticles, GET_ALL_ARTICLES, actionSetAllArticles, GET_ONE_ARTICLE, actionSetOneArticle} from '../../actions/articles';
+import {
+  GET_ARTICLES,
+  GET_LAST_ARTICLES,
+  actionSetArticles ,
+  actionSetLastArticles,
+  GET_ALL_ARTICLES,
+  actionSetAllArticles,
+  GET_ONE_ARTICLE,
+  actionSetOneArticle,
+  GET_SEARCH_ARTICLES,
+  actionSetSearchArticles
+} from '../../actions/articles';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
@@ -74,6 +85,23 @@ export default (store) => (next) => (action) => {
           console.log(err);
         });
       break;
+    }
+
+    case GET_SEARCH_ARTICLES: {
+      console.log(action.value)
+      axios
+      .get(`${base_url}/articles/search/${action.value}`,
+        {
+          withCredentials: true,
+        })
+      .then((res) => {
+        console.log(res.data)
+        store.dispatch(actionSetSearchArticles(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    break;
     }
 
 
