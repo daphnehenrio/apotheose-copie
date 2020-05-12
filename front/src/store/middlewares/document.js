@@ -14,11 +14,25 @@ export default (store) => (next) => (action) => {
       // ---------------------------- GET MENU ----------------------------
   
       case SEND_FILES: {
-        axios
-          .post(`${base_url}/upload-files`,
-            action.files,
+        console.log(action.files, 'original files');
+        const files = action.files;
+        let reader = new FileReader();
+        reader.readAsDataURL(files[0].file);
+
+        reader.onload = (e) => {
+          const formData = new FormData();
+          formData.append('file',files[0].file);
+          formData.append('meta', JSON.stringify(files[0].meta));
+
+          console.log(formData, 'formdata');
+          axios
+          .post(`${base_url}/public/storage`,
+          formData,
             {
               withCredentials: true,
+              headers: {
+                'Content-Type': 'multipart/form-data; boundary=${form._boundary}'
+              }
             })
           .then((res) => {
             console.log('SEND FILES SUCCED')
@@ -26,6 +40,8 @@ export default (store) => (next) => (action) => {
           .catch((err) => {
             console.log(err);
           });
+        }
+       
         break;
       }
   
