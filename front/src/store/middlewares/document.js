@@ -9,25 +9,26 @@ import { base_url } from 'src/utils/axios'
 
 export default (store) => (next) => (action) => {
 
-    switch (action.type) {
-  
-      // ---------------------------- GET MENU ----------------------------
-  
-      case SEND_FILES: {
-        console.log(action.files, 'original files');
-        const files = action.files;
+  switch (action.type) {
+
+    // ---------------------------- GET MENU ----------------------------
+
+    case SEND_FILES: {
+      const files = action.files;
+      files.forEach(file => {
         let reader = new FileReader();
-        reader.readAsDataURL(files[0].file);
+        reader.readAsDataURL(file);
 
         reader.onload = (e) => {
           const formData = new FormData();
-          formData.append('file',files[0].file);
-          formData.append('meta', JSON.stringify(files[0].meta));
-
-          console.log(formData, 'formdata');
-          axios
+          formData.append('file', file);
+          formData.append('meta', JSON.stringify(file.meta));
+        }
+      });
+      console.log(formData, 'FORM DATA HELLO');
+        axios
           .post(`${base_url}/public/storage`,
-          formData,
+            formData,
             {
               withCredentials: true,
               headers: {
@@ -40,15 +41,15 @@ export default (store) => (next) => (action) => {
           .catch((err) => {
             console.log(err);
           });
-        }
-       
-        break;
-      }
-  
-      // ---------------------------- DEFAULT ----------------------------
-  
-      default: {
-        next(action);
-      }
+      
+
+      break;
     }
-  };
+
+    // ---------------------------- DEFAULT ----------------------------
+
+    default: {
+      next(action);
+    }
+  }
+};

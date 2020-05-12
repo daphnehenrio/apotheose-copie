@@ -96,10 +96,8 @@ router.post('/public/storage', upload.single('file'), capture((req, res) => {
   const meta = req.body; // all other values passed from the client, like name, etc..
 
   console.log(req.body);
-  console.log(req.body.meta.toString());
-  const obj = JSON.parse((req.body.meta)); // req.body = [Object: null prototype] { title: 'product' }
-
-  console.log(obj.name, 'meta'); // { title: 'product' }
+  
+  
 
   console.log(file)
 
