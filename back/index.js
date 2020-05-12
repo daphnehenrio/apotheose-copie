@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
-moment().format("HH:mm, MM-DD-YYYY");
+moment().format("YYYY-MM-DD");
 
 app.use(bodyParser.json()); // => req.body convert the JSON of the req
 
