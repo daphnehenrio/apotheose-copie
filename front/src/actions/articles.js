@@ -6,6 +6,8 @@ export const SET_ARTICLES = 'action/SET_ARTICLES';
 export const SET_LAST_ARTICLES = 'action/SET_LAST_ARTICLES';
 export const GET_ALL_ARTICLES = 'action/GET_ALL_ARTICLES';
 export const SET_ALL_ARTICLES = 'action/SET_ALL_ARTICLES';
+export const GET_SEARCH_ARTICLES = 'action/GET_SEARCH_ARTICLES';
+export const SET_SEARCH_ARTICLES = 'action/SET_SEARCH_ARTICLES';
 
 
 export const actionGetOneArticle = (id) => ({
@@ -43,6 +45,16 @@ export const actionGetAllArticles = () => ({
 
 export const actionSetAllArticles = (articles) => ({
   type: SET_ALL_ARTICLES,
+  articles,
+});
+
+export const actionGetSearchArticles = (value) => ({
+  type: GET_SEARCH_ARTICLES,
+  value,
+});
+
+export const actionSetSearchArticles = (articles) => ({
+  type: SET_SEARCH_ARTICLES,
   articles,
 });
 

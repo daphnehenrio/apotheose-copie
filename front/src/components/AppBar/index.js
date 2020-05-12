@@ -36,6 +36,7 @@ import { actionSetConnected } from 'src/actions/user_profil';
 
 // == import style
 import './styles.scss';
+import { actionGetSearchArticles } from '../../actions/articles';
 
 // -------------------------- styles composants --------------------------
 
@@ -146,6 +147,11 @@ export default function PersistentDrawerLeft() {
     dispatch(actionSetDrawer());
   };
 
+  const submitSearch = (value) => {
+    dispatch(actionGetSearchArticles(value))
+    dispatch(actionChangePage('/articles/search-result', history))
+  }
+
   const handleLogin = () => {
     connected
       ? dispatch(actionLogout(history))
@@ -224,6 +230,11 @@ export default function PersistentDrawerLeft() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onKeyDown={ (event) => {
+                if(event.keyCode == 13){
+                  submitSearch(event.target.value)
+                }
+              }}
             />
           </div>
           {connected ? <ProfilIcon /> : ''}
