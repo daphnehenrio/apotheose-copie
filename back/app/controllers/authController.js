@@ -39,6 +39,8 @@ const authController = {
 
       // All is good => add user on session
       req.session.user = user ;
+
+      console.log(req.session.user, 'user login')
       // redirect user at "/"
 
       res.send({ user, token });

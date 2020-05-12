@@ -5,6 +5,7 @@ import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
+import InputBase from '@material-ui/core/InputBase';
 
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone, { defaultClassNames } from 'react-dropzone-uploader'
@@ -17,7 +18,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import Doc from 'src/assets/image/documents/doc.png';
 
 // == import action
-import { actionSendFiles } from '../../../../../actions/document';
+import { actionSendFiles, actionChangeFileName, actionAddFileToState } from '../../../../../actions/document';
 
 
 const StyledBadge = withStyles((theme) => ({
@@ -33,30 +34,44 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const Preview = ({ fileWithMeta, meta }) => {
-    console.log(fileWithMeta, 'META');
-    const { name, percent, status } = meta;
+    const { name, id, percent, status } = meta;
     const { cancel, remove, restart } = fileWithMeta;
+    const dispatch = useDispatch();
+    const files = useSelector((state) => state.document.filesToUpload);
+
+
     return (
         <div className='file-box'>
             <div>
-            <StyledBadge
-                badgeContent={
-                    status === 'done' ?
-                        <IconButton aria-label="delete" onClick={remove}>
-                            <CloseIcon style={{ fontSize: 10, color: 'white' }} />
-                        </IconButton>
-                        :
-                        <ClipLoader
-                            size={10}
-                            color={"white"}
-                            loading={status !== 'done'}
-                        />
-                }
-                color="primary">
-                <img src={Doc} className='img-upload-doc' />
-            </StyledBadge>
+                <StyledBadge
+                    badgeContent={
+                        status === 'done' ?
+                            <IconButton aria-label="delete" onClick={remove}>
+                                <CloseIcon style={{ fontSize: 10, color: 'white' }} />
+                            </IconButton>
+                            :
+                            <ClipLoader
+                                size={10}
+                                color={"white"}
+                                loading={status !== 'done'}
+                            />
+                    }
+                    color="primary">
+                    <img src={Doc} className='img-upload-doc' />
+                </StyledBadge>
             </div>
-            {name}
+            <InputBase
+                inputProps={{ 'aria-label': 'naked' }}
+                value={files.map(file => {
+                    if (file.id === id) {
+                        return file.name;
+                    }
+                })}
+                onChange={(evt) => {
+                    dispatch(actionChangeFileName(id, evt.target.value));
+                    console.log(evt.target.value, 'filesssssssssssssssssssss');
+                }}
+            />
 
         </div>
     )
@@ -87,18 +102,38 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
 
 const AddFileDropzone = () => {
     const dispatch = useDispatch();
-    const getUploadParams = ({ meta }) => {
-        const url = 'https://httpbin.org/post'
-        return { url, meta: { fileUrl: `${url}/${encodeURIComponent(meta.name)}` } }
+    const files = useSelector((state) => state.document.filesToUpload);
+    const axios = require('axios')
+    const getUploadParams = ({ file, meta }) => {
+        const url = 'http://localhost:5050/public/storage';
+        const body = new FormData();
+        body.append('file', file);
+        meta.name = 'tets';
+        console.log('C LA METAAAAA', meta);
+        body.append('meta', JSON.stringify(meta));
+        console.log(Array.from(body), 'C LE BOOOODYYYY');
+        axios.post(url, body)
+        return { url, body }
     }
 
-    const handleChangeStatus = ({ meta }, status) => {
-        console.log(status, meta)
+    const handleChangeStatus = ({ meta }) => {
+        const { name, id, status } = meta;
+        console.log(meta, 'STATUS AND META');
+        if (status === 'done') {
+            dispatch(actionAddFileToState(id, name));
+        }
+
+
     }
 
     const handleSubmit = (files, allFiles) => {
-        console.log(files.map(f => f.meta));
-        dispatch(actionSendFiles(files));
+        /* dispatch(actionSendFiles(files)); */
+        console.log(files, 'ON SUBMIT FILES');
+        files.forEach(doc => {
+            console.log(doc, 'C LE DOOOOOC');
+            getUploadParams(doc);
+        });
+
     }
 
 
@@ -108,6 +143,7 @@ const AddFileDropzone = () => {
             LayoutComponent={Layout}
             onChangeStatus={handleChangeStatus}
             onSubmit={handleSubmit}
+            autoUpload= {false}
             PreviewComponent={Preview}
             accept="application/pdf"
             inputContent={(files, extra) => (extra.reject ? 'Seul les fichiers pdf sont acceptés' : 'Ajoutez un document ...')}
@@ -119,7 +155,7 @@ const AddFileDropzone = () => {
                 inputLabel: (files, extra) => (extra.reject ? { color: 'red', backgroundColor: 'rgba(255,0,0, 0.2)' } : {})
             }}
             submitButtonContent='Valider'
-            onSubmit= {handleSubmit}
+            onSubmit={handleSubmit}
         />
     )
 };
