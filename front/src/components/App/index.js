@@ -25,8 +25,6 @@ import Profil from 'src/components/Profil';
 import Documents from 'src/components/Documents';
 import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
 
-import Test from 'src/components/Test';
-
 // == import action
 import { actionSetConnected } from 'src/actions/user_profil';
 import { actionGetMenu } from '../../actions/menu';
@@ -221,9 +219,6 @@ const App = () => {
             <div>
               <TargetedDocuments />
             </div>
-          </Route>
-          <Route exact path='/test'>
-            <Test/>
           </Route>
           <Route exact path="/403">
             <Page403 />

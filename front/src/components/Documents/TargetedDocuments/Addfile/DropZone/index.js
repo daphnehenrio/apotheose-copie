@@ -97,19 +97,19 @@ const AddFileDropzone = () => {
     }
 
     const handleSubmit = (files, allFiles) => {
-        console.log(files, typeof allFiles, 'TYPE OF FILES JKDFSBFDUI');
-        console.log(typeof Object.values(files), 'OBJECT VALUE');
+        console.log(files.map(f => f.meta));
         dispatch(actionSendFiles(files));
     }
 
 
     return (
         <Dropzone
-            /* getUploadParams={getUploadParams} */
+            getUploadParams={getUploadParams}
             LayoutComponent={Layout}
             onChangeStatus={handleChangeStatus}
+            onSubmit={handleSubmit}
             PreviewComponent={Preview}
-            accept="application/pdf"
+            accept=".pdf"
             inputContent={(files, extra) => (extra.reject ? 'Seul les fichiers pdf sont acceptés' : 'Ajoutez un document ...')}
             classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
             inputWithFilesContent='Ajoutez un document ...'
@@ -120,7 +120,6 @@ const AddFileDropzone = () => {
             }}
             submitButtonContent='Valider'
             onSubmit= {handleSubmit}
-            autoUpload={false}
         />
     )
 };
