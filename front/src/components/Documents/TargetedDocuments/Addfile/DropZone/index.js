@@ -39,7 +39,7 @@ const Preview = ({ fileWithMeta, meta }) => {
     const dispatch = useDispatch();
     const files = useSelector((state) => state.document.filesToUpload);
 
-    
+
     return (
         <div className='file-box'>
             <div>
@@ -62,8 +62,8 @@ const Preview = ({ fileWithMeta, meta }) => {
             </div>
             <InputBase
                 inputProps={{ 'aria-label': 'naked' }}
-                value={ files.map(file => {
-                    if(file.id === id){
+                value={files.map(file => {
+                    if (file.id === id) {
                         return file.name;
                     }
                 })}
@@ -102,35 +102,48 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
 
 const AddFileDropzone = () => {
     const dispatch = useDispatch();
+    const files = useSelector((state) => state.document.filesToUpload);
+    const axios = require('axios')
     const getUploadParams = ({ file, meta }) => {
         const url = 'http://localhost:5050/public/storage';
         const body = new FormData();
         body.append('file', file);
+        meta.name = 'tets';
+        console.log('C LA METAAAAA', meta);
+        body.append('meta', JSON.stringify(meta));
+        console.log(Array.from(body), 'C LE BOOOODYYYY');
+        axios.post(url, body)
         return { url, body }
     }
 
     const handleChangeStatus = ({ meta }) => {
         const { name, id, status } = meta;
         console.log(meta, 'STATUS AND META');
-        if(status === 'done'){
-            dispatch(actionAddFileToState(id,name));
+        if (status === 'done') {
+            dispatch(actionAddFileToState(id, name));
         }
 
 
     }
 
     const handleSubmit = (files, allFiles) => {
-        console.log(files.map(f => f.meta));
-        dispatch(actionSendFiles(files));
+        /* dispatch(actionSendFiles(files)); */
+        console.log(files, 'ON SUBMIT FILES');
+        files.forEach(doc => {
+            console.log(doc, 'C LE DOOOOOC');
+            getUploadParams(doc);
+        });
+
     }
 
 
     return (
         <Dropzone
-            getUploadParams={getUploadParams}
+            /* getUploadParams={getUploadParams} */
             LayoutComponent={Layout}
             onChangeStatus={handleChangeStatus}
             onSubmit={handleSubmit}
+            autoUpload= {false}
             PreviewComponent={Preview}
             accept="application/pdf"
             inputContent={(files, extra) => (extra.reject ? 'Seul les fichiers pdf sont acceptés' : 'Ajoutez un document ...')}
