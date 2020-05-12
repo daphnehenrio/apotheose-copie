@@ -55,8 +55,18 @@ router.delete('/profil/:id', userController.delete);
 //left menu
 router.get('/left-menu', capture(leftMenu.getMenu) );
 
-//article
-router.get('/article', articleController.homePage);
+//article home page
+router.get('/articles/last', capture(articleController.homePage));
+
+//article all
+router.get('/articles', capture(articleController.getAllArticles));
+
+//article one
+router.get('/article/:id', capture(articleController.getOneArticle));
+
+
+//article by sub_category
+router.get('/sub-category/:id/articles', capture(articleController.articleBySubCategory));
 
 //categories
 router.get('/categories', capture(categoryController.categoriesPage));
