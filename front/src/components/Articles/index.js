@@ -16,6 +16,10 @@ import Typography from '@material-ui/core/Typography';
 // Import styles
 import './styles.scss';
 
+// == import oomponents
+import ArticleDescription from './ArticleDescription';
+import { useSelector } from 'react-redux';
+
 // -------------------------- styles composants --------------------------
 
 
@@ -23,7 +27,9 @@ import './styles.scss';
 
 // -------------------------- Export --------------------------
 
-export default function Articles_HomePage() {
+export default function Articles(titles) {
+  console.log(titles)
+  const articles = useSelector(state => state.articles.articles)
 
 // -------------------------- Return --------------------------
 
@@ -37,18 +43,9 @@ export default function Articles_HomePage() {
         spacing={5}
       >
         <Grid item>
-          <h2 className='page-title'>Articles</h2>
+          <h2 className='page-title'>{titles.category}</h2>
         </Grid>
-        <Grid item>
-          <div className='page-description'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
-          </div>
-        </Grid>
+
         <Grid
           item
           container
@@ -59,7 +56,7 @@ export default function Articles_HomePage() {
           spacing={3}
         >
           <h3 className='title-category'>
-            Caf
+            {titles.sub_category}
           </h3>
           <Grid
             container
@@ -69,7 +66,12 @@ export default function Articles_HomePage() {
             spacing={3}
             wrap
           >
-            // map des articles
+            {
+              articles.length > 0
+              ? ( articles.map((article) => <ArticleDescription key={article.title} article={article} />))
+              : "Il n'y a pas encore d'articles disponnible"
+            }
+
           </Grid>
         </Grid>
       </Grid>
