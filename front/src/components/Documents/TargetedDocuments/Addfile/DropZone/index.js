@@ -39,6 +39,20 @@ const Preview = ({ fileWithMeta, meta }) => {
     const dispatch = useDispatch();
     const files = useSelector((state) => state.document.filesToUpload);
 
+    const findValue = () => {
+      let value = files.find(file => {
+        if (file.id === id) {
+            return file.name;
+        }
+        return
+      })
+    console.log("value: ", value)
+
+      if (value){
+
+        return value.name
+      } else return
+    }
 
     return (
         <div className='file-box'>
@@ -62,11 +76,7 @@ const Preview = ({ fileWithMeta, meta }) => {
             </div>
             <InputBase
                 inputProps={{ 'aria-label': 'naked' }}
-                value={files.map(file => {
-                    if (file.id === id) {
-                        return file.name;
-                    }
-                })}
+                value={findValue()}
                 onChange={(evt) => {
                     dispatch(actionChangeFileName(id, evt.target.value));
                     console.log(evt.target.value, 'filesssssssssssssssssssss');
