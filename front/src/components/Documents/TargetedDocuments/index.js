@@ -18,6 +18,8 @@ import Link from '@material-ui/core/Link';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 // == Import img
 import Back from 'src/assets/image/documents/back.png';
@@ -30,7 +32,7 @@ import AddFile from './Addfile';
 
 // == Import actions
 import { actionChangePage } from '../../../actions/routes';
-import { actionOpenAddFile } from '../../../actions/document';
+import { actionOpenAddFile, actionOpenSuccessMessage } from '../../../actions/document';
 
 
 
@@ -67,10 +69,20 @@ const StyledInput = withStyles((theme) => ({
 export default function TargetedDocuments() {
     const history = useHistory();
     const dispatch = useDispatch();
+    const successUpload = useSelector((state) => state.document.successUpload);
 
-    const handleClick = (event) => {
-        event.preventDefault();
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
+
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        dispatch(actionOpenSuccessMessage(false));
+    };
 
 
     // ----------------- Return ------------------ //
@@ -119,7 +131,12 @@ export default function TargetedDocuments() {
                     }} />
                 </Tooltip>
             </div>
-           <AddFile/>
+            <AddFile />
+            <Snackbar open={successUpload} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    Vos documents ont été importés avec succès !
+            </Alert>
+            </Snackbar>
         </div >
     );
 }

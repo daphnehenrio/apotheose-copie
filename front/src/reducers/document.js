@@ -2,6 +2,7 @@ import {
     OPEN_ADD_FILE,
     CHANGE_FILE_NAME,
     ADD_FILE_TO_STATE,
+    OPEN_SUCCESS_MESSAGE,
 
 } from '../actions/document';
 
@@ -9,6 +10,7 @@ import {
 const initialState = {
     openAddFile: false,
     filesToUpload: [],
+    successUpload: false,
 };
 
 export default (state = initialState, action = {}) => {
@@ -18,6 +20,7 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 openAddFile: action.bool,
+
             }
         }
         case CHANGE_FILE_NAME: {
@@ -43,6 +46,12 @@ export default (state = initialState, action = {}) => {
                     ...state.filesToUpload,
                     {id: action.id, name: action.name}
                 ],
+            }
+        }
+        case OPEN_SUCCESS_MESSAGE: {
+            return {
+                ...state,
+                successUpload: action.bool,
             }
         }
 
