@@ -39,7 +39,6 @@ export default (store) => (next) => (action) => {
     }
 
     case GET_ARTICLES: {
-      console.log(action.sub_category)
       axios
         .get(`${base_url}/sub-category/${action.sub_category}/articles`,
           {
@@ -88,7 +87,6 @@ export default (store) => (next) => (action) => {
     }
 
     case GET_SEARCH_ARTICLES: {
-      console.log(action.value)
       axios
       .get(`${base_url}/articles/search/${action.value}`,
         {

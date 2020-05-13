@@ -16,7 +16,6 @@ import './stlyles.scss'
 
 export default function Article(article) {
 
-  console.log('article : ', article)
 // -------------------------- Return --------------------------
   return (
 

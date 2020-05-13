@@ -62,9 +62,6 @@ export default function Login() {
   };
 
   const onSubmit = (data) => {
-    console.log('login submit data : ', data);
-    console.log('login submit errors : ', errors);
-
     dispatch(actionLogin(data, history));
   };
 

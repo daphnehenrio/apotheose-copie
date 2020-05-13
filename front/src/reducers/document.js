@@ -16,7 +16,6 @@ const initialState = {
 export default (state = initialState, action = {}) => {
     switch (action.type) {
         case OPEN_ADD_FILE: {
-            console.log('CASE OPEN_ADD_FILE', action.bool);
             return {
                 ...state,
                 openAddFile: action.bool,
@@ -29,10 +28,10 @@ export default (state = initialState, action = {}) => {
                 filesToUpload: state.filesToUpload.map(file => {
                     if(file.id === action.id) {
                         return {
-                            ...file, 
+                            ...file,
                             name: action.name
                         }
-                    } 
+                    }
                     return {
                         ...file,
                     }

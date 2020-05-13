@@ -16,7 +16,7 @@ export default (store) => (next) => (action) => {
 
     case SIGNUP: {
       const { user } = store.getState().signup;
-      console.log(user);
+      
       const userInfo = {
         login: user.login,
         first_name: user.first_name,
@@ -41,7 +41,6 @@ export default (store) => (next) => (action) => {
           })
         .then((res) => {
 
-          console.log('DATA: ', res.data)
           window.sessionStorage.setItem('user', JSON.stringify({
             token: res.data.token,
             user_id: res.data.sendUser.id,
@@ -57,7 +56,6 @@ export default (store) => (next) => (action) => {
         .catch((err) => {
           console.dir(err)
 
-
             if(err.response && err.response.status  === 400) {
 
               store.dispatch(actionErrorListSignup(err.response.data))
@@ -65,7 +63,6 @@ export default (store) => (next) => (action) => {
               return
             }
             console.log(err);
-
 
         });
       return;

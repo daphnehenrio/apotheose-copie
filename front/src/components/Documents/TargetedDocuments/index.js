@@ -126,7 +126,6 @@ export default function TargetedDocuments() {
                 </div>
                 <Tooltip title="Ajouter un document" placement="right-start">
                     <img className='plus' src={Plus} onClick={(evt) => {
-                        console.log('OPEN', actionOpenAddFile);
                         dispatch(actionOpenAddFile(true));
                     }} />
                 </Tooltip>

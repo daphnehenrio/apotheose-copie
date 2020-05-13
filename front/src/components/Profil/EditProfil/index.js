@@ -69,8 +69,6 @@ export default function EditProfil() {
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(errors);
     dispatch(actionSaveUpdateProfil(data));
   };
 

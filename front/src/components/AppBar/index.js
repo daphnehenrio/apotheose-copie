@@ -48,10 +48,6 @@ const GlobalCss = withStyles({
     '.MuiAppBar-colorPrimary': {
       backgroundColor: '#0f4c81',
     },
-    /*  '.MuiToolbar-root': {
-           minWidth: '870px',
-         } */
-
   },
 })(() => null);
 

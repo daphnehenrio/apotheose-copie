@@ -34,8 +34,6 @@ const userController = {
         },
       }));
 
-      console.log(req.body);
-
       const user_profilId = user.id;
       const user_profil = await User_profil.findByPk(user_profilId);
 

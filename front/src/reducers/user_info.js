@@ -78,7 +78,6 @@ export default (state = initialState, action = {}) => {
       };
     }
     case EDIT_INFO_SUP_CONTENT: {
-      console.log('TEST EDIT', action.info);
       return {
         ...state,
         infosSup: state.infosSup.map((info) => {

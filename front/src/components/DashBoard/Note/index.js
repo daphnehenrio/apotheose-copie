@@ -69,7 +69,6 @@ const Note = () => {
 
 
   const noteCards = notes.map((note) => {
-    console.log(notes, note);
     return (
       <Paper component="div" key={note.id} className="notes-infos" onClick={console.log('test')}>
         <div className="note-header">
