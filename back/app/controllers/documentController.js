@@ -21,14 +21,15 @@ const documentController = {
         const data = req.file;
         const meta = JSON.parse(req.body.meta); // all other values passed from the client, like name, etc..
 
+
         const newDocument = new Document();
         newDocument.name = meta.name;
         newDocument.link = data.path;
         newDocument.user_id = userId;
-
         await newDocument.save();
-
+        console.log(req.session.user.id);
         res.status(200).send('ok')
+        
     },
 
     allDocuments: async (req, res) => {
