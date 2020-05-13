@@ -20,8 +20,7 @@ const documentController = {
 
         const data = req.file;
         const meta = JSON.parse(req.body.meta); // all other values passed from the client, like name, etc..
-        
-        
+
 
         const newDocument = new Document();
         newDocument.name = meta.name;

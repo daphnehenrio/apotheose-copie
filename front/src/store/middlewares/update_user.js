@@ -45,7 +45,6 @@ export default (store) => (next) => (action) => {
           },
         )
         .then((res) => {
-          console.log(res);
 
           store.dispatch(actionSetProfil(res.data));
           store.dispatch(actionSetOpenEditProfil(false));

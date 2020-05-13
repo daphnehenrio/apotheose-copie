@@ -35,12 +35,10 @@ const authController = {
       }
 
       const token = jwt.sign({ userId: user.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
-      console.log(token)
 
       // All is good => add user on session
       req.session.user = user ;
 
-      console.log(req.session.user, 'user login')
       // redirect user at "/"
 
       res.send({ user, token });
@@ -69,7 +67,6 @@ const authController = {
 
     }).then( async (user) => {
 
-      console.log("test");
       // list to take errors
       let errorsList = [];
 
@@ -106,7 +103,6 @@ const authController = {
       if (data.password.length < 8) {
         errorsList.push("Le mot de passe doit contenir un minimum de 8 caractères");
       }
-      console.log(errorsList)
 
       // Insertion on DB
       // errorsList is null if  "ok"
@@ -161,9 +157,6 @@ const authController = {
         })
 
         const token = jwt.sign({ userId: myNewUser.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
-        console.log(token)
-
-        console.log(sendUser)
 
         res.send({sendUser, token});
 

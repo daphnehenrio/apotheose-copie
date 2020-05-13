@@ -43,7 +43,6 @@ export default function Services(category) {
     const servicesByCat = services.filter((service) => {
       if (service.category) {
         const catName = service.category.map((cat) => cat.name);
-        console.log(catName);
         if (catName[0] === categoryName) {
           return true;
         }

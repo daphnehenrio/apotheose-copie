@@ -26,7 +26,6 @@ import Documents from 'src/components/Documents';
 import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
 
 // == import action
-import { actionSetConnected } from 'src/actions/user_profil';
 import { actionGetMenu } from '../../actions/menu';
 import Services from '../Services';
 import Articles from '../Articles';
@@ -74,16 +73,18 @@ const App = () => {
   const { category, menuOK } = useSelector((state) => state.menu);
   const { allTitles, allTitleOk, articles } = useSelector((state) => state.articles);
   const { openDrawer } = useSelector((state) => state.toggle);
-  const { connected } = useSelector((state) => state.user_profil);
   const userSession = JSON.parse(window.sessionStorage.getItem('user'));
-  console.log(allTitles)
 
-  useEffect(() => {
+  useEffect( () => {
+
     if (!menuOK) {
       dispatch(actionGetMenu());
     }
+
     if (!allTitleOk) {
+      console.log('use effect app')
       dispatch(actionGetAllArticles());
+
     }
   }, [!allTitleOk]);
 
@@ -116,10 +117,7 @@ const App = () => {
 
           {
             category.length > 0 && (
-
               category.map((cat) => {
-                // console.log(`/services/${slugify(cat.name)}`);
-
                 return (
                   <Route key={cat.name} exact path={`/services/${slugify(cat.name)}`}>
                     <div>
@@ -133,19 +131,14 @@ const App = () => {
 
           {
             category.length > 0 && (
-
               category.map((cat) => {
                 return ( cat.sub_category.map((sub_cat) => {
-
-                  // console.log(`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`);
-
                   return (
                     <Route key={sub_cat.name} exact path={`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`}>
                       <div>
                         <Articles category={cat.name} sub_category={sub_cat.name} />
                       </div>
                     </Route>
-
                   );
                 })
                 )
@@ -155,10 +148,7 @@ const App = () => {
 
           {
             allTitles.length > 0 && (
-
               allTitles.map((title) => {
-                // console.log(`/services/${slugify(cat.name)}`);
-
                 return (
                   <Route key={title} exact path={`/article/${slugify(title)}`}>
                     <Article article={articles[0]}/>

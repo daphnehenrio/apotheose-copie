@@ -13,8 +13,6 @@ import Dropzone, { defaultClassNames } from 'react-dropzone-uploader'
 
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import RemoveIcon from '@material-ui/icons/Remove';
-
 // == Import images
 import Doc from 'src/assets/image/documents/doc.png';
 
@@ -49,7 +47,6 @@ const Preview = ({ fileWithMeta, meta }) => {
         }
         return
       })
-    console.log("value: ", value)
 
       if (value){
 
@@ -82,7 +79,6 @@ const Preview = ({ fileWithMeta, meta }) => {
                 value={findValue()}
                 onChange={(evt) => {
                     dispatch(actionChangeFileName(id, evt.target.value));
-                    console.log(evt.target.value, 'filesssssssssssssssssssss');
                 }}
             />
 
@@ -91,7 +87,6 @@ const Preview = ({ fileWithMeta, meta }) => {
 }
 
 const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles } }) => {
-    console.log(files, 'dropzone props');
     return (
         <div>
             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -134,7 +129,6 @@ const AddFileDropzone = () => {
 
     const handleChangeStatus = ({ meta }) => {
         const { name, id, status } = meta;
-        console.log(meta, 'STATUS AND META');
         if (status === 'done') {
             dispatch(actionAddFileToState(id, name));
         }
@@ -144,9 +138,7 @@ const AddFileDropzone = () => {
 
     const handleSubmit = (files, allFiles) => {
         /* dispatch(actionSendFiles(files)); */
-        console.log(files, 'ON SUBMIT FILES');
         files.forEach(doc => {
-            console.log(doc, 'C LE DOOOOOC');
             getUploadParams(doc);
         });
 

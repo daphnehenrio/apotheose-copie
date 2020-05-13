@@ -18,7 +18,6 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res.data)
           store.dispatch(actionSetServices(res.data));
         })
         .catch((err) => {
@@ -34,7 +33,6 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res.data)
           store.dispatch(actionSetAllServices(res.data));
         })
         .catch((err) => {

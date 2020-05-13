@@ -18,21 +18,19 @@ export default (store) => (next) => (action) => {
     // ---------------------------- GET PROFIL ----------------------------
 
     case GET_PROFIL: {
-      console.log('get session')
+
       const { history } = action;
 
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));
 
-      console.log('session : ', userSession)
-      console.log('token : ', userSession.token)
 
       if(userSession.token){
 
         const userInfo = {
           user_id: userSession.user_id
         };
+
         const token = userSession.token
-        console.log(token)
 
         axios
         .get(`${base_url}/user/${userSession.user_id}`,
@@ -43,7 +41,6 @@ export default (store) => (next) => (action) => {
           },
         })
         .then((res) => {
-          console.log(res.data[0])
 
           if(res.data){
             store.dispatch(actionSetProfil(res.data[0]));

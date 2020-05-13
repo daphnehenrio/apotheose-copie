@@ -2,8 +2,6 @@
 
 BEGIN;
 
-BEGIN;
-
 INSERT INTO "article_has_sub_category" (
   "article_id",
   "sub_category_id"
