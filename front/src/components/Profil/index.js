@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
+
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -10,26 +13,24 @@ import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 
 
 // == Import actions
 
+import { actionSetOpenEditProfil, actionGetProfil } from 'src/actions/user_profil';
 import {
+  actionSetOpenAddInfoSup,
+  actionAddInfoSup,
+  actionSetInfoSupTitle,
+  actionSetInfoSupValue,
+  actionClearAddInfoSup,
+  actionEditInfoSup,
+  actionEditInfosSupContent,
+  actionCloseEditInfoSup,
 
-    actionSetOpenEditProfil,
-    actionSetOpenAddInfoSup,
-    actionAddInfoSup,
-    actionSetInfoSupTitle,
-    actionSetInfoSupValue,
-    actionClearAddInfoSup,
-    actionEditInfoSup,
-    actionEditInfosSupContent,
-    actionCloseEditInfoSup,
-
-} from '../../actions/profil';
+} from 'src/actions/user_info';
 
 // == import utils
 import { handdleVerifEmptyValue } from 'src/utils/checkSpaces';
@@ -102,259 +103,281 @@ const useStyles = makeStyles((theme) => ({
 // -------------------------- Export --------------------------
 
 export default function Profil() {
-
+  const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [value, setValue] = React.useState(0);
   const {
     login,
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     email,
     gender,
-    cellphoneNumber,
-    fixNumber,
-    workPhone,
-    zipCode,
+    cellphone_number,
+    phone_number,
+    phone_work,
+    zip_code,
     city,
     children,
-    adress,
+    address,
     age,
     statut,
-  } = useSelector((state) => state.user.user);
+  } = useSelector((state) => state.user_profil);
 
-
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-    const dispatch = useDispatch();
-    const openAddInfoSup = useSelector((state) => state.profil.openAddInfoSup);
-    const infoSup = useSelector((state) => state.profil.infoSupToAdd);
-    const infosSup = useSelector((state) => state.profil.infosSup);
-    const infosSupList = infosSup.map(info => {
-        if(info.edit === false){
-            return (
-                <li key={info.id} className='infos-content' onDoubleClick={(evt) => {
-                    dispatch(actionEditInfoSup(info.id));
-                }}>{info.title} : {info.value}</li>
-            )
-        } else {
-            return (
-                <form onSubmit={(evt) => {
-                    evt.preventDefault();
-                    let title;
-                    let value;
-                    if(handdleVerifEmptyValue(infoSup.title)){
-                        title = info.title;
-                    } else {
-                        title = infoSup.title;
-                    }
-                    if(handdleVerifEmptyValue(infoSup.value)){
-                        value = info.value;
-                    } else {
-                        value = infoSup.value;
-                    }
-                    const infoToEdit = {
-                        id : info.id,
-                        title: title,
-                        value: value,
-                    }
-                    dispatch(actionEditInfosSupContent(infoToEdit));
-                    dispatch(actionClearAddInfoSup());
-                }}
-                    className='add-infos-sup-container'>
-                    <TextField
-                        id="add-info-sup-title"
-                        defaultValue={info.title}
-                        autoFocus
-                        onChange={(evt) => { dispatch(actionSetInfoSupTitle(evt.target.value)) }}
-                    />
-                    <p className='add-infos-sup-separator'> : </p>
-                    <TextField
-                        id="standard-basic"
-                        defaultValue={info.value}
-                        onChange={(evt) => { dispatch(actionSetInfoSupValue(evt.target.value)); console.log(infoSup) }}
-                    />
-                    <IconButton aria-label="close" onClick= {(evt) => {
-                        dispatch(actionCloseEditInfoSup(info.id));
-                    }}>
-                        <CloseIcon />
-                    </IconButton>
-                    <input className='hidden' type='submit' />
-                </form>
-            )
-        }
-    });
-
-    const handleEditProfil = (bool) => {
-        dispatch(actionSetOpenEditProfil(bool));
+  const { openAddInfoSup, infosSup, infoSupToAdd } = useSelector((state) => state.user_info);
+  const infosSupList = infosSup.map((info) => {
+    if (info.edit === false) {
+      return (
+        <li
+          key={info.id}
+          className="infos-content"
+          onDoubleClick={(evt) => {
+            dispatch(actionEditInfoSup(info.id));
+          }}
+        >{info.title} : {info.value}
+        </li>
+      );
     }
-
-
-  console.log(login)
-
-    const handleAddInfoSup = (bool) => {
-        dispatch(actionSetOpenAddInfoSup(bool));
-    }
-
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-
-    // -------------------------- Return --------------------------
 
     return (
-      <div className='profil'>
-          <h3 className='profil-title'>Mon Profil</h3>
-          <div className={classes.root}>
-              <Tabs
-                  orientation="vertical"
-                  variant="scrollable"
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="Vertical tabs example"
-                  className={classes.tabs}
-              >
-                  <Category label="Moi" {...a11yProps(0)} />
-                  <Category label="Infos supplémentaires" {...a11yProps(1)} />
-                  <Category label="Santé" {...a11yProps(2)} />
-                  <Category label="Caf" {...a11yProps(3)} />
-              </Tabs>
-              <TabPanel className='category-content' value={value} index={0}>
-                  <div className='card-container'>
-                      <div className='card-header'>
-                          <div className='card-header-left'>
-                              <Avatar aria-label="recipe">
-                              {login.substring(0, 1).toUpperCase()}
-                              </Avatar>
-                              <h3>Mes Informations</h3>
-                          </div>
-                          <div className='card-header-right'>
-                              <IconButton aria-label="settings" onClick={(evt) => { handleEditProfil(true) }}>
-                                  <EditIcon />
-                              </IconButton>
-                          </div>
-                      </div>
-                      <div className='card-content'>
-                          <ul className='infos-container'>
-                              <div className='sub-container'>
-                                  <h5>Nom et prénom :</h5>
-                                  <div className='sub-container-content'>
-                                      <li className='infos-content'>{lastName.toUpperCase} {firstName}</li>
-                                  </div>
+      <form
+        onSubmit={(evt) => {
+          evt.preventDefault();
+          let title;
+          let value;
+          if (handdleVerifEmptyValue(infoSup.title)) {
+            title = info.title;
+          }
+          else {
+            title = infoSup.title;
+          }
+          if (handdleVerifEmptyValue(infoSup.value)) {
+            value = info.value;
+          }
+          else {
+            value = infoSup.value;
+          }
+          const infoToEdit = {
+            id: info.id,
+            title,
+            value,
+          };
+          dispatch(actionEditInfosSupContent(infoToEdit));
+          dispatch(actionClearAddInfoSup());
+        }}
+        className="add-infos-sup-container"
+      >
+        <TextField
+          id="add-info-sup-title"
+          defaultValue={info.title}
+          autoFocus
+          onChange={(evt) => {
+            dispatch(actionSetInfoSupTitle(evt.target.value));
+          }}
+        />
+        <p className="add-infos-sup-separator"> : </p>
+        <TextField
+          id="standard-basic"
+          defaultValue={info.value}
+          onChange={(evt) => {
+            dispatch(actionSetInfoSupValue(evt.target.value)); console.log(infoSup);
+          }}
+        />
+        <IconButton
+          aria-label="close"
+          onClick={(evt) => {
+            dispatch(actionCloseEditInfoSup(info.id));
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <input className="hidden" type="submit" />
+      </form>
+    );
+  });
 
-                              </div>
-                              <div className='sub-container'>
-                                  <h5>Adresse :</h5>
-                                  <div className='sub-container-content'>
-                                      <li className='infos-content'>{adress}, {zipCode} {city.toUpperCase()}</li>
-                                  </div>
+  useLayoutEffect(() => {
+    if (!login) {
+      dispatch(actionGetProfil(history));
+    }
+  }, []);
 
-                              </div>
-                              <div className='sub-container'>
-                                  <h5>Téléphones :</h5>
-                                  <div className='sub-container-content'>
-                                      <div className='sub-container'>
-                                          <h5>Travail :</h5>
-                                          <li className='infos-content'>{workPhone}</li>
-                                      </div>
-                                      <div className='sub-container'>
-                                          <h5>Perso :</h5>
-                                          <li className='infos-content'>{cellphoneNumber}</li>
-                                      </div>
-                                      <div className='sub-container'>
-                                          <h5>Fix :</h5>
-                                          <li className='infos-content'>{fixNumber}</li>
-                                      </div>
-                                  </div>
 
-                              </div>
-                              <div className='sub-container'>
-                                  <h5>Autre :</h5>
-                                  <div className='sub-container-content'>
-                                      <li className='infos-content'>Age : {age}</li>
-                                      <li className='infos-content'>Civilité : {gender}</li>
-                                      <li className='infos-content'>Status : {statut}</li>
-                                  </div>
+  const handleEditProfil = (bool) => {
+    dispatch(actionSetOpenEditProfil(bool));
+  };
 
-                              </div>
-                          </ul>
-                      </div>
+  const handleAddInfoSup = (bool) => {
+    dispatch(actionSetOpenAddInfoSup(bool));
+  };
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
+  // -------------------------- Return --------------------------
+
+  return (
+    <div className="profil">
+      <h3 className="profil-title">Mon Profil</h3>
+      <div className={classes.root}>
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          className={classes.tabs}
+        >
+          <Category label="Moi" {...a11yProps(0)} />
+          <Category label="Infos supplémentaires" {...a11yProps(1)} />
+          <Category label="Santé" {...a11yProps(2)} />
+          <Category label="Caf" {...a11yProps(3)} />
+        </Tabs>
+        <TabPanel className="category-content" value={value} index={0}>
+          <div className="card-container">
+            <div className="card-header">
+              <div className="card-header-left">
+                <Avatar aria-label="recipe">
+                  {login.substring(0, 1).toUpperCase()}
+                </Avatar>
+                <h3>Mes Informations</h3>
+              </div>
+              <div className="card-header-right">
+                <IconButton
+                  aria-label="settings"
+                  onClick={(evt) => {
+                    handleEditProfil(true);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </div>
+            </div>
+            <div className="card-content">
+              <ul className="infos-container">
+                <div className="sub-container">
+                  <h5>Nom et prénom :</h5>
+                  <div className="sub-container-content">
+                    <li className="infos-content">{last_name.toUpperCase()} {first_name}</li>
                   </div>
-              </TabPanel>
-              <TabPanel className='category-content' value={value} index={1}>
-                  <div className='card-container'>
-                      <div className='card-header'>
-                          <div className='card-header-left'>
-                              <Avatar aria-label="recipe">
-                              {login.substring(0, 1).toUpperCase()}
-                              </Avatar>
-                              <h3>Informations supplémentaires</h3>
-                          </div>
-                          <div className='card-header-right'>
-                              <IconButton aria-label="settings" onClick={(evt) => {
-                                  handleAddInfoSup(true);
-                                  document.getElementById('add-info-sup-title').focus();
-                              }}>
-                                  <AddIcon />
-                              </IconButton>
-                              <IconButton aria-label="settings">
-                                  <EditIcon />
-                              </IconButton>
-                          </div>
-                      </div>
-                      <div className='card-content'>
-                          <ul className='infos-container'>
-                              {infosSupList}
-                              {openAddInfoSup && (
-                                  <form onSubmit={(evt) => {
-                                      evt.preventDefault();
-                                      if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
-                                          const infos = {
-                                              id: infosSup.length+1,
-                                              title: infoSup.title,
-                                              value: infoSup.value,
-                                          }
-                                          dispatch(actionAddInfoSup(infos));
-                                          dispatch(actionClearAddInfoSup());
-                                          document.getElementById('add-info-sup-title').focus();
-                                          console.log(infosSup);
-                                      }
-                                  }}
-                                      className='add-infos-sup-container'>
-                                      <TextField
-                                          id="add-info-sup-title"
-                                          onChange={(evt) => { dispatch(actionSetInfoSupTitle(evt.target.value)) }}
-                                          value={infoSup.title}
-                                          autoFocus
-                                      />
-                                      <p className='add-infos-sup-separator'> : </p>
-                                      <TextField
-                                          id="standard-basic"
-                                          onChange={(evt) => { dispatch(actionSetInfoSupValue(evt.target.value)) }}
-                                          value={infoSup.value}
-                                      />
-                                      <IconButton aria-label="delete" onClick={(evt) => { handleAddInfoSup(false) }}>
-                                          <CloseIcon />
-                                      </IconButton>
-                                      <input className='hidden' type='submit' />
-                                  </form>
-                              )}
-                          </ul>
-                      </div>
+                </div>
+                <div className="sub-container">
+                  <h5>Adresse :</h5>
+                  <div className="sub-container-content">
+                    <li className="infos-content">{address}, {zip_code} {city.toUpperCase()}</li>
                   </div>
-              </TabPanel >
-              <TabPanel className='category-content' value={value} index={2}>
-
-              </TabPanel>
-              <TabPanel className='category-content' value={value} index={3}>
-                  Item Four
-               </TabPanel>
+                </div>
+                <div className="sub-container">
+                  <h5>Téléphones :</h5>
+                  <div className="sub-container-content">
+                    <div className="sub-container">
+                      <h5>Travail :</h5>
+                      <li className="infos-content">{phone_work}</li>
+                    </div>
+                    <div className="sub-container">
+                      <h5>Perso :</h5>
+                      <li className="infos-content">{cellphone_number}</li>
+                    </div>
+                    <div className="sub-container">
+                      <h5>Fix :</h5>
+                      <li className="infos-content">{phone_number}</li>
+                    </div>
+                  </div>
+                </div>
+                <div className="sub-container">
+                  <h5>Autre :</h5>
+                  <div className="sub-container-content">
+                    <li className="infos-content">Age : {age}</li>
+                    <li className="infos-content">Civilité : {gender}</li>
+                    <li className="infos-content">Status : {statut}</li>
+                  </div>
+                </div>
+              </ul>
+            </div>
           </div>
-          <EditProfil />
-
-
+        </TabPanel>
+        <TabPanel className="category-content" value={value} index={1}>
+          <div className="card-container">
+            <div className="card-header">
+              <div className="card-header-left">
+                <Avatar aria-label="recipe">
+                  {login.substring(0, 1).toUpperCase()}
+                </Avatar>
+                <h3>Informations supplémentaires</h3>
+              </div>
+              <div className="card-header-right">
+                <IconButton
+                  aria-label="settings"
+                  onClick={(evt) => {
+                    handleAddInfoSup(true);
+                    document.getElementById('add-info-sup-title').focus();
+                  }}
+                >
+                  <AddIcon />
+                </IconButton>
+                <IconButton aria-label="settings">
+                  <EditIcon />
+                </IconButton>
+              </div>
+            </div>
+            <div className="card-content">
+              <ul className="infos-container">
+                {infosSupList}
+                {openAddInfoSup && (
+                <form
+                  onSubmit={(evt) => {
+                    evt.preventDefault();
+                    if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
+                      const infos = {
+                        id: infosSup.length + 1,
+                        title: infoSup.title,
+                        value: infoSup.value,
+                      };
+                      dispatch(actionAddInfoSup(infos));
+                      dispatch(actionClearAddInfoSup());
+                      document.getElementById('add-info-sup-title').focus();
+                      console.log(infosSup);
+                    }
+                  }}
+                  className="add-infos-sup-container"
+                >
+                  <TextField
+                    id="add-info-sup-title"
+                    onChange={(evt) => {
+                      dispatch(actionSetInfoSupTitle(evt.target.value));
+                    }}
+                    value={infoSup.title}
+                    autoFocus
+                  />
+                  <p className="add-infos-sup-separator"> : </p>
+                  <TextField
+                    id="standard-basic"
+                    onChange={(evt) => {
+                      dispatch(actionSetInfoSupValue(evt.target.value));
+                    }}
+                    value={infoSup.value}
+                  />
+                  <IconButton
+                    aria-label="delete"
+                    onClick={(evt) => {
+                      handleAddInfoSup(false);
+                    }}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                  <input className="hidden" type="submit" />
+                </form>
+                )}
+              </ul>
+            </div>
+          </div>
+        </TabPanel>
+        <TabPanel className="category-content" value={value} index={2} />
+        <TabPanel className="category-content" value={value} index={3} />
       </div>
-
-
+      <EditProfil />
+    </div>
   );
-
-};
+}

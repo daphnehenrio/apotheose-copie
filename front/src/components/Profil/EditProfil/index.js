@@ -1,4 +1,6 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormLabel from '@material-ui/core/FormLabel';
 import { useDispatch, useSelector } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
 
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -19,26 +22,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 // == Import actions
 
 import {
+  actionSetOpenEditProfil,
+  actionSaveUpdateProfil,
+} from '../../../actions/user_profil';
 
-    actionSetOpenEditProfil,
-    actionSaveUpdateProfil,
-    actionUpdateLastName,
-    actionUpdateFirstName,
-    actionUpdateLogin,
-    actionUpdateEmail,
-    actionUpdateAge,
-    actionUpdateStatut,
-    actionUpdateGender,
-    actionUpdateAddress,
-    actionUpdateZipCode,
-    actionUpdateCity,
-    actionUpdateFixNumber,
-    actionUpdateCellphoneNumber,
-    actionUpdateWorkPhone,
-    actionUpdateChildren
-
-} from '../../../actions/profil';
-
+// == import style
+import './styles.scss';
 
 const EditFormContent = withStyles({
 
@@ -75,188 +64,219 @@ const GenderInput = withStyles({
 
 export default function EditProfil() {
   const dispatch = useDispatch();
-  const openEditProfil = useSelector((state) => state.profil.openEditProfil);
-  const user = useSelector((state) => state.user.user);
+  const { openEditProfil } = useSelector((state) => state.user_profil);
+  const user = useSelector((state) => state.user_profil);
   const [gender, setGender] = React.useState(user.gender);
   const [statut, setStatut] = React.useState(user.statut);
 
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    console.log(errors);
+    dispatch(actionSaveUpdateProfil(data));
+  };
+
+
   const handleEditProfil = (bool) => {
-    if(!bool){
+    if (!bool) {
       return dispatch(actionSetOpenEditProfil(bool));
     }
-    if(bool){
-      console.log('true save profil')
-
-
+    if (bool) {
       dispatch(actionSetOpenEditProfil(!bool));
-
     }
   };
 
   const handleChangeGender = (event) => {
     setGender(event.target.value);
-    dispatch(actionUpdateGender(event.target.value))
-};
+  };
 
   const handleChangeStatut = (event) => {
     setStatut(event.target.value);
-    dispatch(actionUpdateStatut(event.target.value))
   };
-
-
-
-
 
   return (
     <div className="edit-profil-form">
       <EditForm open={openEditProfil} onClose={(evt) => handleEditProfil(false)} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Profil</DialogTitle>
-        <EditFormContent>
-          <div className="left-edit-profil">
-            <FormLabel component="legend" className="form-group-label">Nom et Prénom</FormLabel>
-            <div className="group-input">
+        <form onSubmit={handleSubmit(onSubmit)} className="form--edit-profil">
+          <EditFormContent>
+            <div className="left-edit-profil">
+              <FormLabel component="legend" className="form-group-label">Nom et Prénom</FormLabel>
+              <div className="group-input">
+                <TextField
+                  id="last_name"
+                  label="Nom *"
+                  name="last_name"
+                  defaultValue={user.last_name}
+                  inputRef={register({ required: true, maxLength: 60 })}
+                  error={errors.last_name}
+                  helperText={(errors.last_name && errors.last_name.type === 'required') && 'Ce champs est obligatoire' || (errors.last_name && errors.last_name.type === 'maxLength') && ('maximum 60 caractères')}
+                  variant="outlined"
+                  autoFocus
+                />
+                <TextField
+                  id="first_name"
+                  label="Prénom *"
+                  name="first_name"
+                  defaultValue={user.first_name}
+                  inputRef={register({ required: true, maxLength: 60 })}
+                  error={errors.first_name}
+                  helperText={(errors.first_name && errors.first_name.type === 'required') && 'Ce champs est obligatoire' || (errors.first_name && errors.first_name.type === 'maxLength') && ('maximum 60 caractères')}
+                  variant="outlined"
+                />
+              </div>
+              <FormLabel component="legend" className="form-group-label">Information de connexion</FormLabel>
               <TextField
-                id="last_name"
-                label="Nom"
+                id="login"
+                label="Nom d'utilisateur *"
+                name="login"
+                defaultValue={user.login}
+                inputRef={register({ required: true, maxLength: 76 })}
+                error={errors.login}
+                helperText={(errors.login && errors.login.type === 'required') && 'Ce champs est obligatoire' || (errors.login && errors.login.type === 'maxLength') && ('maximum 76 caractères')}
                 variant="outlined"
-                defaultValue={user.lastName}
-                onChange={() => dispatch(actionUpdateLastName(event.target.value))}
-                autoFocus
+                fullWidth
               />
               <TextField
-                id="first_name"
-                label="Prénom"
+                id="email"
+                label="Email *"
+                name="email"
+                type="email"
+                defaultValue={user.email}
+                inputRef={register({ required: true, maxLength: 76 })}
+                error={errors.email}
+                helperText={(errors.email && errors.email.type === 'required') && 'Ce champs est obligatoire' || (errors.email && errors.email.type === 'maxLength') && ('maximum 76 caractères')}
                 variant="outlined"
-                defaultValue={user.firstName}
-                onChange={() => dispatch(actionUpdateFirstName(event.target.value))}
+                fullWidth
               />
+              <FormLabel component="legend" className="form-group-label">Social</FormLabel>
+              <div className="group-input">
+
+                <GenderInput variant="outlined">
+                  <InputLabel id="demo-simple-select-outlined-label">Civilité</InputLabel>
+                  <Select
+                    name="gender"
+                    defaultValue={user.gender}
+                    value={gender}
+                    inputRef={register()}
+                    onChange={handleChangeGender}
+                  >
+                    <MenuItem value="M">M</MenuItem>
+                    <MenuItem value="Mme">Mme</MenuItem>
+                  </Select>
+                </GenderInput>
+
+                <TextField
+                  id="age"
+                  label="Age"
+                  name="age"
+                  type="number"
+                  defaultValue={user.age}
+                  inputRef={register({ min: '16' })}
+                  error={errors.age}
+                  helperText={(errors.age) ? 'Age minimum : 16 ans' : null}
+                  variant="outlined"
+                />
+                {errors.age && (<Alert severity="warning">Attention, nous rappelons que la création de compte est interdit aux moins de 16 ans</Alert>)}
+
+
+                <GenderInput variant="outlined">
+                  <InputLabel id="demo-simple-select-outlined-label">Statut</InputLabel>
+                  <Select
+                    label="Statut"
+                    name="statut"
+                    defaultValue={user.statut}
+                    value={statut}
+                    inputRef={register()}
+                    onChange={handleChangeStatut}
+                  >
+                    <MenuItem name="statut" value="Marié">Marié</MenuItem>
+                    <MenuItem name="statut" value="Célibataire">Célibataire</MenuItem>
+                    <MenuItem name="statut" value="Pacsé">Pacsé</MenuItem>
+                    <MenuItem name="statut" value="Concubinage">En concubinage</MenuItem>
+                  </Select>
+                </GenderInput>
+                <TextField
+                  id="children"
+                  label="Enfant"
+                  name="children"
+                  type="Number"
+                  min={0}
+                  defaultValue={user.children}
+                  inputRef={register({ min: 0 })}
+                  error={errors.children}
+                  helperText={(errors.children) ? 'Le nombres d\'enfants doit être >= 0' : null}
+                  variant="outlined"
+                />
+              </div>
             </div>
-            <FormLabel component="legend" className="form-group-label">Information de connexion</FormLabel>
-            <TextField
-              id="login"
-              label="Nom d'utilisateur"
-              variant="outlined"
-              fullWidth
-              defaultValue={user.login}
-              onChange={() => dispatch(actionUpdateLogin(event.target.value))}
-            />
-            <TextField
-              id="email"
-              label="Email"
-              variant="outlined"
-              fullWidth
-              type="email"
-              defaultValue={user.email}
-              onChange={() => dispatch(actionUpdateEmail(event.target.value))}
-            />
-            <FormLabel component="legend" className="form-group-label">Social</FormLabel>
-            <div className="group-input">
+            <div className="right-edit-profil">
+              <FormLabel component="legend" className="form-group-label">Adresse</FormLabel>
               <TextField
-                id="age"
-                label="Age"
+                id="adress"
+                label="Adresse"
                 variant="outlined"
-                defaultValue={user.age}
-                onChange={() => dispatch(actionUpdateAge(event.target.value))}
+                fullWidth
+                defaultValue={user.address}
+                name="address"
+                inputRef={register()}
               />
-              <GenderInput variant="outlined">
-                <InputLabel id="demo-simple-select-outlined-label">Genre</InputLabel>
-                <Select
-                  value={gender}
-                  onChange={handleChangeGender}
-                  label="Genre"
-                >
-                  <MenuItem value="Homme">M</MenuItem>
-                  <MenuItem value="Femme">Mme</MenuItem>
-                </Select>
-              </GenderInput>
-              <GenderInput variant="outlined">
-                <InputLabel id="demo-simple-select-outlined-label">Statut</InputLabel>
-                <Select
-                  value={statut}
-                  onChange={handleChangeStatut}
-                  label="Statut"
-                >
-                  <MenuItem value="Marié">Marié</MenuItem>
-                  <MenuItem value="Célibataire">Célibataire</MenuItem>
-                  <MenuItem value="Pacsé">Pacsé</MenuItem>
-                  <MenuItem value="concubinage">En concubinage</MenuItem>
-                </Select>
-              </GenderInput>
-              <TextField
-                id="children"
-                label="Enfant"
-                variant="outlined"
-                type="Number"
-                min="0"
-                defaultValue={user.children}
-                onChange={() => dispatch(actionUpdateChildren(event.target.value))}
-              />
+              <div className="group-input">
+                <TextField
+                  id="city"
+                  label="Ville"
+                  variant="outlined"
+                  defaultValue={user.city}
+                  name="city"
+                  inputRef={register()}
+                />
+                <TextField
+                  id="zip-code"
+                  label="Code Postal"
+                  variant="outlined"
+                  defaultValue={user.zip_code}
+                  name="zip_code"
+                  inputRef={register()}
+                />
+              </div>
+              <FormLabel component="legend" className="form-group-label">Téléphones</FormLabel>
+              <div className="group-input">
+                <TextField
+                  id="fix"
+                  label="Maison"
+                  variant="outlined"
+                  defaultValue={user.phone_number}
+                  name="phone_number"
+                  inputRef={register()}
+                />
+                <TextField
+                  id="cellphone"
+                  label="Portable"
+                  variant="outlined"
+                  defaultValue={user.cellphone_number}
+                  name="cellphone_number"
+                  inputRef={register()}
+                />
+                <TextField
+                  id="work"
+                  label="Travail"
+                  variant="outlined"
+                  defaultValue={user.phone_work}
+                  name="phone_work"
+                  inputRef={register()}
+                />
+              </div>
             </div>
-          </div>
-          <div className="right-edit-profil">
-            <FormLabel component="legend" className="form-group-label">Adresse</FormLabel>
-            <TextField
-              id="adress"
-              label="Adresse"
-              variant="outlined"
-              fullWidth
-              defaultValue={user.adress}
-              onChange={() => dispatch(actionUpdateAddress(event.target.value))}
-            />
-            <div className="group-input">
-              <TextField
-                id="city"
-                label="Ville"
-                variant="outlined"
-                defaultValue={user.city}
-                onChange={() => dispatch(actionUpdateCity(event.target.value))}
-              />
-              <TextField
-                id="zip-code"
-                label="Code Postal"
-                variant="outlined"
-                defaultValue={user.zipCode}
-                onChange={() => dispatch(actionUpdateZipCode(event.target.value))}
-              />
-            </div>
-            <FormLabel component="legend" className="form-group-label">Téléphones</FormLabel>
-            <div className="group-input">
-              <TextField
-                id="fix"
-                label="Fix"
-                variant="outlined"
-                defaultValue={user.fixNumber}
-                onChange={() => dispatch(actionUpdateFixNumber(event.target.value))}
-              />
-              <TextField
-                id="cellphone"
-                label="Portable"
-                variant="outlined"
-                defaultValue={user.cellphoneNumber}
-                onChange={() => dispatch(actionUpdateCellphoneNumber(event.target.value))}
-              />
-              <TextField
-                id="work"
-                label="Travail"
-                variant="outlined"
-                defaultValue={user.workPhone}
-                onChange={() => dispatch(actionUpdateWorkPhone(event.target.value))}
-              />
-            </div>
-          </div>
-        </EditFormContent>
-        <DialogActions>
-          <Button onClick={(evt) => handleEditProfil(false)} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={(evt) => {
-            dispatch(actionSaveUpdateProfil());
-            handleEditProfil(true);
-            }}
-            color="primary">
-            Subscribe
-          </Button>
-        </DialogActions>
+
+
+          </EditFormContent>
+          <DialogActions>
+            <Button onClick={(evt) => handleEditProfil(false)} color="secondary">
+              Cancel
+            </Button>
+            <input type="submit" className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary" />
+          </DialogActions>
+        </form>
       </EditForm>
     </div>
   );

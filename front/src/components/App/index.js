@@ -1,12 +1,14 @@
+/* eslint-disable camelcase */
 // == Import npm
 import React, { useEffect, useLayoutEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import slugify from '@sindresorhus/slugify';
 
 // == import Material UI
 
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 // == Import styles
 import './styles.scss';
@@ -20,10 +22,18 @@ import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
 import DashBoard from 'src/components/DashBoard';
 import Profil from 'src/components/Profil';
+import Documents from 'src/components/Documents';
+import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
 
 // == import action
+import { actionSetConnected } from 'src/actions/user_profil';
 import { actionGetMenu } from '../../actions/menu';
-import { actionCheckSession } from '../../actions/user';
+import Services from '../Services';
+import Articles from '../Articles';
+import Page404 from '../ErrorPages/404';
+import Page403 from '../ErrorPages/403';
+import { actionGetAllArticles } from '../../actions/articles';
+import Article from '../Articles/Article';
 
 
 // -------------------------- styles composants --------------------------
@@ -54,35 +64,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
 // -------------------------- Export --------------------------
 
 const App = () => {
   const classes = useStyles();
-  const { openDrawer } = useSelector((state) => state.toggle);
-  const { connected } = useSelector((state) => state.user);
-  const { menuOK } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
+  const { category, menuOK } = useSelector((state) => state.menu);
+  const { allTitles, allTitleOk, articles } = useSelector((state) => state.articles);
+  const { openDrawer } = useSelector((state) => state.toggle);
+  const { connected } = useSelector((state) => state.user_profil);
+  const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+  console.log(allTitles)
 
-  /* useLayoutEffect(() => {
-      (function checkSession() {
-        dispatch(actionCheckSession());
-      })();
-     }) */
-
-     useLayoutEffect(() => {
-      (function checkSession() {
-        dispatch(actionCheckSession());
-      })();
-    }, []);
-
-
-
-  if(!menuOK){
-    dispatch(actionGetMenu());
-  }
-
-
-
+  useEffect(() => {
+    if (!menuOK) {
+      dispatch(actionGetMenu());
+    }
+    if (!allTitleOk) {
+      dispatch(actionGetAllArticles());
+    }
+  }, [!menuOK, !allTitleOk]);
 
   // -------------------------- Return --------------------------
 
@@ -101,17 +104,86 @@ const App = () => {
               <HomePage />
             </div>
           </Route>
+          {
+            category.length > 0 && (
+              <Route exact path="/services/tous-les-services">
+                <div>
+                  <Services category="Tous les services" />
+                </div>
+              </Route>
+            )
+          }
+
+          {
+            category.length > 0 && (
+
+              category.map((cat) => {
+                // console.log(`/services/${slugify(cat.name)}`);
+
+                return (
+                  <Route key={cat.name} exact path={`/services/${slugify(cat.name)}`}>
+                    <div>
+                      <Services category={cat.name} />
+                    </div>
+                  </Route>
+                );
+              })
+            )
+          }
+
+          {
+            category.length > 0 && (
+
+              category.map((cat) => {
+                return ( cat.sub_category.map((sub_cat) => {
+
+                  // console.log(`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`);
+
+                  return (
+                    <Route key={sub_cat.name} exact path={`/articles/${slugify(cat.name)}/${slugify(sub_cat.name)}`}>
+                      <div>
+                        <Articles category={cat.name} sub_category={sub_cat.name} />
+                      </div>
+                    </Route>
+
+                  );
+                })
+                )
+              })
+            )
+          }
+
+          {
+            allTitles.length > 0 && (
+
+              allTitles.map((title) => {
+                // console.log(`/services/${slugify(cat.name)}`);
+
+                return (
+                  <Route key={title} exact path={`/article/${slugify(title)}`}>
+                    <Article article={articles[0]}/>
+                  </Route>
+                );
+              })
+            )
+          }
+
+          <Route exact path="/articles/search-result">
+            <Articles article={articles}/>
+          </Route>
+
+
           <Route exact path="/inscription">
             <div>
               <Signup />
             </div>
           </Route>
           <Route
-            exact
             path="/mon-espace-personnel"
+            exact
             render={() => {
-              if (!connected) {
-                return <Redirect to="/" />;
+              if (!userSession || !userSession.token) {
+                return <Redirect to="/403" />;
               }
               return (
                 <div>
@@ -121,11 +193,11 @@ const App = () => {
             }}
           />
           <Route
-            exact
             path="/profil"
+            exact
             render={() => {
-              if (!connected) {
-                return <Redirect to="/" />;
+              if (!userSession || !userSession.token) {
+                return <Redirect to="/403" />;
               }
               return (
                 <div>
@@ -134,6 +206,41 @@ const App = () => {
               );
             }}
           />
+          <Route
+            path="/mes-documents"
+            exact
+            render={() => {
+              if (!userSession || !userSession.token) {
+                return <Redirect to="/403" />;
+              }
+              return (
+                <div>
+                  <Documents />
+                </div>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/mes-documents/documents"
+            render={() => {
+              if (!userSession || !userSession.token) {
+                return <Redirect to="/403" />;
+              }
+              return (
+                <div>
+                  <TargetedDocuments />
+                </div>
+              );
+            }}
+          />
+          <Route exact path="/403">
+            <Page403 />
+          </Route>
+          <Route>
+            <Page404 />
+          </Route>
+
         </Switch>
         <Footer />
       </div>

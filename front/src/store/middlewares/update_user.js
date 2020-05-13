@@ -1,68 +1,62 @@
 import axios from 'axios';
-import { SAVE_UPDATE_PROFIL } from '../../actions/profil';
+
+import { base_url } from 'src/utils/axios';
+import { SAVE_UPDATE_PROFIL, actionSetProfil, actionSetOpenEditProfil } from '../../actions/user_profil';
 import { actionLogUser } from '../../actions/user';
 
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
+    // ---------------------------- SAVE UPDATE PROFIL ----------------------------
 
     case SAVE_UPDATE_PROFIL: {
-      console.log('update')
-      const user   = store.getState().profil.user;
-      const oldUser = store.getState().user.user;
-      console.log(user, 'CECI EST LE USER');
+      const user = action.data;
+      const oldUser = store.getState().user_profil;
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+      const { token } = userSession;
       const userInfo = {
         login: user.login ? user.login : oldUser.login,
-        first_name: user.firstName ? user.firstName : oldUser.firstName,
-        last_name: user.lastName ? user.lastName : oldUser.lastName,
-        email: user.email ? user.email: oldUser.email,
-        gender: user.gender ? user.gender: oldUser.gender,
-        cellphone_number: user.cellphoneNumber ? user.cellphoneNumber : oldUser.cellphoneNumber,
-        phone_number: user.fixNumber ? user.fixNumber : oldUser.fixNumber,
-        phone_work: user.workPhone ? user.workPhone : oldUser.workPhone,
-        zip_code: user.zipCode ? user.zipCode : oldUser.zipCode,
+        first_name: user.first_name ? user.first_name : oldUser.first_name,
+        last_name: user.last_name ? user.last_name : oldUser.last_name,
+        email: user.email ? user.email : oldUser.email,
+        gender: user.gender ? user.gender : oldUser.gender,
+        cellphone_number: user.cellphone_number ? user.cellphone_number : oldUser.cellphone_number,
+        phone_number: user.phone_number ? user.phone_number : oldUser.phone_number,
+        phone_work: user.phone_work ? user.phone_work : oldUser.phone_work,
+        zip_code: user.zip_code ? user.zip_code : oldUser.zip_code,
         city: user.city ? user.city : oldUser.city,
         children: user.children ? user.children : oldUser.children ? oldUser.children : 0,
-        address: user.adress ? user.adress : oldUser.adress,
+        address: user.address ? user.address : oldUser.address,
         age: user.age ? user.age : oldUser.age,
         statut: user.statut ? user.statut : oldUser.statut,
-
+        user_id: userSession.user_id,
       };
-      console.log(userInfo, 'CECI EST LE USER INFO');
 
       axios
-        .post('http://localhost:5050/update-user',
-        userInfo,
+        .patch(
+          // eslint-disable-next-line camelcase
+          `${base_url}/update-user`,
+          userInfo,
           {
             withCredentials: true,
-          })
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
         .then((res) => {
           console.log(res);
 
-              const user = {
-                login: res.data.login,
-                first_name: res.data.first_name,
-                last_name: res.data.last_name,
-                email: res.data.email,
-                gender: res.data.user_profil.gender,
-                cellphone_number: res.data.user_profil.cellphone_number,
-                phone_number: res.data.user_profil.phone_number,
-                phone_work: res.data.user_profil.phone_work,
-                zip_code: res.data.user_profil.zip_code,
-                city: res.data.user_profil.city,
-                children: res.data.user_profil.children,
-                address: res.data.user_profil.address,
-                age: res.data.user_profil.age,
-                statut: res.data.user_profil.statut,
-              };
-              store.dispatch(actionLogUser(user));
-
+          store.dispatch(actionSetProfil(res.data));
+          store.dispatch(actionSetOpenEditProfil(false));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       return;
     }
+
+    // ---------------------------- DEFAULT ----------------------------
 
     default: {
       next(action);

@@ -122,6 +122,29 @@
   color: $color-dark;
 }
 
+.toogle-menu{
+  margin-top: .5rem;
+  padding: 1.5rem 1rem;
+  margin-bottom: .5rem;
+  display: flex;
+  align-items: center;
+
+  .icon-menu{
+    margin-right: 15px;
+  }
+
+  &--more-less{
+  font-style: italic;
+  font-size: .9em;
+  position: relative;
+  }
+
+  &--switch.MuiSwitch-root{
+    position: absolute;
+    right: 5px;
+  }
+}
+
 // global
 .menu--links {
   width: 100%;

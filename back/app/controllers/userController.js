@@ -25,7 +25,6 @@ const userController = {
 
   update: async (req, res, next) => {
 
-    console.log('bouh')
     try {
 
       const userLogin = req.body.login;
@@ -64,7 +63,31 @@ const userController = {
     }
   },
 
+  delete: async (req, res, next) => {
+    try {
 
+      const userId = req.params.id;
+      const user_profilId = req.params.id;
+      const user = await User.findByPk(userId);
+      const user_profil = await User_profil.findByPk(user_profilId);
+
+      if (user) {
+
+        await user_profil.destroy();
+        await user.destroy();
+        res.send("OK");
+
+      } else {
+
+        return next();
+
+      }
+
+    } catch (error) {
+      console.trace(error);
+      res.status(500).send(error);
+    }
+  }
 
 };
 

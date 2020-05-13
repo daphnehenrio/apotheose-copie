@@ -57,8 +57,8 @@ CREATE TABLE "article" (
     "source_image"   text,
     "source_content" text,
     "author"         text,
-    "updated_at"     date,
-    "created_at"     date
+    created_at date NOT NULL DEFAULT DATE( NOW() ),
+    updated_at date NOT NULL DEFAULT DATE( NOW() )
 
 );
 
@@ -221,8 +221,8 @@ CREATE TABLE document (
 
     "name"       text NOT NULL,
     "link"       text NOT NULL,
-    "updated_at" date,
-    "created_at" date
+    created_at date NOT NULL DEFAULT DATE( NOW() ),
+    updated_at date NOT NULL DEFAULT DATE( NOW() )
 );
 
 

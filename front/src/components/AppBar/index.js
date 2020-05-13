@@ -29,12 +29,14 @@ import Badge from '@material-ui/core/Badge';
 import Login from 'src/components/Login';
 
 // == import actions local
-import { actionSetLoginForm, actionSetDrawer } from '../../actions/toggle';
-import { actionLogout } from '../../actions/user';
-import { actionChangePage } from '../../actions/routes';
+import { actionSetLoginForm, actionSetDrawer } from 'src/actions/toggle';
+import { actionLogout } from 'src/actions/login';
+import { actionChangePage } from 'src/actions/routes';
+import { actionSetConnected } from 'src/actions/user_profil';
 
 // == import style
 import './styles.scss';
+import { actionGetSearchArticles } from '../../actions/articles';
 
 // -------------------------- styles composants --------------------------
 
@@ -131,13 +133,23 @@ export default function PersistentDrawerLeft() {
   const history = useHistory();
   // Get the state of the drawer to check if it's open or close (true or false)
   const { openDrawer } = useSelector((state) => state.toggle);
-  const { user, connected } = useSelector((state) => state.user);
+  const { connected } = useSelector((state) => state.user_profil);
+  const userSession  = JSON.parse(window.sessionStorage.getItem("user"));
+
+  if(userSession && userSession.token && userSession.login && userSession.user_id && !connected) {
+     dispatch(actionSetConnected())
+  }
 
   // -------------------------- Fonctions Dispatch --------------------------
 
   const handleDrawer = () => {
     dispatch(actionSetDrawer());
   };
+
+  const submitSearch = (value) => {
+    dispatch(actionGetSearchArticles(value))
+    dispatch(actionChangePage('/articles/search-result', history))
+  }
 
   const handleLogin = () => {
     connected
@@ -159,9 +171,11 @@ export default function PersistentDrawerLeft() {
         </IconButton>
       </Tooltip>
       <Tooltip title="Mes documents" arrow>
-        <IconButton aria-label="documents">
-          <FolderIcon />
-        </IconButton>
+        <Link onClick={(event) => preventDefault(event, '/mes-documents')}>
+          <IconButton aria-label="documents">
+            <FolderIcon />
+          </IconButton>
+        </Link>
       </Tooltip>
       <Tooltip title="Mon espace" arrow>
         <IconButton aria-label="dashboard">
@@ -174,7 +188,7 @@ export default function PersistentDrawerLeft() {
       </Tooltip>
       <IconButton aria-label="avatar">
         <Link onClick={(event) => preventDefault(event, '/profil')}>
-          <Avatar>{user.login.substring(0, 1).toUpperCase()}</Avatar>
+          <Avatar>{userSession.login.substring(0, 1).toUpperCase()}</Avatar>
         </Link>
       </IconButton>
     </>
@@ -215,6 +229,11 @@ export default function PersistentDrawerLeft() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onKeyDown={ (event) => {
+                if(event.keyCode == 13){
+                  submitSearch(event.target.value)
+                }
+              }}
             />
           </div>
           {connected ? <ProfilIcon /> : ''}
