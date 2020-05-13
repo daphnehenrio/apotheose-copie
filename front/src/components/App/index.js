@@ -85,7 +85,7 @@ const App = () => {
     if (!allTitleOk) {
       dispatch(actionGetAllArticles());
     }
-  }, [!menuOK, !allTitleOk]);
+  }, [!allTitleOk]);
 
   // -------------------------- Return --------------------------
 
