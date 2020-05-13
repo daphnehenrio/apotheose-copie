@@ -7,6 +7,7 @@ import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 
+
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone, { defaultClassNames } from 'react-dropzone-uploader'
 
@@ -18,7 +19,8 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import Doc from 'src/assets/image/documents/doc.png';
 
 // == import action
-import { actionSendFiles, actionChangeFileName, actionAddFileToState } from '../../../../../actions/document';
+import {actionOpenAddFile, actionSendFiles, actionChangeFileName, actionAddFileToState, actionOpenSuccessMessage } from '../../../../../actions/document';
+
 
 
 const StyledBadge = withStyles((theme) => ({
@@ -32,6 +34,7 @@ const StyledBadge = withStyles((theme) => ({
         borderRadius: '50%',
     },
 }))(Badge);
+
 
 const Preview = ({ fileWithMeta, meta }) => {
     const { name, id, percent, status } = meta;
@@ -113,7 +116,10 @@ const AddFileDropzone = () => {
         // console.log('C LA METAAAAA', meta);
         // console.log(Array.from(body), 'C LE BOOOODYYYY');
 
-        dispatch(actionSendFiles(body))
+        dispatch(actionSendFiles(body));
+        dispatch(actionOpenAddFile(false));
+        dispatch(actionOpenSuccessMessage(true));
+
     }
 
     const handleChangeStatus = ({ meta }) => {
@@ -138,25 +144,27 @@ const AddFileDropzone = () => {
 
 
     return (
-        <Dropzone
-            /* getUploadParams={getUploadParams} */
-            LayoutComponent={Layout}
-            onChangeStatus={handleChangeStatus}
-            onSubmit={handleSubmit}
-            autoUpload= {false}
-            PreviewComponent={Preview}
-            accept="application/pdf"
-            inputContent={(files, extra) => (extra.reject ? 'Seul les fichiers pdf sont acceptés' : 'Ajoutez un document ...')}
-            classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
-            inputWithFilesContent='Ajoutez un document ...'
-            styles={{
-                dropzone: { overflowX: 'hidden', overflowY: 'auto' },
-                preview: { display: 'flex', flexDirection: 'row' },
-                inputLabel: (files, extra) => (extra.reject ? { color: 'red', backgroundColor: 'rgba(255,0,0, 0.2)' } : {})
-            }}
-            submitButtonContent='Valider'
-            onSubmit={handleSubmit}
-        />
+        <div>
+            <Dropzone
+                /* getUploadParams={getUploadParams} */
+                LayoutComponent={Layout}
+                onChangeStatus={handleChangeStatus}
+                onSubmit={handleSubmit}
+                autoUpload={false}
+                PreviewComponent={Preview}
+                accept="application/pdf"
+                inputContent={(files, extra) => (extra.reject ? 'Seul les fichiers pdf sont acceptés' : 'Ajoutez un document ...')}
+                classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
+                inputWithFilesContent='Ajoutez un document ...'
+                styles={{
+                    dropzone: { overflowX: 'hidden', overflowY: 'auto' },
+                    preview: { display: 'flex', flexDirection: 'row' },
+                    inputLabel: (files, extra) => (extra.reject ? { color: 'red', backgroundColor: 'rgba(255,0,0, 0.2)' } : {})
+                }}
+                submitButtonContent='Valider'
+                onSubmit={handleSubmit}
+            />
+        </div>
     )
 };
 
