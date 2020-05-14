@@ -29,10 +29,8 @@ const documentController = {
 
     download: async (req, res) => {
 
-        /*const file = fs.createWriteStream("file.jpg");
-        const request = http.get("http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg", function(response) {
-        response.pipe(file);
-        });*/
+        const file = `./public/uploads/$2a$10$SofZyjFQ0Mlauo0GmfTFueL26Gsq5yNkXuUCWVTVqJrpOKlmEsZi/Projet-Henri.pdf`;
+        res.download(file); // Set disposition and send it.        
 
     },
 

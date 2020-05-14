@@ -2,6 +2,7 @@ const { User, User_profil,Category, Sub_category  } = require('../models');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const mkdirp = require('mkdirp');
+const slugify = require("slugify");
 
 //password verify
 const emailValidator = require('email-validator');
@@ -49,7 +50,7 @@ const authController = {
 
           category[i].dataValues.sub_category.map((sub_cat)=>{
 
-              mkdirp(`./public/uploads/${user.folder_name}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
+              mkdirp(`./public/uploads/${user.folder_name}/${slugify(category[i].dataValues.name)}/${slugify(sub_cat.name)}`, function(err) {   
 
               });
             
@@ -198,7 +199,7 @@ const authController = {
   
             category[i].dataValues.sub_category.map((sub_cat)=>{
   
-                mkdirp(`./public/uploads/${newUser.folder_name}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
+                mkdirp(`./public/uploads/${newUser.folder_name}/${slugify(category[i].dataValues.name)}/${suglify(sub_cat.name)}`, function(err) {   
   
                 });
               
