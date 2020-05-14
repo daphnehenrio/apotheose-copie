@@ -1,4 +1,4 @@
-const { User, User_profil } = require('../models');
+const { User, User_profil,Category, Sub_category  } = require('../models');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const mkdirp = require('mkdirp');
@@ -12,7 +12,7 @@ const bcrypt = require('bcryptjs');
 const authController = {
 
   // connexion form
-  loginAction:  (req, res) => {
+  loginAction: (req, res) => {
     // recup form
     const {login, password} = req.body;
 
@@ -22,7 +22,7 @@ const authController = {
         login: login
       },
       include:  ["user_profil"]
-    }).then( (user) => {
+    }).then( async (user) => {
 
       // if not exist => error
       if (!user) {
@@ -35,11 +35,28 @@ const authController = {
         return res.send("Le mot de passe saisi est incorrect");
       }
 
-      mkdirp(`./public/uploads/${user.login}`, function(err) { 
-
-        // path exists unless there was an error
-
+      let category = await Category.findAll({
+        where: {
+          type_id : 2
+        },
+        include : ['sub_category'],
+        order: [
+          ['name', 'ASC'],
+        ],
       });
+
+      
+        for (let i=0; i<category.length; i++) {
+
+          category[i].dataValues.sub_category.map((sub_cat)=>{
+
+              mkdirp(`./public/uploads/${user.login}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
+
+              });
+            
+          })
+
+        };
 
       const token = jwt.sign({ userId: user.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
 
@@ -167,11 +184,28 @@ const authController = {
 
         res.send({sendUser, token});
 
-        mkdirp(`./public/uploads/${newUser.login}`, function(err) { 
-
-          // path exists unless there was an error
- 
+        let category = await Category.findAll({
+          where: {
+            type_id : 2
+          },
+          include : ['sub_category'],
+          order: [
+            ['name', 'ASC'],
+          ],
         });
+  
+        
+          for (let i=0; i<category.length; i++) {
+  
+            category[i].dataValues.sub_category.map((sub_cat)=>{
+  
+                mkdirp(`./public/uploads/${myNewUser.login}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
+  
+                });
+              
+            })
+  
+          };
 
 
       } else {

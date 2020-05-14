@@ -6,28 +6,6 @@ const mkdirp = require('mkdirp');
 
 const documentController = {
 
-    addFolderCategory: async (req, res) => {
-       
-        
-        mkdirp(`./public/uploads/${req.session.user.login}/${red.body}`, function(err) { 
-
-        // path exists unless there was an error
-
-        });
-
-    },
-
-    addFolderSubCategory: async (req, res) => {
-       
-        
-        mkdirp(`./public/uploads/${req.session.user.login}/${red.params}/${req.body}`, function(err) { 
-
-        // path exists unless there was an error
-
-        });
-
-    },
-
     upload: async (req, res) => {
 
         // console.log(req.session, 'REQ SESSION');
