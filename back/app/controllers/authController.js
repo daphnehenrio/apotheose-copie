@@ -45,12 +45,13 @@ const authController = {
         ],
       });
 
-      
+      let userFolder = bcrypt.hashSync(user.login).replace('/', 'slash');
+
         for (let i=0; i<category.length; i++) {
 
           category[i].dataValues.sub_category.map((sub_cat)=>{
 
-              mkdirp(`./public/uploads/${user.login}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
+              mkdirp(`./public/uploads/${userFolder}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
 
               });
             
@@ -193,13 +194,14 @@ const authController = {
             ['name', 'ASC'],
           ],
         });
-  
         
+        let NewUserFolder = bcrypt.hashSync(myNewUser.login).replace('/', 'user');
+
           for (let i=0; i<category.length; i++) {
   
             category[i].dataValues.sub_category.map((sub_cat)=>{
   
-                mkdirp(`./public/uploads/${myNewUser.login}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
+                mkdirp(`./public/uploads/${NewUserFolder}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
   
                 });
               
@@ -226,6 +228,5 @@ const authController = {
   }
 
 };
-
 
 module.exports = authController;
