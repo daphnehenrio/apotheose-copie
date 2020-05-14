@@ -1,6 +1,7 @@
 const { User, User_profil } = require('../models');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
+const mkdirp = require('mkdirp');
 
 //password verify
 const emailValidator = require('email-validator');
@@ -33,6 +34,12 @@ const authController = {
         // if not good => error
         return res.send("Le mot de passe saisi est incorrect");
       }
+
+      mkdirp(`./public/uploads/${user.login}`, function(err) { 
+
+        // path exists unless there was an error
+
+      });
 
       const token = jwt.sign({ userId: user.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
 
@@ -116,7 +123,7 @@ const authController = {
         newUser.email = data.email;
         // HASH password
         newUser.password = bcrypt.hashSync(data.password, 10);
-
+        
         await newUser.save().then( (user) => {
           // recup user on session
           req.session.user = user;
@@ -159,6 +166,12 @@ const authController = {
         const token = jwt.sign({ userId: myNewUser.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
 
         res.send({sendUser, token});
+
+        mkdirp(`./public/uploads/${newUser.login}`, function(err) { 
+
+          // path exists unless there was an error
+ 
+        });
 
 
       } else {
