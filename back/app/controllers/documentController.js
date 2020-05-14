@@ -1,15 +1,10 @@
 const { User, Document } = require('../models');
 const jwt = require('jsonwebtoken');
+const http = require('http');
+const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 const documentController = {
-
-    check: async (req, res) => {
-        /* console.log(req); */
-        //console.log(req.body, 'FILES');
-        //console.log(req.files, 'REQ FILES');
-        console.log(req.file.path);
-
-    },
 
     upload: async (req, res) => {
 
@@ -30,6 +25,15 @@ const documentController = {
         console.log(req.session.user.id);
         res.status(200).send('ok')
         
+    },
+
+    download: async (req, res) => {
+
+        /*const file = fs.createWriteStream("file.jpg");
+        const request = http.get("http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg", function(response) {
+        response.pipe(file);
+        });*/
+
     },
 
     allDocuments: async (req, res) => {
