@@ -15,7 +15,7 @@ const authController = {
   loginAction: (req, res) => {
     // recup form
     const {login, password} = req.body;
-
+    
     // recup user with login
     User.findOne({
       where: {
@@ -45,13 +45,11 @@ const authController = {
         ],
       });
 
-      let userFolder = bcrypt.hashSync(user.login).replace('/', 'slash');
-
         for (let i=0; i<category.length; i++) {
 
           category[i].dataValues.sub_category.map((sub_cat)=>{
 
-              mkdirp(`./public/uploads/${userFolder}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
+              mkdirp(`./public/uploads/${user.folder_name}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
 
               });
             
@@ -139,6 +137,7 @@ const authController = {
         newUser.first_name = data.first_name;
         newUser.last_name = data.last_name;
         newUser.email = data.email;
+        newUser.folder_name = bcrypt.hashSync(data.login).replace(/\//gi, "");
         // HASH password
         newUser.password = bcrypt.hashSync(data.password, 10);
         
@@ -194,14 +193,12 @@ const authController = {
             ['name', 'ASC'],
           ],
         });
-        
-        let NewUserFolder = bcrypt.hashSync(myNewUser.login).replace('/', 'user');
 
           for (let i=0; i<category.length; i++) {
   
             category[i].dataValues.sub_category.map((sub_cat)=>{
   
-                mkdirp(`./public/uploads/${NewUserFolder}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
+                mkdirp(`./public/uploads/${newUser.folder_name}/${category[i].dataValues.name}/${sub_cat.name}`, function(err) {   
   
                 });
               

@@ -35,6 +35,11 @@ User.init({
     allowNull: false
   },
 
+  folder_name: {
+    type: DataTypes.CHAR(76),
+    allowNull: false
+  },
+
 
 }, {
   sequelize: dbConnection,
