@@ -96,6 +96,8 @@ router.get('/mes-documents/:id', auth, capture(documentController.allDocuments))
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 router.get('/contenu-table/:class', capture(mainController.getAll));
 
+router.get('/download', capture(documentController.download));
+
 const storage = multer.diskStorage({
   destination: './public/uploads',
   filename(req, file, cb) {

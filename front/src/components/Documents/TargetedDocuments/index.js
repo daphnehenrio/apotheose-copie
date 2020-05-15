@@ -35,8 +35,6 @@ import { actionChangePage } from '../../../actions/routes';
 import { actionOpenAddFile, actionOpenSuccessMessage } from '../../../actions/document';
 
 
-
-
 const SelectDoc = withStyles((theme) => ({
     input: {
         fontSize: '1.4rem',
