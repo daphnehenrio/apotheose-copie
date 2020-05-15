@@ -33,6 +33,7 @@ import { actionSetLoginForm, actionSetDrawer } from 'src/actions/toggle';
 import { actionLogout } from 'src/actions/login';
 import { actionChangePage } from 'src/actions/routes';
 import { actionSetConnected } from 'src/actions/user_profil';
+import { actionGetFolder } from 'src/actions/document'
 
 // == import style
 import './styles.scss';
@@ -159,6 +160,13 @@ export default function PersistentDrawerLeft() {
     dispatch(actionChangePage(route, history));
   };
 
+  const getFolder = (event, route) => {
+    event.preventDefault();
+    dispatch(actionGetFolder())
+    dispatch(actionChangePage(route, history));
+  };
+
+
 
   const ProfilIcon = () => (
     <>
@@ -168,7 +176,7 @@ export default function PersistentDrawerLeft() {
         </IconButton>
       </Tooltip>
       <Tooltip title="Mes documents" arrow>
-        <Link onClick={(event) => preventDefault(event, '/mes-documents')}>
+        <Link onClick={(event) => getFolder(event, '/mes-documents')}>
           <IconButton aria-label="documents">
             <FolderIcon />
           </IconButton>

@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // == import action
-import { SEND_FILES, actionSendFiles } from '../../actions/document';
+import { SEND_FILES, actionSendFiles, GET_FOLDER, actionSetFolder } from '../../actions/document';
 
 // == import local
 import { base_url } from 'src/utils/axios'
@@ -11,7 +11,17 @@ export default (store) => (next) => (action) => {
 
   switch (action.type) {
 
-    // ---------------------------- GET MENU ----------------------------
+    case GET_FOLDER: {
+      axios
+      .get(`http://localhost:5050/mes-doc/categories`)
+      .then((res) => {
+        console.log(res)
+        store.dispatch(actionSetFolder(res.data))
+      })
+      break;
+    }
+
+    // ---------------------------- SEND FILES ----------------------------
 
     case SEND_FILES: {
       const formData = action.files;

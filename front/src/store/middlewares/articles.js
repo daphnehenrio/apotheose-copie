@@ -77,7 +77,6 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res.data)
           store.dispatch(actionSetAllArticles(res.data));
         })
         .catch((err) => {

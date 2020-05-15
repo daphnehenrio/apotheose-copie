@@ -1,4 +1,4 @@
-const { User, Document } = require('../models');
+const { User, Document, Category } = require('../models');
 const jwt = require('jsonwebtoken');
 
 const documentController = {
@@ -45,6 +45,17 @@ const documentController = {
         res.send(documents);
 
     },
+
+    allCategories: async (req, res) => {
+        const categories = await Category.findAll({
+            where: {
+                type_id: 2
+            },
+            include: ["sub_category"]
+        });
+
+        res.send(categories)
+    }
 
 }
 

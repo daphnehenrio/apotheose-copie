@@ -92,6 +92,8 @@ router.post('/upload-files', capture(documentController.check));
 //documents user
 router.get('/mes-documents/:id', auth, capture(documentController.allDocuments));
 
+router.get('/mes-doc/categories', capture(documentController.allCategories))
+
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 router.get('/contenu-table/:class', capture(mainController.getAll));

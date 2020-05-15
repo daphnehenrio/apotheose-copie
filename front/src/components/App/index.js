@@ -24,6 +24,8 @@ import DashBoard from 'src/components/DashBoard';
 import Profil from 'src/components/Profil';
 import Documents from 'src/components/Documents';
 import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
+import DocumentsCategory from 'src/components/Documents/DocumentsCategory'
+import DocumentsSubCategory from 'src/components/Documents/DocumentsSubCategory'
 
 // == import action
 import { actionGetMenu } from '../../actions/menu';
@@ -74,6 +76,8 @@ const App = () => {
   const { allTitles, allTitleOk, articles } = useSelector((state) => state.articles);
   const { openDrawer } = useSelector((state) => state.toggle);
   const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+
+  const categoriesFolder = useSelector((state) => state.document.category)
 
   useEffect( () => {
 
@@ -205,7 +209,7 @@ const App = () => {
               }
               return (
                 <div>
-                  <Documents />
+                  <DocumentsCategory />
                 </div>
               );
             }}
@@ -224,6 +228,37 @@ const App = () => {
               );
             }}
           />
+
+{
+            categoriesFolder.length > 0 && (
+              categoriesFolder.map((cat) => {
+                return (
+                  <Route key={cat.name} exact path={`/mes-documents/${slugify(cat.name)}`}>
+                    <div>
+                      <DocumentsSubCategory category={cat.name} />
+                    </div>
+                  </Route>
+                );
+              })
+            )
+          }
+
+          {
+            categoriesFolder.length > 0 && (
+              categoriesFolder.map((cat) => {
+                return ( cat.sub_category.map((sub_cat) => {
+                  return (
+                    <Route key={sub_cat.name} exact path={`/mes-documents/${slugify(cat.name)}/${slugify(sub_cat.name)}`}>
+                      <div>
+                        <TargetedDocuments />
+                      </div>
+                    </Route>
+                  );
+                })
+                )
+              })
+            )
+          }
           <Route exact path="/403">
             <Page403 />
           </Route>

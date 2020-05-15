@@ -1,5 +1,6 @@
 import {
     OPEN_ADD_FILE,
+    SET_FOLDER,
     CHANGE_FILE_NAME,
     ADD_FILE_TO_STATE,
     OPEN_SUCCESS_MESSAGE,
@@ -11,6 +12,7 @@ const initialState = {
     openAddFile: false,
     filesToUpload: [],
     successUpload: false,
+    category: [],
 };
 
 export default (state = initialState, action = {}) => {
@@ -22,6 +24,13 @@ export default (state = initialState, action = {}) => {
 
             }
         }
+        case SET_FOLDER: {
+          return {
+              ...state,
+              category: action.data,
+
+          }
+      }
         case CHANGE_FILE_NAME: {
             return {
                 ...state,
@@ -53,6 +62,8 @@ export default (state = initialState, action = {}) => {
                 successUpload: action.bool,
             }
         }
+
+
 
         default: {
             return state;

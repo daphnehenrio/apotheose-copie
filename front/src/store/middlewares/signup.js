@@ -16,7 +16,7 @@ export default (store) => (next) => (action) => {
 
     case SIGNUP: {
       const { user } = store.getState().signup;
-      
+
       const userInfo = {
         login: user.login,
         first_name: user.first_name,
@@ -39,7 +39,7 @@ export default (store) => (next) => (action) => {
           {
             withCredentials: true,
           })
-        .then((res) => {
+        .then( (res) => {
 
           window.sessionStorage.setItem('user', JSON.stringify({
             token: res.data.token,

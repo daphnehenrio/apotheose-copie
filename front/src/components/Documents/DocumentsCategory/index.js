@@ -11,22 +11,26 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Folder from 'src/assets/image/documents/folder.png';
 
 // == Import actions
-import { actionChangePage } from '../../actions/routes';
+import { actionChangePage } from 'src/actions/routes';
 
 // == Import styles
-import './styles.scss';
+//import './styles.scss';
 
 import Plus from 'src/assets/image/documents/plus.png';
 import { Dialog, DialogTitle, Button, DialogActions, DialogContent } from '@material-ui/core';
+import slugify from '@sindresorhus/slugify';
 
 
 // -------------------------- Export --------------------------
 
-export default function Documents() {
+export default function DocumentsCategory() {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const [openAddFolder, setOpenAddFolder] = useState(false)
+
+  const categoriesFolder = useSelector((state) => state.document.category)
+  console.log(useSelector((state) => state.document.category))
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => console.log(data);
@@ -74,17 +78,19 @@ export default function Documents() {
     <div className= 'document-page'>
       <h3 className= 'document-page-title'>Mes documents</h3>
       <div className= 'documents-container'>
-        <div className= 'single-document-container'>
-          <img className='img-folder' src={Folder}/>
-          <p>Etat Civil</p>
-        </div>
 
-        <div className= 'single-document-container'>
-          <img className='img-folder' src={Folder} onClick={(evt) => {
-              dispatch(actionChangePage('/mes-documents/documents', history));
-          }}/>
-          <p>Caf</p>
-        </div>
+        { categoriesFolder.map((category) => {
+          return (
+            <div className= 'single-document-container' key={category.name}>
+            <img className='img-folder' src={Folder} onClick={() => {
+              dispatch(actionChangePage(`/mes-documents/${slugify(category.name)}`, history))
+            }
+            }/>
+            <p>{category.name}</p>
+          </div>
+          )
+        })
+      }
 
         <div className= 'single-document-container'>
           <Tooltip title="Création d'un nouveau dossier" placement="right-start">
