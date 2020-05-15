@@ -98,6 +98,8 @@ router.get('/mes-doc/categories', capture(documentController.allCategories))
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 router.get('/contenu-table/:class', capture(mainController.getAll));
 
+router.get('/download', capture(documentController.download));
+
 const storage = multer.diskStorage({
   destination: './public/uploads',
   filename(req, file, cb) {

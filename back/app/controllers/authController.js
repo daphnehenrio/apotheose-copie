@@ -1,6 +1,8 @@
-const { User, User_profil } = require('../models');
+const { User, User_profil,Category, Sub_category  } = require('../models');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
+const mkdirp = require('mkdirp');
+const slugify = require("slugify");
 
 //password verify
 const emailValidator = require('email-validator');
@@ -11,17 +13,17 @@ const bcrypt = require('bcryptjs');
 const authController = {
 
   // connexion form
-  loginAction:  (req, res) => {
+  loginAction: (req, res) => {
     // recup form
     const {login, password} = req.body;
-
+    
     // recup user with login
     User.findOne({
       where: {
         login: login
       },
       include:  ["user_profil"]
-    }).then( (user) => {
+    }).then( async (user) => {
 
       // if not exist => error
       if (!user) {
@@ -33,6 +35,28 @@ const authController = {
         // if not good => error
         return res.send("Le mot de passe saisi est incorrect");
       }
+
+      let category = await Category.findAll({
+        where: {
+          type_id : 2
+        },
+        include : ['sub_category'],
+        order: [
+          ['name', 'ASC'],
+        ],
+      });
+
+        for (let i=0; i<category.length; i++) {
+
+          category[i].dataValues.sub_category.map((sub_cat)=>{
+
+              mkdirp(`./public/uploads/${user.folder_name}/${slugify(category[i].dataValues.name)}/${slugify(sub_cat.name)}`, function(err) {   
+
+              });
+            
+          })
+
+        };
 
       const token = jwt.sign({ userId: user.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
 
@@ -114,9 +138,10 @@ const authController = {
         newUser.first_name = data.first_name;
         newUser.last_name = data.last_name;
         newUser.email = data.email;
+        newUser.folder_name = bcrypt.hashSync(data.login).replace(/\//gi, "");
         // HASH password
         newUser.password = bcrypt.hashSync(data.password, 10);
-
+        
         await newUser.save().then( (user) => {
           // recup user on session
           req.session.user = user;
@@ -160,6 +185,28 @@ const authController = {
 
         res.send({sendUser, token});
 
+        let category = await Category.findAll({
+          where: {
+            type_id : 2
+          },
+          include : ['sub_category'],
+          order: [
+            ['name', 'ASC'],
+          ],
+        });
+
+          for (let i=0; i<category.length; i++) {
+  
+            category[i].dataValues.sub_category.map((sub_cat)=>{
+  
+                mkdirp(`./public/uploads/${newUser.folder_name}/${slugify(category[i].dataValues.name)}/${suglify(sub_cat.name)}`, function(err) {   
+  
+                });
+              
+            })
+  
+          };
+
 
       } else {
         res.status(400).send(errorsList);
@@ -179,6 +226,5 @@ const authController = {
   }
 
 };
-
 
 module.exports = authController;

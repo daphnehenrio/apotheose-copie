@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const moment = require('moment');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-
+const FileStore = require('session-file-store')(session);
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -31,13 +31,15 @@ app.use((req, res, next) => {
 
 app.use(cookieParser());
 
+const fileStoreOptions = {logFn: function(){}};
 app.use(session({
+    store: new FileStore(fileStoreOptions),
     secret: process.env.TOKEN_SESSION,
     resave: true,
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: 1000 * 60 * 60,
+      maxAge: (1000 * 60 * 60),//
     },
 }));
 

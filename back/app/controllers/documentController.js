@@ -1,15 +1,10 @@
 const { User, Document, Category } = require('../models');
 const jwt = require('jsonwebtoken');
+const http = require('http');
+const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 const documentController = {
-
-    check: async (req, res) => {
-        /* console.log(req); */
-        //console.log(req.body, 'FILES');
-        //console.log(req.files, 'REQ FILES');
-        console.log(req.file.path);
-
-    },
 
     upload: async (req, res) => {
 
@@ -21,14 +16,22 @@ const documentController = {
         const data = req.file;
         const meta = JSON.parse(req.body.meta); // all other values passed from the client, like name, etc..
 
+
         const newDocument = new Document();
         newDocument.name = meta.name;
         newDocument.link = data.path;
         newDocument.user_id = userId;
-
         await newDocument.save();
-
+        console.log(req.session.user.id);
         res.status(200).send('ok')
+        
+    },
+
+    download: async (req, res) => {
+
+        const file = `./public/uploads/$2a$10$SofZyjFQ0Mlauo0GmfTFueL26Gsq5yNkXuUCWVTVqJrpOKlmEsZi/Projet-Henri.pdf`;
+        res.download(file); // Set disposition and send it.        
+
     },
 
     allDocuments: async (req, res) => {
