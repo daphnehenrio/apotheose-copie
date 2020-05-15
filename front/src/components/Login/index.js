@@ -31,6 +31,7 @@ import {
 
 // == import style
 import './styles.scss';
+import { actionChangePage } from '../../actions/routes';
 
 
 // -------------------------- Export --------------------------
@@ -123,7 +124,12 @@ export default function Login() {
           }
 
 
-          <Link className="login-dialog--link" href="/inscription">
+          <Link
+            className="login-dialog--link"
+            onClick={() => {
+              dispatch(actionChangePage('/inscription', history))
+              dispatch(actionSetLoginForm())
+            }}>
             Créer un compte
           </Link>
         </DialogContent>

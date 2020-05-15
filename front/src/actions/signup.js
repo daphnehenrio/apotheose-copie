@@ -13,6 +13,7 @@ export const SET_CONFIRM_PASSWORD = 'action/SET_CONFIRM_PASSWORD';
 export const CONFIRM_PASSWORD = 'action/CONFIRM_PASSWORD';
 export const CHECK_PASSWORD_STRENGTH = 'action/CHECK_PASSWORD_STRENGTH';
 
+export const SET_ACCEPT_TERMS = 'action/SET_ACCEPT_TERMS'
 
 // --------------- step two ---------------
 export const SET_GENDER = 'action/SET_GENDER';
@@ -77,6 +78,10 @@ export const actionSetConfirmPasswordValue = (password) => ({
 export const actionSetConfirmPassword = (password) => ({
   type: CONFIRM_PASSWORD,
   password,
+});
+
+export const actionSetAcceptTerms = () => ({
+  type: SET_ACCEPT_TERMS,
 });
 
 
