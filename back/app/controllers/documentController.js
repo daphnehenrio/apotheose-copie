@@ -1,9 +1,11 @@
 const { User, Document, Category, Sub_category } = require('../models');
+const Sequelize = require('sequelize')
 const jwt = require('jsonwebtoken');
 const http = require('http');
 const fs = require('fs-extra');
 const mkdirp = require('mkdirp');
 const multer = require('multer');
+const Op = Sequelize.Op;
 
 const documentController = {
 
@@ -17,16 +19,31 @@ const documentController = {
 
         const {category, sub_category } = req.params;
 
+        const reconstruct_cat = category.substr(0,1).toUpperCase()+category.slice(1).replace(/-/gi, " ")
+
+
         const reconstruct_sub_cat = sub_category.substr(0,1).toUpperCase()+sub_category.slice(1).replace(/-/gi, " ")
 
 
         const user = await User.findByPk(userId, {});
 
+        const cat = await Category.findOne({
+          where: Sequelize.where(
+            Sequelize.fn('unaccent', Sequelize.col('name')), {
+                [Op.iLike]:`%${reconstruct_cat}%`
+          }),
+
+        })
+
 
         const sub_cat = await Sub_category.findOne({
           where: {
-            name: `${reconstruct_sub_cat}`,
-          }
+            category_id: cat.id,
+            name: Sequelize.where(Sequelize.fn('unaccent', Sequelize.col('name')), {
+              [Op.iLike]:`%${reconstruct_sub_cat}%`
+            })
+        },
+
         })
 
         const data = req.file;

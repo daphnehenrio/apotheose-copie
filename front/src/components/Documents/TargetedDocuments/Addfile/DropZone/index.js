@@ -112,7 +112,7 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
 
 const AddFileDropzone = () => {
     const dispatch = useDispatch();
-    // const files = useSelector((state) => state.document.filesToUpload);
+    const files = useSelector((state) => state.document.filesToUpload);
 
 
     const path = window.location.pathname
@@ -123,12 +123,16 @@ const AddFileDropzone = () => {
 
     const getUploadParams = ({ file, meta }) => {
 
+        const goodMeta = files.find((file) => meta.id === file.id);
+
         const body = new FormData();
         body.append('file', file);
-        meta.name = 'tets';
+        meta.name = goodMeta.name;
         body.append('meta', JSON.stringify(meta));
         // console.log('C LA METAAAAA', meta);
         // console.log(Array.from(body), 'C LE BOOOODYYYY');
+
+        console.log("METANAME", meta.name)
 
         dispatch(actionSendFiles(body, categoryFolder, subCategoryFolder));
         dispatch(actionOpenAddFile(false));
