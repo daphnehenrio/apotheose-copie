@@ -10,6 +10,7 @@ export default (store) => (next) => (action) => {
     // ---------------------------- SAVE UPDATE PROFIL ----------------------------
 
     case SAVE_UPDATE_PROFIL: {
+      console.log(action.data)
       const user = action.data;
       const oldUser = store.getState().user_profil;
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));

@@ -101,6 +101,7 @@ router.get('/contenu-table/:class', capture(mainController.getAll));
 router.get('/download', capture(documentController.download));
 
 const storage = multer.diskStorage({
+
   destination: './public/uploads',
   filename(req, file, cb) {
     cb(null, `${new Date()}-${file.originalname}`);
@@ -110,7 +111,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post('/public/storage', upload.single('file'), capture(documentController.upload));
+router.post('/public/storage/:category/:sub_category', upload.single('file'), capture(documentController.upload));
 
 // 404
 router.use((req, res) => {

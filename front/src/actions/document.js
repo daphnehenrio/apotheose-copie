@@ -11,9 +11,11 @@ export const actionOpenAddFile = (bool) => ({
     bool,
 });
 
-export const actionSendFiles = (files) => ({
+export const actionSendFiles = (files, category, subCategory) => ({
     type: SEND_FILES,
     files,
+    category,
+    subCategory
 });
 
 export const actionChangeFileName = (id, name) => ({

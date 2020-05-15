@@ -32,7 +32,7 @@ export default (store) => (next) => (action) => {
         const token = userSession.token
 
         axios
-          .post(`${base_url}/public/storage`,
+          .post(`${base_url}/public/storage/${action.category}/${action.subCategory}`,
             formData,
             {
               withCredentials: true,

@@ -54,6 +54,8 @@ const Preview = ({ fileWithMeta, meta }) => {
       } else return
     }
 
+    const path = window.location.path
+
     return (
         <div className='file-box'>
             <div>
@@ -112,6 +114,13 @@ const AddFileDropzone = () => {
     const dispatch = useDispatch();
     // const files = useSelector((state) => state.document.filesToUpload);
 
+
+    const path = window.location.pathname
+    const pathArray = path.split(new RegExp('/'))
+    console.log(pathArray);
+    const categoryFolder = pathArray[2];
+    const subCategoryFolder = pathArray[3]
+
     const getUploadParams = ({ file, meta }) => {
 
         const body = new FormData();
@@ -121,7 +130,7 @@ const AddFileDropzone = () => {
         // console.log('C LA METAAAAA', meta);
         // console.log(Array.from(body), 'C LE BOOOODYYYY');
 
-        dispatch(actionSendFiles(body));
+        dispatch(actionSendFiles(body, categoryFolder, subCategoryFolder));
         dispatch(actionOpenAddFile(false));
         dispatch(actionOpenSuccessMessage(true));
 

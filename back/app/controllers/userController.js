@@ -25,6 +25,8 @@ const userController = {
 
   update: async (req, res, next) => {
 
+    console.log(req.body)
+
     try {
 
       const userLogin = req.body.login;
@@ -49,7 +51,7 @@ const userController = {
           {
             association : 'user_profil',
           }
-      ]
+        ]
       }));
 
       res.send(userUpdate);
