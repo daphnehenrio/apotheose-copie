@@ -5,6 +5,7 @@ import {
   SET_LOGIN,
   SET_PASSWORD,
   SET_CONFIRM_PASSWORD,
+  SET_ACCEPT_TERMS,
   CONFIRM_PASSWORD,
   CHECK_PASSWORD_STRENGTH,
   SET_EMAIL,
@@ -47,6 +48,7 @@ const initialState = {
   passwordStrength: 'init',
   emailExists: 'init',
   errorListSignup: false,
+  acceptTerms: false,
 };
 
 export default (state = initialState, action = {}) => {
@@ -133,6 +135,13 @@ export default (state = initialState, action = {}) => {
           ...state.user,
           email: action.email,
         },
+      };
+    }
+
+    case SET_ACCEPT_TERMS: {
+      return {
+        ...state,
+        acceptTerms: !state.acceptTerms
       };
     }
 

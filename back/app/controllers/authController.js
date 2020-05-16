@@ -16,7 +16,7 @@ const authController = {
   loginAction: (req, res) => {
     // recup form
     const {login, password} = req.body;
-    
+
     // recup user with login
     User.findOne({
       where: {
@@ -50,10 +50,10 @@ const authController = {
 
           category[i].dataValues.sub_category.map((sub_cat)=>{
 
-              mkdirp(`./public/uploads/${user.folder_name}/${slugify(category[i].dataValues.name)}/${slugify(sub_cat.name)}`, function(err) {   
+              mkdirp(`./public/uploads/${user.folder_name}/${slugify(category[i].dataValues.name).toLowerCase()}/${slugify(sub_cat.name).toLowerCase()}`, function(err) {
 
               });
-            
+
           })
 
         };
@@ -141,7 +141,7 @@ const authController = {
         newUser.folder_name = bcrypt.hashSync(data.login).replace(/\//gi, "");
         // HASH password
         newUser.password = bcrypt.hashSync(data.password, 10);
-        
+
         await newUser.save().then( (user) => {
           // recup user on session
           req.session.user = user;
@@ -196,15 +196,15 @@ const authController = {
         });
 
           for (let i=0; i<category.length; i++) {
-  
+
             category[i].dataValues.sub_category.map((sub_cat)=>{
-  
-                mkdirp(`./public/uploads/${newUser.folder_name}/${slugify(category[i].dataValues.name)}/${suglify(sub_cat.name)}`, function(err) {   
-  
+
+                mkdirp(`./public/uploads/${newUser.folder_name}/${slugify(category[i].dataValues.name).toLowerCase()}/${suglify(sub_cat.name).toLowerCase()}`, function(err) {
+
                 });
-              
+
             })
-  
+
           };
 
 

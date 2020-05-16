@@ -26,10 +26,6 @@ export default (store) => (next) => (action) => {
 
       if(userSession.token){
 
-        const userInfo = {
-          user_id: userSession.user_id
-        };
-
         const token = userSession.token
 
         axios

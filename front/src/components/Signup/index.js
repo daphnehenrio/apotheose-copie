@@ -15,6 +15,7 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+
 // Import npm
 import passwordValidator from 'password-validator';
 import emailValidator from 'email-validator';
@@ -35,6 +36,7 @@ import {
   actionSignup,
   actionPasswordValidation,
   actionEmailValidation,
+  actionErrorListSignup,
 } from '../../actions/signup';
 
 // == import styles
@@ -80,6 +82,7 @@ ColorlibStepIcon.propTypes = {
 
 // -------------------------- Fonction Steps --------------------------
 
+
 function getSteps() {
   return ['Inscription', 'Information Complémentaire (facultatif)', 'Validation'];
 }
@@ -124,8 +127,9 @@ export default function Signup() {
   const history = useHistory();
   const steps = getSteps();
   const {
-    user, isPasswordCorrect, errorListSignup, activeStep,
+    user, isPasswordCorrect, errorListSignup, activeStep, acceptTerms
   } = useSelector((state) => state.signup);
+
   const isEmpty = handdleVerifEmptyValue(user.first_name)
     || handdleVerifEmptyValue(user.last_name)
     || handdleVerifEmptyValue(user.email)
@@ -147,6 +151,7 @@ export default function Signup() {
       && user.confirmPassword
       && isPasswordCorrect
       && !isEmpty
+      && acceptTerms
     ) {
       // check if password is strong enough (if it contains at least 8 character, 1 uppercase,
       // 1 lowercase, 1 number and 1 special character)
@@ -156,6 +161,7 @@ export default function Signup() {
         if (emailValidator.validate(user.email)) {
           // If all ok, go to next step
           dispatch(actionEmailValidation(true));
+          dispatch(actionErrorListSignup(false))
           dispatch(actionSetStep(activeStep + 1));
         }
         else {
@@ -203,8 +209,9 @@ export default function Signup() {
         {activeStep === steps.length ? (
           <div className="form-inscription">
             <Typography>
-              All steps completed - you&apos;re finished
+              Toutes étapes sont complètes
             </Typography>
+
             <Button onClick={handleReset}>
               Reset
             </Button>

@@ -22,8 +22,9 @@ import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
 import DashBoard from 'src/components/DashBoard';
 import Profil from 'src/components/Profil';
-import Documents from 'src/components/Documents';
 import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
+import DocumentsCategory from 'src/components/Documents/DocumentsCategory'
+import DocumentsSubCategory from 'src/components/Documents/DocumentsSubCategory'
 
 // == import action
 import { actionGetMenu } from '../../actions/menu';
@@ -33,6 +34,7 @@ import Page404 from '../ErrorPages/404';
 import Page403 from '../ErrorPages/403';
 import { actionGetAllArticles } from '../../actions/articles';
 import Article from '../Articles/Article';
+import AcceptTerms from '../AcceptTerms';
 
 
 // -------------------------- styles composants --------------------------
@@ -66,15 +68,26 @@ const useStyles = makeStyles((theme) => ({
 
 
 // -------------------------- Export --------------------------
-
+/**
+ *  Returns AppBar , Menu, all routes
+ */
 const App = () => {
+  // == styles
   const classes = useStyles();
+
+  // == hook
   const dispatch = useDispatch();
+
+  // == selector reducers
   const { category, menuOK } = useSelector((state) => state.menu);
   const { allTitles, allTitleOk, articles } = useSelector((state) => state.articles);
   const { openDrawer } = useSelector((state) => state.toggle);
+  const categoriesFolder = useSelector((state) => state.document.category)
+
+  // == session storage
   const userSession = JSON.parse(window.sessionStorage.getItem('user'));
 
+  // == use effect
   useEffect( () => {
 
     if (!menuOK) {
@@ -168,6 +181,13 @@ const App = () => {
               <Signup />
             </div>
           </Route>
+
+          <Route exact path="/accept-terms">
+            <div>
+              <AcceptTerms />
+            </div>
+          </Route>
+
           <Route
             path="/mon-espace-personnel"
             exact
@@ -205,14 +225,14 @@ const App = () => {
               }
               return (
                 <div>
-                  <Documents />
+                  <DocumentsCategory />
                 </div>
               );
             }}
           />
           <Route
-            exact
             path="/mes-documents/documents"
+            exact
             render={() => {
               if (!userSession || !userSession.token) {
                 return <Redirect to="/403" />;
@@ -224,9 +244,41 @@ const App = () => {
               );
             }}
           />
+
+          {
+            categoriesFolder.length > 0 && (
+              categoriesFolder.map((cat) => {
+                return (
+                  <Route key={cat.name} exact path={`/mes-documents/${slugify(cat.name)}`}>
+                    <div>
+                      <DocumentsSubCategory category={cat.name} />
+                    </div>
+                  </Route>
+                );
+              })
+            )
+          }
+
+          {
+            categoriesFolder.length > 0 && (
+              categoriesFolder.map((cat) => {
+                return ( cat.sub_category.map((sub_cat) => {
+                  return (
+                    <Route key={sub_cat.name} exact path={`/mes-documents/${slugify(cat.name)}/${slugify(sub_cat.name)}`}>
+                      <div>
+                        <TargetedDocuments />
+                      </div>
+                    </Route>
+                  );
+                })
+                )
+              })
+            )
+          }
           <Route exact path="/403">
             <Page403 />
           </Route>
+
           <Route>
             <Page404 />
           </Route>

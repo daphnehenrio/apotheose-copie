@@ -4,6 +4,7 @@ import axios from 'axios';
 // == import actions
 import { SIGNUP, actionErrorListSignup, actionSetStep } from '../../actions/signup';
 import { actionSetProfil } from '../../actions/user_profil';
+import { actionSetLoginForm } from 'src/actions/toggle';
 import { actionChangePage } from '../../actions/routes';
 
 // == import local
@@ -16,7 +17,7 @@ export default (store) => (next) => (action) => {
 
     case SIGNUP: {
       const { user } = store.getState().signup;
-      
+
       const userInfo = {
         login: user.login,
         first_name: user.first_name,
@@ -39,8 +40,8 @@ export default (store) => (next) => (action) => {
           {
             withCredentials: true,
           })
-        .then((res) => {
-
+        .then( (res) => {
+          /*
           window.sessionStorage.setItem('user', JSON.stringify({
             token: res.data.token,
             user_id: res.data.sendUser.id,
@@ -49,9 +50,9 @@ export default (store) => (next) => (action) => {
           }));
 
           store.dispatch(actionSetProfil(res.data.sendUser));
-
-          store.dispatch(actionChangePage('profil', action.history));
-
+          */
+          store.dispatch(actionChangePage('/', action.history));
+          store.dispatch(actionSetLoginForm())
         })
         .catch((err) => {
           console.dir(err)
