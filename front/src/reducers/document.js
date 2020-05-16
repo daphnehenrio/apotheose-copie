@@ -4,6 +4,7 @@ import {
     CHANGE_FILE_NAME,
     ADD_FILE_TO_STATE,
     OPEN_SUCCESS_MESSAGE,
+    SET_DOCUMENTS,
 
 } from '../actions/document';
 
@@ -13,6 +14,7 @@ const initialState = {
     filesToUpload: [],
     successUpload: false,
     category: [],
+    files: []
 };
 
 export default (state = initialState, action = {}) => {
@@ -31,22 +33,31 @@ export default (state = initialState, action = {}) => {
 
           }
       }
-        case CHANGE_FILE_NAME: {
-            return {
-                ...state,
-                filesToUpload: state.filesToUpload.map(file => {
-                    if(file.id === action.id) {
-                        return {
-                            ...file,
-                            name: action.name
-                        }
-                    }
-                    return {
-                        ...file,
-                    }
-                }),
-            }
+
+      case SET_DOCUMENTS: {
+        return {
+            ...state,
+            files: action.data,
+
         }
+      }
+
+      case CHANGE_FILE_NAME: {
+          return {
+              ...state,
+              filesToUpload: state.filesToUpload.map(file => {
+                  if(file.id === action.id) {
+                      return {
+                          ...file,
+                          name: action.name
+                      }
+                  }
+                  return {
+                      ...file,
+                  }
+              }),
+          }
+      }
         case ADD_FILE_TO_STATE: {
             return {
                 ...state,
@@ -56,14 +67,13 @@ export default (state = initialState, action = {}) => {
                 ],
             }
         }
+
         case OPEN_SUCCESS_MESSAGE: {
             return {
                 ...state,
                 successUpload: action.bool,
             }
         }
-
-
 
         default: {
             return state;

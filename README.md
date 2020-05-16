@@ -100,7 +100,7 @@ cd back
 
 npm i
 
-node server.js
+node index.js
 ```
 
 At the root of the project in shell

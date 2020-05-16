@@ -67,7 +67,7 @@ const StyledInput = withStyles((theme) => ({
 export default function TargetedDocuments() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const successUpload = useSelector((state) => state.document.successUpload);
+    const { successUpload, files } = useSelector((state) => state.document);
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -82,6 +82,14 @@ export default function TargetedDocuments() {
         dispatch(actionOpenSuccessMessage(false));
     };
 
+    const filesJsx = files.map((file) => {
+      return (
+        <div className='single-document-container' key={file.id}>
+          <img className='img-folder' src={File} />
+          <p className='doc-title'>{file.name}</p>
+        </div>
+      )
+    })
 
     // ----------------- Return ------------------ //
 
@@ -108,20 +116,9 @@ export default function TargetedDocuments() {
                 </Breadcrumbs>
             </div>
             <div className='documents-container'>
-                <div className='single-document-container'>
-                    <img className='img-folder' src={File} />
-                    <p className='doc-title'>Grimoire</p>
-                </div>
 
-                <div className='single-document-container'>
-                    <img className='img-folder' src={File} />
-                    <p className='doc-title'>Bible</p>
-                </div>
+               {filesJsx}
 
-                <div className='single-document-container'>
-                    <img className='img-folder' src={File} />
-                    <p className='doc-title'>Document</p>
-                </div>
                 <Tooltip title="Ajouter un document" placement="right-start">
                     <img className='plus' src={Plus} onClick={(evt) => {
                         dispatch(actionOpenAddFile(true));

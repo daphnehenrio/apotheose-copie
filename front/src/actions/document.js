@@ -5,6 +5,8 @@ export const ADD_FILE_TO_STATE = 'action/ADD_FILE_TO_STATE';
 export const OPEN_SUCCESS_MESSAGE = 'action/OPEN_SUCCESS_MESSAGE';
 export const GET_FOLDER = 'action/GET_FOLDER';
 export const SET_FOLDER = 'action/SET_FOLDER';
+export const GET_DOCUMENTS = 'action/GET_DOCUMENTs';
+export const SET_DOCUMENTS = 'action/SET_DOCUMENTS'
 
 export const actionOpenAddFile = (bool) => ({
     type: OPEN_ADD_FILE,
@@ -43,6 +45,22 @@ export const actionSetFolder = (data) => ({
   type: SET_FOLDER,
   data
 })
+/**
+ * action  ➔ axios's request to get documents from sub_categorie
+ * @param {number} id - sub_category's id
+ */
+export const actionGetDocuments = (id) => ({
+  type: GET_DOCUMENTS,
+  id,
+});
 
+/**
+ * action  ➔ Set documents in reducer document
+ * @param {array} data - array of object whith documents infos
+ */
+export const actionSetDocuments = (data) => ({
+  type: SET_DOCUMENTS,
+  data
+})
 
 

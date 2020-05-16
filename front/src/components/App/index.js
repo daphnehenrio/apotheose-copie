@@ -22,7 +22,6 @@ import HomePage from 'src/components/HomePage';
 import Signup from 'src/components/Signup';
 import DashBoard from 'src/components/DashBoard';
 import Profil from 'src/components/Profil';
-import Documents from 'src/components/Documents';
 import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
 import DocumentsCategory from 'src/components/Documents/DocumentsCategory'
 import DocumentsSubCategory from 'src/components/Documents/DocumentsSubCategory'

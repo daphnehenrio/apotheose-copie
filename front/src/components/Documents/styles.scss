@@ -47,13 +47,16 @@
     margin-left: 2rem;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .single-document-container{
+    width: 150px;
     display: flex;
     flex-direction: column;
-    margin-right: 4rem;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
     margin-bottom: 2rem;
     transition: all 0.3s;
     &:hover{
@@ -62,12 +65,16 @@
     p{
         text-align: center;
         margin-top: 0.5rem;
+
+        &.doc-title{
+          margin-top: 1rem;
+        }
     }
 }
 
 .form-upload{
     display: flex !important;
-    
+
 }
 
 .image-upload-container > input
@@ -85,6 +92,8 @@
     width: 3rem;
     height: 3rem;
     margin-bottom: 2rem;
+    margin-top: 1.3rem;
+    margin-left: 3rem;
     cursor: pointer;
 }
 

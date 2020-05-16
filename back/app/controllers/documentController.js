@@ -21,30 +21,36 @@ const documentController = {
 
         const reconstruct_cat = category.substr(0,1).toUpperCase()+category.slice(1).replace(/-/gi, " ")
 
-
         const reconstruct_sub_cat = sub_category.substr(0,1).toUpperCase()+sub_category.slice(1).replace(/-/gi, " ")
 
+        console.log(reconstruct_cat, reconstruct_sub_cat)
 
         const user = await User.findByPk(userId, {});
 
         const cat = await Category.findOne({
-          where: Sequelize.where(
-            Sequelize.fn('unaccent', Sequelize.col('name')), {
+          where: {
+            type_id: 2,
+            name: Sequelize.where(
+              Sequelize.fn('unaccent', Sequelize.col('name')), {
                 [Op.iLike]:`%${reconstruct_cat}%`
-          }),
-
+              }
+            ),
+          }
         })
+        console.log("cat : ", cat)
 
 
         const sub_cat = await Sub_category.findOne({
           where: {
             category_id: cat.id,
-            name: Sequelize.where(Sequelize.fn('unaccent', Sequelize.col('name')), {
-              [Op.iLike]:`%${reconstruct_sub_cat}%`
-            })
-        },
-
+            name: Sequelize.where(
+              Sequelize.fn('unaccent', Sequelize.col('name')), {
+                [Op.iLike]:`%${reconstruct_sub_cat}%`
+              }
+            )
+          },
         })
+        console.log("sub_cat : ", sub_cat)
 
         const data = req.file;
         const meta = JSON.parse(req.body.meta); // all other values passed from the client, like name, etc..
@@ -56,8 +62,8 @@ const documentController = {
         newDocument.link = data.path;
         newDocument.user_id = userId;
         newDocument.sub_category_id = sub_cat.id;
+
         await newDocument.save();
-        console.log(req.session.user.id);
 
         fs.move('./public/uploads/' + filename, `./public/uploads/${user.folder_name}/${category}/${sub_category}/${filename}`, function (err) {
           if (err) {
@@ -96,11 +102,36 @@ const documentController = {
             where: {
                 type_id: 2
             },
-            include: ["sub_category"]
+            order:[
+              ['name', 'ASC'],
+            ],
+            include: [
+              {
+                association : 'sub_category',
+                order:[
+                  ['name', 'ASC'],
+                ],
+              }
+            ],
         });
 
         res.send(categories)
-    }
+    },
+
+    documentsBySubCategory: async (req, res) => {
+
+      const { id, sub_category_id } = req.params;
+
+      let documents = await Document.findAll({
+          where: {
+              user_id: id,
+              sub_category_id: sub_category_id,
+          },
+      })
+
+      res.send(documents);
+
+  },
 
 }
 
