@@ -24,6 +24,7 @@ import DashBoard from 'src/components/DashBoard';
 import Profil from 'src/components/Profil';
 import Documents from 'src/components/Documents';
 import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
+import About from 'src/components/About';
 
 // == import action
 import { actionSetConnected } from 'src/actions/user_profil';
@@ -102,6 +103,11 @@ const App = () => {
           <Route exact path="/">
             <div>
               <HomePage />
+            </div>
+          </Route>
+          <Route exact path='/infos'>
+            <div>
+              <About/>
             </div>
           </Route>
           {

@@ -197,3 +197,17 @@
 }
 
 
+.responsive-group-btn-icon{
+  display: none;
+  margin-right: 2rem;
+}
+
+@media screen and (max-width: 550px) {
+  .responsive-group-btn-icon{
+    display: flex;
+    .MuiSvgIcon-root{
+      color: white;
+    }
+  }
+}
+
