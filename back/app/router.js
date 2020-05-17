@@ -127,6 +127,7 @@ router.get('/my-documents/:id/sub_category/:sub_category_id', auth, capture(docu
 
 router.get('/my-documents/:id/all', auth, capture(documentController.allDocuments));
 
+router.get('/file/:id/:document_id', auth, capture(documentController.download))
 
 router.get('/download', capture(documentController.download));
 

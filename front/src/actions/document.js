@@ -6,7 +6,10 @@ export const OPEN_SUCCESS_MESSAGE = 'action/OPEN_SUCCESS_MESSAGE';
 export const GET_FOLDER = 'action/GET_FOLDER';
 export const SET_FOLDER = 'action/SET_FOLDER';
 export const GET_DOCUMENTS = 'action/GET_DOCUMENTs';
-export const SET_DOCUMENTS = 'action/SET_DOCUMENTS'
+export const SET_DOCUMENTS = 'action/SET_DOCUMENTS';
+export const GET_ONE_FILE = 'action/GET_ONE_FILE';
+export const SET_ONE_FILE = 'action/SET_ONE_FILE';
+export const DOWNLOAD_FILE = 'action/DOWNLOAD_FILE'
 
 export const actionOpenAddFile = (bool) => ({
     type: OPEN_ADD_FILE,
@@ -57,10 +60,39 @@ export const actionGetDocuments = (id) => ({
 /**
  * action  ➔ Set documents in reducer document
  * @param {array} data - array of object whith documents infos
+ * @param {number} id - sub_category_id
  */
-export const actionSetDocuments = (data) => ({
+export const actionSetDocuments = (data, id) => ({
   type: SET_DOCUMENTS,
-  data
+  data,
+  id
 })
+
+/**
+ *
+ * @param {number} id - file id
+ */
+export const actionGetOneFile = (id) => ({
+  type: GET_ONE_FILE,
+  id
+})
+
+/**
+ *
+ * @param {string} file - response axios - url file
+ * @param {string} type_file - type of file 
+ */
+export const actionSetOneFile = (file, type_file) => ({
+  type: SET_ONE_FILE,
+  file,
+  type_file
+})
+
+export const actionDownloadFile = (id, name) => ({
+  type: DOWNLOAD_FILE,
+  id,
+  name
+})
+
 
 

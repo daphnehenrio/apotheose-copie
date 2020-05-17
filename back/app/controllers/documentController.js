@@ -59,7 +59,7 @@ const documentController = {
 
         const newDocument = new Document();
         newDocument.name = meta.name;
-        newDocument.link = data.path;
+        newDocument.link = `./public/uploads/${user.folder_name}/${category}/${sub_category}/${filename}`;
         newDocument.user_id = userId;
         newDocument.sub_category_id = sub_cat.id;
 
@@ -77,8 +77,9 @@ const documentController = {
 
     download: async (req, res) => {
 
-        const file = `./public/uploads/$2a$10$SofZyjFQ0Mlauo0GmfTFueL26Gsq5yNkXuUCWVTVqJrpOKlmEsZi/Projet-Henri.pdf`;
-        res.download(file); // Set disposition and send it.
+      const file = await Document.findByPk(req.params.document_id)
+
+      res.download(file.link); // Set disposition and send it.
 
     },
 
