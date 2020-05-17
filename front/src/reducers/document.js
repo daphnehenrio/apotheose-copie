@@ -5,6 +5,7 @@ import {
     ADD_FILE_TO_STATE,
     OPEN_SUCCESS_MESSAGE,
     SET_DOCUMENTS,
+    SET_ONE_FILE,
 
 } from '../actions/document';
 
@@ -14,7 +15,9 @@ const initialState = {
     filesToUpload: [],
     successUpload: false,
     category: [],
-    files: []
+    files: [],
+    file: {},
+    fileType: '',
 };
 
 export default (state = initialState, action = {}) => {
@@ -74,6 +77,15 @@ export default (state = initialState, action = {}) => {
                 successUpload: action.bool,
             }
         }
+
+        case SET_ONE_FILE: {
+          console.log('reducer', action.type_file)
+          return {
+              ...state,
+              file: action.file,
+              fileType: action.type_file,
+          }
+      }
 
         default: {
             return state;

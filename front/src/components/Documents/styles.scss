@@ -115,3 +115,26 @@
     flex-direction: column;
     align-items: center;
 }
+
+.pdf-canvas{
+  width: max-content;
+  margin: auto;
+}
+
+
+.reader-modal {
+  overflow-y: scroll;
+  margin: auto;
+  position: relative;
+}
+
+.download{
+  &-img{
+    width: 96px;
+    position: fixed;
+    bottom: 2rem;
+    right: 30%;
+    color: white;
+    cursor: pointer;
+  }
+}

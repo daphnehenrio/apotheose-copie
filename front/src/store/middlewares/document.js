@@ -7,7 +7,10 @@ import {
   GET_DOCUMENTS,
   GET_FOLDER,
   actionSetFolder,
-  actionSetDocuments
+  actionSetDocuments,
+  GET_ONE_FILE,
+  actionSetOneFile,
+  DOWNLOAD_FILE,
 } from '../../actions/document';
 
 // == import local
@@ -83,7 +86,8 @@ export default (store) => (next) => (action) => {
               headers: {
                 'Content-Type': 'multipart/form-data; boundary=${form._boundary}',
                 'Authorization': `Bearer ${token}`
-              }
+              },
+
             })
           .then((res) => {
             console.log('SEND FILES SUCCED')
@@ -96,9 +100,102 @@ export default (store) => (next) => (action) => {
         store.dispatch(actionChangePage('/', history));
       }
 
+      break;
+    }
+
+
+    // ---------------------------- GET ONE FILE ----------------------------
+
+
+    case GET_ONE_FILE: {
+
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+
+      if(userSession.token) {
+
+        const token = userSession.token
+
+        axios
+        .get(`${base_url}/file/${userSession.user_id}/${action.id}`,
+        {
+          withCredentials: true,
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          responseType: 'blob',
+
+        })
+        .then((res) => {
+          console.log(res)
+          const blob = new Blob([res.data])
+          const url = window.URL.createObjectURL(blob);
+          store.dispatch(actionSetOneFile(url, res.data.type))
+        })
+
+      } else {
+        store.dispatch(SET_LOGIN_FORM());
+      }
 
       break;
     }
+
+        // ---------------------------- GET ONE FILE ----------------------------
+
+
+        case DOWNLOAD_FILE: {
+
+          const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+
+          if(userSession.token) {
+
+            const token = userSession.token
+            console.log(action)
+            axios
+            .get(`${base_url}/file/${userSession.user_id}/${action.id}`,
+            {
+              withCredentials: true,
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+              responseType: 'blob',
+            })
+            .then((res) => {
+              console.log(res)
+              let type = "";
+              switch (res.data.type) {
+                case 'application/pdf':
+                  type = 'pdf'
+                  break;
+                case 'image/png':
+                  type = 'png'
+                  break;
+                case 'image/jpg':
+                  type = 'jpg'
+                  break;
+                case 'image/jpeg':
+                  type = 'jpeg'
+                  break;
+                case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                    type = 'docx'
+                    break;
+              }
+              const blob = new Blob([res.data])
+              const url = window.URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', `${action.name}`); //or any other extension
+              document.body.appendChild(link);
+              link.click();
+            })
+
+          } else {
+            store.dispatch(SET_LOGIN_FORM());
+          }
+
+          break;
+        }
+
+
 
     // ---------------------------- DEFAULT ----------------------------
 

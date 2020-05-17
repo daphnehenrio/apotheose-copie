@@ -167,7 +167,7 @@ const AddFileDropzone = () => {
                 onSubmit={handleSubmit}
                 autoUpload={false}
                 PreviewComponent={Preview}
-                accept="application/pdf"
+                accept="application/pdf, image/*"
                 inputContent={(files, extra) => (extra.reject ? 'Seul les fichiers pdf sont acceptés' : 'Ajoutez un document ...')}
                 classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
                 inputWithFilesContent='Ajoutez un document ...'

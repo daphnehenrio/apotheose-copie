@@ -20,19 +20,23 @@ import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 // == Import img
-import Back from 'src/assets/image/documents/back.png';
 import File from 'src/assets/image/documents/file.png';
 import Plus from 'src/assets/image/documents/plus.png';
+import DownloadImg from 'src/assets/image/documents/download.png'
 
 // == Import Components
 import AddFile from './Addfile';
+import FileReader from '../ReadDocument'
 
 
 // == Import actions
 import { actionChangePage } from '../../../actions/routes';
-import { actionOpenAddFile, actionOpenSuccessMessage } from '../../../actions/document';
+import { actionOpenAddFile, actionOpenSuccessMessage, actionGetOneFile, actionDownloadFile } from '../../../actions/document';
 
 
 const SelectDoc = withStyles((theme) => ({
@@ -69,6 +73,19 @@ export default function TargetedDocuments() {
     const dispatch = useDispatch();
     const { successUpload, files } = useSelector((state) => state.document);
 
+    const [open, setOpen] = React.useState(false);
+
+    const [currentFile, setCurrentFile] = React.useState({})
+
+    const handleOpenModal = () => {
+      setOpen(true);
+    };
+
+    const handleCloseModal = () => {
+      setOpen(false);
+    };
+
+
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
@@ -82,14 +99,52 @@ export default function TargetedDocuments() {
         dispatch(actionOpenSuccessMessage(false));
     };
 
+    const readFile = (file_document) => {
+      console.log(file_document)
+      setCurrentFile(file_document);
+      dispatch(actionGetOneFile(file_document.id));
+      setTimeout(handleOpenModal, 1000);
+    }
+
+    const downloadFile = () => {
+      dispatch(actionDownloadFile(currentFile.id, currentFile.name))
+    }
+
+    const ModalReader = () => {
+      return (
+        <Modal
+        className="reader-modal"
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleCloseModal}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div>
+            <FileReader />
+              <img src={DownloadImg} className="download-img" onClick={downloadFile} />
+          </div>
+        </Fade>
+
+        </Modal>
+      )
+    }
+
     const filesJsx = files.map((file) => {
       return (
         <div className='single-document-container' key={file.id}>
-          <img className='img-folder' src={File} />
+          <img className='img-folder' src={File} onClick={() => readFile(file)}/>
           <p className='doc-title'>{file.name}</p>
+
         </div>
       )
     })
+
 
     // ----------------- Return ------------------ //
 
@@ -131,6 +186,7 @@ export default function TargetedDocuments() {
                     Vos documents ont été importés avec succès !
             </Alert>
             </Snackbar>
+            <ModalReader />
         </div >
     );
 }
