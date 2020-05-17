@@ -6,6 +6,8 @@ import {
     OPEN_SUCCESS_MESSAGE,
     SET_DOCUMENTS,
     SET_ONE_FILE,
+    GET_DOCUMENTS,
+    SEND_FILES,
 
 } from '../actions/document';
 
@@ -18,6 +20,9 @@ const initialState = {
     files: [],
     file: {},
     fileType: '',
+    totalFiles: 0,
+    checkFiles: false,
+    current_sub_cat_id: null,
 };
 
 export default (state = initialState, action = {}) => {
@@ -41,7 +46,9 @@ export default (state = initialState, action = {}) => {
         return {
             ...state,
             files: action.data,
-
+            totalFile: action.data.length,
+            checkFiles: true,
+            current_sub_cat_id: action.id
         }
       }
 
@@ -75,6 +82,8 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 successUpload: action.bool,
+                totalFile: state.files.length + 1,
+                checkFiles: false,
             }
         }
 
@@ -84,6 +93,7 @@ export default (state = initialState, action = {}) => {
               ...state,
               file: action.file,
               fileType: action.type_file,
+
           }
       }
 

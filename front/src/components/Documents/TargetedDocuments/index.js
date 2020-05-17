@@ -1,5 +1,5 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -36,7 +36,7 @@ import FileReader from '../ReadDocument'
 
 // == Import actions
 import { actionChangePage } from '../../../actions/routes';
-import { actionOpenAddFile, actionOpenSuccessMessage, actionGetOneFile, actionDownloadFile } from '../../../actions/document';
+import { actionOpenAddFile, actionOpenSuccessMessage, actionGetOneFile, actionDownloadFile, actionGetDocuments } from '../../../actions/document';
 
 
 const SelectDoc = withStyles((theme) => ({
@@ -71,11 +71,18 @@ const StyledInput = withStyles((theme) => ({
 export default function TargetedDocuments() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { successUpload, files } = useSelector((state) => state.document);
+    const { successUpload, files, checkFiles, current_sub_cat_id, totalFile } = useSelector((state) => state.document);
 
     const [open, setOpen] = React.useState(false);
 
     const [currentFile, setCurrentFile] = React.useState({})
+
+    useEffect(() => {
+
+      if(!checkFiles && (files.lenght !== totalFile || totalFile === 0)){
+        dispatch(actionGetDocuments(current_sub_cat_id))
+      }
+    }, [checkFiles] )
 
     const handleOpenModal = () => {
       setOpen(true);

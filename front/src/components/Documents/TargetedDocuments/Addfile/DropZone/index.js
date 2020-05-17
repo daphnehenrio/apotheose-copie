@@ -136,7 +136,6 @@ const AddFileDropzone = () => {
 
         dispatch(actionSendFiles(body, categoryFolder, subCategoryFolder));
         dispatch(actionOpenAddFile(false));
-        dispatch(actionOpenSuccessMessage(true));
 
     }
 

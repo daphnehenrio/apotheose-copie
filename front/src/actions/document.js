@@ -60,10 +60,12 @@ export const actionGetDocuments = (id) => ({
 /**
  * action  ➔ Set documents in reducer document
  * @param {array} data - array of object whith documents infos
+ * @param {number} id - sub_category_id
  */
-export const actionSetDocuments = (data) => ({
+export const actionSetDocuments = (data, id) => ({
   type: SET_DOCUMENTS,
-  data
+  data,
+  id
 })
 
 /**
@@ -77,7 +79,8 @@ export const actionGetOneFile = (id) => ({
 
 /**
  *
- * @param {*} file
+ * @param {string} file - response axios - url file
+ * @param {string} type_file - type of file 
  */
 export const actionSetOneFile = (file, type_file) => ({
   type: SET_ONE_FILE,

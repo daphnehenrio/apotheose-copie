@@ -11,6 +11,7 @@ import {
   GET_ONE_FILE,
   actionSetOneFile,
   DOWNLOAD_FILE,
+  actionOpenSuccessMessage,
 } from '../../actions/document';
 
 // == import local
@@ -58,7 +59,7 @@ export default (store) => (next) => (action) => {
           })
           .then((res) => {
             console.log(res)
-            store.dispatch(actionSetDocuments(res.data))
+            store.dispatch(actionSetDocuments(res.data, action.id))
           })
 
         } else {
@@ -91,6 +92,7 @@ export default (store) => (next) => (action) => {
             })
           .then((res) => {
             console.log('SEND FILES SUCCED')
+            store.dispatch(actionOpenSuccessMessage(true));
           })
           .catch((err) => {
             console.log(err);
