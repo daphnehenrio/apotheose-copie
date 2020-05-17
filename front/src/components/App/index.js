@@ -35,7 +35,6 @@ import Page403 from '../ErrorPages/403';
 import { actionGetAllArticles } from '../../actions/articles';
 import Article from '../Articles/Article';
 import AcceptTerms from '../AcceptTerms';
-import MyComponent from '../TEST';
 
 
 // -------------------------- styles composants --------------------------
@@ -187,10 +186,6 @@ const App = () => {
             <div>
               <AcceptTerms />
             </div>
-          </Route>
-
-          <Route exact path="/test">
-            <MyComponent />
           </Route>
 
           <Route
