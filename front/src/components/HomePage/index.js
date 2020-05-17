@@ -22,6 +22,24 @@ import { actionGetLastArticles } from '../../actions/articles';
 
 // -------------------------- styles composants --------------------------
 
+const StyledButton = withStyles({
+  root: {
+    position: 'relative',
+    bottom: '2rem',
+    float: 'right',
+    color: 'coral',
+    border: '2px solid coral',
+    backgroundColor: 'white',
+    transition: 'all 0.4s',
+    '&:hover': {
+      backgroundColor: 'coral',
+      color: 'white',
+      border: '2px solid coral',
+    }
+
+  },
+})(Button);
+
 
 // -------------------------- Export --------------------------
 
@@ -53,13 +71,16 @@ export default function HomePage() {
           <h2 className="page-title">ACCUEIL</h2>
         </Grid>
         <Grid item>
-          <div className="page-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
+        <div className="page-description-container">
+            <div className="page-description">
+              <p>
+                <strong>Administration</strong>. Si rien qu'à la vue de ce mot vous vous sentez perdu où désemparé, sachez qu'<strong>
+                  Aldahe </strong> est là pour vous aider à vous y retrouver. <em>Gérez</em> vos documents, <em>organisez-vous</em> grâce à des checklists gérées
+              automatiquement par nos soins, garder à porter de mains toutes les informations que <em>VOUS</em> jugez importantes,
+               bref simplifiez-vous la vie.
+            </p>
+            </div>
+
           </div>
         </Grid>
         <Grid

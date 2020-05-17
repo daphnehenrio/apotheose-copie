@@ -1,8 +1,8 @@
 @import 'src/styles/vars';
 
 .icon-menu {
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
   margin-right: 10px;
 }
 
@@ -28,7 +28,7 @@
 
 .MuiDrawer-paper.menu--drawer-paper {
   width: 240px;
-  background-color: $color-dark;
+  background-color: $color-background-menu;
 
 }
 
@@ -39,7 +39,7 @@
   z-index: 3;
   display: flex;
   align-items: center;
-  background-color: $color-dark;
+  background-color: $color-background-menu;
   border-right:none;
   padding: 0 1rem;
   justify-content: flex-end;
@@ -52,11 +52,11 @@
   align-items: center;
   text-decoration: none;
   &:hover {
-    background-color: $color-background;
+    background-color: $color-background-menu-hover;
     text-decoration: none;
   }
   &:focus {
-    background-color: $color-background;
+    background-color: $color-background-menu-hover;
   }
 
   &.home {
@@ -66,14 +66,14 @@
 
 .MuiExpansionPanel-root.menu--ExpansionPanel {
   box-shadow: none;
-  background-color: $color-dark;
+  background-color: $color-background-menu;
   color: $color-white;
 }
 
 .MuiExpansionPanel-root.menu--SubExpansionPanel {
 
   box-shadow: none;
-  background-color: $color-dark;
+  background-color: $color-background-menu;
   color: $color-white;
   &:hover {
       border-top-left-radius: 3rem;
@@ -84,7 +84,7 @@
 .MuiLink-root.menu--sublink {
   margin-top:  0.5rem;
   &:hover {
-      background-color: $color-background;
+      background-color: $color-background-menu-hover;
       text-decoration: none;
       border-top-left-radius: 3rem;
       border-bottom-left-radius: 3rem;
@@ -95,7 +95,7 @@
   display: flex;
   align-items: center;
   &:focus {
-      background-color: $color-background;
+      background-color: $color-background-menu;;
       border-top-left-radius: 3rem;
       border-bottom-left-radius: 3rem;
   }
@@ -143,10 +143,10 @@
   }
   .MuiExpansionPanelSummary-root {
     &:hover {
-        background-color: $color-background;
+        background-color: $color-background-menu-hover;
     };
     &:focus {
-        background-color: $color-background;
+        background-color: $color-background-menu-hover;
     };
     padding: 0.6rem 1rem;
   }
