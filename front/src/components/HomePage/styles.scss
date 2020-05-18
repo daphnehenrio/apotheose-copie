@@ -35,7 +35,7 @@
 }
 
 .page-description{
-    width: 50rem;
+    width: 95%;
     padding: 3rem 2rem;
     color: black;
     text-align: justify;
@@ -66,10 +66,12 @@
 }
 
 .page-content-title{
+  display: flex;
+  width: 100%;
     font-size: 2.5rem;
     text-transform: uppercase;
     margin: 5rem 0;
-    text-align: center;
+    justify-content: center;
     padding-bottom: 1rem;
   border-bottom: 1px solid $color-dark;
 
@@ -91,7 +93,7 @@
     border-radius: 5px;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
   .home-page--container{
     padding: 5rem 0;
   }
@@ -128,6 +130,30 @@
   }
 
   .page-description img{
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+    .curve{
+      width: 10rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+  .home-page--container{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .curve{
+    width: 7rem;
+  }
+}
+
+
+@media screen and (max-width: 643px) {
+  .curve{
     display: none;
   }
 }
