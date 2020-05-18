@@ -40,6 +40,8 @@ const emailController = require('./controllers/emailController');
 
 const memoController = require('./controllers/memoController');
 
+const noteController = require('./controllers/noteController');
+
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 const mainController = require('./controllers/mainController');
@@ -147,8 +149,18 @@ router.post('/memo/:id/:name', capture(memoController.addUser_info));
 
 router.get('/memo/:id', capture(memoController.getAllUser_info));
 
-router.get('/memo/:id/:name', capture(memoController.getOneUser_info));
+router.get('/memo/:id/:name/:memo_id', capture(memoController.getOneUser_info));
 
+router.patch('/memo/:id/:name/:memo_id', capture(memoController.updateUser_info));
+
+// -------------------- NOTE --------------------
+router.post('/note/:id', capture(noteController.addNote));
+
+router.get('/note/:id', capture(noteController.getAllNote));
+
+router.get('/note/:id/:note_id', capture(noteController.getOneNote));
+
+router.patch('/note/:id/:note_id', capture(noteController.updateNote));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD

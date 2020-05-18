@@ -32,8 +32,31 @@ const memoController = {
 
         await newUser_info.save();
 
-        console.log(newUser_info);
         res.send(newUser_info);
+        
+    },
+
+    updateUser_info: async (req, res) => {
+
+      const data = req.body; 
+      const param = req.params;  
+
+      const cat = await Category.findOne({
+        where: {
+            name: param.name
+        }
+      });
+
+      const memo = await User_info.findByPk(param.memo_id, {
+        where: {
+          user_id: param.id,
+          category_id: cat.id
+        },
+      });
+      
+      await memo.update(data);    
+
+      res.send(memo);
         
     },
 
@@ -47,7 +70,7 @@ const memoController = {
         }
       });
 
-      const user_info = await User_info.findOne({
+      const user_info = await User_info.findByPk(param.memo_id, {
         where: {
             user_id: param.id,  
             category_id: cat.id          
