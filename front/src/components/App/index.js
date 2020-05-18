@@ -38,6 +38,7 @@ import Article from '../Articles/Article';
 import AcceptTerms from '../AcceptTerms';
 
 
+
 // -------------------------- styles composants --------------------------
 
 const drawerWidth = 240;

@@ -36,6 +36,12 @@ const serviceController = require('./controllers/serviceController');
 
 const documentController = require('./controllers/documentController');
 
+const emailController = require('./controllers/emailController');
+
+const memoController = require('./controllers/memoController');
+
+const noteController = require('./controllers/noteController');
+
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 const mainController = require('./controllers/mainController');
@@ -52,7 +58,7 @@ router.get('/favicon.ico', (req, res) => res.status(204));
 
 
 
-// -------------------- USER--------------------
+// -------------------- USER --------------------
 
 // user profil
 router.get('/user/:id', auth, user_profilController.user_profilPage);
@@ -70,7 +76,7 @@ router.post('/logout', authController.logout);
 router.post('/signup', authController.signupAction);
 
 //account suppression
-router.delete('/profil/:id', userController.delete);
+router.delete('/profil/:id/:user_id', userController.delete);
 
 
 // -------------------- MENU --------------------
@@ -78,7 +84,7 @@ router.delete('/profil/:id', userController.delete);
 //left menu
 router.get('/left-menu', capture(leftMenu.getMenu));
 
-// -------------------- CATEGORY--------------------
+// -------------------- CATEGORY --------------------
 
 //categories
 router.get('/categories', capture(categoryController.categoriesPage));
@@ -113,7 +119,7 @@ router.get('/articles/search/:value', capture(articleController.searchArticle));
 router.get('/sub-category/:id/articles', capture(articleController.articleBySubCategory));
 
 
-// -------------------- DOCUMENTS--------------------
+// -------------------- DOCUMENTS --------------------
 
 //upload doc
 router.post('/upload-files', capture(documentController.check));
@@ -131,10 +137,30 @@ router.get('/file/:id/:document_id', auth, capture(documentController.download))
 
 router.get('/download', capture(documentController.download));
 
-
-
 router.post('/public/storage/:id/:category/:sub_category', auth, upload.single('file'), capture(documentController.upload));
 
+// -------------------- EMAILS --------------------
+
+//nodemailer
+router.post('/email', capture(emailController.emailer));
+
+// -------------------- MEMO --------------------
+router.post('/memo/:id/:name', capture(memoController.addUser_info));
+
+router.get('/memo/:id', capture(memoController.getAllUser_info));
+
+router.get('/memo/:id/:name/:memo_id', capture(memoController.getOneUser_info));
+
+router.patch('/memo/:id/:name/:memo_id', capture(memoController.updateUser_info));
+
+// -------------------- NOTE --------------------
+router.post('/note/:id', capture(noteController.addNote));
+
+router.get('/note/:id', capture(noteController.getAllNote));
+
+router.get('/note/:id/:note_id', capture(noteController.getOneNote));
+
+router.patch('/note/:id/:note_id', capture(noteController.updateNote));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
