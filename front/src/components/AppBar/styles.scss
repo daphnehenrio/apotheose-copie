@@ -1,12 +1,13 @@
 @import 'src/styles/vars';
 
+
 .MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary {
   background-color: $color-primary;
 }
 
 .styled.button {
 
-  background: $gradient-orange-violin;
+  background: local;
   color: white;
   &:hover {
     background-color: $color-background;
@@ -16,3 +17,30 @@
 .MuiToolbar-root .MuiSvgIcon-root{
   color: white;
 }
+
+.MuiAppBar-root{
+  background-color: #F50057;
+}
+
+.group-btn-icon{
+  display: flex;
+  align-items: center;
+}
+
+.responsive-log-btn{
+  display: none;
+}
+
+
+@media screen and (max-width: 550px) {
+  .group-btn-icon{
+    display: none;
+  }
+  .log-btn{
+    display: none;
+  }
+  .responsive-log-btn{
+    display: flex;
+  }
+}
+

@@ -23,6 +23,7 @@ import Signup from 'src/components/Signup';
 import DashBoard from 'src/components/DashBoard';
 import Profil from 'src/components/Profil';
 import TargetedDocuments from 'src/components/Documents/TargetedDocuments';
+import About from 'src/components/About';
 import DocumentsCategory from 'src/components/Documents/DocumentsCategory'
 import DocumentsSubCategory from 'src/components/Documents/DocumentsSubCategory'
 
@@ -116,6 +117,11 @@ const App = () => {
           <Route exact path="/">
             <div>
               <HomePage />
+            </div>
+          </Route>
+          <Route exact path='/infos'>
+            <div>
+              <About/>
             </div>
           </Route>
           {
