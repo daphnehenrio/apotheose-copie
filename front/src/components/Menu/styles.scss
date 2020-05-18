@@ -4,6 +4,7 @@
   width: 35px;
   height: 35px;
   margin-right: 10px;
+  filter: invert(0.8);
 }
 
 .tree-item-link{
@@ -61,7 +62,9 @@
   text-decoration: none;
   font-size: 1rem;
   &:hover {
-
+    .icon-menu {
+      filter: invert(0);
+    }
     background-color: $color-hover;
 
     text-decoration: none;
@@ -97,6 +100,9 @@
   &:hover {
       border-top-left-radius: 3rem;
       border-bottom-left-radius: 3rem;
+      .icon-menu {
+        filter: invert(0);
+      }
   }
 }
 
@@ -108,8 +114,10 @@
   &:hover {
       background-color: rgba($color-primary, $alpha: 1);
       color: $color-white;
-
       text-decoration: none;
+      .icon-menu {
+        filter: invert(0);
+      }
   }
   padding: 1.5rem 1rem;
   text-decoration: none;
@@ -167,7 +175,9 @@
   }
   .MuiExpansionPanelSummary-root {
     &:hover {
-
+      .icon-menu {
+        filter: invert(0);
+      }
       text-decoration: none;
       background-color: #1B4353;
       color: white;
