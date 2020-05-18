@@ -47,7 +47,7 @@ const GlobalCss = withStyles({
   '@global': {
     // You should target [class*="MuiButton-root"] instead if you nest themes.
     '.MuiAppBar-colorPrimary': {
-      backgroundColor: '#0f4c81',
+      backgroundColor: '#3a5892',
     },
   },
 })(() => null);
