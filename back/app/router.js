@@ -76,7 +76,7 @@ router.post('/logout', authController.logout);
 router.post('/signup', authController.signupAction);
 
 //account suppression
-router.delete('/profil/:id', userController.delete);
+router.delete('/profil/:id/:user_id', userController.delete);
 
 
 // -------------------- MENU --------------------
