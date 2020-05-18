@@ -13,8 +13,6 @@ import Dropzone, { defaultClassNames } from 'react-dropzone-uploader'
 
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import RemoveIcon from '@material-ui/icons/Remove';
-
 // == Import images
 import Doc from 'src/assets/image/documents/doc.png';
 
@@ -49,13 +47,14 @@ const Preview = ({ fileWithMeta, meta }) => {
         }
         return
       })
-    console.log("value: ", value)
 
       if (value){
 
         return value.name
       } else return
     }
+
+    const path = window.location.path
 
     return (
         <div className='file-box'>
@@ -82,7 +81,6 @@ const Preview = ({ fileWithMeta, meta }) => {
                 value={findValue()}
                 onChange={(evt) => {
                     dispatch(actionChangeFileName(id, evt.target.value));
-                    console.log(evt.target.value, 'filesssssssssssssssssssss');
                 }}
             />
 
@@ -91,7 +89,6 @@ const Preview = ({ fileWithMeta, meta }) => {
 }
 
 const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles } }) => {
-    console.log(files, 'dropzone props');
     return (
         <div>
             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -115,26 +112,35 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
 
 const AddFileDropzone = () => {
     const dispatch = useDispatch();
-    // const files = useSelector((state) => state.document.filesToUpload);
+    const files = useSelector((state) => state.document.filesToUpload);
+
+
+    const path = window.location.pathname
+    const pathArray = path.split(new RegExp('/'))
+    console.log(pathArray);
+    const categoryFolder = pathArray[2];
+    const subCategoryFolder = pathArray[3]
 
     const getUploadParams = ({ file, meta }) => {
 
+        const goodMeta = files.find((file) => meta.id === file.id);
+
         const body = new FormData();
         body.append('file', file);
-        meta.name = 'tets';
+        meta.name = goodMeta.name;
         body.append('meta', JSON.stringify(meta));
         // console.log('C LA METAAAAA', meta);
         // console.log(Array.from(body), 'C LE BOOOODYYYY');
 
-        dispatch(actionSendFiles(body));
+        console.log("METANAME", meta.name)
+
+        dispatch(actionSendFiles(body, categoryFolder, subCategoryFolder));
         dispatch(actionOpenAddFile(false));
-        dispatch(actionOpenSuccessMessage(true));
 
     }
 
     const handleChangeStatus = ({ meta }) => {
         const { name, id, status } = meta;
-        console.log(meta, 'STATUS AND META');
         if (status === 'done') {
             dispatch(actionAddFileToState(id, name));
         }
@@ -144,9 +150,7 @@ const AddFileDropzone = () => {
 
     const handleSubmit = (files, allFiles) => {
         /* dispatch(actionSendFiles(files)); */
-        console.log(files, 'ON SUBMIT FILES');
         files.forEach(doc => {
-            console.log(doc, 'C LE DOOOOOC');
             getUploadParams(doc);
         });
 
@@ -162,7 +166,7 @@ const AddFileDropzone = () => {
                 onSubmit={handleSubmit}
                 autoUpload={false}
                 PreviewComponent={Preview}
-                accept="application/pdf"
+                accept="application/pdf, image/*"
                 inputContent={(files, extra) => (extra.reject ? 'Seul les fichiers pdf sont acceptés' : 'Ajoutez un document ...')}
                 classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
                 inputWithFilesContent='Ajoutez un document ...'

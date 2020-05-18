@@ -1,7 +1,8 @@
 @import 'src/styles/vars';
 
-.MuiAppBar-colorPrimary {
-  background-color: $color-primary !important;
+
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary {
+  background-color: $color-primary;
 }
 
 .styled.button {
@@ -16,7 +17,6 @@
 .MuiToolbar-root .MuiSvgIcon-root{
   color: white;
 }
-
 
 .MuiAppBar-root{
   background-color: #F50057;
@@ -43,3 +43,4 @@
     display: flex;
   }
 }
+

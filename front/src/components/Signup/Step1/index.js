@@ -9,6 +9,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormLabel';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 
 // == import actions local
 import {
@@ -19,6 +22,7 @@ import {
   actionSetConfirmPasswordValue,
   actionSetConfirmPassword,
   actionSetEmail,
+  actionSetAcceptTerms
 } from 'src/actions/signup';
 
 
@@ -27,13 +31,14 @@ import {
 export default function Step1() {
   const dispatch = useDispatch();
   const {
-    user, missingField, isPasswordCorrect, passwordStrength, emailExists, errorListSignup,
+    user, missingField, isPasswordCorrect, passwordStrength, emailExists, errorListSignup, acceptTerms
   } = useSelector((state) => state.signup);
   console.log(user);
   const [values, setValues] = React.useState({
     showPassword: false,
   });
 
+  const [checked, setChecked] = React.useState(false);
 
   // -------------------------- Fonctions State & Dispatch --------------------------
 
@@ -54,6 +59,10 @@ export default function Step1() {
     else {
       return false;
     }
+  };
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
   };
 
   // -------------------------- Return --------------------------
@@ -178,6 +187,19 @@ export default function Step1() {
             ),
           }}
         />
+
+      <FormControlLabel
+        required
+        control={
+          <Checkbox
+            checked={acceptTerms}
+            onChange={() => dispatch(actionSetAcceptTerms())}
+            name="accptTerms"
+            color="primary"
+          />
+        }
+        label="J'accèpte les conditions générales d'utilisations"
+      />
       </div>
 
       {!passwordStrength && (
@@ -194,6 +216,12 @@ export default function Step1() {
               {error}
             </p>
           ))}
+        </Alert>
+      )}
+      {!acceptTerms && missingField && (
+        <Alert severity="error">
+          <AlertTitle>Attention</AlertTitle>
+          Vous devez accepter les conditions générales pour vous inscrire
         </Alert>
       )}
     </form>

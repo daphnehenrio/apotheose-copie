@@ -338,7 +338,6 @@ export default function Profil() {
                       dispatch(actionAddInfoSup(infos));
                       dispatch(actionClearAddInfoSup());
                       document.getElementById('add-info-sup-title').focus();
-                      console.log(infosSup);
                     }
                   }}
                   className="add-infos-sup-container"

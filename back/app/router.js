@@ -1,13 +1,20 @@
 const express = require('express');
 
 // == Factorisation du try catch
-const capture = require('./controllers/capture');
+const capture = require('./utils/capture');
 
+// == upload with multer
 const multer = require('multer');
 
-// == Lister le contenu des table le temps de la phase de dev
-// FIXME: A SUPPRIMER SUR LA VERSION PROD
-const mainController = require('./controllers/mainController');
+const storage = multer.diskStorage({
+  destination: './public/uploads',
+  filename(req, file, cb) {
+    cb(null, `${new Date()}-${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage });
+
 
 // == require middleware
 const auth = require('./middlewares/auth');
@@ -29,6 +36,11 @@ const serviceController = require('./controllers/serviceController');
 
 const documentController = require('./controllers/documentController');
 
+// == Lister le contenu des table le temps de la phase de dev
+// FIXME: A SUPPRIMER SUR LA VERSION PROD
+const mainController = require('./controllers/mainController');
+
+
 // == router
 const router = express.Router();
 
@@ -38,14 +50,20 @@ router.get('/', userController.homePage);
 
 router.get('/favicon.ico', (req, res) => res.status(204));
 
+
+
+// -------------------- USER--------------------
+
+// user profil
 router.get('/user/:id', auth, user_profilController.user_profilPage);
 
+// update profil
 router.patch('/update-user', auth, capture(userController.update));
 
 //connexion
 router.post('/login', authController.loginAction);
 
-//connexion
+//déconnexion
 router.post('/logout', authController.logout);
 
 //inscription
@@ -54,8 +72,30 @@ router.post('/signup', authController.signupAction);
 //account suppression
 router.delete('/profil/:id', userController.delete);
 
+
+// -------------------- MENU --------------------
+
 //left menu
 router.get('/left-menu', capture(leftMenu.getMenu));
+
+// -------------------- CATEGORY--------------------
+
+//categories
+router.get('/categories', capture(categoryController.categoriesPage));
+
+//specific category
+router.get('/categories/:name', capture(categoryController.categoryPage));
+
+// -------------------- SERVICES --------------------
+
+//services
+router.get('/services', capture(serviceController.servicesPage));
+
+//specific services category
+router.get('/category/:id/services', capture(serviceController.servicesCategoryPage));
+
+
+// -------------------- ARTICLES --------------------
 
 //article home page
 router.get('/articles/last', capture(articleController.homePage));
@@ -69,44 +109,37 @@ router.get('/article/:id', capture(articleController.getOneArticle));
 //article one
 router.get('/articles/search/:value', capture(articleController.searchArticle));
 
-
-
 //article by sub_category
 router.get('/sub-category/:id/articles', capture(articleController.articleBySubCategory));
 
-//categories
-router.get('/categories', capture(categoryController.categoriesPage));
 
-//specific category
-router.get('/categories/:name', capture(categoryController.categoryPage));
-
-//services
-router.get('/services', capture(serviceController.servicesPage));
-
-//specific services category
-router.get('/category/:id/services', capture(serviceController.servicesCategoryPage));
+// -------------------- DOCUMENTS--------------------
 
 //upload doc
 router.post('/upload-files', capture(documentController.check));
 
-//documents user
-router.get('/mes-documents/:id', auth, capture(documentController.allDocuments));
+// documents folders
+router.get('/documents/categories', capture(documentController.allCategories))
+
+// user's documents by sub_category :id => user_id
+router.get('/my-documents/:id/sub_category/:sub_category_id', auth, capture(documentController.documentsBySubCategory));
+
+
+router.get('/my-documents/:id/all', auth, capture(documentController.allDocuments));
+
+router.get('/file/:id/:document_id', auth, capture(documentController.download))
+
+router.get('/download', capture(documentController.download));
+
+
+
+router.post('/public/storage/:id/:category/:sub_category', auth, upload.single('file'), capture(documentController.upload));
+
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 router.get('/contenu-table/:class', capture(mainController.getAll));
 
-const storage = multer.diskStorage({
-  destination: './public/uploads',
-  filename(req, file, cb) {
-    cb(null, `${new Date()}-${file.originalname}`);
-  },
-});
-
-
-const upload = multer({ storage });
-
-router.post('/public/storage', upload.single('file'), capture(documentController.upload));
 
 // 404
 router.use((req, res) => {

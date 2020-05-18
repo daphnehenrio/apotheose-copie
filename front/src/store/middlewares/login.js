@@ -50,7 +50,7 @@ export default (store) => (next) => (action) => {
               }));
               // 2. => set timeout clear token
               let logoutTimer = setTimeout(function() { window.sessionStorage.clear(); }, (10 * 60 * 1000));
-              console.log(logoutTimer)
+
               // 3. => set profil
               store.dispatch(actionSetProfil(res.data.user));
               // 4. => close form

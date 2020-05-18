@@ -42,7 +42,6 @@ const StyledButton = withStyles({
 })(Button);
 
 
-
 // -------------------------- Export --------------------------
 
 export default function HomePage() {
@@ -88,6 +87,7 @@ export default function HomePage() {
         <StyledButton variant="outlined" onClick={(event) => preventDefault(event, '/infos')}>
           EN SAVOIR PLUS
             </StyledButton>
+
       </Grid>
       <h3 className="page-content-title">Derniers articles</h3>
 

@@ -12,13 +12,9 @@ import slugify from '@sindresorhus/slugify';
 // == import Material UI
 import Link from '@material-ui/core/Link';
 import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
 // == import actions
 import { actionChangePage } from 'src/actions/routes';
 import { actionGetServices, actionGetAllServices } from 'src/actions/services';
-import { Typography } from '@material-ui/core';
 
 
 // == export

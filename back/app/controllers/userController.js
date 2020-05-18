@@ -25,6 +25,8 @@ const userController = {
 
   update: async (req, res, next) => {
 
+    console.log(req.body)
+
     try {
 
       const userLogin = req.body.login;
@@ -33,8 +35,6 @@ const userController = {
           login: userLogin
         },
       }));
-
-      console.log(req.body);
 
       const user_profilId = user.id;
       const user_profil = await User_profil.findByPk(user_profilId);
@@ -51,7 +51,7 @@ const userController = {
           {
             association : 'user_profil',
           }
-      ]
+        ]
       }));
 
       res.send(userUpdate);

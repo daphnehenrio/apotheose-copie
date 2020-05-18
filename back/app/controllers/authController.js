@@ -1,6 +1,8 @@
-const { User, User_profil } = require('../models');
+const { User, User_profil,Category, Sub_category  } = require('../models');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
+const mkdirp = require('mkdirp');
+const slugify = require("slugify");
 
 //password verify
 const emailValidator = require('email-validator');
@@ -11,7 +13,7 @@ const bcrypt = require('bcryptjs');
 const authController = {
 
   // connexion form
-  loginAction:  (req, res) => {
+  loginAction: (req, res) => {
     // recup form
     const {login, password} = req.body;
 
@@ -21,7 +23,7 @@ const authController = {
         login: login
       },
       include:  ["user_profil"]
-    }).then( (user) => {
+    }).then( async (user) => {
 
       // if not exist => error
       if (!user) {
@@ -34,13 +36,33 @@ const authController = {
         return res.send("Le mot de passe saisi est incorrect");
       }
 
+      let category = await Category.findAll({
+        where: {
+          type_id : 2
+        },
+        include : ['sub_category'],
+        order: [
+          ['name', 'ASC'],
+        ],
+      });
+
+        for (let i=0; i<category.length; i++) {
+
+          category[i].dataValues.sub_category.map((sub_cat)=>{
+
+              mkdirp(`./public/uploads/${user.folder_name}/${slugify(category[i].dataValues.name).toLowerCase()}/${slugify(sub_cat.name).toLowerCase()}`, function(err) {
+
+              });
+
+          })
+
+        };
+
       const token = jwt.sign({ userId: user.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
-      console.log(token)
 
       // All is good => add user on session
       req.session.user = user ;
 
-      console.log(req.session.user, 'user login')
       // redirect user at "/"
 
       res.send({ user, token });
@@ -69,7 +91,6 @@ const authController = {
 
     }).then( async (user) => {
 
-      console.log("test");
       // list to take errors
       let errorsList = [];
 
@@ -106,7 +127,6 @@ const authController = {
       if (data.password.length < 8) {
         errorsList.push("Le mot de passe doit contenir un minimum de 8 caractères");
       }
-      console.log(errorsList)
 
       // Insertion on DB
       // errorsList is null if  "ok"
@@ -118,6 +138,7 @@ const authController = {
         newUser.first_name = data.first_name;
         newUser.last_name = data.last_name;
         newUser.email = data.email;
+        newUser.folder_name = bcrypt.hashSync(data.login).replace(/\//gi, "");
         // HASH password
         newUser.password = bcrypt.hashSync(data.password, 10);
 
@@ -161,11 +182,30 @@ const authController = {
         })
 
         const token = jwt.sign({ userId: myNewUser.id }, process.env.TOKEN_GENERATE_TOKEN , { expiresIn: '1h' });
-        console.log(token)
-
-        console.log(sendUser)
 
         res.send({sendUser, token});
+
+        let category = await Category.findAll({
+          where: {
+            type_id : 2
+          },
+          include : ['sub_category'],
+          order: [
+            ['name', 'ASC'],
+          ],
+        });
+
+          for (let i=0; i<category.length; i++) {
+
+            category[i].dataValues.sub_category.map((sub_cat)=>{
+
+                mkdirp(`./public/uploads/${newUser.folder_name}/${slugify(category[i].dataValues.name).toLowerCase()}/${suglify(sub_cat.name).toLowerCase()}`, function(err) {
+
+                });
+
+            })
+
+          };
 
 
       } else {
@@ -186,6 +226,5 @@ const authController = {
   }
 
 };
-
 
 module.exports = authController;

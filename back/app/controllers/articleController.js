@@ -46,8 +46,6 @@ const articleController = {
           },
         ],
       });
-      console.log(article)
-
 
       res.send(article);
 

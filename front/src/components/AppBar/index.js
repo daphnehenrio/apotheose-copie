@@ -34,6 +34,7 @@ import { actionSetLoginForm, actionSetDrawer } from 'src/actions/toggle';
 import { actionLogout } from 'src/actions/login';
 import { actionChangePage } from 'src/actions/routes';
 import { actionSetConnected } from 'src/actions/user_profil';
+import { actionGetFolder } from 'src/actions/document'
 
 // == import style
 import './styles.scss';
@@ -47,12 +48,8 @@ const GlobalCss = withStyles({
   '@global': {
     // You should target [class*="MuiButton-root"] instead if you nest themes.
     '.MuiAppBar-colorPrimary': {
-      backgroundColor: '#0f4c81',
+      backgroundColor: '#3a5892',
     },
-    /*  '.MuiToolbar-root': {
-           minWidth: '870px',
-         } */
-
   },
 })(() => null);
 
@@ -177,6 +174,13 @@ export default function PersistentDrawerLeft() {
     event.preventDefault();
     dispatch(actionChangePage(route, history));
   };
+
+  const getFolder = (event, route) => {
+    event.preventDefault();
+    dispatch(actionGetFolder())
+    dispatch(actionChangePage(route, history));
+  };
+
 
 
   const ProfilIcon = () => (

@@ -71,8 +71,6 @@ export default function EditProfil() {
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(errors);
     dispatch(actionSaveUpdateProfil(data));
   };
 
@@ -93,6 +91,12 @@ export default function EditProfil() {
   const handleChangeStatut = (event) => {
     setStatut(event.target.value);
   };
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
 
   return (
     <div className="edit-profil-form">
@@ -190,10 +194,10 @@ export default function EditProfil() {
                     inputRef={register()}
                     onChange={handleChangeStatut}
                   >
-                    <MenuItem name="statut" value="Marié">Marié</MenuItem>
-                    <MenuItem name="statut" value="Célibataire">Célibataire</MenuItem>
-                    <MenuItem name="statut" value="Pacsé">Pacsé</MenuItem>
-                    <MenuItem name="statut" value="Concubinage">En concubinage</MenuItem>
+                    <MenuItem name="opitionStatut" value="Marié">Marié</MenuItem>
+                    <MenuItem name="opitionStatut" value="Célibataire">Célibataire</MenuItem>
+                    <MenuItem name="opitionStatut" value="Pacsé">Pacsé</MenuItem>
+                    <MenuItem name="opitionStatut" value="Concubinage">En concubinage</MenuItem>
                   </Select>
                 </GenderInput>
                 <TextField

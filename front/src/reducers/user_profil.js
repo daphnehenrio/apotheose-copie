@@ -28,7 +28,6 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_PROFIL: {
       const { user } = action;
-      console.log(user);
 
       return {
         ...state,
