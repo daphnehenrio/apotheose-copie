@@ -32,7 +32,7 @@ function TabPanel(props) {
 
   return (
     <div
-      calssName="tab-panel"
+      className="tab-panel"
       role="tabpanel"
       hidden={value !== index}
       id={`scrollable-force-tabpanel-${index}`}

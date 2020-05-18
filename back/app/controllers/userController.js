@@ -29,30 +29,35 @@ const userController = {
 
     try {
 
-      const userLogin = req.body.login;
-      const user = await User.findOne(({
-        where: {
-          login: userLogin
-        },
-      }));
-
-      const user_profilId = user.id;
-      const user_profil = await User_profil.findByPk(user_profilId);
-
-      await user.update(req.body);
-
-      await user_profil.update(req.body);
-
-      const userUpdate = await User.findOne(({
-        where: {
-          login: userLogin
-        },
+      const user = await User.findByPk(req.body.user_id, {
         include : [
           {
             association : 'user_profil',
           }
         ]
-      }));
+      });
+
+      console.log(user, 'JE SUIS LE USER');
+
+      const user_profilId = user.user_profil.id;
+      console.log(user_profilId)
+      const user_profil = await User_profil.findByPk(user_profilId);
+
+      console.log(user_profil, 'JE SUIS UNE VALEUR NULL');
+
+      await user.update(req.body);
+
+      await user_profil.update(req.body);
+
+      const userUpdate = await User.findByPk(req.body.user_id, {
+        include : [
+          {
+            association : 'user_profil',
+          }
+        ]
+      });
+
+      console.log(userUpdate)
 
       res.send(userUpdate);
 
