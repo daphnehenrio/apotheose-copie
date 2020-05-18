@@ -36,6 +36,8 @@ const serviceController = require('./controllers/serviceController');
 
 const documentController = require('./controllers/documentController');
 
+const emailController = require('./controllers/emailController');
+
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 const mainController = require('./controllers/mainController');
@@ -131,7 +133,10 @@ router.get('/file/:id/:document_id', auth, capture(documentController.download))
 
 router.get('/download', capture(documentController.download));
 
+// -------------------- EMAILS--------------------
 
+//nodemailer
+router.post('/email', capture(emailController.emailer));
 
 router.post('/public/storage/:id/:category/:sub_category', auth, upload.single('file'), capture(documentController.upload));
 
