@@ -55,10 +55,8 @@
     "axios": "^0.19.2",
     "custom-error": "^0.2.1",
     "email-validator": "^2.0.4",
-
     "framer": "^1.1.7",
-    "framer-motion": "^1.10.3",
-
+    "framer-motion": "^1.11.0",
     "fs": "^0.0.1-security",
     "hex-and-rgba": "^1.4.2",
     "moment": "^2.25.3",

@@ -192,7 +192,7 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </Tooltip>
         <Tooltip title="Mes documents" arrow>
-          <Link onClick={(event) => preventDefault(event, '/mes-documents')}>
+          <Link onClick={(event) => getFolder(event, '/mes-documents')}>
             <IconButton aria-label="documents">
               <FolderIcon />
             </IconButton>
