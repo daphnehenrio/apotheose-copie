@@ -12,7 +12,7 @@ const emailController = {
       const mailAccountPassword = '[pass]'
 
       const fromEmailAddress = 'aldahe[add]@gmail.com'
-      const toEmailAddress = 'aldahe[add]@gmail.com'
+      const toEmailAddress = '[add user email]'
 
       let transport = nodemailer.createTransport(smtpTransport({
         service: 'gmail',
@@ -44,7 +44,7 @@ const emailController = {
       });
     
         res.status(200).send('ok');
-        
+
     },
 
 };
