@@ -66,10 +66,6 @@ export default function HomePage() {
         alignItems="center"
         spacing={5}
       >
-
-        <Grid item>
-          <h2 className="page-title">ACCUEIL</h2>
-        </Grid>
         <Grid item>
         <div className="page-description-container">
             <div className="page-description">
