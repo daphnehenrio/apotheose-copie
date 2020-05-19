@@ -11,13 +11,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+
 
 // == import actions local
 import {
@@ -30,7 +24,6 @@ import {
   actionSetEmail,
   actionSetAcceptTerms
 } from 'src/actions/signup';
-import DialogTerms from '../DialogTerms';
 
 
 // -------------------------- Export --------------------------
@@ -195,19 +188,18 @@ export default function Step1() {
           }}
         />
 
-        <FormControlLabel
-          required
-          control={
-            <Checkbox
-              checked={acceptTerms}
-              onChange={() => dispatch(actionSetAcceptTerms())}
-              name="accptTerms"
-              color="primary"
-            />
-          }
-          label="J'accèpte les conditions générales d'utilisations"
-        />
-        <DialogTerms />
+      <FormControlLabel
+        required
+        control={
+          <Checkbox
+            checked={acceptTerms}
+            onChange={() => dispatch(actionSetAcceptTerms())}
+            name="accptTerms"
+            color="primary"
+          />
+        }
+        label="J'accèpte les conditions générales d'utilisations"
+      />
       </div>
 
       {!passwordStrength && (

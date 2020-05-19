@@ -1,10 +1,9 @@
 @import 'src/styles/vars';
 
 .icon-menu {
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
   margin-right: 10px;
-  filter: invert(0.8);
 }
 
 .tree-item-link{
@@ -19,7 +18,7 @@
 }
 
 .MuiCollapse-container .MuiSvgIcon-root {
-  color: $color-dark;
+  color: white;
 }
 
 .MuiDrawer-root.menu--drawer {
@@ -29,8 +28,7 @@
 
 .MuiDrawer-paper.menu--drawer-paper {
   width: 240px;
-  background-color: $color-white;
-
+  background-color: $color-dark;
 
 }
 
@@ -41,42 +39,24 @@
   z-index: 3;
   display: flex;
   align-items: center;
-  background-color: $color-primary;
-
+  background-color: $color-dark;
   border-right:none;
   padding: 0 1rem;
   justify-content: flex-end;
-  box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.2) ;
-
-  /*
-      // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  */
 }
 
 .MuiLink-root.menu--link {
-  color: $color-dark;
+  color: white;
   display: flex;
   padding: 1.5rem 1rem;
   align-items: center;
   text-decoration: none;
-  font-size: 1rem;
   &:hover {
-    .icon-menu {
-      filter: invert(0);
-    }
-    background-color: $color-hover;
-
+    background-color: $color-background;
     text-decoration: none;
-    background-color: #1B4353;
-    color: white;
   }
   &:focus {
-
-    background-color: $color-primary;
-    text-decoration: none;
-    background-color: #1B4353;
-    color: white;
+    background-color: $color-background;
   }
 
   &.home {
@@ -86,56 +66,44 @@
 
 .MuiExpansionPanel-root.menu--ExpansionPanel {
   box-shadow: none;
-  background-color: $color-white;
-  color: $color-dark;
-
+  background-color: $color-dark;
+  color: $color-white;
 }
 
 .MuiExpansionPanel-root.menu--SubExpansionPanel {
 
   box-shadow: none;
-  background-color: $color-white;
-  color: $color-dark;
-
+  background-color: $color-dark;
+  color: $color-white;
   &:hover {
       border-top-left-radius: 3rem;
       border-bottom-left-radius: 3rem;
-      .icon-menu {
-        filter: invert(0);
-      }
   }
 }
 
 .MuiLink-root.menu--sublink {
   margin-top:  0.5rem;
-  transition: all 0.4s ease;
-  border-top-left-radius: 3rem;
-  border-bottom-left-radius: 3rem;
   &:hover {
-      background-color: rgba($color-primary, $alpha: 1);
-      color: $color-white;
+      background-color: $color-background;
       text-decoration: none;
-      .icon-menu {
-        filter: invert(0);
-      }
+      border-top-left-radius: 3rem;
+      border-bottom-left-radius: 3rem;
   }
   padding: 1.5rem 1rem;
   text-decoration: none;
-  color: $color-dark;
+  color: $color-white;
   display: flex;
   align-items: center;
   &:focus {
-      background-color: $color-primary;
-
+      background-color: $color-background;
       border-top-left-radius: 3rem;
       border-bottom-left-radius: 3rem;
-      color: white;
   }
   margin-bottom: 0.5rem;
 }
 
 .MuiSvgIcon-root.menu--ExpandMoreIcon {
-  color: $color-dark;
+  color: white;
 }
 
 .toogle-menu{
@@ -175,23 +143,10 @@
   }
   .MuiExpansionPanelSummary-root {
     &:hover {
-      .icon-menu {
-        filter: invert(0);
-      }
-      text-decoration: none;
-      background-color: #1B4353;
-      color: white;
-      .MuiSvgIcon-root.menu--ExpandMoreIcon{
-        color: white;
-      }
+        background-color: $color-background;
     };
     &:focus {
-        text-decoration: none;
-        background-color: #1B4353;
-        color: white;
-        .MuiSvgIcon-root.menu--ExpandMoreIcon{
-          color: white;
-        }
+        background-color: $color-background;
     };
     padding: 0.6rem 1rem;
   }
@@ -205,8 +160,6 @@
 }
 .app .MuiExpansionPanelSummary-content {
   margin: 0;
-  display: flex;
-  align-items: center;
 }
 .app .MuiExpansionPanelSummary-content.Mui-expanded {
   margin: 0;
@@ -217,18 +170,4 @@
   width: 0;
 }
 
-
-.responsive-group-btn-icon{
-  display: none;
-  margin-right: 2rem;
-}
-
-@media screen and (max-width: 550px) {
-  .responsive-group-btn-icon{
-    display: flex;
-    .MuiSvgIcon-root{
-      color: white;
-    }
-  }
-}
 

@@ -57,7 +57,6 @@ router.get('/', userController.homePage);
 router.get('/favicon.ico', (req, res) => res.status(204));
 
 
-
 // -------------------- USER --------------------
 
 // user profil
@@ -73,7 +72,7 @@ router.post('/login', authController.loginAction);
 router.post('/logout', authController.logout);
 
 //inscription
-router.post('/signup', authController.signupAction);
+router.post('/signup', authController.signupAction, emailController.emailValidator);
 
 //account suppression
 router.delete('/profil/:id/:user_id', userController.delete);
@@ -142,7 +141,7 @@ router.post('/public/storage/:id/:category/:sub_category', auth, upload.single('
 // -------------------- EMAILS --------------------
 
 //nodemailer
-router.post('/email', capture(emailController.emailer));
+//router.post('/email', capture(emailController.emailer));
 
 // -------------------- MEMO --------------------
 router.post('/memo/:id/:name', capture(memoController.addUser_info));

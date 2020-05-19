@@ -14,32 +14,6 @@
 
 
 .MuiCardContent-root {
-  height: fit-content;
+  height: 20rem;
   overflow-y: hidden;
-}
-
-
-.MuiCardContent-root{
-  height: 15rem;
-  
-  
-}
-
-.MuiTypography-body2{
-
-  overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 5; /* number of lines to show */
-   -webkit-box-orient: vertical;
-}
-
-.MuiCardMedia-root{
-  height: 12rem;
-}
-
-.root-card{
-  width: 90%;
-  margin: 0 auto;
-  margin-bottom: 1rem;
 }

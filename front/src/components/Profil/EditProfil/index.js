@@ -17,8 +17,6 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
-
 // == Import actions
 
 import {
@@ -71,8 +69,7 @@ export default function EditProfil() {
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
-    const allData = {...data, gender, statut}
-    dispatch(actionSaveUpdateProfil(allData));
+    dispatch(actionSaveUpdateProfil(data));
   };
 
 
@@ -93,6 +90,11 @@ export default function EditProfil() {
     setStatut(event.target.value);
   };
 
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
 
   return (
     <div className="edit-profil-form">
@@ -126,7 +128,17 @@ export default function EditProfil() {
                 />
               </div>
               <FormLabel component="legend" className="form-group-label">Information de connexion</FormLabel>
-
+              <TextField
+                id="login"
+                label="Nom d'utilisateur *"
+                name="login"
+                defaultValue={user.login}
+                inputRef={register({ required: true, maxLength: 76 })}
+                error={errors.login}
+                helperText={(errors.login && errors.login.type === 'required') && 'Ce champs est obligatoire' || (errors.login && errors.login.type === 'maxLength') && ('maximum 76 caractères')}
+                variant="outlined"
+                fullWidth
+              />
               <TextField
                 id="email"
                 label="Email *"

@@ -12,23 +12,15 @@ import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
-import InputBase from '@material-ui/core/InputBase';
 
-import Plus from 'src/assets/image/documents/plus.png';
+import InputBase from '@material-ui/core/InputBase';
 
 
 import {
   actionSetNoteContent,
   actionChangeNoteContent,
-  actionOpenAddNote,
-  actionSetNewTitle,
-  actionSetNewContent,
-  actionSaveNewNote
 } from 'src/actions/user_note';
 
-
-import './styles.scss';
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
@@ -49,7 +41,7 @@ const NotepadContent = withStyles({
 const Note = () => {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
-  const { noteContent, notes, addNote, newNoteContent, newNoteTitle } = useSelector(((state) => state.user_note));
+  const { noteContent, notes } = useSelector(((state) => state.user_note));
 
 
   const handleClickOpen = (noteContent, noteID, noteTitle) => {
@@ -74,18 +66,6 @@ const Note = () => {
     };
     dispatch(actionSetNoteContent(noteObj));
   };
-
-  const handleChangeTiltle = (value) => {
-    dispatch(actionSetNewTitle(value))
-  }
-
-  const handleChangeContent = (value) => {
-    dispatch(actionSetNewContent(value))
-  }
-
-  const handleCloseAddNote = () => {
-    dispatch(actionOpenAddNote())
-  }
 
 
   const noteCards = notes.map((note) => {
@@ -114,65 +94,28 @@ const Note = () => {
     );
   });
 
+
   return (
     <div className="tab-content">
-
+      {/* <Paper className='notes-infos' onClick={console.log('test')}>
+                <div className='note-header'>
+                    <h4 className='notes-infos-title'>Note 1</h4>
+                    <IconButton aria-label="delete" onClick={(evt) => {
+                        getNoteContent('1');
+                        handleClickOpen();
+                    }}>
+                        <EditIcon />
+                    </IconButton>
+                </div>
+                <p className='note-body' noteid='1' onDoubleClick={(evt) => {
+                    dispatch(actionSetNoteContent(evt.target.textContent));
+                    handleClickOpen();
+                }}>
+                    {noteContent}
+                </p>
+            </Paper> */}
       {noteCards}
 
-      <Tooltip title="Ajouter une note" placement="right-start">
-        <img className='note-plus' src={Plus} onClick={(evt) => {
-            dispatch(actionOpenAddNote());
-        }} />
-      </Tooltip>
-
-        {/* Ajouter une nouvelle note */}
-      <Notepad
-      open={addNote}
-      TransitionComponent={Transition}
-      keepMounted
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-slide-title"
-      aria-describedby="alert-dialog-slide-description"
-    >
-      <DialogTitle>
-        <NotepadContent
-          id="filled-multiline-flexible"
-          multiline
-          value={newNoteTitle}
-          onChange={(evt) => {
-            handleChangeTiltle(evt.target.value);
-          }}
-        />
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">
-          <NotepadContent
-            id="filled-multiline-flexible"
-            multiline
-            value={newNoteContent}
-            onChange={(evt) => {
-              handleChangeContent(evt.target.value);
-            }}
-          />
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          onClick={(evt) => {
-            dispatch(actionSaveNewNote());
-            handleCloseAddNote();
-          }}
-          color="secondary"
-        >
-          Sauvegarder
-        </Button>
-        <Button onClick={handleCloseAddNote}>
-          Fermer
-        </Button>
-      </DialogActions>
-    </Notepad>
-
-        {/* Modifier une note existante */}
       <Notepad
         open={open}
         TransitionComponent={Transition}
@@ -218,8 +161,6 @@ const Note = () => {
           </Button>
         </DialogActions>
       </Notepad>
-
-
     </div>
   );
 };

@@ -24,7 +24,6 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import FolderIcon from '@material-ui/icons/Folder';
 import CreateIcon from '@material-ui/icons/Create';
 import Badge from '@material-ui/core/Badge';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 // == import composants local
 import Login from 'src/components/Login';
@@ -48,19 +47,10 @@ const GlobalCss = withStyles({
   '@global': {
     // You should target [class*="MuiButton-root"] instead if you nest themes.
     '.MuiAppBar-colorPrimary': {
-      backgroundColor: '#3a5892',
+      backgroundColor: '#0f4c81',
     },
   },
 })(() => null);
-
-const StyledLink = withStyles({
-  root: {
-    color: 'white',
-    '&:hover': {
-      textDecoration: 'none',
-    }
-  },
-})(Link);
 
 const drawerWidth = 240;
 
@@ -73,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: '#001B2E',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -91,12 +82,6 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     letterSpacing: '0.1rem',
-    [theme.breakpoints.up('xs')]: {
-      display: 'none',
-    },
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-    },
   },
   search: {
     position: 'relative',
@@ -147,10 +132,10 @@ export default function PersistentDrawerLeft() {
   // Get the state of the drawer to check if it's open or close (true or false)
   const { openDrawer } = useSelector((state) => state.toggle);
   const { connected } = useSelector((state) => state.user_profil);
-  const userSession = JSON.parse(window.sessionStorage.getItem("user"));
+  const userSession  = JSON.parse(window.sessionStorage.getItem("user"));
 
-  if (userSession && userSession.token && userSession.login && userSession.user_id && !connected) {
-    dispatch(actionSetConnected())
+  if(userSession && userSession.token && userSession.login && userSession.user_id && !connected) {
+     dispatch(actionSetConnected())
   }
 
   // -------------------------- Fonctions Dispatch --------------------------
@@ -185,33 +170,31 @@ export default function PersistentDrawerLeft() {
 
   const ProfilIcon = () => (
     <>
-      <div className='group-btn-icon'>
-        <Tooltip title="Bloc note" arrow>
-          <IconButton aria-label="note">
-            <CreateIcon />
+      <Tooltip title="Bloc note" arrow>
+        <IconButton aria-label="note">
+          <CreateIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Mes documents" arrow>
+        <Link onClick={(event) => getFolder(event, '/mes-documents')}>
+          <IconButton aria-label="documents">
+            <FolderIcon />
           </IconButton>
-        </Tooltip>
-        <Tooltip title="Mes documents" arrow>
-          <Link onClick={(event) => getFolder(event, '/mes-documents')}>
-            <IconButton aria-label="documents">
-              <FolderIcon />
-            </IconButton>
+        </Link>
+      </Tooltip>
+      <Tooltip title="Mon espace" arrow>
+        <IconButton aria-label="dashboard">
+          <Link onClick={(event) => preventDefault(event, '/mon-espace-personnel')}>
+            <Badge badgeContent={4} color="secondary">
+              <DashboardIcon />
+            </Badge>
           </Link>
-        </Tooltip>
-        <Tooltip title="Mon espace" arrow>
-          <IconButton aria-label="dashboard">
-            <Link onClick={(event) => preventDefault(event, '/mon-espace-personnel')}>
-              <Badge badgeContent={4} color="secondary">
-                <DashboardIcon />
-              </Badge>
-            </Link>
-          </IconButton>
-        </Tooltip>
-      </div>
+        </IconButton>
+      </Tooltip>
       <IconButton aria-label="avatar">
-        <StyledLink onClick={(event) => preventDefault(event, '/profil')}>
+        <Link onClick={(event) => preventDefault(event, '/profil')}>
           <Avatar>{userSession.login.substring(0, 1).toUpperCase()}</Avatar>
-        </StyledLink>
+        </Link>
       </IconButton>
     </>
   );
@@ -238,9 +221,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title} noWrap>
-            <StyledLink href='#' onClick={(event) => preventDefault(event, '/')}>
-              ALDAHE
-            </StyledLink>
+            ALDAHE
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -253,28 +234,21 @@ export default function PersistentDrawerLeft() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-              onKeyDown={(event) => {
-                if (event.keyCode == 13) {
+              onKeyDown={ (event) => {
+                if(event.keyCode == 13){
                   submitSearch(event.target.value)
                 }
               }}
             />
           </div>
           {connected ? <ProfilIcon /> : ''}
-          <div className='log-btn'>
-            <Button
-              className="styled button"
-              variant="contained"
-              onClick={handleLogin}
-            >
-              {connected ? 'Déconnexion' : 'Connexion'}
-            </Button>
-          </div>
-          <div className='responsive-log-btn'>
-            <IconButton aria-label="disconnect">
-              <ExitToAppIcon />
-            </IconButton>
-          </div>
+          <Button
+            className="styled button"
+            variant="contained"
+            onClick={handleLogin}
+          >
+            {connected ? 'Déconnexion' : 'Connexion'}
+          </Button>
         </Toolbar>
       </AppBar>
       <Login />
