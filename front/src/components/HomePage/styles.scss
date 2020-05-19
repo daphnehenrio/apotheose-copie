@@ -4,12 +4,19 @@
   justify-content: flex-end;
 }
 
+.MuiGrid-root.MuiGrid-grid-xs-12 {
+  margin: auto !important;
+}
+
+.MuiGrid-root.MuiGrid-direction-xs-column {
+  flex-direction: unset !important;
+}
 
 .home-page--container {
   flex-grow: 1;
   padding: 8rem 5rem;
   height: 100%;
-  
+
 }
 
 .card-media {
@@ -27,6 +34,9 @@
   height: fit-content;
   width: fit-content;
   margin: 0 auto;
+  background-image:  url("/images/banniere2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 
   padding: 2rem;
   -webkit-box-shadow: 0px 0px 15px -5px lightgrey;
@@ -36,30 +46,33 @@
 
 .page-description{
     width: 95%;
-    padding: 3rem 2rem;
+    padding: 0rem 2rem;
     color: black;
     text-align: justify;
     font-size: 1.3rem;
     line-height: 2rem;
     p{
-      color: $color-dark;
+      width: 40%;
+      margin-left: 68.5%;
+      margin-bottom: 1rem;
+      color: $color-white;
     }
     strong{
       font-weight: 900;
       font-size: 1.35rem;
-      color: $color-secondary;
+      color: #DB8848;
     }
     em{
       font-style: normal;
-      color: #3F51B5;
+      color: #DB8848;
       font-weight: 600;
     }
 }
 
-.curve { 
+.curve {
   width: 15rem;
   float: left;
-  margin-right:2rem; 
+  margin-right:2rem;
   border-radius: 50%;
   -webkit-shape-outside:circle();
   shape-outside:circle();
@@ -93,6 +106,23 @@
     border-radius: 5px;
 }
 
+@media screen and (max-width: 1530px) {
+  .page-description-container{
+    background-color: #6e8ab3 !important ;
+    background-image:  none !important;
+  }
+  .page-description{
+    width: 100%;
+    p{
+      width: 100%;
+      margin: auto;
+      margin-bottom: 1rem;
+
+    }
+  }
+}
+
+
 @media screen and (max-width: 600px) {
   .home-page--container{
     padding: 5rem 0;
@@ -102,7 +132,7 @@
     margin: 5rem 1rem;
     margin-bottom: 3rem;
   }
-  
+
   .page-description-container{
     width: 100%;
     padding: 2rem 0.5rem;
@@ -111,7 +141,7 @@
     align-items: center;
   }
 
- 
+
 
 
   .page-description{
