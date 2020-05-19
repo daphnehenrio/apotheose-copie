@@ -1,8 +1,9 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,8 +11,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import InputBase from '@material-ui/core/InputBase';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 
 import InputBase from '@material-ui/core/InputBase';
 
@@ -39,9 +45,13 @@ const NotepadContent = withStyles({
 
 
 const Note = () => {
-  const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
-  const { noteContent, notes } = useSelector(((state) => state.user_note));
+
+  const [noteCategorie, setNoteCategorie] = React.useState('');
+  const [openSelect, setOpenSelect] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const { noteContent, notes, addNote, newNoteContent, newNoteTitle } = useSelector(((state) => state.user_note));
+  const allCategory = useSelector((state) => state.menu.category)
 
 
   const handleClickOpen = (noteContent, noteID, noteTitle) => {
@@ -66,6 +76,31 @@ const Note = () => {
     };
     dispatch(actionSetNoteContent(noteObj));
   };
+
+  const handleChangeTiltle = (value) => {
+    dispatch(actionSetNewTitle(value))
+  }
+
+  const handleChangeContent = (value) => {
+    dispatch(actionSetNewContent(value))
+  }
+
+  const handleCloseAddNote = () => {
+    dispatch(actionOpenAddNote())
+  }
+
+  const handleChangeSelect = (event) => {
+    setNoteCategorie(event.target.value);
+  };
+
+  const handleCloseSelect = () => {
+    setOpenSelect(false);
+  };
+
+  const handleOpenSelect = () => {
+    setOpenSelect(true);
+  };
+
 
 
   const noteCards = notes.map((note) => {
@@ -116,6 +151,84 @@ const Note = () => {
             </Paper> */}
       {noteCards}
 
+
+      <Tooltip title="Ajouter une note" placement="right-start">
+        <img className='note-plus' src={Plus} onClick={(evt) => {
+            dispatch(actionOpenAddNote());
+        }} />
+      </Tooltip>
+
+        {/* Ajouter une nouvelle note */}
+      <Notepad
+      open={addNote}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-slide-title"
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle>
+        <NotepadContent
+          id="filled-multiline-flexible"
+          multiline
+          value={newNoteTitle}
+          onChange={(evt) => {
+            handleChangeTiltle(evt.target.value);
+          }}
+        />
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-slide-description">
+          <NotepadContent
+            id="filled-multiline-flexible"
+            multiline
+            value={newNoteContent}
+            onChange={(evt) => {
+              handleChangeContent(evt.target.value);
+            }}
+          />
+        </DialogContentText>
+
+      <FormControl>
+        <InputLabel id="demo-controlled-open-select-label">Category</InputLabel>
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={openSelect}
+          onClose={handleCloseSelect}
+          onOpen={handleOpenSelect}
+          value={noteCategorie}
+          onChange={handleChangeSelect}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+            {allCategory.map((cat) => {
+              return (
+                <MenuItem value={cat.id}>{cat.name}</MenuItem>
+              )
+            })}
+        </Select>
+      </FormControl>
+
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={(evt) => {
+            dispatch(actionSaveNewNote());
+            handleCloseAddNote();
+          }}
+          color="secondary"
+        >
+          Sauvegarder
+        </Button>
+        <Button onClick={handleCloseAddNote}>
+          Fermer
+        </Button>
+      </DialogActions>
+    </Notepad>
+
+        {/* Modifier une note existante */}
       <Notepad
         open={open}
         TransitionComponent={Transition}

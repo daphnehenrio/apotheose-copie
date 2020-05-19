@@ -25,6 +25,13 @@ body {
   pointer-events: none;
 }
 
+.app.MuiGrid-grid-xs-12 {
+  margin: auto !important;
+}
+
+.MuiGrid-root.MuiGrid-direction-xs-column {
+  flex-direction: unset !important;
+}
 /*
   // or you can import your own font
   @font-face {
