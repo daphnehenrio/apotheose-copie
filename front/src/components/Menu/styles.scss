@@ -205,6 +205,8 @@
 }
 .app .MuiExpansionPanelSummary-content {
   margin: 0;
+  display: flex;
+  align-items: center;
 }
 .app .MuiExpansionPanelSummary-content.Mui-expanded {
   margin: 0;
