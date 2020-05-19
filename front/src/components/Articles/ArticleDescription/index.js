@@ -32,7 +32,7 @@ export default function ArticleDescription(article) {
   }
 // -------------------------- Return --------------------------
   return (
-    
+    <Grid item xs={10} md={3} sm={5}>
       <Card className="root-card">
         <CardActionArea
           onClick={() => getArticle()}
@@ -43,7 +43,7 @@ export default function ArticleDescription(article) {
             title={article.article.source_image}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2" style={{height:'4rem', display:'flex',alignItems:'center'}}>
+            <Typography gutterBottom variant="h5" component="h2">
               {article.article.title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
@@ -62,6 +62,6 @@ export default function ArticleDescription(article) {
 
         </CardActions>
       </Card>
-    
+    </Grid>
   );
 }

@@ -18,20 +18,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import Plus from 'src/assets/image/documents/plus.png';
+
+import InputBase from '@material-ui/core/InputBase';
 
 
 import {
   actionSetNoteContent,
   actionChangeNoteContent,
-  actionOpenAddNote,
-  actionSetNewTitle,
-  actionSetNewContent,
-  actionSaveNewNote
 } from 'src/actions/user_note';
 
-
-import './styles.scss';
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
@@ -51,11 +46,13 @@ const NotepadContent = withStyles({
 
 const Note = () => {
   const dispatch = useDispatch();
+
   const [noteCategorie, setNoteCategorie] = React.useState('');
   const [openSelect, setOpenSelect] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const { noteContent, notes, addNote, newNoteContent, newNoteTitle } = useSelector(((state) => state.user_note));
   const allCategory = useSelector((state) => state.menu.category)
+
 
   const handleClickOpen = (noteContent, noteID, noteTitle) => {
     const noteObj = {
@@ -132,10 +129,28 @@ const Note = () => {
     );
   });
 
+
   return (
     <div className="tab-content">
-
+      {/* <Paper className='notes-infos' onClick={console.log('test')}>
+                <div className='note-header'>
+                    <h4 className='notes-infos-title'>Note 1</h4>
+                    <IconButton aria-label="delete" onClick={(evt) => {
+                        getNoteContent('1');
+                        handleClickOpen();
+                    }}>
+                        <EditIcon />
+                    </IconButton>
+                </div>
+                <p className='note-body' noteid='1' onDoubleClick={(evt) => {
+                    dispatch(actionSetNoteContent(evt.target.textContent));
+                    handleClickOpen();
+                }}>
+                    {noteContent}
+                </p>
+            </Paper> */}
       {noteCards}
+
 
       <Tooltip title="Ajouter une note" placement="right-start">
         <img className='note-plus' src={Plus} onClick={(evt) => {
@@ -259,8 +274,6 @@ const Note = () => {
           </Button>
         </DialogActions>
       </Notepad>
-
-
     </div>
   );
 };

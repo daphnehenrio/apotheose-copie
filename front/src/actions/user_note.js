@@ -8,6 +8,7 @@ export const ADD_NEW_NOTE = 'action/ADD_NEW_NOTE';
 export const UPDATE_NOTE = 'action/UPDATE_NOTE';
 export const SET_NEW_CATEGORY = 'action/SET_NEW_CATEGORY';
 
+
 export const actionSetNoteContent = (note) => ({
   type: SET_NOTE_CONTENT,
   note,

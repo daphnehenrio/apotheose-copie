@@ -16,7 +16,7 @@ export default (store) => (next) => (action) => {
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));
       const { token } = userSession;
       const userInfo = {
-        login: userSession.login,
+        login: user.login ? user.login : oldUser.login,
         first_name: user.first_name ? user.first_name : oldUser.first_name,
         last_name: user.last_name ? user.last_name : oldUser.last_name,
         email: user.email ? user.email : oldUser.email,
