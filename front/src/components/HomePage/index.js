@@ -26,7 +26,8 @@ import { actionChangePage } from 'src/actions/routes';
 const StyledButton = withStyles({
   root: {
     position: 'relative',
-    bottom: '2rem',
+    bottom: '0',
+    right: '-0.4rem',
     float: 'right',
     color: 'coral',
     border: '2px solid coral',
@@ -74,13 +75,15 @@ export default function HomePage() {
       alignItems="center"
       className="home-page--container"
     >
-      <Grid item xs={8} className="page-description-container">
+      <Grid item xs={12} className="page-description-container">
         <div className="page-description">
-          <img src='/images/homepage/dossiers.jpg' className='curve' />
+          {/*<img src='/images/homepage/dossiers.jpg' className='curve' />*/}
           <p>
             <strong>Administration</strong>. Si rien qu'à la vue de ce mot vous vous sentez perdu ou désemparé, sachez qu'<strong>
               Aldahe </strong> est là pour vous aider à vous y retrouver. <em>Gérez</em> vos documents, <em>organisez-vous</em> grâce à des checklists gérées
-              automatiquement par nos soins, gardez à porter de mains toutes les informations que <em>VOUS</em> jugez importantes,
+
+              automatiquement par nos soins, garder à porter de mains toutes les informations que <em>vous</em> jugez importantes,
+
                bref simplifiez-vous la vie.
             </p>
         </div>
