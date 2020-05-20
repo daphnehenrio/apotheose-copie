@@ -6,6 +6,8 @@ export const SET_NEW_CONTENT = 'action/SET_NEW_CONTENT';
 export const SAVE_NEW_NOTE = 'action/SAVE_NEW_NOTE';
 export const ADD_NEW_NOTE = 'action/ADD_NEW_NOTE';
 export const UPDATE_NOTE = 'action/UPDATE_NOTE';
+export const SET_NEW_CATEGORY = 'action/SET_NEW_CATEGORY';
+
 
 export const actionSetNoteContent = (note) => ({
   type: SET_NOTE_CONTENT,
@@ -45,5 +47,10 @@ export const actionUpdateNote = (note) => ({
 export const actionAddNewNote = (data) => ({
   type: ADD_NEW_NOTE,
   data
+})
+
+export const actionSetCategoryNewNote = (value) => ({
+  type: SET_NEW_CATEGORY,
+  value
 })
 
