@@ -48,7 +48,7 @@ export default (state = initialState, action = {}) => {
             files: action.data,
             totalFile: action.data.length,
             checkFiles: true,
-            current_sub_cat_id: action.id
+            current_sub_cat_id: action.id,
         }
       }
 

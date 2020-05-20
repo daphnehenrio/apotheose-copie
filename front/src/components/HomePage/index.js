@@ -79,9 +79,11 @@ export default function HomePage() {
         <div className="page-description">
           {/*<img src='/images/homepage/dossiers.jpg' className='curve' />*/}
           <p>
-            <strong>Administration</strong>. Si rien qu'à la vue de ce mot vous vous sentez perdu où désemparé, sachez qu'<strong>
+            <strong>Administration</strong>. Si rien qu'à la vue de ce mot vous vous sentez perdu ou désemparé, sachez qu'<strong>
               Aldahe </strong> est là pour vous aider à vous y retrouver. <em>Gérez</em> vos documents, <em>organisez-vous</em> grâce à des checklists gérées
+
               automatiquement par nos soins, garder à porter de mains toutes les informations que <em>vous</em> jugez importantes,
+
                bref simplifiez-vous la vie.
             </p>
         </div>
@@ -96,7 +98,7 @@ export default function HomePage() {
           {
         articles.length > 0
           ? (articles.map((article) => <Grid item sm={8} lg={4} md={6}> <ArticleDescription key={article.title} article={article} /> </Grid>))
-          : "Il n'y a pas encore d'articles disponnible"
+          : "Il n'y a pas encore d'articles disponibles"
       }
       </Grid>
           
