@@ -30,6 +30,10 @@ const authController = {
         return res.send("Ce login n'existe pas");
       }
 
+      /*if (!user.validation) {
+        return res.send("Le compte n'a pas encore été validé, veuillez consulter vos emails.");
+      }*/
+
       // if exist, verify password
       if(! bcrypt.compareSync( password, user.password ) ) {
         // if not good => error
@@ -75,7 +79,7 @@ const authController = {
   },
 
   // treatement of inscription form => save new user
-  signupAction: async (req, res) => {
+  signupAction: async (req, res, next) => {
     // take the data of the form
     const data = req.body;
 
@@ -168,7 +172,7 @@ const authController = {
         newUser_profil.statut = data.statut;
         newUser_profil.gender = data.gender;
 
-        await newUser_profil.save()
+        await newUser_profil.save();
 
         const sendUser = await User.findOne({
 
@@ -199,7 +203,7 @@ const authController = {
 
             category[i].dataValues.sub_category.map((sub_cat)=>{
 
-                mkdirp(`./public/uploads/${newUser.folder_name}/${slugify(category[i].dataValues.name).toLowerCase()}/${suglify(sub_cat.name).toLowerCase()}`, function(err) {
+                mkdirp(`./public/uploads/${newUser.folder_name}/${slugify(category[i].dataValues.name).toLowerCase()}/${slugify(sub_cat.name).toLowerCase()}`, function(err) {
 
                 });
 
@@ -216,6 +220,8 @@ const authController = {
       console.trace(err);
       res.status(500).send(err);
     });
+
+    next();
 
   },
 
