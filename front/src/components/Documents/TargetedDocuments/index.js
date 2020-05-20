@@ -26,7 +26,6 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import MaterialTable from 'material-table'; 
 
 
 // == Import img
@@ -76,31 +75,13 @@ const StyledInput = withStyles((theme) => ({
 export default function TargetedDocuments(category, sub) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { successUpload, files, checkFiles, current_sub_cat_id, current_sub_cat_name, totalFile } = useSelector((state) => state.document);
+  const { successUpload, files, checkFiles, current_sub_cat_id, totalFile } = useSelector((state) => state.document);
   const categoriesFolder = useSelector((state) => state.document.category)
   const goodSub_categories = categoriesFolder.find((cat) => cat.name === category.category);
 
-  const [state, setState] = React.useState({
-    columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
-    ],
-    data: [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-      {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
-      },
-    ],
-  });
+  console.log(goodSub_categories, 'GOOD SUB CATEGORY');
+
+  
 
 
 
@@ -221,7 +202,13 @@ export default function TargetedDocuments(category, sub) {
             defaultValue={category.sub}
             onChange={(evt) => {
               console.log(evt.target);
-              dispatch(actionChangePage(`/mes-documents/${slugify(goodSub_categories.name)}/${slugify(evt.target.value)}`, history))
+              const goodSubCatTarget = goodSub_categories.sub_category.find((cat) => {
+                console.log(cat.name, evt.target.value, 'CAT');
+                return cat.name === evt.target.value;
+              });
+              console.log(goodSubCatTarget, 'GOOD SUB CAT TARGET');
+              dispatch(actionGetDocuments(goodSubCatTarget.id));
+              dispatch(actionChangePage(`/mes-documents/${slugify(goodSub_categories.name)}/${slugify(evt.target.value)}`, history));
             }
             }
           >
@@ -242,48 +229,7 @@ export default function TargetedDocuments(category, sub) {
           Ajouter un document
       </Button>
       </div>
-      <MaterialTable
-      title="Editable Example"
-      columns={state.columns}
-      data={state.data}
-      editable={{
-        onRowAdd: (newData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
-            }, 600);
-          }),
-        onRowDelete: (oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-      }}
-    />
+      
       <div className='documents-container'>
 
         {filesJsx}
