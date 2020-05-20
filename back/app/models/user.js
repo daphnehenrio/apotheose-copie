@@ -40,6 +40,16 @@ User.init({
     allowNull: false
   },
 
+  validation: {
+    type: DataTypes.BOOLEAN ,
+    allowNull: false
+  },
+
+  validation_key: {
+    type: DataTypes.TEXT ,
+    allowNull: false
+  }
+
 
 }, {
   sequelize: dbConnection,

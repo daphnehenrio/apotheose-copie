@@ -1,4 +1,4 @@
-const { User, User_profil  } = require('../models');
+const { User } = require('../models');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 
@@ -8,10 +8,16 @@ const emailController = {
 
       const data = req.body;
       const mailAccountUser = data.email;
-
+      
       const mailAldahe = process.env.MAIL;
       const passwordAldahe = process.env.MAILPASS;
-
+      
+      const user = await User.findOne({
+        where:{
+          email: data.email
+        }
+      });      
+    
       let transport = nodemailer.createTransport(smtpTransport({
         service: 'gmail',
         auth: {
@@ -24,9 +30,9 @@ const emailController = {
       let mail = {
         from: mailAldahe,
         to: mailAccountUser,
-        subject: "hello world!",
+        subject: "Bienvenue",
         text: "Hello!",
-        html: "<b>Hello!</b><p><a href=\"http://ec2-54-146-37-131.compute-1.amazonaws.com/\">Validation</a></p>"
+        html: `<b>Hello!</b><p><a href=\"${process.env.VALID}${user.validation_key}\">Validation</a></p>`
     }
     
       transport.sendMail(mail, function(err){
