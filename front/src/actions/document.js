@@ -65,7 +65,7 @@ export const actionGetDocuments = (id) => ({
 export const actionSetDocuments = (data, id) => ({
   type: SET_DOCUMENTS,
   data,
-  id
+  id,
 })
 
 /**
