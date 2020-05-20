@@ -59,6 +59,7 @@ export default (store) => (next) => (action) => {
           })
           .then((res) => {
             console.log(res)
+            console.log(typeof action.name, 'ACTION NAME HELLOOOOOOOOOOOOOO');
             store.dispatch(actionSetDocuments(res.data, action.id))
           })
 

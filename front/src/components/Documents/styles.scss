@@ -20,16 +20,21 @@
 
 .header-document-page{
     margin-bottom: 4rem;
+    display: flex;
+    border-bottom: 1px solid grey;
+    padding-bottom: 0.5rem;
+
 }
 
 .breadcrumb{
     color: white !important;
     font-size: 1.4rem !important;
+    margin-right: 3rem !important;
 }
 
 .link-document{
     font-size: 1.4rem;
-    color: white !important;
+    color: black !important;
     padding: 0.5rem 1rem;
     &:hover{
         background-color: rgba(grey, $alpha: 0.3);
@@ -72,6 +77,12 @@
     }
 }
 
+.MuiBreadcrumbs-separator{
+  color: black;
+}
+
+
+
 .form-upload{
     display: flex !important;
 
@@ -95,11 +106,12 @@
     margin-top: 1.3rem;
     margin-left: 3rem;
     cursor: pointer;
+    filter: invert(0.7);
 }
 
 
 .img-folder{
-    width: 6rem;
+    width: 4rem;
     cursor: pointer;
 }
 
