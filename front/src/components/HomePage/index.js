@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+
 
 
 // == import Material UI
@@ -7,26 +9,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 // Import styles
 import './styles.scss';
 import ArticleDescription from '../Articles/ArticleDescription';
 import { actionGetLastArticles } from '../../actions/articles';
 
+
+// == Import actions
+import { actionChangePage } from 'src/actions/routes';
+
+
 // -------------------------- styles composants --------------------------
 
 const StyledButton = withStyles({
   root: {
     position: 'relative',
-    bottom: '0',
-    right: '-0.4rem',
+    bottom: '2rem',
     float: 'right',
     color: 'coral',
     border: '2px solid coral',
@@ -47,8 +47,10 @@ const StyledButton = withStyles({
 export default function HomePage() {
 
   const dispatch = useDispatch();
-  const articles = useSelector(state => state.articles.articles)
-  const AccueilOk = useSelector(state => state.articles.AccueilOk)
+  const articles = useSelector(state => state.articles.articles);
+  const AccueilOk = useSelector(state => state.articles.AccueilOk);
+  const history = useHistory();
+
 
   useEffect(() => {
     if (!AccueilOk) {
@@ -56,7 +58,12 @@ export default function HomePage() {
     }
   }, [!AccueilOk]);
 
-// -------------------------- Return --------------------------
+  const preventDefault = (event, route) => {
+    event.preventDefault();
+    dispatch(actionChangePage(route, history));
+  };
+
+  // -------------------------- Return --------------------------
 
   return (
 
@@ -67,13 +74,13 @@ export default function HomePage() {
       alignItems="center"
       className="home-page--container"
     >
-      <Grid item xs={12} className="page-description-container">
+      <Grid item xs={8} className="page-description-container">
         <div className="page-description">
-          {/* <img src='/images/homepage/dossiers.jpg' className='curve' />*/}
+          <img src='/images/homepage/dossiers.jpg' className='curve' />
           <p>
             <strong>Administration</strong>. Si rien qu'à la vue de ce mot vous vous sentez perdu où désemparé, sachez qu'<strong>
               Aldahe </strong> est là pour vous aider à vous y retrouver. <em>Gérez</em> vos documents, <em>organisez-vous</em> grâce à des checklists gérées
-              automatiquement par nos soins, garder à porter de mains toutes les informations que <em>vous</em> jugez importantes,
+              automatiquement par nos soins, garder à porter de mains toutes les informations que <em>VOUS</em> jugez importantes,
                bref simplifiez-vous la vie.
             </p>
         </div>
@@ -91,7 +98,7 @@ export default function HomePage() {
           : "Il n'y a pas encore d'articles disponnible"
       }
       </Grid>
-
+          
 
     </Grid>
 

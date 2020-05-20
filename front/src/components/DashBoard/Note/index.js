@@ -1,9 +1,8 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import EditIcon from '@material-ui/icons/Edit';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -11,22 +10,25 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import InputBase from '@material-ui/core/InputBase';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
-
-import InputBase from '@material-ui/core/InputBase';
+import Plus from 'src/assets/image/documents/plus.png';
 
 
 import {
   actionSetNoteContent,
   actionChangeNoteContent,
+  actionOpenAddNote,
+  actionSetNewTitle,
+  actionSetNewContent,
+  actionSaveNewNote
 } from 'src/actions/user_note';
 
+
+import './styles.scss';
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
@@ -45,13 +47,9 @@ const NotepadContent = withStyles({
 
 
 const Note = () => {
-  const dispatch = useDispatch();
-
-  const [noteCategorie, setNoteCategorie] = React.useState('');
-  const [openSelect, setOpenSelect] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
   const { noteContent, notes, addNote, newNoteContent, newNoteTitle } = useSelector(((state) => state.user_note));
-  const allCategory = useSelector((state) => state.menu.category)
 
 
   const handleClickOpen = (noteContent, noteID, noteTitle) => {
@@ -89,19 +87,6 @@ const Note = () => {
     dispatch(actionOpenAddNote())
   }
 
-  const handleChangeSelect = (event) => {
-    setNoteCategorie(event.target.value);
-  };
-
-  const handleCloseSelect = () => {
-    setOpenSelect(false);
-  };
-
-  const handleOpenSelect = () => {
-    setOpenSelect(true);
-  };
-
-
 
   const noteCards = notes.map((note) => {
     return (
@@ -129,28 +114,10 @@ const Note = () => {
     );
   });
 
-
   return (
     <div className="tab-content">
-      {/* <Paper className='notes-infos' onClick={console.log('test')}>
-                <div className='note-header'>
-                    <h4 className='notes-infos-title'>Note 1</h4>
-                    <IconButton aria-label="delete" onClick={(evt) => {
-                        getNoteContent('1');
-                        handleClickOpen();
-                    }}>
-                        <EditIcon />
-                    </IconButton>
-                </div>
-                <p className='note-body' noteid='1' onDoubleClick={(evt) => {
-                    dispatch(actionSetNoteContent(evt.target.textContent));
-                    handleClickOpen();
-                }}>
-                    {noteContent}
-                </p>
-            </Paper> */}
-      {noteCards}
 
+      {noteCards}
 
       <Tooltip title="Ajouter une note" placement="right-start">
         <img className='note-plus' src={Plus} onClick={(evt) => {
@@ -188,29 +155,6 @@ const Note = () => {
             }}
           />
         </DialogContentText>
-
-      <FormControl>
-        <InputLabel id="demo-controlled-open-select-label">Category</InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={openSelect}
-          onClose={handleCloseSelect}
-          onOpen={handleOpenSelect}
-          value={noteCategorie}
-          onChange={handleChangeSelect}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-            {allCategory.map((cat) => {
-              return (
-                <MenuItem value={cat.id}>{cat.name}</MenuItem>
-              )
-            })}
-        </Select>
-      </FormControl>
-
       </DialogContent>
       <DialogActions>
         <Button
@@ -274,6 +218,8 @@ const Note = () => {
           </Button>
         </DialogActions>
       </Notepad>
+
+
     </div>
   );
 };

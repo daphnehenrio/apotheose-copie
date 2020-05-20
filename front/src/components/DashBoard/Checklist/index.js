@@ -46,7 +46,7 @@ const Checklists = () => {
 
   return (
     <div className="tab-content">
-      <List className={classes.root}>
+      <List className={classes.root} >
         <h3 className="checklist-title">Title</h3>
         {[0, 1, 2, 3].map((value) => {
           const labelId = `checkbox-list-label-${value}`;

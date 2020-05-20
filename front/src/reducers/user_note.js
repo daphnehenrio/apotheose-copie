@@ -5,8 +5,6 @@ import {
   SET_NEW_TITLE,
   SET_NEW_CONTENT,
   ADD_NEW_NOTE,
-  SET_NEW_CATEGORY
-
 } from '../actions/user_note';
 
 
@@ -16,12 +14,9 @@ const initialState = {
     { id: 1, title: 'Note 1', content: 'hello, note numéro 1' },
     { id: 2, title: 'Note 2', content: 'Je suis la note numéro 2' },
   ],
-
   addNote: false,
   newNoteTitle : 'Ma nouvelle note',
-  newNoteContent: 'Contenu de ma nouvelle note',
-  newNoteCategory: '',
-
+  newNoteContent: 'Contenu de ma nouvelle note'
 };
 
 export default (state = initialState, action = {}) => {
@@ -49,7 +44,6 @@ export default (state = initialState, action = {}) => {
       };
     }
 
-
     case OPEN_ADD_NOTE: {
       return {
         ...state,
@@ -68,13 +62,6 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         newNoteContent: action.value,
-      }
-    }
-
-    case SET_NEW_CATEGORY: {
-      return {
-        ...state,
-        newNoteCategory: action.value,
       }
     }
 

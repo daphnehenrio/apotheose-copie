@@ -21,14 +21,12 @@
     .login-dialog{
       &--link {
         margin-left: .5rem;
+        width: fit-content;
+        cursor: pointer;
       }
       &--button {
-        background-color: $color-primary ;
+        background-color: $color-background ;
         color: white;
-        &:hover {
-          background-color:$color-primary-light;
-
-        }
       }
     }
 

@@ -7,11 +7,11 @@ const noteController = {
         const data = req.body; 
         const param = req.params;
         
-        const cat = await Category.findOne({
+        /*const cat = await Category.findOne({
             where: {
                 name: param.name
             }
-        });
+        });*/
 
         const user = await User.findOne({
           where: {
@@ -22,7 +22,7 @@ const noteController = {
         const newNote = new Note();
 
         newNote.user_id = user.id;
-        newNote.category_id = cat.id;
+        //newNote.category_id = cat.id;
         newNote.title = data.title;
         newNote.content = data.content;
         newNote.favorite = false;

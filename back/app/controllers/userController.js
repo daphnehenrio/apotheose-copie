@@ -26,6 +26,7 @@ const userController = {
   update: async (req, res, next) => {
     console.log(req.body)
     try {
+
       const user = await User.findByPk(req.body.user_id, {
         include : [
           {
@@ -33,13 +34,16 @@ const userController = {
           }
         ]
       });
-      
+
+      console.log(user, 'JE SUIS LE USER');
+
       const user_profilId = user.user_profil.id;
-      
       const user_profil = await User_profil.findByPk(user_profilId);
-      
+
+
       await user.update(req.body);
       await user_profil.update(req.body);
+
       const userUpdate = await User.findByPk(req.body.user_id, {
         include : [
           {
@@ -47,7 +51,7 @@ const userController = {
           }
         ]
       });
-      console.log(userUpdate)
+
       res.send(userUpdate);
     } catch (error) {
       console.trace(error);
