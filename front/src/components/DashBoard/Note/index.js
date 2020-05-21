@@ -180,6 +180,9 @@ const Note = () => {
         >
           {note.content}
         </p>
+
+        {note.category_id &&( <span className="note-cat">{note.category.name}</span>)}
+        
         <IconButton
             className="button-delete"
             aria-label="delete"
