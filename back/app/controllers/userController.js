@@ -73,7 +73,7 @@ const userController = {
       };
 
       if (user) {
-        
+
         await user.destroy();
         res.send("OK");
 

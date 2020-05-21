@@ -164,6 +164,8 @@ router.get('/note/:id/:note_id', capture(noteController.getOneNote));
 
 router.patch('/note/:id/:note_id', capture(noteController.updateNote));
 
+router.delete('/note/:id/:note_id', capture(noteController.deleteNote));
+
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
 router.get('/contenu-table/:class', capture(mainController.getAll));

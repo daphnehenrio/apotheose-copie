@@ -34,7 +34,8 @@ import { actionSetLoginForm, actionSetDrawer } from 'src/actions/toggle';
 import { actionLogout } from 'src/actions/login';
 import { actionChangePage } from 'src/actions/routes';
 import { actionSetConnected } from 'src/actions/user_profil';
-import { actionGetFolder } from 'src/actions/document'
+import { actionGetFolder } from 'src/actions/document';
+import { actionGetNote } from 'src/actions/user_note'
 
 // == import style
 import './styles.scss';
@@ -181,6 +182,12 @@ export default function PersistentDrawerLeft() {
     dispatch(actionChangePage(route, history));
   };
 
+  const getDashboard = (event, route) => {
+    event.preventDefault();
+    dispatch(actionGetNote())
+    dispatch(actionChangePage(route, history));
+  };
+
 
 
   const ProfilIcon = () => (
@@ -200,7 +207,7 @@ export default function PersistentDrawerLeft() {
         </Tooltip>
         <Tooltip title="Mon espace" arrow>
           <IconButton aria-label="dashboard">
-            <Link onClick={(event) => preventDefault(event, '/mon-espace-personnel')}>
+            <Link onClick={(event) => getDashboard(event, '/mon-espace-personnel')}>
               <Badge badgeContent={4} color="secondary">
                 <DashboardIcon />
               </Badge>
