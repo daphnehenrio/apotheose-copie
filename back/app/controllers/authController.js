@@ -214,6 +214,9 @@ const authController = {
 
           };
 
+        next();
+
+
 
       } else {
         res.status(400).send(errorsList);
@@ -223,8 +226,6 @@ const authController = {
       console.trace(err);
       res.status(500).send(err);
     });
-
-    next();
 
   },
 

@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
 // == require middleware
 const auth = require('./middlewares/auth');
 
