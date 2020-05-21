@@ -1769,6 +1769,11 @@ autoprefixer@^9.6.1:
     postcss "^7.0.27"
     postcss-value-parser "^4.0.3"
 
+awesome-phonenumber-fork@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/awesome-phonenumber-fork/-/awesome-phonenumber-fork-1.0.4.tgz#33abba439463945c2127e15c22c664eabcc4a6e8"
+  integrity sha512-EQw3ueWimcukKCFykR5gojiCfy3zSLiESh+VYKso7gQbYVYy7sYBbHK2Nn7BcAWc2rus/mItb6cvbwW7hz8e8Q==
+
 axios@^0.19.2:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"

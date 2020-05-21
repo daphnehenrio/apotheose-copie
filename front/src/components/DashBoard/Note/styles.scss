@@ -30,9 +30,13 @@
     .button-delete{
       top:unset;
       left: 12rem;
-      color: #f50057;
+      color: #a8a8a8;
       width: fit-content;
       text-align: right;
+
+      &:hover{
+        color: #f50057;
+      }
     }
   }
 
@@ -73,8 +77,10 @@
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: .8rem;
+    display: block;
   }
   &-content{
     font-style: italic;
+    display: block;
   }
 }

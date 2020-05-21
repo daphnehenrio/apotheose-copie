@@ -154,15 +154,15 @@ router.get('/memo/:id/:name/:memo_id', capture(memoController.getOneUser_info));
 router.patch('/memo/:id/:name/:memo_id', capture(memoController.updateUser_info));
 
 // -------------------- NOTE --------------------
-router.post('/note/:id', capture(noteController.addNote));
+router.post('/note/:id', auth, capture(noteController.addNote));
 
-router.get('/note/:id', capture(noteController.getAllNote));
+router.get('/note/:id',  capture(noteController.getAllNote));
 
-router.get('/note/:id/:note_id', capture(noteController.getOneNote));
+router.get('/note/:id/:note_id', auth, capture(noteController.getOneNote));
 
-router.patch('/note/:id/:note_id', capture(noteController.updateNote));
+router.patch('/note/:id/:note_id', auth, capture(noteController.updateNote));
 
-router.delete('/note/:id/:note_id', capture(noteController.deleteNote));
+router.delete('/note/:id/:note_id', auth, capture(noteController.deleteNote));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD

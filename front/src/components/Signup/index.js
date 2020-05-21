@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
+import PhoneNumber from 'awesome-phonenumber-fork';
+//var PhoneNumber = require( 'awesome-phonenumber' );
 
 // == import Material UI
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -176,6 +178,29 @@ export default function Signup() {
     else {
       // send error and set inputs border into red
       dispatch(actionSetMissingField());
+    }
+    if( user.cellphone_number){
+      const pn = new PhoneNumber( user.cellphone_number, 'FR' );
+      console.log('test')
+
+      if(!pn.isValid()){
+        console.log('error')
+        dispatch(actionSetErrorCellphoneNumber('Le numéro de téléphne doit être au format suivant: "0123456789" '))
+      }
+    }
+    if( user.phone_number){
+      const pn = new PhoneNumber( user.phone_number, 'FR' );
+
+      if(!pn.isValid()){
+        dispatch(actionSetErrorPhoneNumber('Le numéro de téléphne doit être au format suivant: "0123456789" '))
+      }
+    }
+    if( user.phone_work){
+      const pn = new PhoneNumber( user.phone_work, 'FR' );
+
+      if(!pn.isValid()){
+        dispatch(actionSetErrorPhoneWork('Le numéro de téléphne doit être au format suivant: "0123456789" '))
+      }
     }
     if (activeStep === steps.length - 1) {
       // If final step send axios request in actionSignup

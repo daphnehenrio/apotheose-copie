@@ -49,6 +49,9 @@ const initialState = {
   emailExists: 'init',
   errorListSignup: false,
   acceptTerms: false,
+  error_cellphone_number: false,
+  error_phone_number: false,
+  error_phone_work: false,
 };
 
 export default (state = initialState, action = {}) => {
