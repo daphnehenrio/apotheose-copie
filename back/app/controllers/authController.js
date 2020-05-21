@@ -251,6 +251,22 @@ const authController = {
 
     await res.redirect(`${process.env.BASEURL}`);
 
+  },
+
+  forgetPass: async (req, res, next) => {
+
+    const data = req.body;
+
+    const user = await User.findOne({
+      where: {
+        email : data.email
+      }        
+    });
+
+    await res.redirect(`${process.env.RECUP}`);  
+
+    next();
+
   }
 
 };

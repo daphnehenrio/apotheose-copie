@@ -80,6 +80,10 @@ router.delete('/profil/:id/:user_id', userController.delete);
 //validation
 router.get('/validation/:key', authController.validation);
 
+router.post('/forget-pass', authController.forgetPass, emailController.forgetPass);
+
+router.patch('/rename', userController.rename);
+
 
 // -------------------- MENU --------------------
 

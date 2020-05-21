@@ -56,6 +56,56 @@ const emailController = {
 
   },
 
+  forgetPass: async (req, res) => {
+
+    const data = req.body;
+    const mailAccountUser = data.email;
+    
+    const mailAldahe = process.env.MAIL;
+    const passwordAldahe = process.env.MAILPASS;
+
+    const user = await User.findOne({
+      where:{
+        email: data.email
+      }
+    });   
+
+    let transport = nodemailer.createTransport(smtpTransport({
+      service: 'gmail',
+      auth: {
+        user: mailAldahe,
+        pass: passwordAldahe
+      },  
+      tls: { rejectUnauthorized: false } 
+    }));
+
+    let mail = {
+      from: mailAldahe,
+      to: mailAccountUser,
+      subject: "Compte oublié",
+      text: "Récupération de compte",
+      html: `<p>Bonjour ${user.first_name} ${user.last_name},<br /><br />
+      Votre nom d'utilisateur: ${user.login}<br />      
+      Veuillez vous munir de votre clé d'activation pour pouvoir changer votre mot de passe.<br />      
+      <p><a href=\"${process.env.RECUP}${user.validation_key}\">Cliquez ici pour modifier vos informations</a></p><br />
+      <p><img src="https://www.webmarketing-com.com/wp-content/uploads/2017/09/digitalisation.png" width="500"></a><p><br />
+      <p>Merci pour votre confiance.</p>`
+    };
+  
+    transport.sendMail(mail, function(err){
+
+      if(err){
+          console.log(err);
+      }else{
+          console.log("Message sent");
+      }
+  
+      transport.close();
+
+    });
+
+  },
+
 };
 
 
