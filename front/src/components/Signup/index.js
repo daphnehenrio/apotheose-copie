@@ -39,6 +39,9 @@ import {
   actionPasswordValidation,
   actionEmailValidation,
   actionErrorListSignup,
+  actionSetErrorCellphoneNumber,
+actionSetErrorPhoneNumber,
+actionSetErrorPhoneWork,
 } from '../../actions/signup';
 
 // == import styles
@@ -129,7 +132,17 @@ export default function Signup() {
   const history = useHistory();
   const steps = getSteps();
   const {
-    user, isPasswordCorrect, errorListSignup, activeStep, acceptTerms
+    user,
+    isPasswordCorrect,
+    errorListSignup,
+    activeStep,
+    acceptTerms,
+    error_cellphone_number,
+    error_phone_number,
+    error_phone_work,
+    error_address,
+    error_zip_code,
+    error_city,
   } = useSelector((state) => state.signup);
 
   const isEmpty = handdleVerifEmptyValue(user.first_name)
@@ -145,6 +158,19 @@ export default function Signup() {
     // First checkup : check if user has complete first step (if inputs are not empty)
     // if passwords are matching
     // and if user did not filled up inputs with just spaces
+
+    if (
+      error_cellphone_number
+      || error_phone_number
+      || error_phone_work
+      || error_address
+      || error_zip_code
+      || error_city
+    ) {
+      console.log('error phones')
+      return dispatch(actionSetStep(1));
+    }
+
     if (user.first_name
       && user.last_name
       && user.login
@@ -154,6 +180,7 @@ export default function Signup() {
       && isPasswordCorrect
       && !isEmpty
       && acceptTerms
+
     ) {
       // check if password is strong enough (if it contains at least 8 character, 1 uppercase,
       // 1 lowercase, 1 number and 1 special character)
@@ -179,29 +206,7 @@ export default function Signup() {
       // send error and set inputs border into red
       dispatch(actionSetMissingField());
     }
-    if( user.cellphone_number){
-      const pn = new PhoneNumber( user.cellphone_number, 'FR' );
-      console.log('test')
 
-      if(!pn.isValid()){
-        console.log('error')
-        dispatch(actionSetErrorCellphoneNumber('Le numéro de téléphne doit être au format suivant: "0123456789" '))
-      }
-    }
-    if( user.phone_number){
-      const pn = new PhoneNumber( user.phone_number, 'FR' );
-
-      if(!pn.isValid()){
-        dispatch(actionSetErrorPhoneNumber('Le numéro de téléphne doit être au format suivant: "0123456789" '))
-      }
-    }
-    if( user.phone_work){
-      const pn = new PhoneNumber( user.phone_work, 'FR' );
-
-      if(!pn.isValid()){
-        dispatch(actionSetErrorPhoneWork('Le numéro de téléphne doit être au format suivant: "0123456789" '))
-      }
-    }
     if (activeStep === steps.length - 1) {
       // If final step send axios request in actionSignup
       dispatch(actionSignup(history));

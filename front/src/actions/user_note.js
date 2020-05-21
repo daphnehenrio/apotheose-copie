@@ -11,6 +11,7 @@ export const UPDATE_NOTE = 'action/UPDATE_NOTE';
 export const SET_NEW_CATEGORY = 'action/SET_NEW_CATEGORY';
 export const DELETE_NOTE = 'action/DELETE_NOTE';
 
+
 export const actionGetNote = () => ({
   type: GET_NOTE,
 })
