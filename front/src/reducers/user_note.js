@@ -1,4 +1,5 @@
 import {
+  SET_NOTE,
   SET_NOTE_CONTENT,
   CHANGE_NOTE_CONTENT,
   OPEN_ADD_NOTE,
@@ -10,23 +11,29 @@ import {
 
 
 const initialState = {
-  noteContent: { id: '', title: '', content: '' },
+  noteContent: { id: '', title: '', content: '', category_id: '' },
   notes: [
     { id: 1, title: 'Note 1', content: 'hello, note numéro 1' },
     { id: 2, title: 'Note 2', content: 'Je suis la note numéro 2' },
   ],
   addNote: false,
-  newNoteTitle : 'Ma nouvelle note',
-  newNoteContent: 'Contenu de ma nouvelle note',
+  newNoteTitle : null,
+  newNoteContent: null,
   newNoteCategory: '',
 };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_NOTE: {
+      return {
+        ...state,
+        notes: action.data
+      }
+    }
     case SET_NOTE_CONTENT: {
       return {
         ...state,
-        noteContent: { id: action.note.id, title: action.note.title, content: action.note.content },
+        noteContent: { id: action.note.id, title: action.note.title, content: action.note.content, category_id: action.note.category_id },
       };
     }
 
@@ -75,10 +82,9 @@ export default (state = initialState, action = {}) => {
     }
 
     case ADD_NEW_NOTE: {
-      const { id, title, content } = action.data
       return {
         ...state,
-        notes: [...state.notes, {id, title, content}]
+        notes: action.data
       }
     }
 

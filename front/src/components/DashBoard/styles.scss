@@ -26,6 +26,18 @@
     color: white;
 }
 
+.panel-note {
+  .tab-content{
+    align-items: center;
+    justify-content: flex-start;
+
+    .MuiIconButton-root{
+      color: unset;
+      top: -16px;
+      right: -16px;
+    }
+  }
+}
 
 .page-title{
     font-size: 2rem;
@@ -100,35 +112,7 @@
 
 }
 
-.notes-infos{
-    width: 15rem;
-    height: 17rem;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    margin-right: 2rem;
-}
 
-.note-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.notes-infos-title{
-    font-size: 1.3rem;
-}
-
-.note-body{
-    height: 70%;
-    overflow-x: auto;
-}
-
-.note-body::-webkit-scrollbar {
-    width: 0;
-}
 
 .tab-panel {
   margin: 4rem 0;
