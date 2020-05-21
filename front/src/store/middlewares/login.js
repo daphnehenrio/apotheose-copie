@@ -56,7 +56,7 @@ export default (store) => (next) => (action) => {
               // 4. => close form
               store.dispatch(actionSetLoginForm());
               // 5. => redirect dashboard
-              store.dispatch(actionChangePage('/mon-espace-personnel', history));
+              //store.dispatch(actionChangePage('/mon-espace-personnel', history));
 
             }
           }

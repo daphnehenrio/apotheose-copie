@@ -16,4 +16,57 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+
+  .notes-infos{
+    width: 15rem;
+    height: 17rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 2rem;
+    padding: 0;
+
+    .button-delete{
+      top:unset;
+      left: 12rem;
+      color: #f50057;
+      width: fit-content;
+      text-align: right;
+    }
+  }
+
+  .note-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 1rem 1rem .5rem 1rem;
+  }
+
+  .notes-infos-title{
+      font-size: 1.3rem;
+  }
+
+  .note-body{
+      height: 70%;
+      overflow-x: auto;
+      padding:  0 1rem 1rem 1rem;
+  }
+
+  .note-body::-webkit-scrollbar {
+      width: 0;
+  }
+
+}
+
+.li {
+  &-title{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: .8rem;
+  }
+  &-content{
+    font-style: italic;
+  }
 }

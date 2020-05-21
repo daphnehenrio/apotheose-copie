@@ -96,7 +96,7 @@ export default function ScrollableTabsButtonForce() {
         <TabPanel value={value} index={0}>
           <Memo />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={value} index={1} className="panel-note">
           <Note />
         </TabPanel>
 

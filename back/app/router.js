@@ -73,11 +73,13 @@ router.post('/login', authController.loginAction);
 router.post('/logout', authController.logout);
 
 //inscription
-router.post('/signup', authController.signupAction);
-//router.post('/signup', authController.signupAction, emailController.emailValidator);
+router.post('/signup', authController.signupAction, emailController.emailValidator);
 
 //account suppression
 router.delete('/profil/:id/:user_id', userController.delete);
+
+//validation
+router.get('/validation/:key', authController.validation);
 
 
 // -------------------- MENU --------------------
@@ -161,6 +163,8 @@ router.get('/note/:id', capture(noteController.getAllNote));
 router.get('/note/:id/:note_id', capture(noteController.getOneNote));
 
 router.patch('/note/:id/:note_id', capture(noteController.updateNote));
+
+router.delete('/note/:id/:note_id', capture(noteController.deleteNote));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
