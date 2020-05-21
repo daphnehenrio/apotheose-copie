@@ -73,11 +73,13 @@ router.post('/login', authController.loginAction);
 router.post('/logout', authController.logout);
 
 //inscription
-router.post('/signup', authController.signupAction);
-//router.post('/signup', authController.signupAction, emailController.emailValidator);
+router.post('/signup', authController.signupAction, emailController.emailValidator);
 
 //account suppression
 router.delete('/profil/:id/:user_id', userController.delete);
+
+//validation
+router.get('/validation/:key', authController.validation);
 
 
 // -------------------- MENU --------------------
