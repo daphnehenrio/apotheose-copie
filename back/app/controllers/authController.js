@@ -214,6 +214,9 @@ const authController = {
 
           };
 
+        next();
+
+
 
       } else {
         res.status(400).send(errorsList);
@@ -223,8 +226,6 @@ const authController = {
       console.trace(err);
       res.status(500).send(err);
     });
-
-    next();
 
   },
 
@@ -249,6 +250,22 @@ const authController = {
     });
 
     await res.redirect(`${process.env.BASEURL}`);
+
+  },
+
+  forgetPass: async (req, res, next) => {
+
+    const data = req.body;
+
+    const user = await User.findOne({
+      where: {
+        email : data.email
+      }        
+    });
+
+    await res.redirect(`${process.env.RECUP}`);  
+
+    next();
 
   }
 
