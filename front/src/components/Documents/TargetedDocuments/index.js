@@ -47,6 +47,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import EditIcon from '@material-ui/icons/Edit';
+import Skeleton from '@material-ui/lab/Skeleton';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 // == Import img
@@ -338,9 +341,9 @@ const EnhancedTableToolbar = (props) => {
           <SearchIcon />
         </div>
         <InputBase
-        onChange={(evt) => {
-          dispatch(actionSetSearch(evt.target.value));
-        }}
+          onChange={(evt) => {
+            dispatch(actionSetSearch(evt.target.value));
+          }}
           placeholder="Rechercher ..."
           classes={{
             root: classes.inputRoot,
@@ -376,6 +379,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   },
 }));
 
@@ -464,25 +471,28 @@ export default function TargetedDocuments(category) {
 
 
 
+
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
   const search = useSelector((state) => state.document.search);
+  const loading = useSelector((state) => state.document.loading);
 
-  const rows = 
+  const rows =
     search !== '' ?
-    files.filter((file) => {
-    if(file.name.startsWith(search.charAt(0).toUpperCase() + search.slice(1).toLowerCase())){
-      return true;
-    }
-    return false;
-  }).map((file) => {
-    return { name: file.name, file }
-  }) 
-  :
-  files.map((file) => {
-    return {name : file.name, file}
-  })
+      files.filter((file) => {
+        if (file.name.startsWith(search.charAt(0).toUpperCase() + search.slice(1).toLowerCase())) {
+          return true;
+        }
+        return false;
+      }).map((file) => {
+        return { name: file.name, file }
+      })
+      :
+      files.map((file) => {
+        return { name: file.name, file }
+      })
 
   console.log(rows, ' rows');
 
@@ -503,79 +513,85 @@ export default function TargetedDocuments(category) {
 
         <div className={classes.root}>
           <Paper className={classes.paper}>
+
             <EnhancedTableToolbar category={category} />
             {rows.length !== 0 ?
-            <TableContainer>
-              <Table
-                className={classes.table}
-                aria-labelledby="tableTitle"
-                size='medium'
-                aria-label="enhanced table"
-              >
-                <EnhancedTableHead
-                  classes={classes}
-                  order={order}
-                  orderBy={orderBy}
-                  onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
-                />
-                <TableBody>
-                  {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
-                    const labelId = `enhanced-table-checkbox-${index}`;
+              <TableContainer>
+                <Table
+                  className={classes.table}
+                  aria-labelledby="tableTitle"
+                  size='medium'
+                  aria-label="enhanced table"
+                >
+                  <EnhancedTableHead
+                    classes={classes}
+                    order={order}
+                    orderBy={orderBy}
+                    onRequestSort={handleRequestSort}
+                    rowCount={rows.length}
+                  />
+                  <TableBody>
+                    {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
+                      const labelId = `enhanced-table-checkbox-${index}`;
 
-                    return (
-                      <TableRow
-                        hover
-                        onClick={() => readFile(row.file)}
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.name}
-                      >
-                        <TableCell style={{padding:'5px', width:'70px'}}>
-                          <IconButton aria-label="download" onClick={(evt) => {
-                            evt.stopPropagation();
-                            console.log(row, 'row');
-                            dispatch(actionDownloadFile(row.file.id, row.file.name));
+                      return (
+                        <TableRow
+                          hover
+                          onClick={() => readFile(row.file)}
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.name}
+                        >
+                          <TableCell style={{ padding: '5px', width: '70px' }}>
+                            <IconButton aria-label="download" onClick={(evt) => {
+                              evt.stopPropagation();
+                              console.log(row, 'row');
+                              dispatch(actionDownloadFile(row.file.id, row.file.name));
 
-                          }}>
-                            <img src={DownloadImg2} style={{ width: '2rem' }} />
-                          </IconButton>
-                        </TableCell>
-                        <TableCell component="th" id={labelId} scope="row" padding="none">
-                          <div className='file-container'>
-                            <img className='img-folder' src={File} />
-                            {row.name}
-                          </div>
-                        </TableCell>
-                        <TableCell style={{padding:'5px', width:'70px'}}>
-                          <IconButton aria-label="edit" onClick={(evt) => {
-                            evt.stopPropagation();
+                            }}>
+                              <img src={DownloadImg2} style={{ width: '2rem' }} />
+                            </IconButton>
+                          </TableCell>
+                          <TableCell component="th" id={labelId} scope="row" padding="none">
+                                <div className='file-container'>
+                                  <img className='img-folder' src={File} />
+                                  {row.name}
+                                </div>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', width: '70px' }}>
+                            <IconButton aria-label="edit" onClick={(evt) => {
+                              evt.stopPropagation();
 
-                          }}>
-                            <EditIcon/>
-                          </IconButton>
-                        </TableCell>
-                        <TableCell style={{padding:'5px', width:'70px'}}>
-                          <IconButton aria-label="delete" onClick={(evt) => {
-                            evt.stopPropagation();
+                            }}>
+                              <EditIcon />
+                            </IconButton>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', width: '70px' }}>
+                            <IconButton aria-label="delete" onClick={(evt) => {
+                              evt.stopPropagation();
 
-                          }}>
-                            <DeleteIcon/>
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            :
-              <div className='not-found'>
-                <img src={NotFound} />
-                <p>Aucun Dossier ne correspond à la recherche</p>
-              </div>
+                            }}>
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              :
+              !loading ? (
+                <div className='not-found'>
+                  <img src={NotFound} />
+                  <p>Aucun Dossier ne correspond à la recherche</p>
+                </div>
+              ) : null
             }
           </Paper>
+          <Backdrop className={classes.backdrop} open={loading}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
 
         </div>
       </div>

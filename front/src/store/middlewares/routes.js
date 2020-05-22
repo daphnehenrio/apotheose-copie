@@ -2,7 +2,6 @@
 // == import action
 import { CHANGE_PAGE } from '../../actions/routes';
 
-
 export default (store) => (next) => (action) => {
   switch (action.type) {
     // ---------------------------- CHANGE PAGE ----------------------------

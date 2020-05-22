@@ -34,7 +34,7 @@ import { actionSetLoginForm, actionSetDrawer } from 'src/actions/toggle';
 import { actionLogout } from 'src/actions/login';
 import { actionChangePage } from 'src/actions/routes';
 import { actionSetConnected } from 'src/actions/user_profil';
-import { actionGetFolder } from 'src/actions/document'
+import { actionGetFolder, actionLoading } from 'src/actions/document'
 
 // == import style
 import './styles.scss';
@@ -177,6 +177,7 @@ export default function PersistentDrawerLeft() {
 
   const getFolder = (event, route) => {
     event.preventDefault();
+    dispatch(actionLoading(true));
     dispatch(actionGetFolder())
     dispatch(actionChangePage(route, history));
   };

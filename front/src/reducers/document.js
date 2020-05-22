@@ -9,6 +9,7 @@ import {
     GET_DOCUMENTS,
     SEND_FILES,
     SET_SEARCH,
+    LOADING,
 
 } from '../actions/document';
 
@@ -25,6 +26,7 @@ const initialState = {
     checkFiles: false,
     current_sub_cat_id: null,
     search: '',
+    loading:true,
 };
 
 export default (state = initialState, action = {}) => {
@@ -103,6 +105,13 @@ export default (state = initialState, action = {}) => {
           return {
               ...state,
               search: action.text,
+          }
+      }
+
+      case LOADING: {
+          return {
+              ...state,
+              loading: action.bool,
           }
       }
 

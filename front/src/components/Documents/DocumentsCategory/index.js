@@ -28,6 +28,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
+
 
 
 
@@ -141,13 +144,17 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
   search: {
     position: 'relative',
+    width: '100%',
+    marginTop: '2rem',
     borderBottom: '1px solid dimgrey',
     marginRight: theme.spacing(2),
     marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
+    [theme.breakpoints.up('xl')]: {
+      marginTop: '0',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: 'fit-content'
+
     },
   },
   searchIcon: {
@@ -178,7 +185,6 @@ const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const dispatch = useDispatch();
   const search = useSelector((state) => state.document.search);
-
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -213,7 +219,7 @@ const EnhancedTableToolbar = (props) => {
         />
       </div>
     </Toolbar>
-  );
+  )
 };
 
 
@@ -226,8 +232,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 750,
+    minWidth: 'auto',
   },
+
   visuallyHidden: {
     border: 0,
     clip: 'rect(0 0 0 0)',
@@ -238,6 +245,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   },
 }));
 
@@ -250,6 +261,8 @@ const useStyles = makeStyles((theme) => ({
 export default function DocumentsCategory() {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.document.loading);
 
   const categoriesFolder = useSelector((state) => state.document.category);
 
@@ -275,7 +288,6 @@ export default function DocumentsCategory() {
         return { name: category.name }
       });
 
-  console.log(rows, 'rows');
 
 
   const handleRequestSort = (event, property) => {
@@ -297,7 +309,7 @@ export default function DocumentsCategory() {
         <div className={classes.root}>
           <Paper className={classes.paper}>
             <EnhancedTableToolbar />
-            {rows.length !== 0 ?
+            {rows.length !== 0 && !loading ?
               <TableContainer>
                 <Table
                   className={classes.table}
@@ -314,45 +326,50 @@ export default function DocumentsCategory() {
                   />
                   <TableBody>
                     {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
-                    const labelId = `enhanced-table-checkbox-${index}`;
-                    console.log(row, 'ROOOOOOOOW');
+                      const labelId = `enhanced-table-checkbox-${index}`;
 
-                    return (
-                      <TableRow
-                      key={row.name}
-                      hover
-                      onClick={(event) => dispatch(actionChangePage(`/mes-documents/${slugify(row.name)}`, history))}
-                      role="checkbox"
-                      tabIndex={-1}
-                    >
-                      <TableCell padding="checkbox">
+                      return (
 
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        <div className='file-container'>
-                          <img className='img-folder' src={Folder} />
-                          {row.name}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    );
-                  })
-                }
+                        <TableRow
+                          key={row.name}
+                          hover
+                          onClick={(event) => dispatch(actionChangePage(`/mes-documents/${slugify(row.name)}`, history))}
+                          role="checkbox"
+                          tabIndex={-1}
+                        >
+                          <TableCell padding="checkbox">
+
+                          </TableCell>
+                          <TableCell component="th" id={labelId} scope="row" padding="none">
+                            <div className='file-container'>
+                              <img className='img-folder' src={Folder} />
+                              {row.name}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                    }
 
 
-                </TableBody>
+                  </TableBody>
                 </Table>
               </TableContainer>
               :
-              <div className='not-found'>
-                <img src={NotFound} />
-                <p>Aucun Dossier ne correspond à la recherche</p>
-              </div>
+              !loading ? (
+                <div className='not-found'>
+                  <img src={NotFound} />
+                  <p>Aucun Dossier ne correspond à la recherche</p>
+                </div>
+              ) : null
             }
           </Paper>
 
         </div>
       </div>
+      <Backdrop className={classes.backdrop} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }

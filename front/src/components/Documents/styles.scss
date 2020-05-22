@@ -142,6 +142,7 @@
   }
   p{
     margin-top: 1rem;
+    text-align: center;
     font-size: 1.4rem;
     color: rgba(grey, $alpha: 0.6);
   }
@@ -268,3 +269,48 @@
   }
 }
 
+@media screen and (max-width: 1100px) {
+  .documents-container{
+    .MuiToolbar-root{
+      flex-direction: column;
+    }
+    .header-document-page{
+      margin-bottom: 2rem;
+    }
+  }
+
+}
+
+
+
+@media screen and (max-width: 400px) {
+  .document-page{
+    padding: 0.5rem;
+  }
+  .documents-container{
+    margin-left: 0;
+    .MuiIconButton-label{
+      display: flex;
+    }
+    .MuiToolbar-root{
+      flex-direction: column;
+      padding: 1rem 0.5rem;
+      .MuiBreadcrumbs-ol{
+        flex-direction: column;
+      }
+      .MuiBreadcrumbs-li{
+        display: flex;
+      }
+      a{
+        font-size: 1.2rem;
+      }
+      .MuiSelect-root{
+        font-size: 1.2rem;
+      }
+      .header-document-page{
+        margin-bottom: 2rem;
+      }
+    }
+
+  }
+}

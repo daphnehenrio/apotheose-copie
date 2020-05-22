@@ -35,7 +35,7 @@ import Folder from 'src/assets/image/documents/folder2.png';
 import { actionChangePage } from 'src/actions/routes';
 
 import slugify from '@sindresorhus/slugify';
-import { actionGetDocuments, actionSetSearch } from '../../../actions/document';
+import { actionGetDocuments, actionSetSearch, actionLoading } from '../../../actions/document';
 
 const SelectDoc = withStyles((theme) => ({
   input: {
@@ -230,7 +230,6 @@ const EnhancedTableToolbar = (props) => {
             input={<SelectDoc />}
             defaultValue={goodSub_categories.name}
             onChange={(evt) => {
-              console.log(evt.target);
               dispatch(actionChangePage(`/mes-documents/${slugify(evt.target.value)}`, history))
             }
             }
@@ -307,6 +306,7 @@ export default function DocumentsSubCategory(category) {
 
   const handleClickSubfile = (evt) => {
     const subCat = goodSub_categories.sub_category.find((cat) => cat.name === evt);
+    dispatch(actionLoading(true));
     dispatch(actionGetDocuments(subCat.id));
     dispatch(actionChangePage(`/mes-documents/${slugify(goodSub_categories.name)}/${slugify(subCat.name)}`, history));
 
