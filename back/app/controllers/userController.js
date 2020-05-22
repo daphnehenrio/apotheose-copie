@@ -64,9 +64,12 @@ const userController = {
     try {
 
       const userId = req.params.id;
-      const user_profilId = req.params.user_id;
       const user = await User.findByPk(userId);
-      const user_profil = await User_profil.findByPk(user_profilId);
+      const user_profil = await User_profil.findOne({
+        where: {
+          user_id: userId
+        }
+      });
 
       if (user_profil) {
 
