@@ -144,7 +144,7 @@ const documentController = {
 
     await document.destroy();
 
-    res.send("ok");
+    res.send("Votre fichier a bien été supprimer.");
 
   },
 
