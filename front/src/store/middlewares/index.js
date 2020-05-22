@@ -11,6 +11,7 @@ import services from './services';
 import articles from './articles';
 import document from './document';
 import user_notes from './user_notes';
+import user_memo from './user_memo';
 
 
 export default applyMiddleware(
@@ -25,4 +26,5 @@ export default applyMiddleware(
   articles,
   document,
   user_notes,
+  user_memo,
 );

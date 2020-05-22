@@ -11,53 +11,63 @@ const documentController = {
 
     upload: async (req, res) => {
 
-    console.log(req.file)
-      // console.log(req.session, 'REQ SESSION');
-      const token = req.headers.authorization.split(' ')[1];
-      const decodedToken = jwt.verify(token, process.env.TOKEN_GENERATE_TOKEN);
-      const userId = decodedToken.userId;
-      const {category, sub_category } = req.params;
-      const reconstruct_cat = category.substr(0,1).toUpperCase()+category.slice(1).replace(/-/gi, " ")
-      const reconstruct_sub_cat = sub_category.substr(0,1).toUpperCase()+sub_category.slice(1).replace(/-/gi, " ")
-      console.log(reconstruct_cat, reconstruct_sub_cat)
-      const user = await User.findByPk(userId, {});
-      const cat = await Category.findOne({
-        where: {
-          type_id: 2,
-          name: Sequelize.where(
-            Sequelize.fn('unaccent', Sequelize.col('name')), {
-              [Op.iLike]:`%${reconstruct_cat}%`
-            }
-          ),
-        }
-      })
-      console.log("cat : ", cat)
-      const sub_cat = await Sub_category.findOne({
-        where: {
-          category_id: cat.id,
-          name: Sequelize.where(
-            Sequelize.fn('unaccent', Sequelize.col('name')), {
-              [Op.iLike]:`%${reconstruct_sub_cat}%`
-            }
-          )
-        },
-      })
-      console.log("sub_cat : ", sub_cat)
-      const data = req.file;
-      const meta = JSON.parse(req.body.meta); // all other values passed from the client, like name, etc..
-      const filename = req.file.filename;
-      const newDocument = new Document();
-      newDocument.name = meta.name;
-      newDocument.link = `./public/uploads/${user.folder_name}/${category}/${sub_category}/${filename}`;
-      newDocument.user_id = userId;
-      newDocument.sub_category_id = sub_cat.id;
-      await newDocument.save();
-      fs.move('./public/uploads/' + filename, `./public/uploads/${user.folder_name}/${category}/${sub_category}/${filename}`, function (err) {
-        if (err) {
-            return console.error(err);
-        }
-      });
-      res.status(200).send('ok')
+        // console.log(req.session, 'REQ SESSION');
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, process.env.TOKEN_GENERATE_TOKEN);
+        const userId = decodedToken.userId;
+
+        const {category, sub_category } = req.params;
+
+        const reconstruct_cat = category.substr(0,1).toUpperCase()+category.slice(1).replace(/-/gi, " ")
+
+        const reconstruct_sub_cat = sub_category.substr(0,1).toUpperCase()+sub_category.slice(1).replace(/-/gi, " ")
+
+
+        const user = await User.findByPk(userId, {});
+
+        const cat = await Category.findOne({
+          where: {
+            type_id: 2,
+            name: Sequelize.where(
+              Sequelize.fn('unaccent', Sequelize.col('name')), {
+                [Op.iLike]:`%${reconstruct_cat}%`
+              }
+            ),
+          }
+        })
+
+
+        const sub_cat = await Sub_category.findOne({
+          where: {
+            category_id: cat.id,
+            name: Sequelize.where(
+              Sequelize.fn('unaccent', Sequelize.col('name')), {
+                [Op.iLike]:`%${reconstruct_sub_cat}%`
+              }
+            )
+          },
+        })
+
+        const data = req.file;
+        const meta = JSON.parse(req.body.meta); // all other values passed from the client, like name, etc..
+
+        const filename = req.file.filename;
+
+        const newDocument = new Document();
+        newDocument.name = meta.name;
+        newDocument.link = `./public/uploads/${user.folder_name}/${category}/${sub_category}/${filename}`;
+        newDocument.user_id = userId;
+        newDocument.sub_category_id = sub_cat.id;
+
+        await newDocument.save();
+
+        fs.move('./public/uploads/' + filename, `./public/uploads/${user.folder_name}/${category}/${sub_category}/${filename}`, function (err) {
+          if (err) {
+              return console.error(err);
+          }
+        });
+
+        res.status(200).send('ok')
 
   },
 

@@ -1,7 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
@@ -117,7 +115,6 @@ const AddFileDropzone = () => {
 
     const path = window.location.pathname
     const pathArray = path.split(new RegExp('/'))
-    console.log(pathArray);
     const categoryFolder = pathArray[2];
     const subCategoryFolder = pathArray[3]
 
@@ -129,10 +126,6 @@ const AddFileDropzone = () => {
         body.append('file', file);
         meta.name = goodMeta.name;
         body.append('meta', JSON.stringify(meta));
-        // console.log('C LA METAAAAA', meta);
-        // console.log(Array.from(body), 'C LE BOOOODYYYY');
-
-        console.log("METANAME", meta.name)
 
         dispatch(actionSendFiles(body, categoryFolder, subCategoryFolder));
         dispatch(actionOpenAddFile(false));

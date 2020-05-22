@@ -28,6 +28,7 @@ export default (store) => (next) => (action) => {
 
     case GET_FOLDER: {
       axios
+
         .get(`${base_url}/documents/categories`,
           {
             withCredentials: true,
@@ -37,6 +38,7 @@ export default (store) => (next) => (action) => {
             store.dispatch(actionSetFolder(res.data));
             store.dispatch(actionLoading(false));
         })
+
       break;
     }
 
@@ -61,6 +63,7 @@ export default (store) => (next) => (action) => {
           .then((res) => {
               store.dispatch(actionSetDocuments(res.data, action.id));
               store.dispatch(actionLoading(false));
+
           })
 
       } else {
@@ -126,6 +129,7 @@ export default (store) => (next) => (action) => {
               },
               responseType: 'blob',
 
+
             })
           .then((res) => {
             console.log(res)
@@ -134,6 +138,7 @@ export default (store) => (next) => (action) => {
             store.dispatch(actionSetOneFile(url, res.data.type));
             store.dispatch(actionLoading(false));
           })
+
 
       } else {
         store.dispatch(SET_LOGIN_FORM());
@@ -151,10 +156,12 @@ export default (store) => (next) => (action) => {
 
       if (userSession.token) {
 
+
         const token = userSession.token
         console.log(action)
         axios
           .get(`${base_url}/file/${userSession.user_id}/${action.id}`,
+
             {
               withCredentials: true,
               headers: {
@@ -162,6 +169,7 @@ export default (store) => (next) => (action) => {
               },
               responseType: 'blob',
             })
+
           .then((res) => {
             console.log(res)
             let type = "";

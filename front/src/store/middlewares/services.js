@@ -24,7 +24,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }
@@ -41,7 +41,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }

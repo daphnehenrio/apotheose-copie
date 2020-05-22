@@ -37,7 +37,8 @@ import { actionSetConnected } from 'src/actions/user_profil';
 
 import { actionLoading } from 'src/actions/document'
 import { actionGetFolder } from 'src/actions/document';
-import { actionGetNote } from 'src/actions/user_note'
+import { actionGetNote } from 'src/actions/user_note';
+import { actionGetMemo } from 'src/actions/user_memo';
 
 // == import style
 import './styles.scss';
@@ -187,6 +188,7 @@ export default function PersistentDrawerLeft() {
 
   const getDashboard = (event, route) => {
     event.preventDefault();
+    dispatch(actionGetMemo())
     dispatch(actionGetNote())
     dispatch(actionChangePage(route, history));
   };

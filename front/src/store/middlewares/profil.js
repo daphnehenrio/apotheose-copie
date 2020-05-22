@@ -45,7 +45,6 @@ export default (store) => (next) => (action) => {
             store.dispatch(actionLoading(false));
           }
           else {
-            console.log('error axios get session')
             store.dispatch(actionErrorLogin('Une erreur est survenue'));
           }
         })

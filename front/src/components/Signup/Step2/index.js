@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PhoneNumber from 'awesome-phonenumber-fork';
+
 
 // == import Material UI
 
@@ -26,12 +28,20 @@ import {
   actionSetCellphoneNumber,
   actionSetWorkPhone,
   actionSetChildren,
+  actionSetErrorCellphoneNumber,
+  actionSetErrorPhoneNumber,
+  actionSetErrorPhoneWork,
+  actionSetErrorAddress,
+  actionSetErrorZipCode,
+  actionSetErrorCity,
 } from 'src/actions/signup';
 
 // -------------------------- Export --------------------------
 
 const RadioGroupGender = () => {
-  const { user } = useSelector((state) => state.signup);
+  const {
+    user,
+  } = useSelector((state) => state.signup);
   const [value, setValue] = React.useState(user.gender);
   const dispatch = useDispatch();
 
@@ -56,9 +66,58 @@ const RadioGroupGender = () => {
 };
 
 
-export default function Step1() {
+export default function Step2() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.signup);
+  const {
+    user,
+    error_cellphone_number,
+    error_phone_number,
+    error_phone_work,
+    error_address,
+    error_zip_code,
+    error_city,
+   } = useSelector((state) => state.signup);
+
+   const isValid = (str) =>  {
+    if (str !== ""){
+      const letters = str.split('')
+      const regex = /^[a-eB-Z0-9éèêëàâçîôùûôö'\s.-]$/i
+
+      const error = letters.find(l => !regex.test(l))
+
+      console.log(error, typeof error)
+      if(error && error.length > 0 ){
+        dispatch(actionSetErrorAddress('Un caractère non authorisé se trouve dans le champs'))
+      } else {
+        dispatch(actionSetErrorAddress(false))
+      }
+    }
+}
+
+  const isValidZipCode = (code) =>  {
+    if (code !== ""){
+      const reg = new RegExp(/[0-9]{5}/, 'g');
+      if (reg.test(code)) {
+          dispatch(actionSetErrorZipCode(false))
+      } else {
+        dispatch(actionSetErrorZipCode('Le code postal doit contenir uniquement 5 chiffres'))
+      }
+    }
+  }
+
+  const isValidCity = (str) =>  {
+    if (str !== ""){
+      const letters = str.split('')
+      const regex = /^[a-eB-Z0-9éèêëàâçîôùûôö'\s.-]$/i
+      const error = letters.find(l => !regex.test(l))
+
+      if(error && error.length > 0 ){
+        dispatch(actionSetErrorCity('Un caractère non authorisé se trouve dans le champs'))
+      } else {
+        dispatch(actionSetErrorCity(false))
+      }
+    }
+  }
 
 
   return (
@@ -71,8 +130,11 @@ export default function Step1() {
         id="address"
         label="Adresse"
         value={user.address}
+        error={error_address}
+        helperText={error_address}
         variant="outlined"
         onChange={(evt) => {
+          isValid(evt.target.value)
           dispatch(actionSetAddress(evt.target.value));
         }}
         autoFocus
@@ -83,8 +145,11 @@ export default function Step1() {
           id="zip_code"
           label="Code Postal"
           value={user.zip_code}
+          error={error_zip_code}
+          helperText={error_zip_code}
           variant="outlined"
           onChange={(evt) => {
+            isValidZipCode(evt.target.value)
             dispatch(actionSetZipCode(evt.target.value));
           }}
         />
@@ -94,7 +159,10 @@ export default function Step1() {
           label="Ville"
           variant="outlined"
           value={user.city}
+          error={error_city}
+          helperText={error_city}
           onChange={(evt) => {
+            isValidCity(evt.target.value)
             dispatch(actionSetCity(evt.target.value));
           }}
         />
@@ -107,8 +175,22 @@ export default function Step1() {
           value={user.phone_number}
           label="Fix"
           variant="outlined"
+          error={error_phone_number}
+          helperText={error_phone_number}
           onChange={(evt) => {
             dispatch(actionSetPhoneNumber(evt.target.value));
+            if( evt.target.value !== ""){
+              const pn = new PhoneNumber(evt.target.value, 'FR' );
+              if(!pn.isValid()){
+                dispatch(actionSetErrorPhoneNumber('Le numéro de téléphne doit être au format suivant: "0123456789" '))
+              } else if(!pn.isFixedLine( ) && evt.target.value[1] != 9) {
+                dispatch(actionSetErrorPhoneNumber('Le numéro de téléphne n\'est pas une ligne fixe'))
+              } else {
+                dispatch(actionSetErrorPhoneNumber(""));
+              }
+            } else {
+              dispatch(actionSetErrorPhoneNumber(""));
+            }
           }}
         />
         <TextField
@@ -118,8 +200,22 @@ export default function Step1() {
           value={user.cellphone_number}
           variant="outlined"
           type="tel"
+          error={error_cellphone_number}
+          helperText={error_cellphone_number}
           onChange={(evt) => {
             dispatch(actionSetCellphoneNumber(evt.target.value));
+            if( evt.target.value !== ""){
+              const pn = new PhoneNumber( evt.target.value, 'FR' );
+              if(!pn.isValid()){
+                  dispatch(actionSetErrorCellphoneNumber('Le numéro de téléphne doit être au format suivant: "0123456789" '))
+              } else if(!pn.isMobile( )){
+                dispatch(actionSetErrorCellphoneNumber('Le numéro de téléphne n\'est pas un mobile'))
+              } else {
+                dispatch(actionSetErrorCellphoneNumber(""));
+              }
+            } else {
+              dispatch(actionSetErrorCellphoneNumber(""));
+            }
           }}
         />
         <TextField
@@ -128,8 +224,20 @@ export default function Step1() {
           label="Travail"
           value={user.phone_work}
           variant="outlined"
+          error={error_phone_work}
+          helperText={error_phone_work}
           onChange={(evt) => {
             dispatch(actionSetWorkPhone(evt.target.value));
+            if( evt.target.value !== ""){
+              const pn = new PhoneNumber( evt.target.value, 'FR' );
+              if(!pn.isValid()){
+                dispatch(actionSetErrorPhoneWork('Le numéro de téléphne doit être au format suivant: "0123456789" '))
+              } else {
+                dispatch(actionSetErrorPhoneWork(""));
+              }
+            } else {
+              dispatch(actionSetErrorPhoneWork(""));
+            }
           }}
         />
       </div>

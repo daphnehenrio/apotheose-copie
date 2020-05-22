@@ -31,12 +31,11 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res.data)
           store.dispatch(actionSetOneArticle(res.data));
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }
@@ -49,12 +48,11 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res.data)
           store.dispatch(actionSetArticles(res.data));
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }
@@ -67,12 +65,11 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res.data)
           store.dispatch(actionSetLastArticles(res.data));
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }
@@ -89,7 +86,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }
@@ -102,12 +99,11 @@ export default (store) => (next) => (action) => {
           withCredentials: true,
         })
       .then((res) => {
-        console.log(res.data)
         store.dispatch(actionSetSearchArticles(res.data));
         store.dispatch(actionLoading(false));
       })
       .catch((err) => {
-        console.log(err);
+        console.trace(err);
       });
     break;
     }

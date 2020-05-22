@@ -52,6 +52,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.50",
     "@sindresorhus/slugify": "^0.11.0",
+    "awesome-phonenumber-fork": "^1.0.4",
     "axios": "^0.19.2",
     "custom-error": "^0.2.1",
     "email-validator": "^2.0.4",

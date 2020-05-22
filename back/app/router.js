@@ -152,24 +152,26 @@ router.delete('/document/delete/:id', capture(documentController.deleteFile));
 //router.post('/email', capture(emailController.emailer));
 
 // -------------------- MEMO --------------------
-router.post('/memo/:id/:name', capture(memoController.addUser_info));
+router.post('/memo/:id', capture(memoController.addUser_info));
 
 router.get('/memo/:id', capture(memoController.getAllUser_info));
 
-router.get('/memo/:id/:name/:memo_id', capture(memoController.getOneUser_info));
+router.get('/memo/:id/:memo_id', capture(memoController.getOneUser_info));
 
-router.patch('/memo/:id/:name/:memo_id', capture(memoController.updateUser_info));
+router.patch('/memo/:id/:memo_id', capture(memoController.updateUser_info));
+
+router.delete('/memo/:id/:memo_id', capture(memoController.deleteOneUser_info));
 
 // -------------------- NOTE --------------------
-router.post('/note/:id', capture(noteController.addNote));
+router.post('/note/:id', auth, capture(noteController.addNote));
 
-router.get('/note/:id', capture(noteController.getAllNote));
+router.get('/note/:id',  capture(noteController.getAllNote));
 
-router.get('/note/:id/:note_id', capture(noteController.getOneNote));
+router.get('/note/:id/:note_id', auth, capture(noteController.getOneNote));
 
-router.patch('/note/:id/:note_id', capture(noteController.updateNote));
+router.patch('/note/:id/:note_id', auth, capture(noteController.updateNote));
 
-router.delete('/note/:id/:note_id', capture(noteController.deleteNote));
+router.delete('/note/:id/:note_id', auth, capture(noteController.deleteNote));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD

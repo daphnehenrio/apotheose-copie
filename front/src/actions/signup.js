@@ -33,6 +33,15 @@ export const MISSING_FIELD = 'action/MISSING_FIELD';
 export const SET_EMAIL = 'action/SET_EMAIL';
 export const CHECK_EMAIL_EXISTS = 'action/CHECK_EMAIL_EXISTS';
 
+export const SET_ERROR_CELLPHONE_NUMBER = 'action/SET_ERROR_CELLPHONE_NUMBER'
+export const SET_ERROR_PHONE_NUMBER = 'action/SET_ERROR_PHONE_NUMBER'
+export const SET_ERROR_PHONE_WORK = 'action/SET_ERROR_PHONE_WORK';
+
+export const SET_ERROR_ADDRESS = 'action/SET_ERROR_ADDRESS'
+
+export const SET_ERROR_ZIP_CODE = 'action/SET_ERROR_ZIP_CODE';
+export const SET_ERROR_CITY  = 'action/SET_ERROR_CITY';
+
 export const SIGNUP = 'action/SIGNUP';
 export const ERROR_LIST_SIGNUP ='action/ERROR_LIST_SIGNUP'
 
@@ -142,6 +151,36 @@ export const actionEmailValidation = (exists) => ({
 export const actionSetMissingField = () => ({
   type: MISSING_FIELD,
 });
+
+export const actionSetErrorCellphoneNumber = (message) => ({
+  type: SET_ERROR_CELLPHONE_NUMBER,
+  message,
+})
+
+export const actionSetErrorPhoneNumber = (message) => ({
+  type: SET_ERROR_PHONE_NUMBER,
+  message,
+})
+
+export const actionSetErrorPhoneWork = (message) => ({
+  type: SET_ERROR_PHONE_WORK,
+  message,
+})
+
+export const actionSetErrorAddress = (message) => ({
+  type: SET_ERROR_ADDRESS,
+  message,
+})
+
+export const actionSetErrorZipCode = (message) => ({
+  type: SET_ERROR_ZIP_CODE,
+  message,
+})
+
+export const actionSetErrorCity = (message) => ({
+  type: SET_ERROR_CITY,
+  message,
+})
 
 // --------------- Signup ---------------
 

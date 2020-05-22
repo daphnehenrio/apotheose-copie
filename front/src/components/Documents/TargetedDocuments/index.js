@@ -395,10 +395,6 @@ export default function TargetedDocuments(category) {
   const dispatch = useDispatch();
   const { successUpload, files, checkFiles, current_sub_cat_id, totalFile } = useSelector((state) => state.document);
 
-  console.log(files, 'files');
-
-
-
 
   const [open, setOpen] = React.useState(false);
 
@@ -434,7 +430,6 @@ export default function TargetedDocuments(category) {
   };
 
   const readFile = (file_document) => {
-    console.log(file_document)
     setCurrentFile(file_document);
     dispatch(actionGetOneFile(file_document.id));
     setTimeout(handleOpenModal, 1000);

@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function FileReader() {
+
   const { file, fileType, loading } = useSelector((state) => state.document);
   const classes = useStyles();
   console.log(loading, 'LOADIIING');
