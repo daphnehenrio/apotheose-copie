@@ -8,6 +8,8 @@ import {
     SET_ONE_FILE,
     GET_DOCUMENTS,
     SEND_FILES,
+    SET_SEARCH,
+    LOADING,
 
 } from '../actions/document';
 
@@ -23,6 +25,8 @@ const initialState = {
     totalFiles: 0,
     checkFiles: false,
     current_sub_cat_id: null,
+    search: '',
+    loading:true,
 };
 
 export default (state = initialState, action = {}) => {
@@ -93,6 +97,20 @@ export default (state = initialState, action = {}) => {
               file: action.file,
               fileType: action.type_file,
 
+          }
+      }
+
+      case SET_SEARCH: {
+          return {
+              ...state,
+              search: action.text,
+          }
+      }
+
+      case LOADING: {
+          return {
+              ...state,
+              loading: action.bool,
           }
       }
 

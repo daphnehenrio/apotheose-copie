@@ -17,12 +17,14 @@ import {
   GET_SEARCH_ARTICLES,
   actionSetSearchArticles
 } from '../../actions/articles';
+import { actionLoading } from '../../actions/document';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
     // ---------------------------- GET MENU ----------------------------
 
     case GET_ONE_ARTICLE: {
+      store.dispatch(actionLoading(true));
       axios
         .get(`${base_url}/article/${action.id}`,
           {
@@ -30,6 +32,7 @@ export default (store) => (next) => (action) => {
           })
         .then((res) => {
           store.dispatch(actionSetOneArticle(res.data));
+          store.dispatch(actionLoading(false));
         })
         .catch((err) => {
           console.trace(err);
@@ -38,6 +41,7 @@ export default (store) => (next) => (action) => {
     }
 
     case GET_ARTICLES: {
+      store.dispatch(actionLoading(true));
       axios
         .get(`${base_url}/sub-category/${action.sub_category}/articles`,
           {
@@ -45,6 +49,7 @@ export default (store) => (next) => (action) => {
           })
         .then((res) => {
           store.dispatch(actionSetArticles(res.data));
+          store.dispatch(actionLoading(false));
         })
         .catch((err) => {
           console.trace(err);
@@ -53,6 +58,7 @@ export default (store) => (next) => (action) => {
     }
 
     case GET_LAST_ARTICLES: {
+      store.dispatch(actionLoading(true));
       axios
         .get(`${base_url}/articles/last`,
           {
@@ -60,6 +66,7 @@ export default (store) => (next) => (action) => {
           })
         .then((res) => {
           store.dispatch(actionSetLastArticles(res.data));
+          store.dispatch(actionLoading(false));
         })
         .catch((err) => {
           console.trace(err);
@@ -68,6 +75,7 @@ export default (store) => (next) => (action) => {
     }
 
     case GET_ALL_ARTICLES: {
+      store.dispatch(actionLoading(true));
       axios
         .get(`${base_url}/articles`,
           {
@@ -75,6 +83,7 @@ export default (store) => (next) => (action) => {
           })
         .then((res) => {
           store.dispatch(actionSetAllArticles(res.data));
+          store.dispatch(actionLoading(false));
         })
         .catch((err) => {
           console.trace(err);
@@ -83,6 +92,7 @@ export default (store) => (next) => (action) => {
     }
 
     case GET_SEARCH_ARTICLES: {
+      store.dispatch(actionLoading(true));
       axios
       .get(`${base_url}/articles/search/${action.value}`,
         {
@@ -90,6 +100,7 @@ export default (store) => (next) => (action) => {
         })
       .then((res) => {
         store.dispatch(actionSetSearchArticles(res.data));
+        store.dispatch(actionLoading(false));
       })
       .catch((err) => {
         console.trace(err);

@@ -9,7 +9,9 @@ export const GET_DOCUMENTS = 'action/GET_DOCUMENTs';
 export const SET_DOCUMENTS = 'action/SET_DOCUMENTS';
 export const GET_ONE_FILE = 'action/GET_ONE_FILE';
 export const SET_ONE_FILE = 'action/SET_ONE_FILE';
-export const DOWNLOAD_FILE = 'action/DOWNLOAD_FILE'
+export const DOWNLOAD_FILE = 'action/DOWNLOAD_FILE';
+export const SET_SEARCH = 'action/SET_SEARCH';
+export const LOADING = 'action/LOADING';
 
 export const actionOpenAddFile = (bool) => ({
     type: OPEN_ADD_FILE,
@@ -92,7 +94,17 @@ export const actionDownloadFile = (id, name) => ({
   type: DOWNLOAD_FILE,
   id,
   name
-})
+});
+
+export const actionSetSearch = (text) => ({
+  type: SET_SEARCH,
+  text,
+});
+
+export const actionLoading = (bool) => ({
+  type: LOADING,
+  bool,
+});
 
 
 

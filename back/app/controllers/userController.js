@@ -1,5 +1,7 @@
 const { User, User_profil } = require('../models');
 
+const bcrypt = require('bcryptjs');
+
 const userController = {
 
   homePage: async (req, res) => {
@@ -61,9 +63,12 @@ const userController = {
     try {
 
       const userId = req.params.id;
-      const user_profilId = req.params.user_id;
       const user = await User.findByPk(userId);
-      const user_profil = await User_profil.findByPk(user_profilId);
+      const user_profil = await User_profil.findOne({
+        where: {
+          user_id: userId
+        }
+      });
 
       if (user_profil) {
 
@@ -86,6 +91,27 @@ const userController = {
       console.trace(error);
       res.status(500).send(error);
     }
+  },
+
+  rename: async (req, res) => {
+
+    const data = req.body;
+
+    const user = await User.findOne({
+      where: 
+        {
+          validation_key: data.validation_key
+        }      
+    });
+
+    if(user.validation_key) {
+      user.update({
+        password: bcrypt.hashSync(data.password, 10)
+      });
+    };
+
+    res.end();
+
   }
 
 };

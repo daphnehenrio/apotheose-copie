@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const mkdirp = require('mkdirp');
 const slugify = require("slugify");
+const suid = require('rand-token').suid;
 
 //password verify
 const emailValidator = require('email-validator');
@@ -27,17 +28,17 @@ const authController = {
 
       // if not exist => error
       if (!user) {
-        return res.send("Ce login n'existe pas");
+        return res.send("Utilisateur ou mot de passe incorrect");
       }
 
-      /*if (!user.validation) {
+      if (!user.validation) {
         return res.send("Le compte n'a pas encore été validé, veuillez consulter vos emails.");
-      }*/
+      }
 
       // if exist, verify password
       if(! bcrypt.compareSync( password, user.password ) ) {
         // if not good => error
-        return res.send("Le mot de passe saisi est incorrect");
+        return res.send("Utilisateur ou mot de passe incorrect");
       }
 
       let category = await Category.findAll({
@@ -85,7 +86,7 @@ const authController = {
 
     // NTUI => verify info
     // - verify if user exist
-    User.findOne({
+    await User.findOne({
 
         where:
           Sequelize.or(
@@ -142,7 +143,9 @@ const authController = {
         newUser.first_name = data.first_name;
         newUser.last_name = data.last_name;
         newUser.email = data.email;
+        newUser.validation = false;
         newUser.folder_name = bcrypt.hashSync(data.login).replace(/\//gi, "");
+        newUser.validation_key = suid(16);
         // HASH password
         newUser.password = bcrypt.hashSync(data.password, 10);
 
@@ -211,6 +214,9 @@ const authController = {
 
           };
 
+        next();
+
+
 
       } else {
         res.status(400).send(errorsList);
@@ -221,13 +227,45 @@ const authController = {
       res.status(500).send(err);
     });
 
-    next();
-
   },
 
   logout: (req, res) => {
     delete req.session;
     res.send('la session à bien été supprimée');
+  },
+
+  validation: async (req, res) => {
+
+    const key = req.params.key;
+
+    const user = await User.findOne({
+      where: {
+        validation_key: key,
+      }        
+    });
+
+    user.update({
+      validation: true
+    });
+
+    await res.redirect(`${process.env.BASEURL}`);
+
+  },
+
+  forgetPass: async (req, res, next) => {
+
+    const data = req.body;
+
+    const user = await User.findOne({
+      where: {
+        email : data.email
+      }        
+    });
+
+    await res.redirect(`${process.env.RECUP}`);  
+
+    next();
+
   }
 
 };

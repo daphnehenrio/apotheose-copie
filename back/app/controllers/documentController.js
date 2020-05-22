@@ -69,17 +69,17 @@ const documentController = {
 
         res.status(200).send('ok')
 
-    },
+  },
 
-    download: async (req, res) => {
+  download: async (req, res) => {
 
       const file = await Document.findByPk(req.params.document_id)
 
       res.download(file.link); // Set disposition and send it.
 
-    },
+  },
 
-    allDocuments: async (req, res) => {
+  allDocuments: async (req, res) => {
 
         const user_id = req.params.id;
 
@@ -92,9 +92,9 @@ const documentController = {
 
         res.send(documents);
 
-    },
+  },
 
-    allCategories: async (req, res) => {
+  allCategories: async (req, res) => {
         const categories = await Category.findAll({
             where: {
                 type_id: 2
@@ -113,9 +113,9 @@ const documentController = {
         });
 
         res.send(categories)
-    },
+  },
 
-    documentsBySubCategory: async (req, res) => {
+  documentsBySubCategory: async (req, res) => {
 
       const { id, sub_category_id } = req.params;
 
@@ -129,6 +129,36 @@ const documentController = {
       res.send(documents);
 
   },
+
+  deleteFile: async (req, res) => {
+
+    const document_id = req.params.id;
+
+        let document = await Document.findOne({
+
+            where: {
+                id: document_id
+            },
+        });
+
+    const path = document.link;
+   
+    fs.unlinkSync(path, (err) => {
+      
+      if (err) {
+        console.error(err)
+        return
+      }
+
+    });
+
+    await document.destroy();
+
+    res.send("Votre fichier a bien été supprimer.");
+
+  },
+
+  
 
 }
 
