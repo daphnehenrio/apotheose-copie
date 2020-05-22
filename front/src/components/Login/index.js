@@ -26,6 +26,7 @@ import {
 
 import {
   actionSetLoginForm,
+  actionSetForgetPassword,
 } from '../../actions/toggle';
 
 
@@ -123,7 +124,7 @@ export default function Login() {
               : ''
           }
 
-
+        <div className="login-dialog--div-link">
           <Link
             className="login-dialog--link"
             onClick={() => {
@@ -132,6 +133,17 @@ export default function Login() {
             }}>
             Créer un compte
           </Link>
+
+          <Link
+            className="login-dialog--link"
+            onClick={() => {              
+              dispatch(actionSetLoginForm())
+              dispatch(actionSetForgetPassword())
+            }}>
+            Mot de passe oublié
+          </Link>
+        </div>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">

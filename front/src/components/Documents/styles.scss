@@ -19,29 +19,41 @@
 }
 
 .header-document-page{
-    margin-bottom: 4rem;
     display: flex;
-    border-bottom: 1px solid grey;
-    padding-bottom: 0.5rem;
-
 }
 
 .breadcrumb{
     color: white !important;
     font-size: 1.4rem !important;
     margin-right: 3rem !important;
+    
 }
+
+
 
 .link-document{
     font-size: 1.4rem;
     color: black !important;
     padding: 0.5rem 1rem;
     &:hover{
-        background-color: rgba(grey, $alpha: 0.3);
-        border-radius: 10px;
+        background-color: rgba(grey, $alpha: 0.1);
+        border-radius: 2px;
         text-decoration: none !important;
     }
 }
+
+.grey{
+  color: rgba(grey, $alpha: 0.6) !important;
+}
+
+.MuiTableHead-root{
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  .MuiTableCell-root{
+    padding: 1rem !important;
+  }
+}
+
+
 
 .doc-title{
     text-align: center;
@@ -51,25 +63,55 @@
 .documents-container{
     margin-left: 2rem;
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    flex-direction: column;
+    .MuiToolbar-root .MuiSvgIcon-root{
+      color: rgba(grey, $alpha: 0.6);
+    }
+    .Mui-selected{
+      background-color: rgba(182,220,254,0.2) !important;
+    }
+    .MuiToolbar-root{
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
+}
+
+.MuiTableContainer-root{
+  min-height: 400px !important;
+}
+.icon-table{
+  display: flex !important;
+}
+
+.MuiTableBody-root .MuiTableRow-root {
+  cursor: pointer;
+  &:hover{ 
+    .MuiIconButton-label{
+      display: flex;
+    }
+  }
+}
+
+
+
+.MuiTableBody-root .MuiIconButton-label{
+  display: none;
 }
 
 .single-document-container{
-    width: 150px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-right: 2rem;
-    margin-bottom: 2rem;
-    transition: all 0.3s;
+    justify-content: flex-start;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(grey, $alpha: 0.4);
     &:hover{
-        transform: translateY(-3px);
+        background-color: rgba(grey, $alpha: 0.1);
+        cursor: pointer;
     }
     p{
-        text-align: center;
-        margin-top: 0.5rem;
+
+        font-size: 1.1rem;
 
         &.doc-title{
           margin-top: 1rem;
@@ -78,9 +120,33 @@
 }
 
 .MuiBreadcrumbs-separator{
-  color: black;
+  color: rgba(red, $alpha: 0.9) !important;
 }
 
+.file-container{
+  display: flex;
+  align-items: center;
+  padding: 1rem 0 ;
+}
+
+.not-found{
+  position: relative;
+  margin-top: 5rem;
+  padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  img{
+    width: 5rem;
+  }
+  p{
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1.4rem;
+    color: rgba(grey, $alpha: 0.6);
+  }
+}
 
 
 .form-upload{
@@ -111,8 +177,9 @@
 
 
 .img-folder{
-    width: 4rem;
+    width: 2.5rem;
     cursor: pointer;
+    margin-right: 1rem;
 }
 
 .img-upload-doc{
@@ -202,3 +269,48 @@
   }
 }
 
+@media screen and (max-width: 1100px) {
+  .documents-container{
+    .MuiToolbar-root{
+      flex-direction: column;
+    }
+    .header-document-page{
+      margin-bottom: 2rem;
+    }
+  }
+
+}
+
+
+
+@media screen and (max-width: 400px) {
+  .document-page{
+    padding: 0.5rem;
+  }
+  .documents-container{
+    margin-left: 0;
+    .MuiIconButton-label{
+      display: flex;
+    }
+    .MuiToolbar-root{
+      flex-direction: column;
+      padding: 1rem 0.5rem;
+      .MuiBreadcrumbs-ol{
+        flex-direction: column;
+      }
+      .MuiBreadcrumbs-li{
+        display: flex;
+      }
+      a{
+        font-size: 1.2rem;
+      }
+      .MuiSelect-root{
+        font-size: 1.2rem;
+      }
+      .header-document-page{
+        margin-bottom: 2rem;
+      }
+    }
+
+  }
+}
