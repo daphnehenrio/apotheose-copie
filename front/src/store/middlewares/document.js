@@ -112,7 +112,7 @@ export default (store) => (next) => (action) => {
     case GET_ONE_FILE: {
 
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));
-
+      store.dispatch(actionLoading(true));
       if (userSession.token) {
 
         const token = userSession.token
@@ -131,7 +131,8 @@ export default (store) => (next) => (action) => {
             console.log(res)
             const blob = new Blob([res.data])
             const url = window.URL.createObjectURL(blob);
-            store.dispatch(actionSetOneFile(url, res.data.type))
+            store.dispatch(actionSetOneFile(url, res.data.type));
+            store.dispatch(actionLoading(false));
           })
 
       } else {

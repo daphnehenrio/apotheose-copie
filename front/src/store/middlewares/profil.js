@@ -4,6 +4,7 @@ import axios from 'axios';
 // == import actions
 import { GET_PROFIL, actionSetProfil } from 'src/actions/user_profil'
 import { actionChangePage } from 'src/actions/routes'
+import { actionLoading } from 'src/actions/document';
 
 
 // == import local
@@ -18,6 +19,7 @@ export default (store) => (next) => (action) => {
     // ---------------------------- GET PROFIL ----------------------------
 
     case GET_PROFIL: {
+      store.dispatch(actionLoading(true));
 
       const { history } = action;
 
@@ -40,6 +42,7 @@ export default (store) => (next) => (action) => {
 
           if(res.data){
             store.dispatch(actionSetProfil(res.data[0]));
+            store.dispatch(actionLoading(false));
           }
           else {
             console.log('error axios get session')

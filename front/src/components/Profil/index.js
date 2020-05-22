@@ -16,6 +16,10 @@ import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
+
+
 
 // == Import actions
 
@@ -97,6 +101,10 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 
@@ -106,6 +114,7 @@ export default function Profil() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.document.loading);
   const [value, setValue] = React.useState(0);
   const {
     login,
@@ -235,6 +244,7 @@ export default function Profil() {
           <Category label="Santé" {...a11yProps(2)} />
           <Category label="Caf" {...a11yProps(3)} />
         </Tabs>
+        {!loading && (
         <TabPanel className="category-content" value={value} index={0}>
           <div className="card-container">
             <div className="card-header">
@@ -298,6 +308,7 @@ export default function Profil() {
             </div>
           </div>
         </TabPanel>
+        )}
         <TabPanel className="category-content" value={value} index={1}>
           <div className="card-container">
             <div className="card-header">
@@ -326,48 +337,48 @@ export default function Profil() {
               <ul className="infos-container">
                 {infosSupList}
                 {openAddInfoSup && (
-                <form
-                  onSubmit={(evt) => {
-                    evt.preventDefault();
-                    if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
-                      const infos = {
-                        id: infosSup.length + 1,
-                        title: infoSup.title,
-                        value: infoSup.value,
-                      };
-                      dispatch(actionAddInfoSup(infos));
-                      dispatch(actionClearAddInfoSup());
-                      document.getElementById('add-info-sup-title').focus();
-                    }
-                  }}
-                  className="add-infos-sup-container"
-                >
-                  <TextField
-                    id="add-info-sup-title"
-                    onChange={(evt) => {
-                      dispatch(actionSetInfoSupTitle(evt.target.value));
+                  <form
+                    onSubmit={(evt) => {
+                      evt.preventDefault();
+                      if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
+                        const infos = {
+                          id: infosSup.length + 1,
+                          title: infoSup.title,
+                          value: infoSup.value,
+                        };
+                        dispatch(actionAddInfoSup(infos));
+                        dispatch(actionClearAddInfoSup());
+                        document.getElementById('add-info-sup-title').focus();
+                      }
                     }}
-                    value={infoSup.title}
-                    autoFocus
-                  />
-                  <p className="add-infos-sup-separator"> : </p>
-                  <TextField
-                    id="standard-basic"
-                    onChange={(evt) => {
-                      dispatch(actionSetInfoSupValue(evt.target.value));
-                    }}
-                    value={infoSup.value}
-                  />
-                  <IconButton
-                    aria-label="delete"
-                    onClick={(evt) => {
-                      handleAddInfoSup(false);
-                    }}
+                    className="add-infos-sup-container"
                   >
-                    <CloseIcon />
-                  </IconButton>
-                  <input className="hidden" type="submit" />
-                </form>
+                    <TextField
+                      id="add-info-sup-title"
+                      onChange={(evt) => {
+                        dispatch(actionSetInfoSupTitle(evt.target.value));
+                      }}
+                      value={infoSup.title}
+                      autoFocus
+                    />
+                    <p className="add-infos-sup-separator"> : </p>
+                    <TextField
+                      id="standard-basic"
+                      onChange={(evt) => {
+                        dispatch(actionSetInfoSupValue(evt.target.value));
+                      }}
+                      value={infoSup.value}
+                    />
+                    <IconButton
+                      aria-label="delete"
+                      onClick={(evt) => {
+                        handleAddInfoSup(false);
+                      }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                    <input className="hidden" type="submit" />
+                  </form>
                 )}
               </ul>
             </div>
@@ -376,6 +387,9 @@ export default function Profil() {
         <TabPanel className="category-content" value={value} index={2} />
         <TabPanel className="category-content" value={value} index={3} />
       </div>
+      <Backdrop className={classes.backdrop} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <EditProfil />
     </div>
   );
