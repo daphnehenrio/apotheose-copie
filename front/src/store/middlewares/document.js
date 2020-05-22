@@ -32,7 +32,6 @@ export default (store) => (next) => (action) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res)
         store.dispatch(actionSetFolder(res.data))
       })
       break;
@@ -58,8 +57,6 @@ export default (store) => (next) => (action) => {
             },
           })
           .then((res) => {
-            console.log(res)
-            console.log(typeof action.name, 'ACTION NAME HELLOOOOOOOOOOOOOO');
             store.dispatch(actionSetDocuments(res.data, action.id))
           })
 
@@ -92,7 +89,6 @@ export default (store) => (next) => (action) => {
 
             })
           .then((res) => {
-            console.log('SEND FILES SUCCED')
             store.dispatch(actionOpenSuccessMessage(true));
           })
           .catch((err) => {
@@ -129,7 +125,6 @@ export default (store) => (next) => (action) => {
 
         })
         .then((res) => {
-          console.log(res)
           const blob = new Blob([res.data])
           const url = window.URL.createObjectURL(blob);
           store.dispatch(actionSetOneFile(url, res.data.type))
@@ -152,7 +147,6 @@ export default (store) => (next) => (action) => {
           if(userSession.token) {
 
             const token = userSession.token
-            console.log(action)
             axios
             .get(`${base_url}/file/${userSession.user_id}/${action.id}`,
             {
@@ -163,7 +157,6 @@ export default (store) => (next) => (action) => {
               responseType: 'blob',
             })
             .then((res) => {
-              console.log(res)
               let type = "";
               switch (res.data.type) {
                 case 'application/pdf':

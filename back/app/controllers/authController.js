@@ -227,7 +227,6 @@ const authController = {
 
   logout: (req, res) => {
     delete req.session;
-    console.log(req.session);
     res.send('la session à bien été supprimée');
   }
 

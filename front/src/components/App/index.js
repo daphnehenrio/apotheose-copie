@@ -97,7 +97,6 @@ const App = () => {
     }
 
     if (!allTitleOk) {
-      console.log('use effect app')
       dispatch(actionGetAllArticles());
 
     }
@@ -270,7 +269,6 @@ const App = () => {
             categoriesFolder.length > 0 && (
               categoriesFolder.map((cat) => {
                 return ( cat.sub_category.map((sub_cat) => {
-                  console.log(sub_cat.name, 'APP INDEX JS SUB CAT');
                   return (
                     <Route key={sub_cat.name} exact path={`/mes-documents/${slugify(cat.name)}/${slugify(sub_cat.name)}`}>
                       <div>

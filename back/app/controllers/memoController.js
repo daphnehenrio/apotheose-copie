@@ -4,25 +4,21 @@ const memoController = {
 
     addUser_info: async (req, res) => {
 
-        const data = req.body; 
+        const data = req.body;
+        console.log(data)
         const param = req.params;
-        
-        const cat = await Category.findOne({
-            where: {
-                name: param.name
-            }
-        });
+
 
         const user = await User.findOne({
           where: {
               id: param.id,
           },
         });
-       
+
         const newUser_info = new User_info();
 
         newUser_info.user_id = user.id;
-        newUser_info.category_id = cat.id;
+        newUser_info.category_id = data.category_id;
         newUser_info.identify = data.identify;
         newUser_info.service_name = data.service_name;
         newUser_info.service_phone = data.service_phone;
@@ -32,68 +28,93 @@ const memoController = {
 
         await newUser_info.save();
 
-        res.send(newUser_info);
-        
+        const allMemo = await User_info.findAll({
+          where: {
+            user_id: param.id
+          },
+          include:['category'],
+          order: [
+            ['category_id', 'ASC']
+          ],
+      });
+
+        res.send(allMemo);
+
     },
 
     updateUser_info: async (req, res) => {
 
-      const data = req.body; 
-      const param = req.params;  
+      const data = req.body;
+      const param = req.params;
 
-      const cat = await Category.findOne({
-        where: {
-            name: param.name
-        }
-      });
+      const memo = await User_info.findByPk(param.memo_id);
 
-      const memo = await User_info.findByPk(param.memo_id, {
+      await memo.update(data);
+
+      const allMemo = await User_info.findAll({
         where: {
-          user_id: param.id,
-          category_id: cat.id
+          user_id: param.id
         },
-      });
-      
-      await memo.update(data);    
+        include:['category'],
+        order: [
+          ['category_id', 'ASC']
+        ],
+    });
 
-      res.send(memo);
-        
+      res.send(allMemo);
+
     },
 
     getOneUser_info: async (req, res) => {
 
-      const param = req.params;  
+      const param = req.params;
 
-      const cat = await Category.findOne({
-        where: {
-            name: param.name
-        }
-      });
 
-      const user_info = await User_info.findByPk(param.memo_id, {
-        where: {
-            user_id: param.id,  
-            category_id: cat.id          
-        },
-      });
+      const user_info = await User_info.findByPk(param.memo_id);
 
       res.send(user_info);
 
     },
 
     getAllUser_info: async (req, res) => {
-       
-      const param = req.params;  
+
+      const param = req.params;
 
       const user_info = await User_info.findAll({
           where: {
-            user_id: param.id   
-          } 
+            user_id: param.id
+          },
+          include:['category'],
+          order: [
+            ['category_id', 'ASC']
+          ],
       });
 
       res.send(user_info);
 
-    }  
+    },
+
+    deleteOneUser_info: async (req, res) => {
+
+      const param = req.params;
+
+      const user_info = await User_info.findByPk(param.memo_id);
+
+      await user_info.destroy()
+
+      const allMemo = await User_info.findAll({
+        where: {
+          user_id: param.id
+        },
+        include:['category'],
+        order: [
+          ['category_id', 'ASC']
+        ],
+    });
+
+      res.send(allMemo);
+
+    },
 
 
 };

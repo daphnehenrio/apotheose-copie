@@ -145,13 +145,15 @@ router.post('/public/storage/:id/:category/:sub_category', auth, upload.single('
 //router.post('/email', capture(emailController.emailer));
 
 // -------------------- MEMO --------------------
-router.post('/memo/:id/:name', capture(memoController.addUser_info));
+router.post('/memo/:id', capture(memoController.addUser_info));
 
 router.get('/memo/:id', capture(memoController.getAllUser_info));
 
-router.get('/memo/:id/:name/:memo_id', capture(memoController.getOneUser_info));
+router.get('/memo/:id/:memo_id', capture(memoController.getOneUser_info));
 
-router.patch('/memo/:id/:name/:memo_id', capture(memoController.updateUser_info));
+router.patch('/memo/:id/:memo_id', capture(memoController.updateUser_info));
+
+router.delete('/memo/:id/:memo_id', capture(memoController.deleteOneUser_info));
 
 // -------------------- NOTE --------------------
 router.post('/note/:id', auth, capture(noteController.addNote));

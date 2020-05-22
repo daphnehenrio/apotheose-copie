@@ -5,8 +5,6 @@ const noteController = {
     addNote: async (req, res) => {
 
         const data = req.body;
-        console.log(req.body)
-        console.log(req)
         const param = req.params;
 
         const user = await User.findOne({
@@ -44,14 +42,12 @@ const noteController = {
 
       const data = req.body;
       const param = req.params;
-      console.log(data, param)
 
       const note = await Note.findByPk(param.note_id, {
         where: {
           user_id: param.id
         },
       });
-      console.log(note);
       await note.update(data);
 
       const allNotes = await Note.findAll({

@@ -88,7 +88,6 @@ export default (state = initialState, action = {}) => {
         }
 
         case SET_ONE_FILE: {
-          console.log('reducer', action.type_file)
           return {
               ...state,
               file: action.file,

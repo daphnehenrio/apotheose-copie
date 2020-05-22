@@ -41,30 +41,16 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then( (res) => {
-          /*
-          window.sessionStorage.setItem('user', JSON.stringify({
-            token: res.data.token,
-            user_id: res.data.sendUser.id,
-            login: res.data.sendUser.login,
-            avatar: res.data.sendUser.avatar
-          }));
-
-          store.dispatch(actionSetProfil(res.data.sendUser));
-          */
           store.dispatch(actionChangePage('/', action.history));
           store.dispatch(actionSetLoginForm())
         })
         .catch((err) => {
-          console.dir(err)
-
-            if(err.response && err.response.status  === 400) {
-
-              store.dispatch(actionErrorListSignup(err.response.data))
-              store.dispatch(actionSetStep(0))
-              return
-            }
-            console.log(err);
-
+          if(err.response && err.response.status  === 400) {
+            store.dispatch(actionErrorListSignup(err.response.data))
+            store.dispatch(actionSetStep(0))
+            return
+          }
+          console.trace(err);
         });
       return;
     }

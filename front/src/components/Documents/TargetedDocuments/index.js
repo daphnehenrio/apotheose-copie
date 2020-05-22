@@ -79,12 +79,6 @@ export default function TargetedDocuments(category, sub) {
   const categoriesFolder = useSelector((state) => state.document.category)
   const goodSub_categories = categoriesFolder.find((cat) => cat.name === category.category);
 
-  console.log(goodSub_categories, 'GOOD SUB CATEGORY');
-
-  
-
-
-
   const [open, setOpen] = React.useState(false);
 
   const [currentFile, setCurrentFile] = React.useState({})
@@ -119,7 +113,6 @@ export default function TargetedDocuments(category, sub) {
   };
 
   const readFile = (file_document) => {
-    console.log(file_document)
     setCurrentFile(file_document);
     dispatch(actionGetOneFile(file_document.id));
     setTimeout(handleOpenModal, 1000);
@@ -183,7 +176,6 @@ export default function TargetedDocuments(category, sub) {
             input={<SelectDoc />}
             defaultValue={goodSub_categories.name}
             onChange={(evt) => {
-              console.log(evt.target);
               dispatch(actionChangePage(`/mes-documents/${slugify(evt.target.value)}`, history))
             }
             }
@@ -201,12 +193,9 @@ export default function TargetedDocuments(category, sub) {
             input={<SelectDoc />}
             defaultValue={category.sub}
             onChange={(evt) => {
-              console.log(evt.target);
               const goodSubCatTarget = goodSub_categories.sub_category.find((cat) => {
-                console.log(cat.name, evt.target.value, 'CAT');
                 return cat.name === evt.target.value;
               });
-              console.log(goodSubCatTarget, 'GOOD SUB CAT TARGET');
               dispatch(actionGetDocuments(goodSubCatTarget.id));
               dispatch(actionChangePage(`/mes-documents/${slugify(goodSub_categories.name)}/${slugify(evt.target.value)}`, history));
             }
@@ -229,7 +218,7 @@ export default function TargetedDocuments(category, sub) {
           Ajouter un document
       </Button>
       </div>
-      
+
       <div className='documents-container'>
 
         {filesJsx}

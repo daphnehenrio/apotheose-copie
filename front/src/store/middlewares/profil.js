@@ -42,7 +42,6 @@ export default (store) => (next) => (action) => {
             store.dispatch(actionSetProfil(res.data[0]));
           }
           else {
-            console.log('error axios get session')
             store.dispatch(actionErrorLogin('Une erreur est survenue'));
           }
         })

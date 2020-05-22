@@ -33,7 +33,6 @@ export default function DocumentsCategory() {
 
   return (
     <div className='document-page'>
-      
       <div className='documents-container'>
 
         {categoriesFolder.map((category) => {

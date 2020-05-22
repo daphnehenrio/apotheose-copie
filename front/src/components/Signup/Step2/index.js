@@ -66,7 +66,7 @@ const RadioGroupGender = () => {
 };
 
 
-export default function Step1() {
+export default function Step2() {
   const dispatch = useDispatch();
   const {
     user,
@@ -109,10 +109,8 @@ export default function Step1() {
     if (str !== ""){
       const letters = str.split('')
       const regex = /^[a-eB-Z0-9éèêëàâçîôùûôö'\s.-]$/i
-
       const error = letters.find(l => !regex.test(l))
 
-      console.log(error, typeof error)
       if(error && error.length > 0 ){
         dispatch(actionSetErrorCity('Un caractère non authorisé se trouve dans le champs'))
       } else {
@@ -209,7 +207,6 @@ export default function Step1() {
             if( evt.target.value !== ""){
               const pn = new PhoneNumber( evt.target.value, 'FR' );
               if(!pn.isValid()){
-                  console.log('error')
                   dispatch(actionSetErrorCellphoneNumber('Le numéro de téléphne doit être au format suivant: "0123456789" '))
               } else if(!pn.isMobile( )){
                 dispatch(actionSetErrorCellphoneNumber('Le numéro de téléphne n\'est pas un mobile'))

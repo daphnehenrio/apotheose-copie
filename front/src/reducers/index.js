@@ -10,6 +10,7 @@ import signup from './signup';
 import user_profil from './user_profil';
 import user_info from './user_info';
 import user_note from './user_note';
+import user_memo from './user_memo';
 
 import document from './document';
 
@@ -24,5 +25,6 @@ export default combineReducers({
   user_profil,
   user_info,
   user_note,
+  user_memo,
   document,
 });

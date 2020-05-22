@@ -63,7 +63,6 @@ export default function DocumentsSubCategory(category) {
           className='img-folder'
           src={Folder}
           onClick={() => {
-            console.log(typeof sub_cat.name, 'UB CAT NAME JJJJJJJJJ');
             dispatch(actionGetDocuments(sub_cat.id));
             dispatch(actionChangePage(`/mes-documents/${slugify(goodSub_categories.name)}/${slugify(sub_cat.name)}`, history))
           }
@@ -74,8 +73,6 @@ export default function DocumentsSubCategory(category) {
     )
   });
 
-
-  console.log(SubFolder, "sub")
   // ----------------- Return ------------------ //
 
   return (
@@ -95,7 +92,6 @@ export default function DocumentsSubCategory(category) {
             input={<SelectDoc />}
             defaultValue={goodSub_categories.name}
             onChange={(evt) => {
-              console.log(evt.target);
               dispatch(actionChangePage(`/mes-documents/${slugify(evt.target.value)}`, history))
             }
             }
@@ -108,7 +104,7 @@ export default function DocumentsSubCategory(category) {
             }
           </StyledSelect>
         </Breadcrumbs>
-        
+
       </div>
       <div className='documents-container'>
 

@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 export default function FileReader() {
     const { file, fileType } = useSelector((state) => state.document)
 
-    console.log(fileType)
     let type = '';
 
     switch (fileType) {
@@ -28,7 +27,6 @@ export default function FileReader() {
           break;
     }
 
-    console.log(type)
     const onError = (e) => {
       console.log(e, 'error in file-viewer');
     }

@@ -21,7 +21,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetServices(res.data));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }
@@ -36,7 +36,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetAllServices(res.data));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }

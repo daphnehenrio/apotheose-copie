@@ -180,7 +180,7 @@ export default function Profil() {
           id="standard-basic"
           defaultValue={info.value}
           onChange={(evt) => {
-            dispatch(actionSetInfoSupValue(evt.target.value)); console.log(infoSup);
+            dispatch(actionSetInfoSupValue(evt.target.value));
           }}
         />
         <IconButton

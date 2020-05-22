@@ -11,7 +11,6 @@ const documentController = {
 
     upload: async (req, res) => {
 
-      console.log(req.file)
         // console.log(req.session, 'REQ SESSION');
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, process.env.TOKEN_GENERATE_TOKEN);
@@ -23,7 +22,6 @@ const documentController = {
 
         const reconstruct_sub_cat = sub_category.substr(0,1).toUpperCase()+sub_category.slice(1).replace(/-/gi, " ")
 
-        console.log(reconstruct_cat, reconstruct_sub_cat)
 
         const user = await User.findByPk(userId, {});
 
@@ -37,7 +35,6 @@ const documentController = {
             ),
           }
         })
-        console.log("cat : ", cat)
 
 
         const sub_cat = await Sub_category.findOne({
@@ -50,7 +47,6 @@ const documentController = {
             )
           },
         })
-        console.log("sub_cat : ", sub_cat)
 
         const data = req.file;
         const meta = JSON.parse(req.body.meta); // all other values passed from the client, like name, etc..

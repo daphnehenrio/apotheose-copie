@@ -24,7 +24,6 @@ const userController = {
   },
 
   update: async (req, res, next) => {
-    console.log(req.body)
     try {
 
       const user = await User.findByPk(req.body.user_id, {
