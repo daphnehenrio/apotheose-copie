@@ -1,10 +1,11 @@
 import {
-  SET_DRAWER, SET_LOGIN_FORM,
+  SET_DRAWER, SET_LOGIN_FORM, SET_FORGET_PASSWORD,
 } from '../actions/toggle';
 
 const initialState = {
   openDrawer: false,
   openLoginForm: false,
+  openForgetPassword: false,
 };
 
 export default (state = initialState, action = {}) => {
@@ -26,6 +27,12 @@ export default (state = initialState, action = {}) => {
         ...state,
         openLoginForm: !state.openLoginForm,
       };
+    }
+    case SET_FORGET_PASSWORD: {
+      return {
+        ...state,
+        openForgetPassword: !state.openForgetPassword,
+      }
     }
     default: {
       return state;
