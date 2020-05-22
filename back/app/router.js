@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
 // == require middleware
 const auth = require('./middlewares/auth');
 
@@ -76,10 +75,14 @@ router.post('/logout', authController.logout);
 router.post('/signup', authController.signupAction, emailController.emailValidator);
 
 //account suppression
-router.delete('/profil/:id/:user_id', userController.delete);
+router.delete('/profil/:id', userController.delete);
 
 //validation
 router.get('/validation/:key', authController.validation);
+
+router.post('/forget-pass', authController.forgetPass, emailController.forgetPass);
+
+router.patch('/rename', userController.rename);
 
 
 // -------------------- MENU --------------------
@@ -141,6 +144,8 @@ router.get('/file/:id/:document_id', auth, capture(documentController.download))
 router.get('/download', capture(documentController.download));
 
 router.post('/public/storage/:id/:category/:sub_category', auth, upload.single('file'), capture(documentController.upload));
+
+router.delete('/document/delete/:id', capture(documentController.deleteFile));
 
 // -------------------- EMAILS --------------------
 
