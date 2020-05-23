@@ -9,6 +9,10 @@
   overflow-y: hidden;
   font-family: 'Varela Round', sans-serif;
 
+  .disclamer{
+    z-index: 99999;
+    width: 100%;
+  }
 }
 
 body{

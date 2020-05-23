@@ -16,6 +16,9 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Link from '@material-ui/core/Link';
+import Collapse from '@material-ui/core/Collapse';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import CloseIcon from '@material-ui/icons/Close';
 
 // == import for connected user
 import Tooltip from '@material-ui/core/Tooltip';
@@ -28,6 +31,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 // == import composants local
 import Login from 'src/components/Login';
+import ForgotPassword from '../ForgetPassword';
 
 // == import actions local
 import { actionSetLoginForm, actionSetDrawer } from 'src/actions/toggle';
@@ -190,9 +194,13 @@ export default function PersistentDrawerLeft() {
     event.preventDefault();
     dispatch(actionGetMemo())
     dispatch(actionGetNote())
+    dispatch({
+      type: 'GET_ARTICLE_USER_FAVORITE'
+    })
     dispatch(actionChangePage(route, history));
   };
 
+  const [open, setOpen] = React.useState(true);
 
 
   const ProfilIcon = () => (
@@ -288,7 +296,26 @@ export default function PersistentDrawerLeft() {
             </IconButton>
           </div>
         </Toolbar>
+        <Collapse in={open} className="disclamer">
+          <Alert severity="warning"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+            Le site est actuellement <strong>en cours de développement</strong> et ne dispose pas encore de toutes les protection requise à la sécuritées des données — <strong>Nous vous déconseillons fortement d'inscrire des données sensibles pour une question de sécuritée</strong>
+          </Alert>
+        </Collapse>
       </AppBar>
+
       <Login />
     </div>
   );

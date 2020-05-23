@@ -9,9 +9,9 @@
 
   background: local;
   color: white;
-  background-color: #DB8848;
+  background-color: $color-background; // #DB8848;
   &:hover {
-    background-color: #FBAF74;
+    background-color: $color-dark ;//#FBAF74;
 }
 }
 

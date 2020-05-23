@@ -10,6 +10,7 @@ import slugify from '@sindresorhus/slugify';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 // == Import styles
 import './styles.scss';
 import './responsive.scss';
@@ -36,6 +37,9 @@ import Page403 from '../ErrorPages/403';
 import { actionGetAllArticles } from '../../actions/articles';
 import Article from '../Articles/Article';
 import AcceptTerms from '../AcceptTerms';
+import Construct from '../Construct'
+import Contact from '../Contact';
+import ForgotPassword from '../ForgetPassword';
 
 
 
@@ -86,6 +90,7 @@ const App = () => {
   const { openDrawer } = useSelector((state) => state.toggle);
   const categoriesFolder = useSelector((state) => state.document.category)
 
+
   // == session storage
   const userSession = JSON.parse(window.sessionStorage.getItem('user'));
 
@@ -108,6 +113,8 @@ const App = () => {
     <div className="app">
       <AppBar />
       <Menu />
+
+      <ForgotPassword />
       <div
         className={clsx(classes.content, {
           [classes.contentShift]: openDrawer,
@@ -281,6 +288,23 @@ const App = () => {
               })
             )
           }
+
+          <Route exact path="/simulation">
+            <Construct />
+          </Route>
+
+          <Route exact path="/support">
+            <Construct />
+          </Route>
+
+          <Route exact path="/contact">
+            <Contact />
+          </Route>
+
+          <Route exact path="/mention-legale">
+            <AcceptTerms />
+          </Route>
+
           <Route exact path="/403">
             <Page403 />
           </Route>

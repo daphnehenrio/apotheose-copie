@@ -12,6 +12,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 import './styles.scss'
+import { useDispatch } from 'react-redux';
 
 
 
@@ -21,7 +22,21 @@ import './styles.scss'
 
 export default function Article(article) {
 
+  const dispatch = useDispatch();
 
+  const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+
+  let disabled = true
+  if(userSession){
+    disabled = false;
+  }
+
+  const handleClick = (id) => {
+    dispatch({
+      type: 'SET_ARTICLE_FAVORITE',
+      id: id,
+    })
+  }
 // -------------------------- Return --------------------------
   return (
 
@@ -45,13 +60,13 @@ export default function Article(article) {
         <ReactMarkdown escapeHtml="true" source={article.article.content}/>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" disabled={disabled} onClick={() => handleClick(article.article.id)}>
           <FavoriteIcon />
         </IconButton>
       </CardActions>
 
     </Card>
-    
+
     </div>
   );
 }

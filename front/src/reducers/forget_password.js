@@ -10,7 +10,7 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_MAIL_FORGET:{
       return {
-        ...state, 
+        ...state,
         mail: action.value
       }
     }

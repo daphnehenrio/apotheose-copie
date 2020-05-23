@@ -180,11 +180,11 @@ export default function About() {
                         className='p'
                         style={{ transform:'translateX(-150px)'}}
                         animation={{ x:0, delay:450 }}>
-                       
+
                             Bon, rien de révolutionnaire par ici, mais étant donné notre envie de permettre aux gens une centralisation
                             de leurs informations, il nous paraissait intéressant de mettre à votre disposition un système de notes pour vous
                             laisser la possibilité d'enregistrer des informations annexes qui vous semblent utiles d'avoir à porté de mains.
-                    
+
                     </TweenOne>
                 </TweenOne>
                 <TweenOne
@@ -214,7 +214,7 @@ export default function About() {
 
                     </p>
                 </Paper>
-               </TweenOne> 
+               </TweenOne>
 
             </ScrollOverPack>
             <div className='infos-footer'>
@@ -261,7 +261,7 @@ export default function About() {
                             </CardActionArea>
                         </Card>
                     </TweenOne>
-    
+
                     <TweenOne key="8"
                         style={{ transform: 'translateX(-500px)', opacity: 0 }}
                         animation={[{ opacity: 1, delay: 1500 }]}>

@@ -108,6 +108,68 @@ export default (store) => (next) => (action) => {
     break;
     }
 
+    case 'SET_ARTICLE_FAVORITE' : {
+      store.dispatch(actionLoading(true));
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+      if (userSession.token) {
+
+        const token = userSession.token
+
+        axios
+          .post(`${base_url}/articles/user/${userSession.user_id}/article/${action.id}`,
+            {
+              withCredentials: true,
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+            })
+          .then((res) => {
+            store.dispatch(actionLoading(false));
+          })
+          .catch((err) => {
+            console.trace(err);
+          });
+
+      } else {
+        store.dispatch(SET_LOGIN_FORM());
+      }
+
+      break;
+    }
+
+    case 'GET_ARTICLE_USER_FAVORITE' : {
+      store.dispatch(actionLoading(true));
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+      if (userSession.token) {
+
+        const token = userSession.token
+
+        axios
+          .get(`${base_url}/articles/user/${userSession.user_id}/allarticles`,
+            {
+              withCredentials: true,
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+            })
+          .then((res) => {
+            store.dispatch({
+              type: 'SET_ARTICLE_USER_FAVORITE',
+              data: res.data
+            });
+            store.dispatch(actionLoading(false));
+          })
+          .catch((err) => {
+            console.trace(err);
+          });
+
+      } else {
+        store.dispatch(SET_LOGIN_FORM());
+      }
+
+      break;
+    }
+
 
     // ---------------------------- DEFAULT ----------------------------
 

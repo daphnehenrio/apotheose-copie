@@ -1,8 +1,9 @@
+@import 'src/styles/vars';
 
 .tab-container{
     display: flex;
     justify-content: center;
-    color: #1B4353;
+    color: $color-dark;
 }
 
 

@@ -8,6 +8,7 @@ const initialState = {
   AccueilOk: false,
   allTitles: [],
   allTitleOk: false,
+  userArticles: [],
 };
 
 export default (state = initialState, action = {}) => {
@@ -47,6 +48,14 @@ export default (state = initialState, action = {}) => {
         articles: action.articles,
         AccueilOk: false,
       };
+    }
+
+    case 'SET_ARTICLE_USER_FAVORITE': {
+      console.log(action.data)
+      return{
+        ...state,
+        userArticles: action.data.articles,
+      }
     }
 
     default: {

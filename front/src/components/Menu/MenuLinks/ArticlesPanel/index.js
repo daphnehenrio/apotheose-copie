@@ -95,7 +95,7 @@ export default function ArticlesPanelMenu() {
 
       { menu.length > 0 && ([ArticlePanel]) }
 
-      <div className="tree-item-link toogle-menu">
+      <div className="tree-item-link toogle-menu" onClick={toggleChecked}>
         <img
           className="icon-menu"
           src={`/images/menu-category/${checked ? 'less' : 'more'}.png`}
@@ -105,7 +105,6 @@ export default function ArticlesPanelMenu() {
           Afficher {checked ? 'moins' : 'plus'}
         </span>
 
-        <Switch className="toogle-menu--switch" checked={checked} onChange={toggleChecked} />
       </div>
 
     </>

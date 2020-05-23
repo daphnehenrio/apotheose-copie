@@ -4,6 +4,7 @@ import loggers from './loggers';
 import routesMW from './routes';
 import login from './login';
 import signup from './signup';
+import forget_password from './forget_password';
 import profil from './profil';
 import menu from './menu';
 import update_user from './update_user';
@@ -20,6 +21,7 @@ export default applyMiddleware(
   menu,
   login,
   signup,
+  forget_password,
   profil,
   update_user,
   services,
