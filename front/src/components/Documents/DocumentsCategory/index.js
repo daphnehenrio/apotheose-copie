@@ -303,8 +303,6 @@ export default function DocumentsCategory() {
 
   return (
     <div className='document-page'>
-
-
       <div className='documents-container'>
         <div className={classes.root}>
           <Paper className={classes.paper}>

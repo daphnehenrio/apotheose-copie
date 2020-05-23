@@ -11,13 +11,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
 
 // == import actions local
 import {
@@ -40,7 +33,7 @@ export default function Step1() {
   const {
     user, missingField, isPasswordCorrect, passwordStrength, emailExists, errorListSignup, acceptTerms
   } = useSelector((state) => state.signup);
-  console.log(user);
+
   const [values, setValues] = React.useState({
     showPassword: false,
   });

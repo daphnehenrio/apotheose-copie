@@ -195,7 +195,6 @@ this.setState({numberOfDays:days})
   render() {
 
     var AgendaItem = function(props){
-      console.log( ' item component props' , props)
       return <div style={{display:'block', position:'absolute' , background:'#FFF'}}>{props.item.name} <button onClick={()=> props.edit(props.item)}>Edit </button></div>
     }
     return (

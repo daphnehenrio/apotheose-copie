@@ -101,7 +101,6 @@ const Note = () => {
       category_id: noteCategory
 
     };
-    console.log(noteObj.category)
     dispatch(actionSetNoteContent(noteObj));
   };
 
@@ -117,7 +116,6 @@ const Note = () => {
     dispatch(actionOpenAddNote())
   };
   const handleChangeSelect = (event) => {
-    console.log(event.target.value)
     setNoteCategorie(event.target.value);
     dispatch(actionSetCategoryNewNote(event.target.value))
   };
@@ -180,6 +178,9 @@ const Note = () => {
         >
           {note.content}
         </p>
+
+        {note.category_id &&( <span className="note-cat">{note.category.name}</span>)}
+
         <IconButton
             className="button-delete"
             aria-label="delete"
@@ -287,7 +288,7 @@ const Note = () => {
           </MenuItem>
             {allCategory.map((cat) => {
               return (
-                <MenuItem value={cat.id}>{cat.name}</MenuItem>
+                <MenuItem key={cat.id} value={cat.id}>{cat.name}</MenuItem>
               )
             })}
         </Select>
@@ -365,7 +366,7 @@ const Note = () => {
           value={noteContent.category_id}
           onChange={(evt) => {
             handleChange(noteContent.content, noteContent.id, noteContent.title, evt.target.value)
-            console.log(noteContent.category_id)
+
           }}
         >
           <MenuItem value={null} >
@@ -373,7 +374,7 @@ const Note = () => {
           </MenuItem>
             {allCategory.map((cat) => {
               return (
-                <MenuItem value={cat.id}>{cat.name}</MenuItem>
+                <MenuItem key={cat.id} value={cat.id}>{cat.name}</MenuItem>
               )
             })}
         </Select>
@@ -382,7 +383,6 @@ const Note = () => {
         <DialogActions>
           <Button
             onClick={(evt) => {
-              console.log(noteContent)
               dispatch(actionChangeNoteContent(noteContent));
               dispatch(actionUpdateNote(noteContent))
               handleClose();

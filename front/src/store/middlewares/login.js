@@ -80,7 +80,6 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res)
           window.sessionStorage.removeItem('user');
           store.dispatch(actionCleanProfil());
           store.dispatch(actionChangePage('/', history));

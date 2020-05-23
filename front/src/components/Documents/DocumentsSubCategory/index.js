@@ -140,6 +140,7 @@ function EnhancedTableHead(props) {
   );
 }
 
+
 EnhancedTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
   onRequestSort: PropTypes.func.isRequired,
@@ -209,6 +210,7 @@ const EnhancedTableToolbar = (props) => {
   const categoriesFolder = useSelector((state) => state.document.category);
   const goodSub_categories = categoriesFolder.find((cat) => cat.name === category.category);
 
+
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -242,6 +244,7 @@ const EnhancedTableToolbar = (props) => {
             }
           </StyledSelect>
         </Breadcrumbs>
+
 
       </div>
       <div className={classes.search}>

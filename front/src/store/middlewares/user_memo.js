@@ -5,24 +5,25 @@ import axios from 'axios';
 
 // == import local
 import { base_url } from 'src/utils/axios';
-import { GET_NOTE, actionAddNewNote, actionSetNote, SAVE_NEW_NOTE, UPDATE_NOTE, DELETE_NOTE } from '../../actions/user_note';
+import { actionSetMemo, GET_MEMO, SAVE_NEW_MEMO, UPDATE_MEMO, DELETE_MEMO } from 'src/actions//user_memo';
 import { actionSetLoginForm } from 'src/actions/toggle';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
-    // ---------------------------- GET NOTE ----------------------------
+    // ---------------------------- GET_MEMO ----------------------------
 
-    case GET_NOTE: {
-
+    case GET_MEMO: {
+      console.log('test get note axios')
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+      console.log(userSession)
 
       if(userSession.token){
 
       const token = userSession.token
 
       axios
-        .get(`${base_url}/note/${userSession.user_id}`,
-          action.note,
+        .get(`${base_url}/memo/${userSession.user_id}`,
+          action.memo,
           {
             withCredentials: true,
             headers: {
@@ -30,10 +31,11 @@ export default (store) => (next) => (action) => {
             },
           })
         .then((res) => {
-          store.dispatch(actionSetNote(res.data));
+          console.log(res.data)
+          store.dispatch(actionSetMemo(res.data));
         })
         .catch((err) => {
-          console.trace(err);
+          console.log(err);
         });
 
       } else {
@@ -42,53 +44,29 @@ export default (store) => (next) => (action) => {
 
       break;
     }
-    // ---------------------------- SAVE_NEW_NOTE ----------------------------
+    // ---------------------------- SAVE_NEW_MEMO ----------------------------
 
-    case SAVE_NEW_NOTE: {
+    case SAVE_NEW_MEMO: {
 
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));
 
       if(userSession.token){
 
-        const token = userSession.token
-        const noteStore = store.getState().user_note
-        const note = {
-          title: noteStore.newNoteTitle,
-          content: noteStore.newNoteContent,
-          category_id: noteStore.newNoteCategory,
+      const token = userSession.token
+        const noteStore = store.getState().user_memo;
+        const memo = {
+          identify: noteStore.newMemoIdentify,
+          service_name: noteStore.newMemoServiceName,
+          service_phone: noteStore.newMemoServicePhone,
+          service_address: noteStore.newMemoServiceAddress,
+          service_referent: noteStore.newMemoServiceReferent,
+          note_file: noteStore.newMemoNote,
+          category_id: noteStore.newMemoCategory
         }
-        axios
-          .post(`${base_url}/note/${userSession.user_id}`,
-            note,
-            {
-              withCredentials: true,
-              headers: {
-                'Authorization': `Bearer ${token}`
-              },
-            }
-          )
-          .then((res) => {
-            store.dispatch(actionAddNewNote(res.data));
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        store.dispatch(actionSetLoginForm());
-      }
-      break;
-    }
-
-    case UPDATE_NOTE: {
-      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
-
-      if(userSession.token){
-
-      const token = userSession.token
-
+        console.log(memo)
       axios
-        .patch(`${base_url}/note/${userSession.user_id}/${action.note.id}`,
-        action.note,
+        .post(`${base_url}/memo/${userSession.user_id}`,
+        memo,
           {
             withCredentials: true,
             headers: {
@@ -96,10 +74,10 @@ export default (store) => (next) => (action) => {
             },
           })
         .then((res) => {
-          store.dispatch(actionAddNewNote(res.data));
+          store.dispatch(actionSetMemo(res.data));
         })
         .catch((err) => {
-          console.trace(err);
+          console.log(err);
         });
 
       } else {
@@ -108,15 +86,19 @@ export default (store) => (next) => (action) => {
       break;
     }
 
-    case DELETE_NOTE: {
+    // ---------------------------- UPDATE_MEMO ----------------------------
+
+    case UPDATE_MEMO: {
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));
 
       if(userSession.token){
 
       const token = userSession.token
 
+      console.log(action)
       axios
-        .delete(`${base_url}/note/${userSession.user_id}/${action.id}`,
+        .patch(`${base_url}/memo/${userSession.user_id}/${action.memo.id}`,
+        action.memo,
           {
             withCredentials: true,
             headers: {
@@ -124,7 +106,37 @@ export default (store) => (next) => (action) => {
             },
           })
         .then((res) => {
-          store.dispatch(actionAddNewNote(res.data));
+          store.dispatch(actionSetMemo(res.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      } else {
+        store.dispatch(actionSetLoginForm());
+      }
+      break;
+    }
+
+    // ---------------------------- DELETE_MEMO ----------------------------
+
+    case DELETE_MEMO: {
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+
+      if(userSession.token){
+
+      const token = userSession.token
+
+      axios
+        .delete(`${base_url}/memo/${userSession.user_id}/${action.id}`,
+          {
+            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+          })
+        .then((res) => {
+          store.dispatch(actionSetMemo(res.data));
         })
         .catch((err) => {
           console.trace(err);

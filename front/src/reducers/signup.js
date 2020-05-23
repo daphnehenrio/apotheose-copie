@@ -20,8 +20,13 @@ import {
   SET_CHILDREN,
   MISSING_FIELD,
   ERROR_LIST_SIGNUP,
+  SET_ERROR_CELLPHONE_NUMBER,
+  SET_ERROR_PHONE_NUMBER,
+  SET_ERROR_PHONE_WORK,
+  SET_ERROR_ZIP_CODE,
+  SET_ERROR_CITY,
+  SET_ERROR_ADDRESS
 } from 'src/actions/signup';
-
 
 const initialState = {
   user: {
@@ -49,6 +54,12 @@ const initialState = {
   emailExists: 'init',
   errorListSignup: false,
   acceptTerms: false,
+  error_cellphone_number: false,
+  error_phone_number: false,
+  error_phone_work: false,
+  error_address: false,
+  error_zip_code: false,
+  error_city: false,
 };
 
 export default (state = initialState, action = {}) => {
@@ -257,6 +268,48 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         errorListSignup: action.errors,
+      }
+    }
+
+    case SET_ERROR_CELLPHONE_NUMBER: {
+      return {
+        ...state,
+        error_cellphone_number: action.message
+      }
+    }
+
+    case SET_ERROR_PHONE_NUMBER: {
+      return {
+        ...state,
+        error_phone_number: action.message
+      }
+    }
+
+    case SET_ERROR_PHONE_WORK: {
+      return {
+        ...state,
+        error_phone_work: action.message
+      }
+    }
+
+    case SET_ERROR_ADDRESS: {
+      return {
+        ...state,
+        error_address: action.message
+      }
+    }
+
+
+    case SET_ERROR_ZIP_CODE: {
+      return {
+        ...state,
+        error_zip_code: action.message
+      }
+    }
+    case SET_ERROR_CITY: {
+      return {
+        ...state,
+        error_city: action.message
       }
     }
 

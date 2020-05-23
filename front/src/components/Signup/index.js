@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
+import PhoneNumber from 'awesome-phonenumber-fork';
+//var PhoneNumber = require( 'awesome-phonenumber' );
 
 // == import Material UI
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -37,6 +39,9 @@ import {
   actionPasswordValidation,
   actionEmailValidation,
   actionErrorListSignup,
+  actionSetErrorCellphoneNumber,
+actionSetErrorPhoneNumber,
+actionSetErrorPhoneWork,
 } from '../../actions/signup';
 
 // == import styles
@@ -127,7 +132,17 @@ export default function Signup() {
   const history = useHistory();
   const steps = getSteps();
   const {
-    user, isPasswordCorrect, errorListSignup, activeStep, acceptTerms
+    user,
+    isPasswordCorrect,
+    errorListSignup,
+    activeStep,
+    acceptTerms,
+    error_cellphone_number,
+    error_phone_number,
+    error_phone_work,
+    error_address,
+    error_zip_code,
+    error_city,
   } = useSelector((state) => state.signup);
 
   const isEmpty = handdleVerifEmptyValue(user.first_name)
@@ -139,10 +154,21 @@ export default function Signup() {
 
   const handleNext = () => {
     // TODO : CHECK IF LOGIN IS NOT ALREADY TAKEN IN DATABASE
-    console.log(user, 'user', isPasswordCorrect, 'is correct pass', !isEmpty, 'is empty', schema.validate(user.password), 'password ok', emailValidator.validate(user.email));
     // First checkup : check if user has complete first step (if inputs are not empty)
     // if passwords are matching
     // and if user did not filled up inputs with just spaces
+
+    if (
+      error_cellphone_number
+      || error_phone_number
+      || error_phone_work
+      || error_address
+      || error_zip_code
+      || error_city
+    ) {
+      return dispatch(actionSetStep(1));
+    }
+
     if (user.first_name
       && user.last_name
       && user.login
@@ -152,6 +178,7 @@ export default function Signup() {
       && isPasswordCorrect
       && !isEmpty
       && acceptTerms
+
     ) {
       // check if password is strong enough (if it contains at least 8 character, 1 uppercase,
       // 1 lowercase, 1 number and 1 special character)
@@ -177,6 +204,7 @@ export default function Signup() {
       // send error and set inputs border into red
       dispatch(actionSetMissingField());
     }
+
     if (activeStep === steps.length - 1) {
       // If final step send axios request in actionSignup
       dispatch(actionSignup(history));

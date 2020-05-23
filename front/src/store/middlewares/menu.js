@@ -24,7 +24,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetMenu(res.data));
         })
         .catch((err) => {
-          console.log(err);
+          console.trace(err);
         });
       break;
     }

@@ -12,10 +12,7 @@ import {
 
 const initialState = {
   noteContent: { id: '', title: '', content: '', category_id: '' },
-  notes: [
-    { id: 1, title: 'Note 1', content: 'hello, note numéro 1' },
-    { id: 2, title: 'Note 2', content: 'Je suis la note numéro 2' },
-  ],
+  notes: [],
   addNote: false,
   newNoteTitle : null,
   newNoteContent: null,
