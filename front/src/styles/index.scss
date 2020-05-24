@@ -37,6 +37,12 @@ body {
 .MuiGrid-root.MuiGrid-direction-xs-column {
   flex-direction: unset !important;
 }
+
+.app .MuiAvatar-colorDefault {
+  color: #fafafa;
+  //background-color: #bdbdbd;
+  background-color: lightsteelblue!important;
+}
 /*
   // or you can import your own font
   @font-face {

@@ -4,7 +4,25 @@
   align-items: center;
   flex-wrap: wrap;
 
+  .memo-card--plus{
+    width: 15rem;
+    height: 17rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 2rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
 }
+
+
 .cards-infos-memo{
   width: 15rem;
   height: 17rem;
