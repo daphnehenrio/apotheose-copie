@@ -1,8 +1,7 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import { useHistory } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import slugify from '@sindresorhus/slugify';
+import { useDispatch } from 'react-redux';
 
 // == import Material UI
 
@@ -69,10 +68,10 @@ export default function FileSystemNavigator() {
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
-      <Link className="menu--link" href="#" onClick={preventDefault}>
+      <Link className="menu--link" href="/simulation" onClick={(event) => preventDefault(event, '/simulation')}>
         Simulation
       </Link>
-      <Link className="menu--link" href="#" onClick={preventDefault}>
+      <Link className="menu--link" href="/support" onClick={(event) => preventDefault(event, '/support')}>
         Support
       </Link>
     </div>

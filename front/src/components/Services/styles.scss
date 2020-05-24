@@ -3,6 +3,20 @@
 
 
 .MuiGrid-root.MuiGrid-container{
+
+  .list--service--item{
+    border: 1px solid lightgray;
+
+    &:hover{
+      background-color: $color-primary;
+      border-color: transparentize($color: #000000, $amount: 1);
+
+      a{
+        color: $color-white !important;
+      }
+    }
+  }
+
   .list--service{
     width: 100%;
     display: flex;

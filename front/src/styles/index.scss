@@ -6,6 +6,10 @@ body {
   font-family: 'B612', sans-serif;
 }
 
+#snack {
+  display: none;
+}
+
 .MuiButton-containedPrimary {
   background-color: $color-primary !important;
   &:hover {

@@ -11,13 +11,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Link from '@material-ui/core/Link';
-import { Alert, AlertTitle } from '@material-ui/lab';
-
 // == import actions local
 
 import {
@@ -28,61 +21,55 @@ import {
 // == import style
 import './styles.scss';
 import { actionChangePage } from '../../actions/routes';
+import { actionSendMailForgetPassword } from '../../actions/forget_password';
 
 
 // -------------------------- Export --------------------------
 
-export default function Login() {
+export default function ForgotPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
-  const { mail } = useSelector((state)=>state.forget_password);
+  const { mail } = useSelector((state) => state.forget_password);
+  const { openForgetPassword } = useSelector((state) => state.toggle)
 
 
   // -------------------------- Fonctions State & Dispatch --------------------------
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   const handleClose = () => {
-    dispatch(actionSetLoginForm());
+    dispatch(actionSetForgetPassword());
   };
 
   const onSubmit = (data) => {
-    dispatch(actionLogin(data, history));
+    dispatch(actionSetForgetPassword(data, history));
+    dispatch(actionSendMailForgetPassword(data));
   };
 
   // -------------------------- Return --------------------------
 
   return (
 
-    <Dialog className="login-dialog" open={openLoginForm} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Valider</DialogTitle>
+    <Dialog className="forgot-password--dialog" open={openForgetPassword} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Mot de passe oublié</DialogTitle>
       <form className="form-group" noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
 
-        <DialogContent>
+        <DialogContent className="forgot-password--dialog-content">
           <TextField
-            id="outlined-adornment-login"
+            id="outlined-adornment-forgot-password-"
             label="Veuillez saisir votre adresse mail"
-            name="login"
+            name="email"
             variant="outlined"
             inputRef={register({ required: true, maxLength: 76 })}
-            value={mail}         
             fullWidth
             autoFocus
-          />          
+          />
 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
             Annuler
           </Button>
-          <Button type="submit" className="MuiButtonBase-root MuiButton-root MuiButton-contained login-dialog--button" variant="contained">
+          <Button type="submit" color="primary" className="MuiButtonBase-root MuiButton-root MuiButton-contained forgot-password--dialog--button" variant="contained">
             Valider
           </Button>
         </DialogActions>

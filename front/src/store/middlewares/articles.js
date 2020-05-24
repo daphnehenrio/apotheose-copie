@@ -15,9 +15,15 @@ import {
   GET_ONE_ARTICLE,
   actionSetOneArticle,
   GET_SEARCH_ARTICLES,
-  actionSetSearchArticles
+  actionSetSearchArticles,
+  actionSetArticleUserFavorite,
+  ADD_ARTICLE_FAVORITE,
+  REMOVE_ARTICLE_FAVORITE
 } from '../../actions/articles';
+
 import { actionLoading } from '../../actions/document';
+import {  actionSetSnack, actionSetLoginForm } from '../../actions/toggle';
+import { actionChangePage } from '../../actions/routes';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
@@ -32,10 +38,14 @@ export default (store) => (next) => (action) => {
           })
         .then((res) => {
           store.dispatch(actionSetOneArticle(res.data));
+          store.dispatch(actionChangePage(action.route, action.history))
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       break;
     }
@@ -52,7 +62,10 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       break;
     }
@@ -69,7 +82,10 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       break;
     }
@@ -86,7 +102,10 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       break;
     }
@@ -103,9 +122,124 @@ export default (store) => (next) => (action) => {
         store.dispatch(actionLoading(false));
       })
       .catch((err) => {
-        console.trace(err);
+        store.dispatch(actionLoading(false));
+        store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+        const button = document.querySelector('#snack');
+        button.click();
       });
     break;
+    }
+
+    case ADD_ARTICLE_FAVORITE : {
+      store.dispatch(actionLoading(true));
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+      if (userSession.token) {
+
+        const token = userSession.token
+
+        axios
+          .post(`${base_url}/articles/user/${userSession.user_id}/article/${action.id}`,
+            {
+              withCredentials: true,
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+            })
+          .then((res) => {
+            store.dispatch(actionSetArticleUserFavorite(res.data));
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('success', "Ajouté aux favoris"));
+            const button = document.querySelector('#snack');
+            button.click();
+          })
+          .catch((err) => {
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+            const button = document.querySelector('#snack');
+            button.click();
+          });
+
+        } else {
+          window.sessionStorage.clear()
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetLoginForm());
+        }
+
+      break;
+    }
+
+    case REMOVE_ARTICLE_FAVORITE : {
+      store.dispatch(actionLoading(true));
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+      if (userSession.token) {
+
+        const token = userSession.token
+
+        axios
+          .delete(`${base_url}/articles/user/${userSession.user_id}/article/${action.id}`,
+            {
+              withCredentials: true,
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+            })
+          .then((res) => {
+            store.dispatch(actionSetArticleUserFavorite(res.data));
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('info', "Supprimer des favoris"));
+            const button = document.querySelector('#snack');
+            button.click();
+          })
+          .catch((err) => {
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+            const button = document.querySelector('#snack');
+            button.click();
+          });
+
+        } else {
+          window.sessionStorage.clear()
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetLoginForm());
+        }
+
+      break;
+    }
+
+
+    case 'GET_ARTICLE_USER_FAVORITE' : {
+      store.dispatch(actionLoading(true));
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+      if (userSession.token) {
+
+        const token = userSession.token
+
+        axios
+          .get(`${base_url}/articles/user/${userSession.user_id}/allarticles`,
+            {
+              withCredentials: true,
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+            })
+          .then((res) => {
+            store.dispatch(actionSetArticleUserFavorite(res.data));
+            store.dispatch(actionLoading(false));
+          })
+          .catch((err) => {
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+            const button = document.querySelector('#snack');
+            button.click();
+          });
+
+        } else {
+          window.sessionStorage.clear()
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetLoginForm());
+        }
+
+      break;
     }
 
 

@@ -142,8 +142,6 @@ const AddFileDropzone = () => {
     }
 
     const handleSubmit = (files, allFiles) => {
-        /* dispatch(actionSendFiles(files)); */
-        console.log(files, 'fiiiillees');
         files.forEach(doc => {
             getUploadParams(doc);
         });

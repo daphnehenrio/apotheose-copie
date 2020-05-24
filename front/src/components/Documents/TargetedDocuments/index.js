@@ -489,7 +489,6 @@ export default function TargetedDocuments(category) {
         return { name: file.name, file }
       })
 
-  console.log(rows, ' rows');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -540,7 +539,6 @@ export default function TargetedDocuments(category) {
                           <TableCell style={{ padding: '5px', width: '70px' }}>
                             <IconButton aria-label="download" onClick={(evt) => {
                               evt.stopPropagation();
-                              console.log(row, 'row');
                               dispatch(actionDownloadFile(row.file.id, row.file.name));
 
                             }}>

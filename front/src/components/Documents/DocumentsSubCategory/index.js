@@ -305,8 +305,6 @@ export default function DocumentsSubCategory(category) {
   const categoriesFolder = useSelector((state) => state.document.category)
   const goodSub_categories = categoriesFolder.find((cat) => cat.name === category.category);
 
-  console.log(goodSub_categories, 'GOOOD SUUUB CATTT');
-
   const handleClickSubfile = (evt) => {
     const subCat = goodSub_categories.sub_category.find((cat) => cat.name === evt);
     dispatch(actionLoading(true));

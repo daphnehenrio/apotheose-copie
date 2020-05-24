@@ -29,7 +29,6 @@ import {
   actionSetForgetPassword,
 } from '../../actions/toggle';
 
-
 // == import style
 import './styles.scss';
 import { actionChangePage } from '../../actions/routes';
@@ -136,7 +135,7 @@ export default function Login() {
 
           <Link
             className="login-dialog--link"
-            onClick={() => {              
+            onClick={() => {
               dispatch(actionSetLoginForm())
               dispatch(actionSetForgetPassword())
             }}>
@@ -155,6 +154,7 @@ export default function Login() {
         </DialogActions>
       </form>
     </Dialog>
+
 
   );
 }
