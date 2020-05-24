@@ -5,6 +5,8 @@ import axios from 'axios';
 import { GET_PROFIL, actionSetProfil } from 'src/actions/user_profil'
 import { actionChangePage } from 'src/actions/routes'
 import { actionLoading } from 'src/actions/document';
+import {  actionSetSnack, actionSetLoginForm } from '../../actions/toggle';
+
 
 
 // == import local
@@ -49,10 +51,15 @@ export default (store) => (next) => (action) => {
           }
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       } else {
-        store.dispatch(actionChangePage('/', history));
+        window.sessionStorage.clear()
+        store.dispatch(actionLoading(false));
+        store.dispatch(actionSetLoginForm());
       }
 
 

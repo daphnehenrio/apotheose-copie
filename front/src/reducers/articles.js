@@ -1,5 +1,5 @@
 import {
-  SET_ARTICLES, SET_LAST_ARTICLES,
+  SET_ARTICLES, SET_LAST_ARTICLES, SET_ARTICLE_USER_FAVORITE
 } from 'src/actions/articles';
 import { SET_ALL_ARTICLES, SET_ONE_ARTICLE, SET_SEARCH_ARTICLES } from '../actions/articles';
 
@@ -8,6 +8,8 @@ const initialState = {
   AccueilOk: false,
   allTitles: [],
   allTitleOk: false,
+  userArticles: [],
+  goodarticle: [],
 };
 
 export default (state = initialState, action = {}) => {
@@ -15,7 +17,7 @@ export default (state = initialState, action = {}) => {
     case SET_ONE_ARTICLE: {
       return {
         ...state,
-        articles: [action.article],
+        goodarticle: [action.article],
         AccueilOk: false,
       };
     }
@@ -47,6 +49,13 @@ export default (state = initialState, action = {}) => {
         articles: action.articles,
         AccueilOk: false,
       };
+    }
+
+    case SET_ARTICLE_USER_FAVORITE: {
+      return{
+        ...state,
+        userArticles: action.data.articles,
+      }
     }
 
     default: {

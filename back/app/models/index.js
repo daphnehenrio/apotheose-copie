@@ -274,7 +274,7 @@ User.belongsToMany( Article, {
   through: "user_has_article",
   foreignKey: "user_id",
   otherKey: "article_id",
-  as: "article"
+  as: "articles"
 });
 
 Article.belongsToMany( User, {

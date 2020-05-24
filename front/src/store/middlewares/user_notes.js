@@ -6,7 +6,9 @@ import axios from 'axios';
 // == import local
 import { base_url } from 'src/utils/axios';
 import { GET_NOTE, actionAddNewNote, actionSetNote, SAVE_NEW_NOTE, UPDATE_NOTE, DELETE_NOTE } from '../../actions/user_note';
-import { actionSetLoginForm } from 'src/actions/toggle';
+import {  actionSetSnack, actionSetLoginForm } from '../../actions/toggle';
+import { actionLoading } from '../../actions/document';
+
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
@@ -33,10 +35,14 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetNote(res.data));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
 
       } else {
+        store.dispatch(actionLoading(false));
         store.dispatch(actionSetLoginForm());
       }
 
@@ -71,9 +77,13 @@ export default (store) => (next) => (action) => {
             store.dispatch(actionAddNewNote(res.data));
           })
           .catch((err) => {
-            console.log(err);
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+            const button = document.querySelector('#snack');
+            button.click();
           });
       } else {
+        store.dispatch(actionLoading(false));
         store.dispatch(actionSetLoginForm());
       }
       break;
@@ -99,12 +109,15 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionAddNewNote(res.data));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
 
       } else {
-        store.dispatch(actionSetLoginForm());
-      }
+        store.dispatch(actionLoading(false));
+        store.dispatch(actionSetLoginForm());      }
       break;
     }
 
@@ -127,10 +140,15 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionAddNewNote(res.data));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
 
       } else {
+        window.sessionStorage.clear()
+        store.dispatch(actionLoading(false));
         store.dispatch(actionSetLoginForm());
       }
       break;

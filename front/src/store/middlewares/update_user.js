@@ -3,6 +3,9 @@ import axios from 'axios';
 import { base_url } from 'src/utils/axios';
 import { SAVE_UPDATE_PROFIL, actionSetProfil, actionSetOpenEditProfil } from '../../actions/user_profil';
 import { actionLogUser } from '../../actions/user';
+import {  actionSetSnack, actionSetLoginForm } from '../../actions/toggle';
+import { actionLoading } from '../../actions/document';
+
 
 
 export default (store) => (next) => (action) => {
@@ -10,10 +13,17 @@ export default (store) => (next) => (action) => {
     // ---------------------------- SAVE UPDATE PROFIL ----------------------------
 
     case SAVE_UPDATE_PROFIL: {
+      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
+
+      if (userSession.token) {
+
+
+        const token = userSession.token
+
+
       const user = action.data;
       const oldUser = store.getState().user_profil;
-      const userSession = JSON.parse(window.sessionStorage.getItem('user'));
-      const { token } = userSession;
+
       const userInfo = {
         login: userSession.login,
         first_name: user.first_name ? user.first_name : oldUser.first_name,
@@ -50,8 +60,17 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetOpenEditProfil(false));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
+
+      } else {
+        window.sessionStorage.clear()
+        store.dispatch(actionLoading(false));
+        store.dispatch(actionSetLoginForm());
+      }
       return;
     }
 

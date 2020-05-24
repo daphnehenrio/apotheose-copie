@@ -1,5 +1,5 @@
 const moment = require('moment');
-const { Article, Sub_category } = require('../models');
+const { Article, Sub_category, User } = require('../models');
 const sequelize = require('sequelize')
 
 const articleController = {
@@ -10,7 +10,7 @@ const articleController = {
         order: [
           ['updated_at', 'DESC'],
         ],
-        limit: 8,
+        limit: 3,
         include : [
           {
             association : 'sub_category',
@@ -125,6 +125,107 @@ const articleController = {
 
 
         res.send(articles);
+    },
+
+    articleUser : async (req, res) => {
+
+      const userID = req.params.id;
+      const articleID = req.params.article_id;
+
+      let user = await User.findByPk(userID);
+      let article = await Article.findByPk(articleID);
+
+      await user.addArticle(article);
+
+      let articles = await User.findByPk(userID, {
+        include : [
+         {
+           association: 'articles',
+           include: [
+            {
+              association : 'sub_category',
+              order: [
+                ['name', 'ASC'],
+              ],
+              include : [
+                {
+                  association : 'category',
+                },
+              ],
+            },
+          ],
+         }
+          ]
+      });
+
+
+      res.send(articles);
+
+    },
+
+    articleUserDelete : async (req, res) => {
+
+      const userID = req.params.id;
+      const articleID = req.params.article_id;
+
+      let user = await User.findByPk(userID);
+      let article = await Article.findByPk(articleID);
+
+      await user.removeArticle(article);
+
+      let articles = await User.findByPk(userID, {
+        include : [
+         {
+           association: 'articles',
+           include: [
+            {
+              association : 'sub_category',
+              order: [
+                ['name', 'ASC'],
+              ],
+              include : [
+                {
+                  association : 'category',
+                },
+              ],
+            },
+          ],
+         }
+          ]
+      });
+
+
+      res.send(articles);
+
+    },
+
+    getArticlesUser : async (req, res) => {
+
+      const userID = req.params.id;
+
+      let articles = await User.findByPk(userID, {
+        include : [
+         {
+           association: 'articles',
+           include: [
+            {
+              association : 'sub_category',
+              order: [
+                ['name', 'ASC'],
+              ],
+              include : [
+                {
+                  association : 'category',
+                },
+              ],
+            },
+          ],
+         }
+          ]
+      });
+
+
+      res.send(articles);
     }
 
 
