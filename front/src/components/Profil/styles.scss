@@ -1,7 +1,8 @@
 .profil{
     display: flex;
     flex-direction: column;
-    margin-top: 7rem;
+    margin-top: 4rem;
+    height: 90vh;
 }
 
 .profil-title{
@@ -21,27 +22,40 @@
 
 .infos-container{
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: row;
     max-height: 300px;
+    .left{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+    .right{
+        width: 50%;
+        margin-left: 1rem;
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .infos-content{
     display: flex;
     align-items: center;
     margin-right: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .infos-container h5{
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin-bottom: 0.5rem;
+    color: grey;
 }
 .sub-container{
     display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(grey, $alpha:0.3);
 
 }
 
@@ -51,6 +65,7 @@
     margin-left: 0.5rem;
     flex-wrap: wrap;
 }
+
 
 
 .MuiTab-wrapper {
@@ -67,7 +82,7 @@
     display: flex;
     flex-direction: column;
     padding: 2rem;
-    margin: 0 5rem;
+    margin:5rem;
 }
 
 .card-header{
@@ -82,6 +97,7 @@
     flex: 1;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .card-header-left h3{
@@ -95,6 +111,9 @@
     display: flex;
     flex: 1;
     justify-content: flex-end;
+    .MuiSvgIcon-root{
+        color: #39CA97 !important;
+    }
 }
 
 .group-input {
@@ -142,6 +161,48 @@
     align-items: center;
 }
 
+.MuiTab-wrapper{
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+}
+
+.profil .MuiSvgIcon-root{
+    color: black;
+}
+
+.jade-round{
+    background-color: #39CA97;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+.MuiTabs-flexContainer{
+    padding-left: 2rem;
+    width: 25rem;
+    .MuiButtonBase-root{
+        padding: 0;
+    }
+}
+
+.MuiTabs-root{
+    background-color: #39CA97;
+    color: white;
+    padding-top: 8rem;
+    padding-left: 3rem;
+    .MuiSvgIcon-root{
+        color: white;
+        margin-right: 1rem;
+        }
+}
+
+.makeStyles-root-235{
+    margin: 0 !important;
+}
+
+.PrivateTabIndicator-root-260{
+    left:0 !important;
+}
 
 @media screen and (max-width: 600px) {
     .MuiDialogContent-root{
