@@ -154,17 +154,17 @@ export default function Profil() {
           evt.preventDefault();
           let title;
           let value;
-          if (handdleVerifEmptyValue(infoSup.title)) {
+          if (handdleVerifEmptyValue(infoSupToAdd.title)) {
             title = info.title;
           }
           else {
-            title = infoSup.title;
+            title = infoSupToAdd.title;
           }
-          if (handdleVerifEmptyValue(infoSup.value)) {
+          if (handdleVerifEmptyValue(infoSupToAdd.value)) {
             value = info.value;
           }
           else {
-            value = infoSup.value;
+            value = infoSupToAdd.value;
           }
           const infoToEdit = {
             id: info.id,

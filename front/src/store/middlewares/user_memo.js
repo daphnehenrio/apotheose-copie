@@ -6,16 +6,16 @@ import axios from 'axios';
 // == import local
 import { base_url } from 'src/utils/axios';
 import { actionSetMemo, GET_MEMO, SAVE_NEW_MEMO, UPDATE_MEMO, DELETE_MEMO } from 'src/actions//user_memo';
-import { actionSetLoginForm } from 'src/actions/toggle';
+import {  actionSetSnack, actionSetLoginForm } from '../../actions/toggle';
+import { actionLoading } from '../../actions/document';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
     // ---------------------------- GET_MEMO ----------------------------
 
     case GET_MEMO: {
-      console.log('test get note axios')
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));
-      console.log(userSession)
+
 
       if(userSession.token){
 
@@ -31,14 +31,18 @@ export default (store) => (next) => (action) => {
             },
           })
         .then((res) => {
-          console.log(res.data)
           store.dispatch(actionSetMemo(res.data));
         })
         .catch((err) => {
-          console.log(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
 
       } else {
+        window.sessionStorage.clear()
+        store.dispatch(actionLoading(false));
         store.dispatch(actionSetLoginForm());
       }
 
@@ -63,7 +67,7 @@ export default (store) => (next) => (action) => {
           note_file: noteStore.newMemoNote,
           category_id: noteStore.newMemoCategory
         }
-        console.log(memo)
+
       axios
         .post(`${base_url}/memo/${userSession.user_id}`,
         memo,
@@ -77,10 +81,15 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetMemo(res.data));
         })
         .catch((err) => {
-          console.log(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
 
       } else {
+        window.sessionStorage.clear()
+        store.dispatch(actionLoading(false));
         store.dispatch(actionSetLoginForm());
       }
       break;
@@ -95,7 +104,7 @@ export default (store) => (next) => (action) => {
 
       const token = userSession.token
 
-      console.log(action)
+
       axios
         .patch(`${base_url}/memo/${userSession.user_id}/${action.memo.id}`,
         action.memo,
@@ -109,10 +118,15 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetMemo(res.data));
         })
         .catch((err) => {
-          console.log(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
 
       } else {
+        window.sessionStorage.clear()
+        store.dispatch(actionLoading(false));
         store.dispatch(actionSetLoginForm());
       }
       break;
@@ -139,11 +153,16 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetMemo(res.data));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
 
       } else {
-        store.dispatch(actionSetLoginForm());
+        window.sessionStorage.clear()
+        store.dispatch(actionLoading(false));
+        store.dispatch(SET_LOGIN_FORM());
       }
       break;
     }

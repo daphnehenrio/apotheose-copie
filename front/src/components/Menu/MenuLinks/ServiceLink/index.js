@@ -11,7 +11,7 @@ import slugify from '@sindresorhus/slugify';
 
 // == import Material UI
 import Link from '@material-ui/core/Link';
-import Switch from '@material-ui/core/Switch';
+
 // == import actions
 import { actionChangePage } from 'src/actions/routes';
 import { actionGetServices, actionGetAllServices } from 'src/actions/services';
@@ -103,7 +103,7 @@ export default function ServicesLinks() {
       { menu.length > 0 && ([Links]) }
 
 
-      <div className="tree-item-link toogle-menu">
+      <div className="tree-item-link toogle-menu" onClick={toggleChecked}>
         <img
           className="icon-menu"
           src={`/images/menu-category/${checked ? 'less' : 'more'}.png`}
@@ -112,8 +112,6 @@ export default function ServicesLinks() {
         <span className="toogle-menu--more-less">
           Afficher {checked ? 'moins' : 'plus'}
         </span>
-
-        <Switch className="toogle-menu--switch" checked={checked} onChange={toggleChecked} />
       </div>
 
 

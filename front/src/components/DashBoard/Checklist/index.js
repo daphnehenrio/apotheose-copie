@@ -47,9 +47,9 @@ const Checklists = () => {
   return (
     <div className="tab-content">
       <List className={classes.root} >
-        <h3 className="checklist-title">Title</h3>
-        {[0, 1, 2, 3].map((value) => {
-          const labelId = `checkbox-list-label-${value}`;
+        <h3 className="checklist-title">Demande de crédit</h3>
+        {["CNID", "RIB", "Justificatif de domicile", "Bultins de Salaires", "Avis d'imposition"].map((value) => {
+          const labelId = `${value}`;
 
           return (
             <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
@@ -63,7 +63,7 @@ const Checklists = () => {
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              <ListItemText id={labelId} primary={`${value}`} />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="comments">
                   <InsertDriveFileIcon />

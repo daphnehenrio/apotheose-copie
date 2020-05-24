@@ -1,3 +1,10 @@
+
+.tab-content{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+}
 .cards-infos-memo{
   width: 15rem;
   height: 17rem;
@@ -6,6 +13,7 @@
   justify-content: space-between;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  margin-left: 2rem;
 
   h4 {
     position: relative;
@@ -49,4 +57,6 @@
     background-color: rgba(255, 255, 255, 0.8);
   }
 }
+
+
 

@@ -25,7 +25,6 @@ const initialState = {
 };
 
 export default (state = initialState, action = {}) => {
-  console.log('reducer')
   switch (action.type) {
     case SET_MEMO: {
       return {
@@ -50,11 +49,9 @@ export default (state = initialState, action = {}) => {
     }
 
     case CHANGE_CONTENT_MEMO: {
-      console.log(action.data)
       return {
         ...state,
         memos: state.memos.map((memo) => {
-          console.log(memo, action , 'compare')
           if (memo.id === action.data.id) {
             return {
               ...memo,
@@ -77,7 +74,6 @@ export default (state = initialState, action = {}) => {
 
 
     case SET_NEW_IDENTIFY_MEMO: {
-      console.log(action)
       return {
         ...state,
         newMemoIdentify: action.value,

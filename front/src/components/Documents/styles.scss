@@ -26,7 +26,7 @@
     color: white !important;
     font-size: 1.4rem !important;
     margin-right: 3rem !important;
-    
+
 }
 
 
@@ -86,7 +86,7 @@
 
 .MuiTableBody-root .MuiTableRow-root {
   cursor: pointer;
-  &:hover{ 
+  &:hover{
     .MuiIconButton-label{
       display: flex;
     }
@@ -205,11 +205,14 @@
 
   .photo-viewer-container{
     width: 100%!important;
+    max-width: 100vw!important;
     height: 100%!important;
   }
   img {
     width: auto !important;
+    max-width: 100vw!important;
     height: auto !important;
+    max-height: 100vh;
   }
 }
 
@@ -218,6 +221,7 @@
   margin: auto;
   canvas {
     width: 100% !important;
+    max-width: 100vw!important;
     height: auto !important;
   }
 }

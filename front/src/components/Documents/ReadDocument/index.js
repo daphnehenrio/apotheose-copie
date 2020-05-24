@@ -20,9 +20,7 @@ export default function FileReader() {
 
   const { file, fileType, loading } = useSelector((state) => state.document);
   const classes = useStyles();
-  console.log(loading, 'LOADIIING');
 
-  console.log(fileType)
   let type = '';
 
   switch (fileType) {
@@ -43,7 +41,6 @@ export default function FileReader() {
       break;
   }
 
-  console.log(type)
   const onError = (e) => {
     console.log(e, 'error in file-viewer');
   }

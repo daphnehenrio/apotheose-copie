@@ -68,14 +68,14 @@
     background-color: $color-hover;
 
     text-decoration: none;
-    background-color: #1B4353;
+    background-color: $color-dark;
     color: white;
   }
   &:focus {
 
     background-color: $color-primary;
     text-decoration: none;
-    background-color: #1B4353;
+    background-color: $color-dark;
     color: white;
   }
 
@@ -144,6 +144,11 @@
   margin-bottom: .5rem;
   display: flex;
   align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+  }
 
   .icon-menu{
     margin-right: 15px;
@@ -179,7 +184,7 @@
         filter: invert(0);
       }
       text-decoration: none;
-      background-color: #1B4353;
+      background-color: $color-dark;
       color: white;
       .MuiSvgIcon-root.menu--ExpandMoreIcon{
         color: white;
@@ -187,7 +192,7 @@
     };
     &:focus {
         text-decoration: none;
-        background-color: #1B4353;
+        background-color: $color-dark;
         color: white;
         .MuiSvgIcon-root.menu--ExpandMoreIcon{
           color: white;

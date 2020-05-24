@@ -85,7 +85,6 @@ export default function Step2() {
 
       const error = letters.find(l => !regex.test(l))
 
-      console.log(error, typeof error)
       if(error && error.length > 0 ){
         dispatch(actionSetErrorAddress('Un caractère non authorisé se trouve dans le champs'))
       } else {

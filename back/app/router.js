@@ -125,6 +125,13 @@ router.get('/articles/search/:value', capture(articleController.searchArticle));
 router.get('/sub-category/:id/articles', capture(articleController.articleBySubCategory));
 
 
+router.post('/articles/user/:id/article/:article_id', capture(articleController.articleUser));
+
+router.delete('/articles/user/:id/article/:article_id', capture(articleController.articleUserDelete));
+
+router.get('/articles/user/:id/allarticles', capture(articleController.getArticlesUser))
+
+
 // -------------------- DOCUMENTS --------------------
 
 //upload doc

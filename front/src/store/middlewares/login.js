@@ -5,7 +5,8 @@ import axios from 'axios';
 import { LOGIN, actionErrorLogin, LOGOUT } from '../../actions/login';
 import { actionSetProfil, actionCleanProfil } from 'src/actions/user_profil'
 import { actionChangePage } from '../../actions/routes';
-import { actionSetLoginForm } from '../../actions/toggle';
+import { actionSetLoginForm , actionSetSnack} from '../../actions/toggle';
+import { actionLoading } from '../../actions/document';
 
 // == import local
 import { base_url } from 'src/utils/axios';
@@ -65,7 +66,10 @@ export default (store) => (next) => (action) => {
           }
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       return;
     }
@@ -85,7 +89,10 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionChangePage('/', history));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
     }
 

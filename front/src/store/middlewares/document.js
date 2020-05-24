@@ -17,7 +17,7 @@ import {
 
 // == import local
 import { base_url } from 'src/utils/axios'
-import { SET_LOGIN_FORM } from '../../actions/toggle';
+import {  actionSetSnack, actionSetLoginForm } from '../../actions/toggle';
 
 export default (store) => (next) => (action) => {
 
@@ -34,10 +34,15 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res);
             store.dispatch(actionSetFolder(res.data));
             store.dispatch(actionLoading(false));
         })
+        .catch((err) => {
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
+        });
 
       break;
     }
@@ -65,10 +70,18 @@ export default (store) => (next) => (action) => {
               store.dispatch(actionLoading(false));
 
           })
+          .catch((err) => {
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+            const button = document.querySelector('#snack');
+            button.click();
+          });
 
-      } else {
-        store.dispatch(SET_LOGIN_FORM());
-      }
+        } else {
+          window.sessionStorage.clear()
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetLoginForm());
+        }
 
       break;
     }
@@ -98,12 +111,16 @@ export default (store) => (next) => (action) => {
             store.dispatch(actionOpenSuccessMessage(true));
           })
           .catch((err) => {
-            console.log(err);
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+            const button = document.querySelector('#snack');
+            button.click();
           });
-
-      } else {
-        store.dispatch(actionChangePage('/', history));
-      }
+        } else {
+          window.sessionStorage.clear()
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetLoginForm());
+        }
 
       break;
     }
@@ -132,17 +149,27 @@ export default (store) => (next) => (action) => {
 
             })
           .then((res) => {
-            console.log(res)
             const blob = new Blob([res.data])
             const url = window.URL.createObjectURL(blob);
             store.dispatch(actionSetOneFile(url, res.data.type));
             store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('success', "Succès"));
+            const button = document.querySelector('#snack');
+            button.click();
           })
+          .catch((err) => {
+            store.dispatch(actionSetOneFile('error', '.jpg'));
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+            const button = document.querySelector('#snack');
+            button.click();
+          });
 
-
-      } else {
-        store.dispatch(SET_LOGIN_FORM());
-      }
+        } else {
+          window.sessionStorage.clear()
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetLoginForm());
+        }
 
       break;
     }
@@ -158,7 +185,6 @@ export default (store) => (next) => (action) => {
 
 
         const token = userSession.token
-        console.log(action)
         axios
           .get(`${base_url}/file/${userSession.user_id}/${action.id}`,
 
@@ -171,7 +197,6 @@ export default (store) => (next) => (action) => {
             })
 
           .then((res) => {
-            console.log(res)
             let type = "";
             switch (res.data.type) {
               case 'application/pdf':
@@ -198,10 +223,18 @@ export default (store) => (next) => (action) => {
             document.body.appendChild(link);
             link.click();
           })
+          .catch((err) => {
+            store.dispatch(actionLoading(false));
+            store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+            const button = document.querySelector('#snack');
+            button.click();
+          });
 
-      } else {
-        store.dispatch(SET_LOGIN_FORM());
-      }
+        } else {
+          window.sessionStorage.clear()
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetLoginForm());
+        }
 
       break;
     }
