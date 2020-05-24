@@ -50,10 +50,10 @@ export default function ForgotPassword() {
   return (
 
     <Dialog className="forgot-password--dialog" open={openForgetPassword} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Valider</DialogTitle>
+      <DialogTitle id="form-dialog-title">Mot de passe oublié</DialogTitle>
       <form className="form-group" noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
 
-        <DialogContent>
+        <DialogContent className="forgot-password--dialog-content">
           <TextField
             id="outlined-adornment-forgot-password-"
             label="Veuillez saisir votre adresse mail"
@@ -69,7 +69,7 @@ export default function ForgotPassword() {
           <Button onClick={handleClose} color="secondary">
             Annuler
           </Button>
-          <Button type="submit" className="MuiButtonBase-root MuiButton-root MuiButton-contained forgot-password--dialog--button" variant="contained">
+          <Button type="submit" color="primary" className="MuiButtonBase-root MuiButton-root MuiButton-contained forgot-password--dialog--button" variant="contained">
             Valider
           </Button>
         </DialogActions>

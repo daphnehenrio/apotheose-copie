@@ -208,7 +208,6 @@ const EnhancedTableToolbar = (props) => {
         <InputBase
           onChange={(evt) => {
             dispatch(actionSetSearch(evt.target.value));
-            console.log(search, 'search');
           }}
           placeholder="Rechercher ..."
           classes={{

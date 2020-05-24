@@ -9,10 +9,16 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 
 import './styles.scss'
 import { useDispatch } from 'react-redux';
+
+import {
+  actionAddArticleFavorite,
+  actionRemoveArticleFavorite
+} from 'src/actions/articles';
 
 
 
@@ -32,10 +38,11 @@ export default function Article(article) {
   }
 
   const handleClick = (id) => {
-    dispatch({
-      type: 'SET_ARTICLE_FAVORITE',
-      id: id,
-    })
+    dispatch(actionAddArticleFavorite(id))
+  }
+
+  const handleClickDelete = (id) => {
+    dispatch(actionRemoveArticleFavorite(id))
   }
 // -------------------------- Return --------------------------
   return (
@@ -60,6 +67,9 @@ export default function Article(article) {
         <ReactMarkdown escapeHtml="true" source={article.article.content}/>
       </CardContent>
       <CardActions disableSpacing>
+        <IconButton aria-label="revove to favorites" disabled={disabled} onClick={() => handleClickDelete(article.article.id)}>
+          <FavoriteBorderIcon />
+        </IconButton>
         <IconButton aria-label="add to favorites" disabled={disabled} onClick={() => handleClick(article.article.id)}>
           <FavoriteIcon />
         </IconButton>

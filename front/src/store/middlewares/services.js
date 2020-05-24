@@ -7,6 +7,8 @@ import axios from 'axios';
 import { base_url } from 'src/utils/axios';
 import { GET_SERVICES, GET_ALL_SERVICES, actionSetServices , actionSetAllServices} from '../../actions/services';
 import { actionLoading } from '../../actions/document';
+import {  actionSetSnack, actionSetLoginForm } from '../../actions/toggle';
+
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
@@ -24,7 +26,10 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       break;
     }
@@ -41,7 +46,10 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionLoading(false));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       break;
     }

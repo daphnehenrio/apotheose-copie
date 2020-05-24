@@ -66,7 +66,6 @@ const PostCard = () => {
   ]
 
   const DialogDescription = ({ index }) => {
-    console.log(index)
     const goodDescription = description[index]
     return (
       <Dialog
@@ -127,7 +126,7 @@ const PostCard = () => {
             <li>NodeJs</li>
             <li>Postgres</li>
             <li>Express</li>
-            <li>Squitch</li>
+            <li>Sqitch</li>
             <li>Sequelize</li>
             <li>PgAdmin</li>
           </ul>

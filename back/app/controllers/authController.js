@@ -241,7 +241,7 @@ const authController = {
     const user = await User.findOne({
       where: {
         validation_key: key,
-      }        
+      }
     });
 
     user.update({
@@ -259,10 +259,10 @@ const authController = {
     const user = await User.findOne({
       where: {
         email : data.email
-      }        
+      }
     });
 
-    await res.redirect(`${process.env.RECUP}`);  
+    // await res.redirect(`${process.env.RECUP}`);
 
     next();
 

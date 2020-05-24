@@ -7,7 +7,6 @@ import ArticleDescription from '../../Articles/ArticleDescription';
 
 const Article = () => {
   const articles = useSelector(state => state.articles.userArticles);
-  console.log(articles, typeof articles)
 
   return (
     <div className="tab-content">

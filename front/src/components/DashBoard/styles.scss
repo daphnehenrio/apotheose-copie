@@ -1,12 +1,23 @@
 @import 'src/styles/vars';
 
+.memo-plus, .note-plus {
+  margin-left: 8rem;
+}
+
 .tab-container{
     display: flex;
     justify-content: center;
     color: $color-dark;
 }
 
+.cards-infos-list {
+  width: 20rem;
+  height: 30rem;
 
+  .MuiFormControlLabel-root {
+    margin-bottom: .3rem;
+  }
+}
 
 .MuiBox-root{
     width:100%;
@@ -52,6 +63,7 @@
     justify-content: space-between;
     margin-bottom: 1rem;
     margin-top: 1rem;
+    margin-left: 2rem;
 }
 
 

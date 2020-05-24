@@ -86,7 +86,6 @@ const Memo = () => {
 
   const preventDefault = (event) => event.preventDefault();
 
-console.log(memos)
 
   // ------------------------------- UPDATE -------------------------------
 
@@ -111,7 +110,6 @@ console.log(memos)
   };
 
   const handleChange = (id, name, identify, phone, address, referent, note, category) => {
-    console.log(id)
     const noteObj = {
       id: id,
       service_name: name,
@@ -292,8 +290,6 @@ console.log(memos)
           placeholder="Identifiant"
           value={newMemoIdentify}
           onChange={(evt) => {
-            console.log(evt.target.value)
-            console.log(newMemoIdentify)
             dispatch(actionSetNewIdentifyMemo(evt.target.value));
             setError(false);
           }}
@@ -478,7 +474,6 @@ console.log(memos)
                   );
               }}
             />
-            {console.log(memoContent.category_id, 'IDDD')}
           </DialogContentText>
           <DialogContentText id="alert-dialog-slide-description">
             <NotepadContent
@@ -577,7 +572,6 @@ console.log(memos)
       <DialogActions>
         <Button
           onClick={(evt) => {
-            console.log(memoContent)
             dispatch(actionChanqeContentMemo(memoContent));
             dispatch(actionUpdateMemo(memoContent))
             handleCloseUpdate();

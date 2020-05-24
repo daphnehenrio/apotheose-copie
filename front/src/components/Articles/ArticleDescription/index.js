@@ -27,8 +27,8 @@ export default function ArticleDescription(article) {
   const dispatch = useDispatch()
 
   const getArticle = () => {
-    dispatch(actionGetOneArticle(article.article.id))
-    dispatch(actionChangePage(`/article/${slugify(article.article.title)}`, history))
+    dispatch(actionGetOneArticle(article.article.id, `/article/${slugify(article.article.title)}`, history))
+    //dispatch(actionChangePage(`/article/${slugify(article.article.title)}`, history))
   }
 // -------------------------- Return --------------------------
   return (

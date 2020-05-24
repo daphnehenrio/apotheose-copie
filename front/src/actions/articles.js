@@ -8,14 +8,20 @@ export const GET_ALL_ARTICLES = 'action/GET_ALL_ARTICLES';
 export const SET_ALL_ARTICLES = 'action/SET_ALL_ARTICLES';
 export const GET_SEARCH_ARTICLES = 'action/GET_SEARCH_ARTICLES';
 export const SET_SEARCH_ARTICLES = 'action/SET_SEARCH_ARTICLES';
+export const SET_ARTICLE_USER_FAVORITE = 'action/SET_ARTICLE_USER_FAVORITE';
+export const ADD_ARTICLE_FAVORITE = 'action/SET_ARTICLE_FAVORITE';
+export const REMOVE_ARTICLE_FAVORITE = 'action/REMOVE_ARTICLE_FAVORITE';
+
 
 /**
  * action ➔ axios's request for get one article
  * @param {number} id - article's id
  */
-export const actionGetOneArticle = (id) => ({
+export const actionGetOneArticle = (id, route, history) => ({
   type: GET_ONE_ARTICLE,
-  id
+  id,
+  route,
+  history
 });
 
 /**
@@ -95,3 +101,17 @@ export const actionSetSearchArticles = (articles) => ({
   articles,
 });
 
+export const actionAddArticleFavorite = (id) => ({
+  type: ADD_ARTICLE_FAVORITE,
+  id,
+});
+
+export const actionRemoveArticleFavorite = (id) => ({
+  type: REMOVE_ARTICLE_FAVORITE,
+  id,
+});
+
+export const actionSetArticleUserFavorite = (data) => ({
+  type: SET_ARTICLE_USER_FAVORITE,
+  data,
+});

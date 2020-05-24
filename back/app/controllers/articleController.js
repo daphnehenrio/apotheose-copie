@@ -140,6 +140,42 @@ const articleController = {
       res.send('ajouté');
     },
 
+    articleUserDelete : async (req, res) => {
+
+      const userID = req.params.id;
+      const articleID = req.params.article_id;
+
+      let user = await User.findByPk(userID);
+      let article = await Article.findByPk(articleID);
+
+      await user.removeArticle(article);
+
+      let articles = await User.findByPk(userID, {
+        include : [
+         {
+           association: 'articles',
+           include: [
+            {
+              association : 'sub_category',
+              order: [
+                ['name', 'ASC'],
+              ],
+              include : [
+                {
+                  association : 'category',
+                },
+              ],
+            },
+          ],
+         }
+          ]
+      });
+
+
+      res.send(articles);
+
+    },
+
     getArticlesUser : async (req, res) => {
 
       const userID = req.params.id;

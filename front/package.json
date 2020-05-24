@@ -62,6 +62,7 @@
     "hex-and-rgba": "^1.4.2",
     "moment": "^2.25.3",
     "moment-js": "^1.1.15",
+    "notistack": "^0.9.16",
     "password-validator": "^5.0.3",
     "prop-types": "*",
     "rc-animate": "^3.0.0",

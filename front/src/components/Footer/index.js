@@ -29,12 +29,12 @@ export default function Footer() {
 
   return (
     <Box className="footer--styled box" component="div" m={1}>
-      <Link className="footer--styled link" href="#" onClick={(event) => preventDefault(event, '/contact')}>
-        Contact
+      <Link className="footer--styled link" href="#" onClick={(event) => preventDefault(event, '/equipe')}>
+        L'équipe
       </Link>
       <p>-</p>
-      <Link className="footer--styled link" href="/mention-legale" onClick={(event) => preventDefault(event, '/mention-legale')}>
-        Mentions légales
+      <Link className="footer--styled link" href="/cgu" onClick={(event) => preventDefault(event, '/cgu')}>
+        Conditions générales d'utilisation
       </Link>
     </Box>
   );

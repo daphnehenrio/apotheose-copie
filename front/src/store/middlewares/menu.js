@@ -3,6 +3,8 @@ import axios from 'axios';
 
 // == import action
 import { GET_MENU, actionSetMenu } from '../../actions/menu';
+import {  actionSetSnack } from '../../actions/toggle';
+import { actionLoading } from '../../actions/document';
 
 
 // == import local
@@ -24,7 +26,10 @@ export default (store) => (next) => (action) => {
           store.dispatch(actionSetMenu(res.data));
         })
         .catch((err) => {
-          console.trace(err);
+          store.dispatch(actionLoading(false));
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          const button = document.querySelector('#snack');
+          button.click();
         });
       break;
     }

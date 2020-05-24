@@ -40,6 +40,7 @@ import AcceptTerms from '../AcceptTerms';
 import Construct from '../Construct'
 import Contact from '../Contact';
 import ForgotPassword from '../ForgetPassword';
+import IntegrationNotistack from '../SnackBar';
 
 
 
@@ -86,7 +87,7 @@ const App = () => {
 
   // == selector reducers
   const { category, menuOK } = useSelector((state) => state.menu);
-  const { allTitles, allTitleOk, articles } = useSelector((state) => state.articles);
+  const { allTitles, allTitleOk, articles, goodarticle } = useSelector((state) => state.articles);
   const { openDrawer } = useSelector((state) => state.toggle);
   const categoriesFolder = useSelector((state) => state.document.category)
 
@@ -113,6 +114,8 @@ const App = () => {
     <div className="app">
       <AppBar />
       <Menu />
+
+      <IntegrationNotistack />
 
       <ForgotPassword />
       <div
@@ -176,9 +179,21 @@ const App = () => {
             allTitles.length > 0 && (
               allTitles.map((title) => {
                 return (
-                  <Route key={title} exact path={`/article/${slugify(title)}`}>
-                    <Article article={articles[0]}/>
-                  </Route>
+                  <Route
+                    key={title}
+                    exact
+                    path={`/article/${slugify(title)}`}
+                    render={() => {
+                      if (goodarticle.length !== 1) {
+                        return <Redirect to="/" />;
+                      }
+                      return (
+                        <div>
+                          <Article article={goodarticle[0]}/>
+                        </div>
+                      );
+                    }}
+                  />
                 );
               })
             )
@@ -297,11 +312,11 @@ const App = () => {
             <Construct />
           </Route>
 
-          <Route exact path="/contact">
+          <Route exact path="/equipe">
             <Contact />
           </Route>
 
-          <Route exact path="/mention-legale">
+          <Route exact path="/cgu">
             <AcceptTerms />
           </Route>
 
