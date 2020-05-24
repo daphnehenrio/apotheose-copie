@@ -9,10 +9,15 @@
 
   background: local;
   color: white;
-  background-color: $color-background; // #DB8848;
+  background-color: #E04644; //$color-background; // #DB8848;
+  transition: all 0.2s;
   &:hover {
-    background-color: $color-dark ;//#FBAF74;
-}
+    background-color: #E04644 ;//#FBAF74;
+    //transform: translateY(2px);
+    transform: scale(1.1);
+    background-position: -60px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
 }
 
 .MuiToolbar-root .MuiSvgIcon-root{
