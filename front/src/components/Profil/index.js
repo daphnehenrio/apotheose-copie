@@ -15,6 +15,9 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import GroupIcon from '@material-ui/icons/Group';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -95,7 +98,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     display: 'flex',
-    margin: '0 5rem',
     minWidth: '1050px',
   },
   tabs: {
@@ -132,6 +134,15 @@ export default function Profil() {
     age,
     statut,
   } = useSelector((state) => state.user_profil);
+
+  let childrenSentence = '';
+  if(children === 0){
+    childrenSentence = `Pas d'enfants`;
+  } else if (children === 1) {
+    childrenSentence = 'enfant';
+  } else {
+    childrenSentence = 'enfants';
+  }
 
   const { openAddInfoSup, infosSup, infoSupToAdd } = useSelector((state) => state.user_info);
   const infosSupList = infosSup.map((info) => {
@@ -229,7 +240,6 @@ export default function Profil() {
 
   return (
     <div className="profil">
-      <h3 className="profil-title">Mon Profil</h3>
       <div className={classes.root}>
         <Tabs
           orientation="vertical"
@@ -239,75 +249,96 @@ export default function Profil() {
           aria-label="Vertical tabs example"
           className={classes.tabs}
         >
-          <Category label="Moi" {...a11yProps(0)} />
-          <Category label="Infos supplémentaires" {...a11yProps(1)} />
-          <Category label="Santé" {...a11yProps(2)} />
-          <Category label="Caf" {...a11yProps(3)} />
+          <Category label="Moi" icon={<AccountCircleIcon />} {...a11yProps(0)} />
+          <Category label="Infos supplémentaires" icon={<AddIcon />} {...a11yProps(1)} />
+          <Category label="Santé" icon={<FavoriteIcon />} {...a11yProps(2)} />
+          <Category label="Caf" icon={<GroupIcon />} {...a11yProps(3)} />
         </Tabs>
         {!loading && (
-        <TabPanel className="category-content" value={value} index={0}>
-          <div className="card-container">
-            <div className="card-header">
-              <div className="card-header-left">
-                <Avatar aria-label="recipe">
-                  {login.substring(0, 1).toUpperCase()}
-                </Avatar>
-                <h3>Mes Informations</h3>
+          <TabPanel className="category-content" value={value} index={0}>
+            <div className="card-container">
+              <div className="card-header">
+                <div className="card-header-left">
+                  <div className='jade-round'></div>
+                  <h3>Moi</h3>
+                </div>
+                <div className="card-header-right">
+                  <IconButton
+                    aria-label="settings"
+                    onClick={(evt) => {
+                      handleEditProfil(true);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </div>
               </div>
-              <div className="card-header-right">
-                <IconButton
-                  aria-label="settings"
-                  onClick={(evt) => {
-                    handleEditProfil(true);
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
+              <div className="card-content">
+                <ul className="infos-container">
+                  <div className='left'>
+                    <div className="sub-container">
+                      <h5>Nom et prénom :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{last_name.toUpperCase()} {first_name}</li>
+                      </div>
+                    </div>
+                    <div className="sub-container">
+                      <h5>Age :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{age ? age : 'Aucune information'}</li>
+                      </div>
+                    </div>
+                    <div className="sub-container">
+                      <h5>Civilité :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{gender ? gender : 'Aucune information'}</li>
+                      </div>
+                    </div>
+                    <div className="sub-container">
+                      <h5>Status :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{statut ? statut : 'Aucune informations'}</li>
+                      </div>
+                    </div>
+                    <div className="sub-container">
+                      <h5>Enfants :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{children ? `${children} ${childrenSentence}` : 'Aucune information'}</li>
+                      </div>
+                    </div>
+                    <div className="sub-container">
+                      <h5>Adresse :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{(!address && !zip_code && !city) ? 'Aucune information' : `${address } ${zip_code} ${city.toUpperCase()}` }</li>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='right'>
+                    <div className="sub-container ">
+                      <h5>Téléphone perso :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{cellphone_number ? cellphone_number : 'Aucune information'}</li>
+                      </div>
+                    </div>
+                    <div className="sub-container">
+                      <h5>Téléphone travail :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{phone_work ?phone_work : 'Aucune information'}</li>
+                      </div>
+
+                    </div>
+                    <div className="sub-container">
+                      <h5>Téléphone fixe :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{ phone_number ? phone_number : 'Aucune information'}</li>
+                      </div>
+
+                    </div>
+                  </div>
+                </ul>
               </div>
             </div>
-            <div className="card-content">
-              <ul className="infos-container">
-                <div className="sub-container">
-                  <h5>Nom et prénom :</h5>
-                  <div className="sub-container-content">
-                    <li className="infos-content">{last_name.toUpperCase()} {first_name}</li>
-                  </div>
-                </div>
-                <div className="sub-container">
-                  <h5>Adresse :</h5>
-                  <div className="sub-container-content">
-                    <li className="infos-content">{address}, {zip_code} {city.toUpperCase()}</li>
-                  </div>
-                </div>
-                <div className="sub-container">
-                  <h5>Téléphones :</h5>
-                  <div className="sub-container-content">
-                    <div className="sub-container">
-                      <h5>Travail :</h5>
-                      <li className="infos-content">{phone_work}</li>
-                    </div>
-                    <div className="sub-container">
-                      <h5>Perso :</h5>
-                      <li className="infos-content">{cellphone_number}</li>
-                    </div>
-                    <div className="sub-container">
-                      <h5>Fix :</h5>
-                      <li className="infos-content">{phone_number}</li>
-                    </div>
-                  </div>
-                </div>
-                <div className="sub-container">
-                  <h5>Autre :</h5>
-                  <div className="sub-container-content">
-                    <li className="infos-content">Age : {age}</li>
-                    <li className="infos-content">Civilité : {gender}</li>
-                    <li className="infos-content">Status : {statut}</li>
-                  </div>
-                </div>
-              </ul>
-            </div>
-          </div>
-        </TabPanel>
+          </TabPanel>
         )}
         <TabPanel className="category-content" value={value} index={1}>
           <div className="card-container">

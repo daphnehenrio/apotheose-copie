@@ -23,8 +23,6 @@ export default (store) => (next) => (action) => {
     case GET_PROFIL: {
       store.dispatch(actionLoading(true));
 
-      const { history } = action;
-
       const userSession = JSON.parse(window.sessionStorage.getItem('user'));
 
 
@@ -51,10 +49,13 @@ export default (store) => (next) => (action) => {
           }
         })
         .catch((err) => {
+          window.sessionStorage.clear()
           store.dispatch(actionLoading(false));
-          store.dispatch(actionSetSnack('error', "Une erreur s'est produite"));
+          dispatch(actionChangePage("/", action.history))
+          store.dispatch(actionSetSnack('error', "Une erreur s'est produite, merci de vous reconnecter"));
           const button = document.querySelector('#snack');
           button.click();
+          store.dispatch(actionSetLoginForm());
         });
       } else {
         window.sessionStorage.clear()

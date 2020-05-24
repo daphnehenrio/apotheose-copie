@@ -16,7 +16,7 @@
   flex-grow: 1;
   padding: 8rem 5rem;
   height: 100%;
-  
+
 }
 
 .card-media {
@@ -58,20 +58,20 @@
     strong{
       font-weight: 900;
       font-size: 1.35rem;
-      color: #DB8848;
+      color: #fff; // #B7D968;
     }
 
     em{
       font-style: normal;
-      color: #DB8848;
+      color: #fff; // #B7D968;
       font-weight: 600;
     }
 }
 
-.curve { 
+.curve {
   width: 15rem;
   float: left;
-  margin-right:2rem; 
+  margin-right:2rem;
   border-radius: 50%;
   -webkit-shape-outside:circle();
   shape-outside:circle();
@@ -97,12 +97,12 @@
 }
 
 .card-label{
-    background-color: rgb(165, 32, 32);
-    color: white;
-    padding: 0.5rem;
-    text-align: center;
-    width:5rem;
-    border-radius: 5px;
+   background-color: rgb(165, 32, 32);
+   color: white;
+   padding: 0.5rem;
+   text-align: center;
+   width:5rem;
+   border-radius: 5px;
 }
 
 @media screen and (max-width: 1530px) {
@@ -130,7 +130,7 @@
     margin: 5rem 1rem;
     margin-bottom: 3rem;
   }
-  
+
   .page-description-container{
     width: 100%;
     padding: 2rem 0.5rem;

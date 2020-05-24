@@ -34,7 +34,7 @@ export default function Footer() {
       </Link>
       <p>-</p>
       <Link className="footer--styled link" href="/cgu" onClick={(event) => preventDefault(event, '/cgu')}>
-        Conditions générales d'utilisation
+        CGU
       </Link>
     </Box>
   );

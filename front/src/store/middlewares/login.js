@@ -21,6 +21,9 @@ export default (store) => (next) => (action) => {
 
     case LOGIN: {
 
+      store.dispatch(actionLoading(true));
+
+
       const { history, data } = action;
       const { login, password } = data;
       const userLogin = {
@@ -58,6 +61,10 @@ export default (store) => (next) => (action) => {
               store.dispatch(actionSetLoginForm());
               // 5. => redirect dashboard
               //store.dispatch(actionChangePage('/mon-espace-personnel', history));
+              store.dispatch(actionLoading(false));
+              store.dispatch(actionSetSnack('success', "Vous êtes connecté"));
+              const button = document.querySelector('#snack');
+              button.click();
 
             }
           }

@@ -206,11 +206,6 @@ export default function PersistentDrawerLeft() {
   const ProfilIcon = () => (
     <>
       <div className='group-btn-icon'>
-        <Tooltip title="Bloc note" arrow>
-          <IconButton aria-label="note">
-            <CreateIcon />
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Mes documents" arrow>
           <Link onClick={(event) => getFolder(event, '/mes-documents')}>
             <IconButton aria-label="documents">
