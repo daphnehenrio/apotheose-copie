@@ -135,6 +135,15 @@ export default function Profil() {
     statut,
   } = useSelector((state) => state.user_profil);
 
+  let childrenSentence = '';
+  if(children === 0){
+    childrenSentence = `Pas d'enfants`;
+  } else if (children === 1) {
+    childrenSentence = 'enfant';
+  } else {
+    childrenSentence = 'enfants';
+  }
+
   const { openAddInfoSup, infosSup, infoSupToAdd } = useSelector((state) => state.user_info);
   const infosSupList = infosSup.map((info) => {
     if (info.edit === false) {
@@ -276,7 +285,7 @@ export default function Profil() {
                     <div className="sub-container">
                       <h5>Age :</h5>
                       <div className="sub-container-content">
-                        <li className="infos-content">{age}</li>
+                        <li className="infos-content">{age ? age : 'Aucune information'}</li>
                       </div>
                     </div>
                     <div className="sub-container">
@@ -292,9 +301,15 @@ export default function Profil() {
                       </div>
                     </div>
                     <div className="sub-container">
+                      <h5>Enfants :</h5>
+                      <div className="sub-container-content">
+                        <li className="infos-content">{children ? `${children} ${childrenSentence}` : 'Aucune information'}</li>
+                      </div>
+                    </div>
+                    <div className="sub-container">
                       <h5>Adresse :</h5>
                       <div className="sub-container-content">
-                        <li className="infos-content">{address}, {zip_code} {city.toUpperCase()}</li>
+                        <li className="infos-content">{(!adress && !zip_code && !city) ? 'Aucune information' : `${address } ${zip_code} ${city.toUpperCase()}` }</li>
                       </div>
                     </div>
                   </div>
@@ -307,8 +322,8 @@ export default function Profil() {
                     </div>
                     <div className="sub-container">
                       <h5>Téléphone travail :</h5>
-                      <div className="sub-container-content">
-                        <li className="infos-content">{phone_work ? phone_work : 'Aucune information'}</li>
+                      <div className="sub-container-content"> 
+                        <li className="infos-content">{phone_work ?phone_work : 'Aucune information'}</li>
                       </div>
 
                     </div>
