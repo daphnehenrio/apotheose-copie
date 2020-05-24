@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const nodemailer = require('nodemailer');
-const smtpTransport = require('nodemailer-smtp-transport');
+const smtpTransport = require('nodemailer-smtp-pool');
 
 const emailController = {
 
@@ -18,14 +18,20 @@ const emailController = {
         }
       });
 
-      let transport = nodemailer.createTransport(smtpTransport({
-        service: 'gmail',
+
+      // Or using SMTP Pool if you need to send a large amount of emails
+
+      const  smtpPool = require('nodemailer-smtp-pool');
+      let transport = nodemailer.createTransport(smtpPool({
+        service: "gmail",
         auth: {
-          user: mailAldahe,
-          pass: passwordAldahe
+          user: 'projet.aldahe@gmail.com',
+          pass: 'yluv rhcn jojd byon',
         },
-        tls: { rejectUnauthorized: false }
-      }));
+
+      }))
+
+
 
       let mail = {
         from: mailAldahe,
@@ -70,14 +76,24 @@ const emailController = {
       }
     });
 
-    let transport = nodemailer.createTransport(smtpTransport({
-      service: 'gmail',
+    const  smtpPool = require('nodemailer-smtp-pool');
+    let transport = nodemailer.createTransport(smtpPool({
+      service: "gmail",
       auth: {
-        user: mailAldahe,
-        pass: passwordAldahe
+        user: 'projet.aldahe@gmail.com',
+        pass: 'yluv rhcn jojd byon',
       },
-      tls: { rejectUnauthorized: false }
-    }));
+
+    }))
+
+    // let transport = nodemailer.createTransport(smtpTransport({
+    //   service: 'gmail',
+    //   auth: {
+    //     user: mailAldahe,
+    //     pass: passwordAldahe
+    //   },
+    //   tls: { rejectUnauthorized: false }
+    // }));
 
     let mail = {
       from: mailAldahe,
