@@ -309,7 +309,7 @@ export default function Profil() {
                     <div className="sub-container">
                       <h5>Adresse :</h5>
                       <div className="sub-container-content">
-                        <li className="infos-content">{(!adress && !zip_code && !city) ? 'Aucune information' : `${address } ${zip_code} ${city.toUpperCase()}` }</li>
+                        <li className="infos-content">{(!address && !zip_code && !city) ? 'Aucune information' : `${address } ${zip_code} ${city.toUpperCase()}` }</li>
                       </div>
                     </div>
                   </div>
@@ -322,7 +322,7 @@ export default function Profil() {
                     </div>
                     <div className="sub-container">
                       <h5>Téléphone travail :</h5>
-                      <div className="sub-container-content"> 
+                      <div className="sub-container-content">
                         <li className="infos-content">{phone_work ?phone_work : 'Aucune information'}</li>
                       </div>
 

@@ -477,7 +477,8 @@ export default function TargetedDocuments(category) {
   const rows =
     search !== '' ?
       files.filter((file) => {
-        if (file.name.startsWith(search.charAt(0).toUpperCase() + search.slice(1).toLowerCase())) {
+        console.log(file.name, search)
+        if (file.name.startsWith(search.charAt(0).toUpperCase() + search.slice(1).toLowerCase()) || (file.name.toUpperCase().search(search.toUpperCase()) > -1)) {
           return true;
         }
         return false;

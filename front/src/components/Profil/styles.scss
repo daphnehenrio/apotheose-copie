@@ -112,7 +112,7 @@
     flex: 1;
     justify-content: flex-end;
     .MuiSvgIcon-root{
-        color: #39CA97 !important;
+        color: #E04644 !important;
     }
 }
 
@@ -161,7 +161,7 @@
     align-items: center;
 }
 
-.MuiTab-wrapper{
+.profil .MuiTab-wrapper{
     flex-direction: row !important;
     justify-content: flex-start !important;
 }
@@ -171,7 +171,7 @@
 }
 
 .jade-round{
-    background-color: #39CA97;
+    background-color:rgba(224, 71, 68, 0.8);
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
@@ -185,8 +185,9 @@
     }
 }
 
-.MuiTabs-root{
-    background-color: #39CA97;
+
+.profil .MuiTabs-root{
+  background-color: rgba(224, 71, 68, 0.8);
     color: white;
     padding-top: 8rem;
     padding-left: 3rem;
@@ -202,6 +203,7 @@
 
 .PrivateTabIndicator-root-260{
     left:0 !important;
+    background-color: white!important;
 }
 
 @media screen and (max-width: 600px) {

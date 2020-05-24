@@ -57,9 +57,7 @@ export default function PersistentDrawerLeft() {
     >
       <div className="menu--drawer-header">
         <div className='responsive-group-btn-icon'>
-          <IconButton aria-label="note">
-            <CreateIcon />
-          </IconButton>
+
           <Link onClick={(event) => preventDefault(event, '/mes-documents')}>
             <IconButton aria-label="documents">
               <FolderIcon />
