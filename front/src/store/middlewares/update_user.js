@@ -114,7 +114,7 @@ export default (store) => (next) => (action) => {
             store.dispatch(actionSetSnack('success', "Compte supprimé avec succès veuillez vous déconnecter"));
             const button = document.querySelector('#snack');
             button.click();
-            store.dispatch(actionLogout('/', history))
+            store.dispatch(actionLogout('/', action.history))
 
           }
 
