@@ -46,21 +46,37 @@ const PostCard = () => {
     {
       id: 1,
       name: "Alexandre BESSE",
-      description: ["",""],
+      description: [
+
+        "Alexandre, 28 ans, actuellement à Jablines (77) Seine-et-Marne en région Île-de-France.",
+        "Avant la formation d’O’clock je n’avais aucune expérience dans le milieu du développement, mais au fur et à mesure grâce aux petits projets de la formation, du projet Aldahe, j’ai beaucoup appris.",
+
+        "Ce projet est le challenge le plus imposant de cette formation, avec l’équipe nous avons su avancer ensemble pour trouver les solutions les plus adaptés pour aboutir à ce résultat.",
+        "Le site est toujours en évolution et nous sommes désireux de le voir se peaufiner.",
+
+        "Nous avons pu apprendre de chacun pour emmagasiner des connaissances et d’élargir nos compétences.",
+        "De pouvoir apprendre, concevoir est pour moi le plus important, j’apprécie particulièrement le domaine du virtuel et de l’informatique c’est pourquoi je me suis dirigé vers cette formation."
+      ],
     },
     {
       id: 2,
       name: "Henri LAURENT",
-      description: ["",""],
+      description: [
+        "Passionné par le developpement web depuis quelques années déjà, je suis dabord passé par une année de license à l'université avant de me rendre compte que je souhaitais me spécialiser dans le domaine du web. C'est alors que j'ai décidé de rejoindre la grande aventure Oclock avec déjà quelques bagages en informatique qui m'ont été très utiles durant la formation.",
+        "Ce fût pendant ce dernier mois de projet intense que je me suis découvert une véritable passion pour le front, j'ai pu expérimenter et apprendre beaucoup et j'ai eu la chance d'avoir des coéquipiers excellent tant par leur niveau que par leur faculté à travailler en équipe.",
+        "Maintenant que l'aventure touche à sa fin j'aimerai trouvé un poste de développeur front en entreprise qui me permettrait de continuer à explorer ce merveilleux domaine qu'est le front.",
+      ],
     },
     {
       id: 3,
       name: "Daphné HENRIO",
       description: [
         "Daphné, 29ans, maman de 3 enfants, actuellement à Castres (81) et en quête d'un déménagement sur Rennes.",
-        "Sans véritable expérience avant la formation O'clock, je me suis épanouie durant les cours autant au travers du back, que du front. J'aime jongler entre les deux et découvrir plein de nouvelles choses.",
-        "Durant cette expérience, le plus difficile pour moi aura été de mener à bien la gestion de l'équipe, de le guider correctement vers la réussite du projet. Et je dois dire, que j'ai eu la chance d'avoir des partenaires plein de bonnes volonté, qui m'ont grandement aider à mener cette première version à terme.",
-        "Actuellement en recherche de stage pour consilider mes acquis, j'aimerais pouvoir continuer de trvailler en télétravail, après en avoir fait l'expérience avec O'clock durant ces 6 dermiers mois.",
+        "Sans véritable expérience avant la formation O'clock, je me suis épanouie durant les cours autant au travers du back, que du front. J'aime jongler entre les deux et découvrir plein de nouvelles choses. Apprendre est au final ma plus grande passion.",
+        "Ce fut un grand plaisir de travailler sur ce projet, une expérience enrichissante, autant côté front que côté back, pleine de découvertes et de bons moments en compagnie de mes collègues qui ont fournit un excellent travail.",
+        "Avec ce projet, il nous aura fallut apprendre à bien s'organiser, étant plutôt ambitieux, il nous aura fallu faire des concessions ce qui ne fut pas évident pour aboutir à une première version en seulement 3semaines.",
+        "Nous essaierons de poursuivre une V2 par la suite, afin de continuer dans l'apprentissage et améliorer ce que nous avons déjà produit. Nous serions aussi ravis d'aggrandir l'équipe afin de faire évoluer et vivre ALDAHE.",
+        "Actuellement en recherche de stage pour consolider mes acquis, j'aimerais pouvoir continuer de travailler en télétravail, après en avoir fait l'expérience avec O'clock durant ces 6 dermiers mois.",
       ],
     },
   ]
@@ -231,7 +247,7 @@ const PostCard = () => {
               <TwitterIcon />
             </IconButton>
             <Typography>
-              <Link href="#" target="_blank">
+              <Link href="https://twitter.com/LaurentHenri5?s=09" target="_blank">
                 Twitter
               </Link>
             </Typography>

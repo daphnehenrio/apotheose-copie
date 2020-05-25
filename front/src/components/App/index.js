@@ -238,7 +238,7 @@ const App = () => {
                 return <Redirect to="/403" />;
               }
               return (
-                <div>
+                <div className="profil-page">
                   <Profil />
                 </div>
               );

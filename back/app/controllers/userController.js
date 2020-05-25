@@ -1,4 +1,4 @@
-const { User, User_profil } = require('../models');
+const { User, User_profil, Document, Note, User_info } = require('../models');
 
 const bcrypt = require('bcryptjs');
 
@@ -63,28 +63,80 @@ const userController = {
     try {
 
       const userId = req.params.id;
+      const key = req.params.key;
       const user = await User.findByPk(userId);
-      const user_profil = await User_profil.findOne({
-        where: {
-          user_id: userId
-        }
-      });
+      console.log(user.validation_key)
+      console.log(key)
 
-      if (user_profil) {
-
-        await user_profil.destroy();
-
-      };
-
-      if (user) {
-
-        await user.destroy();
-        res.send("OK");
-
+      if(key !== user.validation_key) {
+        res.send('La clé saisie est invalide')
       } else {
 
-        return next();
 
+              const user_profil = await User_profil.findOne({
+                where: {
+                  user_id: userId
+                }
+              });
+
+
+
+              await Document.destroy({
+                where: {
+                  user_id: userId
+                }
+              });
+
+              await Note.destroy({
+                where: {
+                  user_id: userId
+                }
+              });
+
+
+              await User_info.destroy({
+                where: {
+                  user_id: userId
+                }
+              });
+
+              //console.log(documents)
+
+              //if (documents.length > 0) {
+
+              //  await documents.destroy();
+
+              //};
+
+              //if (notes.length > 0) {
+
+              //  await notes.destroy();
+
+              //};
+
+              //if (memo.length > 0) {
+
+              //  await memo.destroy();
+
+              //};
+
+
+              if (user_profil) {
+
+                await user_profil.destroy();
+
+              };
+
+              if (user) {
+
+                await user.destroy();
+                res.send("OK");
+
+              } else {
+
+                return next();
+
+              }
       }
 
     } catch (error) {
@@ -98,10 +150,10 @@ const userController = {
     const data = req.body;
 
     const user = await User.findOne({
-      where: 
+      where:
         {
           validation_key: data.validation_key
-        }      
+        }
     });
 
     if(user.validation_key) {

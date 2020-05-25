@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 // == import Material UI
 
@@ -28,6 +29,10 @@ import { actionSetDrawer } from '../../actions/toggle';
 
 // == import styles
 import './styles.scss';
+import { actionChangePage } from '../../actions/routes';
+import { actionLoading, actionGetFolder } from '../../actions/document';
+import { actionGetMemo } from '../../actions/user_memo';
+import { actionGetNote } from '../../actions/user_note';
 
 
 // -------------------------- Export --------------------------
@@ -36,12 +41,36 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const openDrawer = useSelector((state) => state.toggle.openDrawer);
+  const history = useHistory();
 
   // -------------------------- Fonctions State & Dispatch --------------------------
 
   const handleDrawer = () => {
     dispatch(actionSetDrawer());
   };
+
+  const preventDefault = (event, route) => {
+    event.preventDefault();
+    dispatch(actionChangePage(route, history));
+  };
+
+  const getFolder = (event, route) => {
+    event.preventDefault();
+    dispatch(actionLoading(true));
+    dispatch(actionGetFolder())
+    dispatch(actionChangePage(route, history));
+  };
+
+  const getDashboard = (event, route) => {
+    event.preventDefault();
+    dispatch(actionGetMemo())
+    dispatch(actionGetNote())
+    dispatch({
+      type: 'GET_ARTICLE_USER_FAVORITE'
+    })
+    dispatch(actionChangePage(route, history));
+  }
+
 
   // -------------------------- Return --------------------------
 
@@ -58,18 +87,20 @@ export default function PersistentDrawerLeft() {
       <div className="menu--drawer-header">
         <div className='responsive-group-btn-icon'>
 
-          <Link onClick={(event) => preventDefault(event, '/mes-documents')}>
+        <Link onClick={(event) => getFolder(event, '/mes-documents')}>
             <IconButton aria-label="documents">
               <FolderIcon />
             </IconButton>
           </Link>
+
+          <Link onClick={(event) => getDashboard(event, '/mon-espace-personnel')}>
           <IconButton aria-label="dashboard">
-            <Link onClick={(event) => preventDefault(event, '/mon-espace-personnel')}>
-              <Badge badgeContent={4} color="secondary">
-                <DashboardIcon />
+          <Badge badgeContent={4} color="secondary">
+              <DashboardIcon />
               </Badge>
-            </Link>
-          </IconButton>
+            </IconButton>
+          </Link>
+
         </div>
         <Typography className="menu--title" variant="h6" noWrap>
           Menu

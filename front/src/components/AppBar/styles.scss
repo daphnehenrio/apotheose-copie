@@ -5,6 +5,15 @@
   background-color: $color-primary;
 }
 
+// .MuiPaper-root.MuiAppBar-root .MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters {
+//   justify-content: space-evenly;
+// }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between !important;
+}
+
 .styled.button {
 
   background: local;

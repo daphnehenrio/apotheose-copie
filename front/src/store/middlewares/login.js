@@ -53,7 +53,7 @@ export default (store) => (next) => (action) => {
                 avatar: res.data.user.avatar
               }));
               // 2. => set timeout clear token
-              let logoutTimer = setTimeout(function() { window.sessionStorage.clear(); }, (10 * 60 * 1000));
+              //let logoutTimer = setTimeout(function() { window.sessionStorage.clear(); }, (10 * 60 * 1000));
 
               // 3. => set profil
               store.dispatch(actionSetProfil(res.data.user));
@@ -91,9 +91,9 @@ export default (store) => (next) => (action) => {
             withCredentials: true,
           })
         .then((res) => {
+          store.dispatch(actionChangePage('/', history));
           window.sessionStorage.removeItem('user');
           store.dispatch(actionCleanProfil());
-          store.dispatch(actionChangePage('/', history));
         })
         .catch((err) => {
           store.dispatch(actionLoading(false));

@@ -13,16 +13,11 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_DRAWER: {
-      if (state.openDrawer) {
-        return {
-          ...state,
-          openDrawer: false,
-        };
-      }
+
       return {
         ...state,
-        openDrawer: true,
-      };
+        openDrawer: action.bool ? false : !state.openDrawer,
+      }
     }
     case SET_LOGIN_FORM: {
       return {

@@ -201,7 +201,7 @@
     margin: 0 !important;
 }
 
-.PrivateTabIndicator-root-260{
+.profil .MuiTabs-indicator {
     left:0 !important;
     background-color: white!important;
 }
@@ -221,9 +221,66 @@
     }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-height: 667px) {
+  .profil-page {
+     overflow: scroll;
+  }
+}
+
+@media screen and (max-width: 1070px) {
     .group-input .MuiFormControl-root{
         width: 100%;
+    }
+
+    .profil {
+      max-width: 100vw;
+      overflow-y: scroll;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      margin-top: 0rem;
+
+      & > * {
+        min-width: unset !important;
+        max-width: 100vw !important;
+      }
+
+      div:first-child{
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-header {
+        display: flex;
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .card-header-left {
+        display: flex;
+        flex-direction: row !important;
+        align-items: center;
+
+      }
+
+      .card-container{
+        margin: auto;
+        min-width: 92vw;
+        padding: 1rem 0;
+
+      }
+
+      .infos-container{
+        max-height: unset;
+        flex-direction: column;
+
+        .left, .right{
+          flex-direction: column;
+          margin-left: 0;
+          width: 100%;
+        }
+      }
     }
   }
 

@@ -6,7 +6,7 @@ export const SET_SNACK = 'action/SET_SNACK';
 export const actionSetLoginForm = () => ({ type: SET_LOGIN_FORM });
 
 
-export const actionSetDrawer = () => ({ type: SET_DRAWER });
+export const actionSetDrawer = (bool) => ({ type: SET_DRAWER, bool });
 
 export const actionSetForgetPassword = () => ({ type: SET_FORGET_PASSWORD });
 
