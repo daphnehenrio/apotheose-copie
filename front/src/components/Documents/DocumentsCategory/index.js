@@ -184,7 +184,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const dispatch = useDispatch();
-  const search = useSelector((state) => state.document.search);
+
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -265,11 +265,12 @@ export default function DocumentsCategory() {
 
   const categoriesFolder = useSelector((state) => state.document.category);
 
+  const search = useSelector((state) => state.document.search);
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
 
-  const search = useSelector((state) => state.document.search);
 
 
   const rows =
@@ -330,7 +331,10 @@ export default function DocumentsCategory() {
                         <TableRow
                           key={row.name}
                           hover
-                          onClick={(event) => dispatch(actionChangePage(`/mes-documents/${slugify(row.name)}`, history))}
+                          onClick={(event) => {
+                            dispatch(actionSetSearch(''))
+                            dispatch(actionChangePage(`/mes-documents/${slugify(row.name)}`, history))}
+                          }
                           role="checkbox"
                           tabIndex={-1}
                         >

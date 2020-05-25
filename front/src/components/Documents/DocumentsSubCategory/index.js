@@ -232,6 +232,7 @@ const EnhancedTableToolbar = (props) => {
             input={<SelectDoc />}
             defaultValue={goodSub_categories.name}
             onChange={(evt) => {
+
               dispatch(actionChangePage(`/mes-documents/${slugify(evt.target.value)}`, history))
             }
             }
@@ -308,6 +309,7 @@ export default function DocumentsSubCategory(category) {
   const handleClickSubfile = (evt) => {
     const subCat = goodSub_categories.sub_category.find((cat) => cat.name === evt);
     dispatch(actionLoading(true));
+    dispatch(actionSetSearch(''));
     dispatch(actionGetDocuments(subCat.id));
     dispatch(actionChangePage(`/mes-documents/${slugify(goodSub_categories.name)}/${slugify(subCat.name)}`, history));
 

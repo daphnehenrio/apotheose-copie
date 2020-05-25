@@ -23,6 +23,7 @@ import Select from '@material-ui/core/Select';
 import Alert from '@material-ui/lab/Alert';
 
 import Plus from 'src/assets/image/documents/plus.png';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 
 import {
@@ -199,11 +200,24 @@ const Note = () => {
 
       {noteCards}
 
-      <Tooltip title="Ajouter une note" placement="right-start">
-        <img className='note-plus' src={Plus} onClick={(evt) => {
-            dispatch(actionOpenAddNote());
-        }} />
-      </Tooltip>
+      <Paper
+        component="div"
+        className="notes-card--plus"
+        onClick={(evt) => {
+          dispatch(actionOpenAddNote());
+        }}
+     >
+
+        <Tooltip title="Ajouter une note" placement="right-start">
+
+          <AddCircleIcon
+            color="action"
+            fontSize="large"
+
+          />
+        </Tooltip>
+
+      </Paper>
 
       <Dialog
         open={openDelete}

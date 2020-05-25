@@ -29,14 +29,17 @@ const StyledButton = withStyles({
     bottom: '0',
     right: '-0.4rem',
     float: 'right',
-    color: 'coral',
-    border: '2px solid coral',
-    backgroundColor: 'white',
+    color: 'white',
+    border: '2px solid white',
+    // backgroundColor: 'white',
     transition: 'all 0.4s',
     '&:hover': {
-      backgroundColor: 'coral',
+      backgroundColor: '#E04644',
       color: 'white',
-      border: '2px solid coral',
+      border: '2px solid #E04644',
+      transform: 'scale(1.1)',
+      backgroundPosition: '-60px',
+      boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
     }
 
   },
