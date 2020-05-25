@@ -371,11 +371,11 @@ export default function Profil() {
                   <form
                     onSubmit={(evt) => {
                       evt.preventDefault();
-                      if (!(handdleVerifEmptyValue(infoSup.title) || handdleVerifEmptyValue(infoSup.value))) {
+                      if (!(handdleVerifEmptyValue(infoSupToAdd.title) || handdleVerifEmptyValue(infoSupToAdd.value))) {
                         const infos = {
                           id: infosSup.length + 1,
-                          title: infoSup.title,
-                          value: infoSup.value,
+                          title: infoSupToAdd.title,
+                          value: infoSupToAdd.value,
                         };
                         dispatch(actionAddInfoSup(infos));
                         dispatch(actionClearAddInfoSup());
@@ -389,7 +389,7 @@ export default function Profil() {
                       onChange={(evt) => {
                         dispatch(actionSetInfoSupTitle(evt.target.value));
                       }}
-                      value={infoSup.title}
+                      value={infosSup.title}
                       autoFocus
                     />
                     <p className="add-infos-sup-separator"> : </p>
@@ -398,7 +398,7 @@ export default function Profil() {
                       onChange={(evt) => {
                         dispatch(actionSetInfoSupValue(evt.target.value));
                       }}
-                      value={infoSup.value}
+                      value={infosSup.value}
                     />
                     <IconButton
                       aria-label="delete"

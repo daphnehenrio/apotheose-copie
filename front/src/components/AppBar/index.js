@@ -28,6 +28,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import CreateIcon from '@material-ui/icons/Create';
 import Badge from '@material-ui/core/Badge';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 // == import composants local
 import Login from 'src/components/Login';
@@ -81,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -89,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -242,7 +245,7 @@ export default function PersistentDrawerLeft() {
           [classes.appBarShift]: openDrawer,
         })}
       >
-        <Toolbar>
+        <Toolbar className="toolbar">
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -286,8 +289,8 @@ export default function PersistentDrawerLeft() {
             </Button>
           </div>
           <div className='responsive-log-btn'>
-            <IconButton aria-label="disconnect">
-              <ExitToAppIcon />
+            <IconButton aria-label="disconnect" onClick={handleLogin}>
+            {connected ? <ExitToAppIcon /> : <AccountCircleIcon />}
             </IconButton>
           </div>
         </Toolbar>
