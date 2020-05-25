@@ -75,7 +75,7 @@ router.post('/logout', authController.logout);
 router.post('/signup', authController.signupAction, emailController.emailValidator);
 
 //account suppression
-router.delete('/profil/:id', userController.delete);
+router.delete('/profil/:id/:key', capture(userController.delete));
 
 //validation
 router.get('/validation/:key', authController.validation);

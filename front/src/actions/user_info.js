@@ -6,6 +6,7 @@ export const CLEAR_INFO_SUP = 'action/CLEAR_INFO_SUP';
 export const EDIT_INFO_SUP = 'action/EDIT_INFO_SUP';
 export const EDIT_INFO_SUP_CONTENT = 'action/EDIT_INFO_SUP_CONTENT';
 export const CLOSE_EDIT_INFO_SUP = 'action/CLOSE_EDIT_INFO_SUP';
+export const DELETE_ACCOUNT = 'action/DELETE_ACCOUNT';
 
 export const actionSetOpenAddInfoSup = (bool) => ({
   type: SET_OPEN_ADD_INFO_SUP,
@@ -45,3 +46,9 @@ export const actionCloseEditInfoSup = (id) => ({
   type: CLOSE_EDIT_INFO_SUP,
   id,
 });
+
+export const actionDeleteAccount = (key, history) => ({
+  type: DELETE_ACCOUNT,
+  key,
+  history
+})

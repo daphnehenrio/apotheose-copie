@@ -228,7 +228,7 @@ export default function PersistentDrawerLeft() {
       </div>
       <IconButton aria-label="avatar">
         <StyledLink onClick={(event) => preventDefault(event, '/profil')}>
-          <Avatar>{userSession.login.substring(0, 1).toUpperCase()}</Avatar>
+          <Avatar>{userSession.login ?  userSession.login.substring(0, 1).toUpperCase() : ''}</Avatar>
         </StyledLink>
       </IconButton>
     </>
