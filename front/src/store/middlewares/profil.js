@@ -51,7 +51,7 @@ export default (store) => (next) => (action) => {
         .catch((err) => {
           window.sessionStorage.clear()
           store.dispatch(actionLoading(false));
-          dispatch(actionChangePage("/", action.history))
+          store.dispatch(actionChangePage("/", action.history))
           store.dispatch(actionSetSnack('error', "Une erreur s'est produite, merci de vous reconnecter"));
           const button = document.querySelector('#snack');
           button.click();

@@ -18,9 +18,16 @@ import CloseIcon from '@material-ui/icons/Close';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import GroupIcon from '@material-ui/icons/Group';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 
 
@@ -36,6 +43,7 @@ import {
   actionEditInfoSup,
   actionEditInfosSupContent,
   actionCloseEditInfoSup,
+  actionDeleteAccount
 
 } from 'src/actions/user_info';
 
@@ -236,6 +244,20 @@ export default function Profil() {
   };
 
 
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const [key, setKey] = React.useState("");
+
+  const handleDeleteProfil = () => {
+    setOpenDelete(true)
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
+
+
+
   // -------------------------- Return --------------------------
 
   return (
@@ -263,6 +285,14 @@ export default function Profil() {
                   <h3>Moi</h3>
                 </div>
                 <div className="card-header-right">
+                <IconButton
+                    aria-label="settings"
+                    onClick={(evt) => {
+                      handleDeleteProfil(true);
+                    }}
+                  >
+                    <DeleteForeverIcon />
+                  </IconButton>
                   <IconButton
                     aria-label="settings"
                     onClick={(evt) => {
@@ -422,6 +452,37 @@ export default function Profil() {
         <CircularProgress color="inherit" />
       </Backdrop>
       <EditProfil />
+      <Dialog open={openDelete} onClose={handleCloseDelete} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Supprimer son compte</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Attention, vous allez supprimer votre compte. Toutes les données et documents liés a votre compte seront définitivement supprimés.
+            Pour confirmer veuiller saisir votre clé personnelle, reçut à l'inscription.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Clé personnelle"
+            type="text"
+            fullWidth
+            value={key}
+            onChange={(evt) => setKey(evt.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDelete} color="primary">
+            Annulé
+          </Button>
+          <Button onClick={() => {
+            dispatch(actionDeleteAccount(key, history))
+
+          }} color="primary">
+            Confirmer
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
+
   );
 }
