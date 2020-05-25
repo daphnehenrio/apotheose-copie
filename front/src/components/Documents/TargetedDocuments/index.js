@@ -542,12 +542,12 @@ export default function TargetedDocuments(category) {
                               dispatch(actionDownloadFile(row.file.id, row.file.name));
 
                             }}>
-                              <img src={DownloadImg2} style={{ width: '2rem' }} />
+                              <img src="/images/document/download2.png" style={{ width: '2rem' }} />
                             </IconButton>
                           </TableCell>
                           <TableCell component="th" id={labelId} scope="row" padding="none">
                                 <div className='file-container'>
-                                  <img className='img-folder' src={File} />
+                                  <img className='img-folder' src="/images/document/file.png" />
                                   {row.name}
                                 </div>
                           </TableCell>
@@ -576,7 +576,7 @@ export default function TargetedDocuments(category) {
               :
               !loading ? (
                 <div className='not-found'>
-                  <img src={NotFound} />
+                  <img src="/images/document/page-not-found.png" />
                   <p>Aucun Dossier ne correspond à la recherche</p>
                 </div>
               ) : null

@@ -380,7 +380,7 @@ export default function DocumentsSubCategory(category) {
                         </TableCell>
                         <TableCell component="th" id={labelId} scope="row" padding="none">
                           <div className='file-container'>
-                            <img className='img-folder' src={Folder} />
+                            <img className='img-folder' src="/images/document/folder2.png" />
                             {row.name}
                           </div>
                         </TableCell>

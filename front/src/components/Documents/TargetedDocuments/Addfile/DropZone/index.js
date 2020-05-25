@@ -71,10 +71,11 @@ const Preview = ({ fileWithMeta, meta }) => {
                             />
                     }
                     color="primary">
-                    <img src={Doc} className='img-upload-doc' />
+                    <img src="/images/document/doc.png" className='img-upload-doc' />
                 </StyledBadge>
             </div>
             <InputBase
+                className="input-name-add-doc"
                 inputProps={{ 'aria-label': 'naked' }}
                 value={findValue()}
                 onChange={(evt) => {
