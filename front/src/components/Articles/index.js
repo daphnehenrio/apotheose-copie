@@ -28,6 +28,8 @@ export default function Articles(titles) {
   const loading = useSelector((state) => state.document.loading);
   const classes = useStyles();
 
+  const h3Display = titles.sub_category ? 'block' : 'none';
+
 // -------------------------- Return --------------------------
 
   return (
@@ -52,7 +54,7 @@ export default function Articles(titles) {
           alignItems="center"
           spacing={3}
         >
-          <h3 className='title-category'>
+          <h3 className='title-category' style={{display: h3Display }}>
             {titles.sub_category}
           </h3>
           <Grid

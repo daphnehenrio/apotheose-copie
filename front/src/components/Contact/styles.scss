@@ -109,7 +109,7 @@
     margin-top: -1rem;
 
     &:hover{
-      background-color: coral;
+      background-color: #E04644;
     }
   }
   .list-techno{
@@ -139,6 +139,16 @@
     margin-right: 30px;
     margin-top: 1rem;
 
+  }
+
+}
+
+@media screen and (max-width: 1672px){
+
+  .postcards {
+    .MuiPostCard--02 {
+      margin-right: 2.5rem;
+    }
   }
 
 }

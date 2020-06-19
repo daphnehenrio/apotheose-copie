@@ -168,16 +168,6 @@ const PostCard = () => {
               </Link>
             </Typography>
           </div>
-          <div className="social-links">
-            <IconButton color="primary" aria-label="upload picture" component="span">
-              <TwitterIcon />
-            </IconButton>
-            <Typography>
-              <Link href="#" target="_blank">
-                Twitter
-              </Link>
-            </Typography>
-          </div>
         </div>
       </CardContent>
     </Card>
@@ -301,7 +291,7 @@ const PostCard = () => {
               <LinkedInIcon />
             </IconButton>
             <Typography>
-              <Link href="www.linkedin.com/in/daphnehenrio" target="_blank">
+              <Link href="https://www.linkedin.com/in/daphnehenrio" target="_blank">
                 LinkedIn
               </Link>
             </Typography>
