@@ -16,7 +16,7 @@ const userController = {
       });
 
 
-      res.send(user);
+      res.send('api en route');
 
     } catch (err) {
       console.trace(err);

@@ -8,6 +8,9 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const FileStore = require('session-file-store')(session);
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
+const https = require('https');
+
 
 const app = express();
 
@@ -67,6 +70,11 @@ app.use( sanitizeMiddleware );
 
 app.use(router);
 
-app.listen(PORT, () => {
+https.createServer({
+  key: fs.readFileSync('/etc/letsencrypt/live/daphne-henrio.ovh/privkey.pem', 'utf8'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/daphne-henrio.ovh/cert.pem', 'utf8'),
+  ca: fs.readFileSync('/etc/letsencrypt/live/daphne-henrio.ovh/chain.pem', 'utf8'),
+}, app)
+.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
