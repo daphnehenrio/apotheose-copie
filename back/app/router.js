@@ -182,7 +182,7 @@ router.delete('/note/:id/:note_id', auth, capture(noteController.deleteNote));
 
 // == Lister le contenu des table le temps de la phase de dev
 // FIXME: A SUPPRIMER SUR LA VERSION PROD
-router.get('/contenu-table/:class', capture(mainController.getAll));
+// router.get('/contenu-table/:class', capture(mainController.getAll));
 
 
 // 404

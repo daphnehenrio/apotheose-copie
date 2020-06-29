@@ -87,6 +87,12 @@ psql -U username -d db_name -f ./app/data/drop_table.sql
 PG_URL=postgres://usernname:password@address:port/db_name
 TOKEN_GENERATE_TOKEN=RANDOM_TOKEN
 TOKEN_SESSION=OTHER_RANDOM_TOKEN
+MAIL=address-projet@mail.com
+MAILPASS=password
+BASEURL=front-url-project
+VALID=http://back-url:port/validation/
+RECUP=http://back-url:port/recuperation/
+PORT=1234
 ```
 
 ## Launch application
